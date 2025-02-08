@@ -18,6 +18,7 @@ public class buttons extends JButton {
     private Color colorClick;
     private Color borderColor;
     private int radius = 0;
+    
     private ImageIcon originalIcon;  // Agregamos el icono original
 
     public buttons() {
@@ -26,7 +27,7 @@ public class buttons extends JButton {
         setColorOver(200, 200, 200); // Morado claro
         setColorClick(197, 172, 204);  // Morado claro
         setBorderColor(255, 255, 255);  // Color del borde
-      
+        setFocusPainted(false);
         setContentAreaFilled(false);
         setBorderPainted(false);
         

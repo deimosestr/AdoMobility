@@ -15,12 +15,44 @@ public class Login extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     private boolean isPasswordVisible = false;
+    private final TConexion conexion = new TConexion();
 
     public Login() {
         initComponents();
         homeScreen p1 = new homeScreen();
+        setBackground(new Color(255, 255, 255));
         p1.setSize(800, 500);
         p1.setLocationRelativeTo(null);
+    }
+
+    private void iniciarSesion() {
+        String username = usuarioField.getText();
+        String password = new String(passwordField1.getPassword());
+
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña no pueden estar vacíos.");
+            return;
+        }
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                globalV.user = usuarioField.getText();
+                menuw8 mainFrame = new menuw8();
+                mainFrame.setVisible(true);
+                this.dispose(); // Cerrar la ventana de login actual
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.");
+        }
     }
 
     private void togglePasswordVisibility() {
@@ -203,7 +235,6 @@ public class Login extends javax.swing.JFrame {
 
         exitTxt.setBackground(new java.awt.Color(255, 255, 255));
         exitTxt.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        exitTxt.setForeground(new java.awt.Color(0, 0, 0));
         exitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exitTxt.setText("X");
         exitTxt.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -225,13 +256,13 @@ public class Login extends javax.swing.JFrame {
             exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exitBtnLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(exitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(exitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         exitBtnLayout.setVerticalGroup(
             exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exitBtnLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(exitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(exitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         bg.add(exitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
@@ -267,36 +298,28 @@ public class Login extends javax.swing.JFrame {
         bg.add(logoPrin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 100, 70));
 
         iniciarSesionTxt.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        iniciarSesionTxt.setForeground(new java.awt.Color(0, 0, 0));
         iniciarSesionTxt.setText("INICIAR SESIÓN");
         bg.add(iniciarSesionTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
         usuarioTxt.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        usuarioTxt.setForeground(new java.awt.Color(0, 0, 0));
         usuarioTxt.setText("USUARIO");
         bg.add(usuarioTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 70, -1));
 
-        usuarioField.setForeground(new java.awt.Color(153, 153, 153));
-        usuarioField.setText("Ingrese su usuario");
+        usuarioField.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        usuarioField.setForeground(new java.awt.Color(0, 0, 0));
         usuarioField.setBorder(null);
-        usuarioField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                usuarioFieldMousePressed(evt);
-            }
-        });
         bg.add(usuarioField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 350, 30));
 
         passwordTxt.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        passwordTxt.setForeground(new java.awt.Color(0, 0, 0));
         passwordTxt.setText("CONTRASEÑA");
         bg.add(passwordTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 130, -1));
 
-        passwordField1.setForeground(new java.awt.Color(153, 153, 153));
-        passwordField1.setText("********");
+        passwordField1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        passwordField1.setForeground(new java.awt.Color(0, 0, 0));
         passwordField1.setBorder(null);
-        passwordField1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                passwordField1MousePressed(evt);
+        passwordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordField1KeyPressed(evt);
             }
         });
         bg.add(passwordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 350, 30));
@@ -311,7 +334,6 @@ public class Login extends javax.swing.JFrame {
         enterBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         enterTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        enterTxt.setForeground(new java.awt.Color(0, 0, 0));
         enterTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         enterTxt.setText("ENTRAR");
         enterTxt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -347,7 +369,6 @@ public class Login extends javax.swing.JFrame {
         registerBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         registerTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        registerTxt.setForeground(new java.awt.Color(0, 0, 0));
         registerTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         registerTxt.setText("REGISTRAR");
         registerTxt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -376,7 +397,6 @@ public class Login extends javax.swing.JFrame {
         bg.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 110, 40));
 
         forgotPass.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        forgotPass.setForeground(new java.awt.Color(0, 0, 0));
         forgotPass.setText("¿Olvidaste tu contraseña?");
         forgotPass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -443,18 +463,27 @@ public class Login extends javax.swing.JFrame {
         }
 
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "Login exitoso");
-                // Abrir la nueva ventana después de un login exitoso
-                menuw8 mainFrame = new menuw8();
-                mainFrame.setVisible(true);
-                this.dispose(); // Cerrar la ventana de login actual
+                globalV.user = username;
+
+                if ("paoky".equalsIgnoreCase(username)) {
+                    // Ventana especial para "paoky"
+                    adminScreen obj = new adminScreen();
+                    obj.setVisible(true);
+
+                } else {
+                    // Ventana normal para otros usuarios
+                    menuw8 mainFrame = new menuw8();
+                    mainFrame.setVisible(true);
+                }
+
+                this.dispose(); // Cierra la ventana de login actual
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
             }
@@ -465,21 +494,6 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_enterTxtMouseClicked
 
-
-    private void passwordField1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordField1MousePressed
-        if (String.valueOf(passwordField1.getPassword()).equals("********")) {
-            passwordField1.setText("");
-            passwordField1.setForeground(Color.BLACK);
-        }
-    }//GEN-LAST:event_passwordField1MousePressed
-
-    private void usuarioFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarioFieldMousePressed
-        if (usuarioField.getText().equals("Ingrese su usuario")) {
-            usuarioField.setText("");
-            usuarioField.setForeground(Color.BLACK);
-        }
-
-    }//GEN-LAST:event_usuarioFieldMousePressed
 
     private void barNaviMovMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barNaviMovMousePressed
         // MOVER VENTANA --
@@ -525,6 +539,13 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         togglePasswordVisibility();
     }//GEN-LAST:event_showPasswordBtnMouseClicked
+
+    private void passwordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordField1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            iniciarSesion(); // Llama al método de validación de inicio de sesión
+        }
+    }//GEN-LAST:event_passwordField1KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

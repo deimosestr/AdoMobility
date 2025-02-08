@@ -1,70 +1,199 @@
 package com.login;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.login.DatabaseConnection;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import java.io.IOException;
+
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
 
 public class PDFExporter {
 
-    public static void exportDataToPDF() {
-        Connection con = null;
-        try {
-            // Obtenemos la conexión de la clase DatabaseConnection
-            con = DatabaseConnection.getConnection();
+    private final String usuario = "postgres";
+    private final String contrasenia = "1906";
+    private final String bd = "bdMobility";
+    private final String ip = "localhost";
+    private final String puerto = "5432";
+            String url = "jdbc:postgresql://" + ip + ":" + puerto + "/" + bd;
 
-            // Realizamos la consulta
-            String query = "SELECT * FROM public.users";  // Modifica esta consulta según tu necesidad
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+    private float titleFont;
 
-            // Crear un archivo PDF utilizando FileOutputStream
-            String dest = "datos_exportados.pdf";
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(dest));
+    public PDFExporter(float titleFont) {
+        this.titleFont = titleFont;
+    }
 
-            // Abrimos el documento
-            document.open();
+    /*public static void main(String[] args) throws IOException {
+        PDFExporter ejemplo = new PDFExporter(8f);
+        ejemplo.generarPDF();
+    }*/
 
-            // Iterar sobre los resultados de la consulta y escribirlos en el PDF
-            while (rs.next()) {
-                // Extraer todas las columnas de la tabla users
-                String id = rs.getString(1);
-                String username = rs.getString(2);
-                String password = rs.getString(3);
-                String email = rs.getString(4);
+    public void ExtintorPDF() throws IOException {
 
-                // Formatear los datos para que se impriman en el PDF
-                String datos = "ID: " + id + ", Usuario: " + username + ", Contraseña: " + password + ", Email: " + email;
+        String plantilla = "C:\\Users\\Alan\\Downloads\\plantilla.pdf";
+        String destino = "C:\\Users\\Alan\\Desktop\\exportaciones\\plantillaPgadmin.pdf";
 
-                // Añadir los datos como un nuevo párrafo en el documento PDF
-                document.add(new Paragraph(datos));
+        PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
+        PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
+
+        try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
+            System.out.println("Conexión exitosa con la base de datos.");
+
+            String sql = "SELECT DISTINCT b.ubicacion, b.ultima_recarga, b.proxima_recarga, b.capacidad, b.tipo_agente_extinguidor, "
+                    + "b.manguera, b.manometro, b.soporte, b.presion, b.cilindro, b.limpieza, b.senalizacion, "
+                    + "b.etiqueta, b.seguro, b.obstruccion, b.observacion "
+                    + "FROM bitacora b "
+                    + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                    + "WHERE u.username = 'deimos' "
+                    + "GROUP BY b.ubicacion, b.ultima_recarga, b.proxima_recarga, b.capacidad, b.tipo_agente_extinguidor, "
+                    + "b.manguera, b.manometro, b.soporte, b.presion, b.cilindro, b.limpieza, b.senalizacion, "
+                    + "b.etiqueta, b.seguro, b.obstruccion, b.observacion;";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            Document document = new Document(pdfDoc);
+
+            Table table = new Table(new float[]{2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2});
+
+            table.addHeaderCell(new Cell().add(new Paragraph("Ubicación")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("U. Recarga")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("P. Recarga")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Capacidad")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Tipo A Extintor")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Manguera")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Manómetro")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Soporte")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Presión")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Cilindro")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Limpieza")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Señalización")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Etiqueta")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Seguro")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Obstrucción")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Observación")).setFontSize(titleFont));
+
+            while (resultSet.next()) {
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ubicacion")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ultima_recarga")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("proxima_recarga")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("capacidad")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("tipo_agente_extinguidor")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("manguera")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("manometro")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("soporte")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("presion")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("cilindro")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("limpieza")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("senalizacion")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("etiqueta")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("seguro")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("obstruccion")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("observacion")).setFontSize(8f)));
             }
 
-            // Cerramos el documento
+            // Configurar la posición de la tabla
+            float x = 80; // Posición desde el borde izquierdo
+            float y = 230; // Posición desde el borde inferior
+            float width = 500; // Ancho de la tabla
+            table.setFixedPosition(x, y, width);
+
+            document.add(table);
             document.close();
+            System.out.println("PDF generado exitosamente: " + destino);
 
-            JOptionPane.showMessageDialog(null, "Datos exportados a PDF exitosamente.");
-
-        } catch (FileNotFoundException | DocumentException e) {
-            JOptionPane.showMessageDialog(null, "Error al exportar los datos: " + e.getMessage());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al exportar los datos: " + e.getMessage());
-        } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + ex.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+        public void HumoPDF() throws IOException {
+
+        String plantilla = "C:\\Users\\Alan\\Downloads\\plantillaHumo.pdf";
+        String destino = "C:\\Users\\Alan\\Desktop\\exportaciones\\plantillaHumo.pdf";
+
+        PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
+        PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
+
+        try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
+            System.out.println("Conexión exitosa con la base de datos.");
+
+            String sql = "SELECT DISTINCT b.ubicacion, b.ultima_recarga, b.proxima_recarga, b.capacidad, b.tipo_agente_extinguidor, "
+                    + "b.manguera, b.manometro, b.soporte, b.presion, b.cilindro, b.limpieza, b.senalizacion, "
+                    + "b.etiqueta, b.seguro, b.obstruccion, b.observacion "
+                    + "FROM bitacora b "
+                    + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                    + "WHERE u.username = 'deimos' "
+                    + "GROUP BY b.ubicacion, b.ultima_recarga, b.proxima_recarga, b.capacidad, b.tipo_agente_extinguidor, "
+                    + "b.manguera, b.manometro, b.soporte, b.presion, b.cilindro, b.limpieza, b.senalizacion, "
+                    + "b.etiqueta, b.seguro, b.obstruccion, b.observacion;";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            Document document = new Document(pdfDoc);
+
+            Table table = new Table(new float[]{2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2});
+
+            table.addHeaderCell(new Cell().add(new Paragraph("Ubicación")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("U. Recarga")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("P. Recarga")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Capacidad")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Tipo A Extintor")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Manguera")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Manómetro")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Soporte")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Presión")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Cilindro")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Limpieza")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Señalización")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Etiqueta")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Seguro")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Obstrucción")).setFontSize(titleFont));
+            table.addHeaderCell(new Cell().add(new Paragraph("Observación")).setFontSize(titleFont));
+
+            while (resultSet.next()) {
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ubicacion")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ultima_recarga")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("proxima_recarga")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("capacidad")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("tipo_agente_extinguidor")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("manguera")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("manometro")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("soporte")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("presion")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("cilindro")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("limpieza")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("senalizacion")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("etiqueta")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("seguro")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("obstruccion")).setFontSize(8f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("observacion")).setFontSize(8f)));
             }
+
+            // Configurar la posición de la tabla
+            float x = 80; // Posición desde el borde izquierdo
+            float y = 230; // Posición desde el borde inferior
+            float width = 500; // Ancho de la tabla
+            table.setFixedPosition(x, y, width);
+
+            document.add(table);
+            document.close();
+            System.out.println("PDF generado exitosamente: " + destino);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
