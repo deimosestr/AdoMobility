@@ -225,7 +225,7 @@
             </Component>
             <Component class="com.login.buttonsNormas" name="btnGas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="GAS"/>
+                <Property name="text" type="java.lang.String" value="GAS1"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto Black" size="14" style="1"/>
                 </Property>

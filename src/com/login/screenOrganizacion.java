@@ -281,7 +281,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
         });
         menuDeOpciones.add(btnHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 180, 40));
 
-        btnGas.setText("GAS");
+        btnGas.setText("GAS1");
         btnGas.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnGas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
