@@ -119,6 +119,7 @@ public class PDFExporter {
             document.add(table.setMarginTop(103)); // Asegura que no se desplace hacia abajo
 
             document.close();
+            System.out.println("PDF generado exitosamente: " + destino);
 
             System.out.println("PDF generado exitosamente: " + destino);
             System.out.println("PDF generado exitosamente: " + destino);

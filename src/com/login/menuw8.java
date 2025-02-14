@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.sql.Connection;
+import javax.crypto.AEADBadTagException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -186,6 +187,11 @@ public class menuw8 extends javax.swing.JFrame {
         organizacion1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         organizacion1.setRadius(20);
         organizacion1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        organizacion1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                organizacion1MouseClicked(evt);
+            }
+        });
         organizacion1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 organizacion1ActionPerformed(evt);
@@ -312,6 +318,14 @@ public class menuw8 extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_barNaviMovMousePressed
+
+    private void organizacion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_organizacion1MouseClicked
+        // TODO add your handling code here:
+        screenOrganizacion obj = new screenOrganizacion();
+        obj.setSize(790, 500);
+        obj.setVisible(true);
+        obj.setLocationRelativeTo(null);
+    }//GEN-LAST:event_organizacion1MouseClicked
 
     /**
      * @param args the command line arguments

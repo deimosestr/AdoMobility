@@ -45,7 +45,6 @@ public class CDatosNOM {
     String region;
     String terminal;
     //EXTINTORES
-
     String ubicacion;
     String ultima_fecha_entrega;
     String proxima_recarga;
@@ -84,7 +83,6 @@ public class CDatosNOM {
     String numSerie;
     String diametroEXT;
     String espesor;
-
     public TConexion getObj() {
         return obj;
     }
@@ -92,11 +90,9 @@ public class CDatosNOM {
     public String getUsuario() {
         return usuario;
     }
-
     public String getRegion() {
         return region;
     }
-
     public String getTerminal() {
         return terminal;
     }
@@ -843,12 +839,6 @@ public static String convertirFecha(String fecha) {
             }
         }
     }
-
-    //METODOS DE EXTINTORES
-    public void seleccionarfechaRevision() {
-
-    }
-
     public void seleccionarExtintores(
             JTable paramTablaNOM002, JTextField paramIDUsuario, JLabel paramResponsable,
             JLabel paramRegion, JLabel paramTerminales, JTextField paramIDBitacora,
@@ -893,7 +883,6 @@ public static String convertirFecha(String fecha) {
                 paramObservacion.setText(paramTablaNOM002.getValueAt(fila, 21).toString());
                 paramFirmado.setSelected((Boolean) paramTablaNOM002.getValueAt(fila, 22));
                 paramIDNorma.setText(paramTablaNOM002.getValueAt(fila, 23).toString());
-
             } else {
                 JOptionPane.showMessageDialog(null, "Fila no seleccionada");
             }
@@ -1208,6 +1197,7 @@ public static String convertirFecha(String fecha) {
             JTable paramTablaHumo, JTextField paramIDUsuario, JLabel paramResponsable,
             JLabel paramRegion, JLabel paramTerminales, JTextField paramIDBitacora,
             JTextField paramFechaRevision,
+            
             JTextField paramUbicacion, JTextField paramUltimaFecha, JTextField paramProximaFecha,
             JTextField paramMarca, JTextField paramTipoDetector,
             JCheckBox paramPruebaFuncionamiento, JCheckBox paramSoporte, JCheckBox paramUbicacionFisica,
@@ -1412,6 +1402,8 @@ public static String convertirFecha(String fecha) {
         }
     }
 
+
+
     public void seleccionarGas(
             JTable paramtablaGas, JTextField paramIDUsuario, JLabel paramlabelResponsable,
             JLabel paramlabelRegion, JLabel paramlabelTerminales, JTextField paramtxtIDBitacora,
@@ -1457,7 +1449,6 @@ public static String convertirFecha(String fecha) {
             JOptionPane.showMessageDialog(null, "Error: " + e.toString());
         }
     }
-
     public void MostrarGas(JTable paramtablaGas) {
         TConexion obj2 = new TConexion();
 
@@ -1624,7 +1615,7 @@ public static String convertirFecha(String fecha) {
         setNumSerie(paramnumSerie.getText());
         setDiametroEXT(paramdiametroEXT.getText());
         setEspesor(paramespesor.getText());
-
+        
         TConexion obj3 = new TConexion();
         String sql = "UPDATE bitacora_instalacion_de_gas "
                 + "SET fecha_revision = ?,  nombre_empresa = ?, c_buena = ?, c_regular= ?, c_mala = ?, observaciones_soportes = ?, "
@@ -1666,7 +1657,7 @@ public static String convertirFecha(String fecha) {
             JTextField parammarca, JTextField paramnumSerie, JTextField paramdiametroEXT, JTextField paramespesor,
             JTextField paramId_Norma_Fk, JTextField paramId_Usuario_Fk, String paramNombreTerminal
     ) {
-
+ 
         setFecha_revision(paramFechaRevision.getText());
         setNomEmpresa(paramnomEmpresa.getText());
         setC_Buena(paramc_Buena.isSelected());

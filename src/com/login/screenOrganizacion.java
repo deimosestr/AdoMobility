@@ -1,6 +1,5 @@
 package com.login;
 
-
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.awt.Color;
@@ -17,26 +16,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javafx.scene.paint.Color.color;
 
-public class homeScreen extends javax.swing.JFrame {
-
+public class screenOrganizacion extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     TConexion conexion = new TConexion();
     CDatosNOM obj = new CDatosNOM();
 
-    public homeScreen() {
+    public screenOrganizacion() {
         initComponents();
         setSize(790, 500);
         setLocationRelativeTo(null);
-        obj.MostrarExtintores(tbExtintores);
-        obj.MostrarHumo(tablaHumo);
-        obj.MostrarGas(tablaGas);
         llenarComboBox();
         //llenarComboBoxHumo();
         //bitacoras.setVisible(false);
+        obj.MostrarEPP(tablaEPP);
 
-        bitacoras.add(extintores, "extintores");
-        bitacoras.add(humo, "humo");
+        bitacoras.add(epp, "epp");
+        //bitacoras.add(epp, "humo");
         bitacoras.add(gas, "gas");
 
         buttonsNormas btnExtintores = new buttonsNormas();
@@ -56,33 +52,10 @@ public class homeScreen extends javax.swing.JFrame {
         returnPanel = new javax.swing.JPanel();
         returnTxt = new javax.swing.JLabel();
         menuDeOpciones = new javax.swing.JPanel();
-        btnExtintor = new com.login.buttonsNormas();
+        btnEPP = new com.login.buttonsNormas();
         btnHumo = new com.login.buttonsNormas();
         btnGas = new com.login.buttonsNormas();
         bitacoras = new javax.swing.JPanel();
-        humo = new javax.swing.JPanel();
-        tbHumo = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tablaHumo = new javax.swing.JTable();
-        labelUbicacionHumo = new javax.swing.JLabel();
-        ubicacionHumo = new javax.swing.JTextField();
-        labelUltimaFechaHumo = new javax.swing.JLabel();
-        ultimaFechaHumo = new javax.swing.JTextField();
-        labelProximaFechaHumo = new javax.swing.JLabel();
-        proximaFechaHumo = new javax.swing.JTextField();
-        labelMarcaHumo = new javax.swing.JLabel();
-        marcaHumo = new javax.swing.JTextField();
-        labelTipoDetectorHumo = new javax.swing.JLabel();
-        tipoDetectorHumo = new javax.swing.JTextField();
-        pruebaFuncionamiento = new javax.swing.JCheckBox();
-        soporteHumo = new javax.swing.JCheckBox();
-        ubicacionFisica = new javax.swing.JCheckBox();
-        observacionesHumo = new javax.swing.JTextField();
-        jSeparator5 = new javax.swing.JSeparator();
-        jSeparator16 = new javax.swing.JSeparator();
-        jSeparator10 = new javax.swing.JSeparator();
-        jSeparator11 = new javax.swing.JSeparator();
-        jSeparator12 = new javax.swing.JSeparator();
         gas = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -143,6 +116,31 @@ public class homeScreen extends javax.swing.JFrame {
         observaciones = new javax.swing.JTextField();
         firma = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
+        epp = new javax.swing.JPanel();
+        tbEPP = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaEPP = new javax.swing.JTable();
+        labelNombreEPP = new javax.swing.JLabel();
+        nombreEPP = new javax.swing.JTextField();
+        labelAreaEPP = new javax.swing.JLabel();
+        areaEPP = new javax.swing.JTextField();
+        labelPuestoEPP = new javax.swing.JLabel();
+        puestoEPP = new javax.swing.JTextField();
+        cascoEPP = new javax.swing.JCheckBox();
+        lentesDeSeguridadEPP = new javax.swing.JCheckBox();
+        botasSegEPP = new javax.swing.JCheckBox();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        jSeparator12 = new javax.swing.JSeparator();
+        taponesAuditivosEPP = new javax.swing.JCheckBox();
+        guantesEPP = new javax.swing.JCheckBox();
+        caretaSoldarEPP = new javax.swing.JCheckBox();
+        caretaEsmerilarEPP = new javax.swing.JCheckBox();
+        mascarillaEPP = new javax.swing.JCheckBox();
+        fajaEPP = new javax.swing.JCheckBox();
+        arnesEPP = new javax.swing.JCheckBox();
+        uniformeEPP = new javax.swing.JCheckBox();
+        firmadoEPP = new javax.swing.JCheckBox();
         panelinfo = new javax.swing.JPanel();
         listNom = new javax.swing.JComboBox<>();
         labelUsuario = new javax.swing.JLabel();
@@ -253,21 +251,21 @@ public class homeScreen extends javax.swing.JFrame {
         menuDeOpciones.setForeground(new java.awt.Color(197, 172, 204));
         menuDeOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnExtintor.setText("EXTINTORES");
-        btnExtintor.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        btnExtintor.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEPP.setText("EPP");
+        btnEPP.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnEPP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnExtintorMouseClicked(evt);
+                btnEPPMouseClicked(evt);
             }
         });
-        btnExtintor.addActionListener(new java.awt.event.ActionListener() {
+        btnEPP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExtintorActionPerformed(evt);
+                btnEPPActionPerformed(evt);
             }
         });
-        menuDeOpciones.add(btnExtintor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 35));
+        menuDeOpciones.add(btnEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 35));
 
-        btnHumo.setText("HUMO");
+        btnHumo.setText("COMISIONES S.H");
         btnHumo.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnHumo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -281,7 +279,7 @@ public class homeScreen extends javax.swing.JFrame {
         });
         menuDeOpciones.add(btnHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 180, 40));
 
-        btnGas.setText("GAS");
+        btnGas.setText("GAS1");
         btnGas.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnGas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -299,129 +297,6 @@ public class homeScreen extends javax.swing.JFrame {
 
         bitacoras.setBackground(new java.awt.Color(255, 255, 255));
         bitacoras.setLayout(new java.awt.CardLayout());
-
-        humo.setBackground(new java.awt.Color(255, 255, 255));
-        humo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tbHumo.setBackground(new java.awt.Color(255, 255, 255));
-        tbHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
-
-        tablaHumo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tablaHumo.setAutoResizeMode(0);
-        tablaHumo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaHumoMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(tablaHumo);
-
-        javax.swing.GroupLayout tbHumoLayout = new javax.swing.GroupLayout(tbHumo);
-        tbHumo.setLayout(tbHumoLayout);
-        tbHumoLayout.setHorizontalGroup(
-            tbHumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-        );
-        tbHumoLayout.setVerticalGroup(
-            tbHumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-        );
-
-        humo.add(tbHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 580, 130));
-
-        labelUbicacionHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelUbicacionHumo.setText("Ubicacion");
-        humo.add(labelUbicacionHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 20));
-
-        ubicacionHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        ubicacionHumo.setBorder(null);
-        humo.add(ubicacionHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 150, -1));
-
-        labelUltimaFechaHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelUltimaFechaHumo.setText("Ultima Recarga");
-        humo.add(labelUltimaFechaHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 100, -1));
-
-        ultimaFechaHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        ultimaFechaHumo.setBorder(null);
-        humo.add(ultimaFechaHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 150, -1));
-
-        labelProximaFechaHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelProximaFechaHumo.setText("Proxima Recarga");
-        humo.add(labelProximaFechaHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 100, -1));
-
-        proximaFechaHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        proximaFechaHumo.setBorder(null);
-        humo.add(proximaFechaHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 150, 20));
-
-        labelMarcaHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelMarcaHumo.setText("Marca");
-        humo.add(labelMarcaHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, -1));
-
-        marcaHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        marcaHumo.setBorder(null);
-        humo.add(marcaHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 150, -1));
-
-        labelTipoDetectorHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelTipoDetectorHumo.setText("T.D Humo");
-        humo.add(labelTipoDetectorHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 110, -1));
-
-        tipoDetectorHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        tipoDetectorHumo.setBorder(null);
-        humo.add(tipoDetectorHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 150, -1));
-
-        pruebaFuncionamiento.setBackground(new java.awt.Color(255, 255, 255));
-        pruebaFuncionamiento.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        pruebaFuncionamiento.setText("P. Funcionamiento");
-        pruebaFuncionamiento.setToolTipText("");
-        pruebaFuncionamiento.setContentAreaFilled(false);
-        humo.add(pruebaFuncionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 140, 20));
-
-        soporteHumo.setBackground(new java.awt.Color(255, 255, 255));
-        soporteHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        soporteHumo.setText("Soporte");
-        humo.add(soporteHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 80, 20));
-
-        ubicacionFisica.setBackground(new java.awt.Color(255, 255, 255));
-        ubicacionFisica.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        ubicacionFisica.setText("U. Fisica");
-        humo.add(ubicacionFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 80, 20));
-
-        observacionesHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        observacionesHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
-        humo.add(observacionesHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 310, 60));
-
-        jSeparator5.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator5.setForeground(new java.awt.Color(197, 172, 204));
-        humo.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 150, 10));
-
-        jSeparator16.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator16.setForeground(new java.awt.Color(197, 172, 204));
-        humo.add(jSeparator16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 150, 10));
-
-        jSeparator10.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator10.setForeground(new java.awt.Color(197, 172, 204));
-        jSeparator10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        humo.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 150, 10));
-
-        jSeparator11.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator11.setForeground(new java.awt.Color(197, 172, 204));
-        humo.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 150, 10));
-
-        jSeparator12.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator12.setForeground(new java.awt.Color(197, 172, 204));
-        jSeparator12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        humo.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 150, 10));
-
-        bitacoras.add(humo, "card3");
 
         gas.setBackground(new java.awt.Color(255, 255, 255));
         gas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -779,6 +654,145 @@ public class homeScreen extends javax.swing.JFrame {
 
         bitacoras.add(jPanel5, "card5");
 
+        epp.setBackground(new java.awt.Color(255, 255, 255));
+        epp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tbEPP.setBackground(new java.awt.Color(255, 255, 255));
+        tbEPP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+
+        tablaEPP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tablaEPP.setAutoResizeMode(0);
+        tablaEPP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaEPPMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tablaEPP);
+
+        javax.swing.GroupLayout tbEPPLayout = new javax.swing.GroupLayout(tbEPP);
+        tbEPP.setLayout(tbEPPLayout);
+        tbEPPLayout.setHorizontalGroup(
+            tbEPPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+        );
+        tbEPPLayout.setVerticalGroup(
+            tbEPPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+        );
+
+        epp.add(tbEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 580, 160));
+
+        labelNombreEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        labelNombreEPP.setText("Nombre");
+        epp.add(labelNombreEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 20));
+
+        nombreEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        nombreEPP.setBorder(null);
+        epp.add(nombreEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 150, -1));
+
+        labelAreaEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        labelAreaEPP.setText("Area");
+        epp.add(labelAreaEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 100, -1));
+
+        areaEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        areaEPP.setBorder(null);
+        epp.add(areaEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 150, 20));
+
+        labelPuestoEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        labelPuestoEPP.setText("Puesto");
+        epp.add(labelPuestoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 110, -1));
+
+        puestoEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        puestoEPP.setBorder(null);
+        epp.add(puestoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 150, -1));
+
+        cascoEPP.setBackground(new java.awt.Color(255, 255, 255));
+        cascoEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        cascoEPP.setText("Casco");
+        cascoEPP.setToolTipText("");
+        cascoEPP.setContentAreaFilled(false);
+        epp.add(cascoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 70, 20));
+
+        lentesDeSeguridadEPP.setBackground(new java.awt.Color(255, 255, 255));
+        lentesDeSeguridadEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        lentesDeSeguridadEPP.setText("Lentes de Seguridad");
+        epp.add(lentesDeSeguridadEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 150, 20));
+
+        botasSegEPP.setBackground(new java.awt.Color(255, 255, 255));
+        botasSegEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        botasSegEPP.setText("Botas Seguridad");
+        epp.add(botasSegEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 120, 20));
+
+        jSeparator5.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator5.setForeground(new java.awt.Color(197, 172, 204));
+        epp.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 150, 10));
+
+        jSeparator10.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator10.setForeground(new java.awt.Color(197, 172, 204));
+        jSeparator10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        epp.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 150, 10));
+
+        jSeparator12.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator12.setForeground(new java.awt.Color(197, 172, 204));
+        jSeparator12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        epp.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 150, 10));
+
+        taponesAuditivosEPP.setBackground(new java.awt.Color(255, 255, 255));
+        taponesAuditivosEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        taponesAuditivosEPP.setText("Tapones Auditivos");
+        epp.add(taponesAuditivosEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 50, -1, -1));
+
+        guantesEPP.setBackground(new java.awt.Color(255, 255, 255));
+        guantesEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        guantesEPP.setText("Guantes");
+        epp.add(guantesEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, -1, 20));
+
+        caretaSoldarEPP.setBackground(new java.awt.Color(255, 255, 255));
+        caretaSoldarEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        caretaSoldarEPP.setText("Careta para soldar");
+        epp.add(caretaSoldarEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, -1, -1));
+
+        caretaEsmerilarEPP.setBackground(new java.awt.Color(255, 255, 255));
+        caretaEsmerilarEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        caretaEsmerilarEPP.setText("Careta para esmerilar");
+        epp.add(caretaEsmerilarEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, -1, -1));
+
+        mascarillaEPP.setBackground(new java.awt.Color(255, 255, 255));
+        mascarillaEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        mascarillaEPP.setText("Mascarilla");
+        epp.add(mascarillaEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, -1, -1));
+
+        fajaEPP.setBackground(new java.awt.Color(255, 255, 255));
+        fajaEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        fajaEPP.setText("Faja");
+        epp.add(fajaEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, -1));
+
+        arnesEPP.setBackground(new java.awt.Color(255, 255, 255));
+        arnesEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        arnesEPP.setText("Arnes");
+        epp.add(arnesEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, -1, -1));
+
+        uniformeEPP.setBackground(new java.awt.Color(255, 255, 255));
+        uniformeEPP.setText("Uniforme");
+        epp.add(uniformeEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, -1, -1));
+
+        firmadoEPP.setBackground(new java.awt.Color(255, 255, 255));
+        firmadoEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        firmadoEPP.setText("Firmado");
+        epp.add(firmadoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, -1, -1));
+
+        bitacoras.add(epp, "card3");
+
         bgHomeScreen.add(bitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 610, 350));
 
         panelinfo.setBackground(new java.awt.Color(255, 255, 255));
@@ -849,7 +863,7 @@ public class homeScreen extends javax.swing.JFrame {
         txtIDNorma.setBackground(new java.awt.Color(255, 255, 255));
         txtIDNorma.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         txtIDNorma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtIDNorma.setText("NOM-002-STPS-2010");
+        txtIDNorma.setText("NOM-017-STPS-2008");
         txtIDNorma.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204), 3));
         txtIDNorma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -962,11 +976,11 @@ public class homeScreen extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(valores.toArray(new String[0]));
         // Asignar el m odelo al JComboBox
         listNom.setModel(modelo);
-        
-        
+
     }
-    private void actBtnMenu (){
-        
+
+    private void actBtnMenu() {
+
     }
 
 
@@ -1012,9 +1026,15 @@ public class homeScreen extends javax.swing.JFrame {
         exitTxt.setForeground(Color.black);
     }//GEN-LAST:event_exitTxtMouseExited
 
-    private void btnExtintorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExtintorMouseClicked
+    private void btnEPPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEPPMouseClicked
+        CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "epp"); // Cambia a panel1
 
-    }//GEN-LAST:event_btnExtintorMouseClicked
+        btnEPP.setSelected(true);
+        btnHumo.setSelected(false);
+        btnGas.setSelected(false);
+
+    }//GEN-LAST:event_btnEPPMouseClicked
 
     private void btnHumoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHumoMouseClicked
 
@@ -1054,21 +1074,21 @@ public class homeScreen extends javax.swing.JFrame {
                 txtIDNorma);
     }//GEN-LAST:event_tbExtintoresMouseClicked
 
-    private void tablaHumoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaHumoMouseClicked
+    private void tablaEPPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEPPMouseClicked
         // TODO add your handling code here:
-        obj.seleccionarHumo(
-                tablaHumo, txtiDUsuario, labelResponsable,
-                labelRegiones, labelTerminales, txtIDBitacora,
-                txtFecha, ubicacionHumo, ultimaFechaHumo,
-                proximaFechaHumo, marcaHumo, tipoDetectorHumo,
-                pruebaFuncionamiento, soporteHumo, ubicacionFisica,
-                observacionesHumo, txtIDNorma);
-    }//GEN-LAST:event_tablaHumoMouseClicked
+        obj.seleccionarEPP(tablaEPP, txtiDUsuario, labelResponsable, labelRegiones,
+                labelTerminales, txtIDBitacora, txtFecha, nombreEPP,
+                areaEPP, puestoEPP, cascoEPP, lentesDeSeguridadEPP, 
+                lentesDeSeguridadEPP, taponesAuditivosEPP, guantesEPP, 
+                caretaSoldarEPP, caretaEsmerilarEPP, mascarillaEPP, fajaEPP, 
+                arnesEPP, uniformeEPP, firmadoEPP, txtIDNorma);
+        
+    }//GEN-LAST:event_tablaEPPMouseClicked
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
         // TODO add your handling code here:
 
-        if (btnExtintor.isSelected()) {
+        /*  if (btnExtintor.isSelected()) {
             obj.modificarExtintores(
                     txtIDBitacora, txtFecha, ubicacion, ultimaRecarga,
                     proximaRecarga, capacidad, agenteExtinguidor,
@@ -1096,9 +1116,7 @@ public class homeScreen extends javax.swing.JFrame {
                     cRegistrada, tObservaciones, marca, numSerie,
                     diametroEXT, espesor);
             obj.MostrarGas(tablaGas);
-        }
-
-
+        }*/
 
     }//GEN-LAST:event_btnModificarMouseClicked
 
@@ -1108,9 +1126,9 @@ public class homeScreen extends javax.swing.JFrame {
     private void btnExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarMouseClicked
         // TODO add your handling code here:
 
-        if (btnExtintor.isSelected()) {
+        if (btnEPP.isSelected()) {
 
-            PDFExporter ejemplo = new PDFExporter();
+            PDFExporter ejemplo = new PDFExporter(8f);
             try {
                 ejemplo.ExtintorPDF();
             } catch (IOException ex) {
@@ -1130,16 +1148,15 @@ public class homeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExportarMouseClicked
 
     private void btnHumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHumoActionPerformed
-                                     
-    CardLayout layout = (CardLayout) bitacoras.getLayout();
-    layout.show(bitacoras, "humo");
 
-        btnExtintor.setSelected(false);
+        CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "humo");
+
+        btnEPP.setSelected(false);
         btnHumo.setSelected(true);
         btnGas.setSelected(false);
-        
-        
-         
+
+
     }//GEN-LAST:event_btnHumoActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
@@ -1198,7 +1215,7 @@ public class homeScreen extends javax.swing.JFrame {
         CardLayout layout = (CardLayout) bitacoras.getLayout();
         layout.show(bitacoras, "gas"); // Cambia al panel humo.
 
-        btnExtintor.setSelected(false);
+        btnEPP.setSelected(false);
         btnHumo.setSelected(false);
         btnGas.setSelected(true);
 
@@ -1208,22 +1225,15 @@ public class homeScreen extends javax.swing.JFrame {
 
     private void btnGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGasMouseClicked
 
-        humo.setVisible(false);    }//GEN-LAST:event_btnGasMouseClicked
+        epp.setVisible(false);    }//GEN-LAST:event_btnGasMouseClicked
 
     private void listNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listNomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_listNomActionPerformed
 
-    private void btnExtintorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtintorActionPerformed
-        CardLayout layout = (CardLayout) bitacoras.getLayout();
-        layout.show(bitacoras, "extintores"); // Cambia a panel1
-        
-        
-        btnExtintor.setSelected(true);
-        btnHumo.setSelected(false);
-        btnGas.setSelected(false);
+    private void btnEPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEPPActionPerformed
 
-    }//GEN-LAST:event_btnExtintorActionPerformed
+    }//GEN-LAST:event_btnEPPActionPerformed
 
     private void txtIDNormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDNormaActionPerformed
         // TODO add your handling code here:
@@ -1238,36 +1248,32 @@ public class homeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
     private void tablaGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGasMouseClicked
-obj.seleccionarGas(
-                tablaGas,txtiDUsuario,labelResponsable,labelRegiones,
-                labelTerminales,txtIDBitacora,txtFecha, 
-                
-                nomEmpresa,cMalas,c_Buena,c_Regular ,
-                cObservaciones,capacidadTanque, fechaFabricacion,
+        obj.seleccionarGas(
+                tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
+                labelTerminales, txtIDBitacora, txtFecha,
+                nomEmpresa, cMalas, c_Buena, c_Regular,
+                cObservaciones, capacidadTanque, fechaFabricacion,
                 cRegistrada, tObservaciones, marca, numSerie,
-                diametroEXT,espesor );
+                diametroEXT, espesor);
     }//GEN-LAST:event_tablaGasMouseClicked
 
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
 
-            if (btnExtintor.isSelected()) {
-                obj.insertarBitacoraExtintores(fechaFabricacion, ubicacion, ultimaRecarga, proximaRecarga,
-                        capacidad, agenteExtinguidor, chckManguera,
-                        chckManometro, chckSoporte, chckPresion, chckCilindro,
-                        chckLimpieza, chckEtiqueta, chckSeguro, chckObstrucciones, cObservaciones,
-                        firma, txtIDNorma, txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());
-                        //obj.MostrarExtintores(tabla);
+        if (btnEPP.isSelected()) {
+            obj.insertarEPP(txtFecha, nombreEPP, areaEPP, puestoEPP,
+                    cascoEPP, lentesDeSeguridadEPP, botasSegEPP, taponesAuditivosEPP, guantesEPP, caretaSoldarEPP, caretaEsmerilarEPP,
+                    mascarillaEPP, fajaEPP, arnesEPP, uniformeEPP, firmadoEPP, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
+            obj.MostrarEPP(tablaEPP);
 
         }
 
-        if (btnHumo.isSelected()) {
+        /*if (btnHumo.isSelected()) {
 
-              obj.insertarHumo(txtFecha, ubicacionHumo, ultimaFechaHumo, proximaFechaHumo, marcaHumo,
-                tipoDetectorHumo, pruebaFuncionamiento, chckSoporte, 
-                ubicacionFisica, observacionesHumo, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
+            obj.insertarHumo(txtFecha, ubicacionHumo, ultimaFechaHumo, proximaFechaHumo, marcaHumo,
+                    tipoDetectorHumo, pruebaFuncionamiento, chckSoporte,
+                    ubicacionFisica, observacionesHumo, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
             obj.MostrarHumo(tablaHumo);
-         
-        
+
         }
 
         if (btnGas.isSelected()) {
@@ -1276,9 +1282,9 @@ obj.seleccionarGas(
                     capacidadTanque, fechaFabricacion,
                     cRegistrada, tObservaciones, marca,
                     numSerie, diametroEXT, espesor, txtIDNorma,
-                    txtiDUsuario,listNom.getSelectedItem().toString());
+                    txtiDUsuario, listNom.getSelectedItem().toString());
             obj.MostrarGas(tablaGas);
-        }
+        }*/
     }//GEN-LAST:event_btnInsertar1ActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -1319,11 +1325,14 @@ obj.seleccionarGas(
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField agenteExtinguidor;
+    private javax.swing.JTextField areaEPP;
+    private javax.swing.JCheckBox arnesEPP;
     private javax.swing.JPanel barNavMov;
     private javax.swing.JPanel bgHomeScreen;
     private javax.swing.JPanel bitacoras;
+    private javax.swing.JCheckBox botasSegEPP;
+    private com.login.buttonsNormas btnEPP;
     private com.login.ModernButton btnExportar;
-    private com.login.buttonsNormas btnExtintor;
     private com.login.buttonsNormas btnGas;
     private com.login.buttonsNormas btnHumo;
     private com.login.ModernButton btnInsertar1;
@@ -1335,6 +1344,9 @@ obj.seleccionarGas(
     private javax.swing.JCheckBox c_Regular;
     private javax.swing.JTextField capacidad;
     private javax.swing.JTextField capacidadTanque;
+    private javax.swing.JCheckBox caretaEsmerilarEPP;
+    private javax.swing.JCheckBox caretaSoldarEPP;
+    private javax.swing.JCheckBox cascoEPP;
     private javax.swing.JCheckBox chckCilindro;
     private javax.swing.JCheckBox chckEtiqueta;
     private javax.swing.JCheckBox chckLimpieza;
@@ -1346,14 +1358,17 @@ obj.seleccionarGas(
     private javax.swing.JCheckBox chckSenalizacion;
     private javax.swing.JCheckBox chckSoporte;
     private javax.swing.JTextField diametroEXT;
+    private javax.swing.JPanel epp;
     private javax.swing.JTextField espesor;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel extintores;
+    private javax.swing.JCheckBox fajaEPP;
     private javax.swing.JTextField fechaFabricacion;
     private javax.swing.JCheckBox firma;
+    private javax.swing.JCheckBox firmadoEPP;
     private javax.swing.JPanel gas;
-    private javax.swing.JPanel humo;
+    private javax.swing.JCheckBox guantesEPP;
     private javax.swing.JPanel informacion1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1371,64 +1386,57 @@ obj.seleccionarGas(
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator15;
-    private javax.swing.JSeparator jSeparator16;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel labelAgenteExtinguidor;
+    private javax.swing.JLabel labelAreaEPP;
     private javax.swing.JLabel labelBitacora;
     private javax.swing.JLabel labelCapacidad;
     private javax.swing.JLabel labelFecha;
-    private javax.swing.JLabel labelMarcaHumo;
+    private javax.swing.JLabel labelNombreEPP;
     private javax.swing.JLabel labelNorma;
-    private javax.swing.JLabel labelProximaFechaHumo;
     private javax.swing.JLabel labelProximaRecarga;
+    private javax.swing.JLabel labelPuestoEPP;
     private javax.swing.JLabel labelRegiones;
     private javax.swing.JLabel labelResponsable;
     private javax.swing.JLabel labelTerminales;
-    private javax.swing.JLabel labelTipoDetectorHumo;
     private javax.swing.JLabel labelUbicacion;
-    private javax.swing.JLabel labelUbicacionHumo;
-    private javax.swing.JLabel labelUltimaFechaHumo;
     private javax.swing.JLabel labelUltimaRecarga;
     private javax.swing.JLabel labelUsuario;
+    private javax.swing.JCheckBox lentesDeSeguridadEPP;
     private javax.swing.JComboBox<String> listNom;
     private javax.swing.JLabel logoDerecha;
     private javax.swing.JTextField marca;
-    private javax.swing.JTextField marcaHumo;
+    private javax.swing.JCheckBox mascarillaEPP;
     private javax.swing.JPanel menuDeOpciones;
     private javax.swing.JTextField nomEmpresa;
+    private javax.swing.JTextField nombreEPP;
     private javax.swing.JTextField numSerie;
     private javax.swing.JTextField observaciones;
-    private javax.swing.JTextField observacionesHumo;
     private javax.swing.JPanel panelinfo;
-    private javax.swing.JTextField proximaFechaHumo;
     private javax.swing.JTextField proximaRecarga;
-    private javax.swing.JCheckBox pruebaFuncionamiento;
+    private javax.swing.JTextField puestoEPP;
     private javax.swing.JPanel returnPanel;
     private javax.swing.JLabel returnTxt;
-    private javax.swing.JCheckBox soporteHumo;
     private javax.swing.JTextField tObservaciones;
+    private javax.swing.JTable tablaEPP;
     private javax.swing.JTable tablaGas;
-    private javax.swing.JTable tablaHumo;
+    private javax.swing.JCheckBox taponesAuditivosEPP;
+    private javax.swing.JPanel tbEPP;
     private javax.swing.JTable tbExtintores;
     private javax.swing.JPanel tbGas;
-    private javax.swing.JPanel tbHumo;
-    private javax.swing.JTextField tipoDetectorHumo;
     private javax.swing.JLabel titulo;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIDBitacora;
     private javax.swing.JTextField txtIDNorma;
     private javax.swing.JTextField txtiDUsuario;
     private javax.swing.JTextField ubicacion;
-    private javax.swing.JCheckBox ubicacionFisica;
-    private javax.swing.JTextField ubicacionHumo;
-    private javax.swing.JTextField ultimaFechaHumo;
     private javax.swing.JTextField ultimaRecarga;
+    private javax.swing.JCheckBox uniformeEPP;
     // End of variables declaration//GEN-END:variables
 }
