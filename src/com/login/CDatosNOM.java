@@ -1401,6 +1401,9 @@ public static String convertirFecha(String fecha) {
         if (!rutas.isEmpty()) {
             // Añadir las rutas al combo box
             comboBox.addItem("Seleccione un video");
+            System.out.println("PDF generado exitosamente: " );
+            System.out.println("PDF generado exitosamente: " );
+            System.out.println("PDF generado exitosamente: " );
             for (String ruta : rutas) {
                 comboBox.addItem(ruta);
             }

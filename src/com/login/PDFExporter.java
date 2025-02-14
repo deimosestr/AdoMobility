@@ -121,6 +121,10 @@ public class PDFExporter {
             document.close();
 
             System.out.println("PDF generado exitosamente: " + destino);
+            System.out.println("PDF generado exitosamente: " + destino);
+            System.out.println("PDF generado exitosamente: " + destino);
+            System.out.println("PDF generado exitosamente: " + destino);
+            
 
         } catch (Exception e) {
             e.printStackTrace();
