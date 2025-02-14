@@ -10,7 +10,7 @@ public class main {
         obj.setSize(790, 500);
         obj.setVisible(true);
         obj.setLocationRelativeTo(null);*/
-         
+        
         Login obj = new Login();
         obj.setSize(790, 500);
         obj.setVisible(true);

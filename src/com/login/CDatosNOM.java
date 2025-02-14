@@ -30,9 +30,8 @@ import java.util.ArrayList;
 public class CDatosNOM {
 
     TConexion obj = new TConexion();
-    
+
     //Panel info
-    
     int iDbitacora;
     String fecha_revision;
     int idNorma;
@@ -41,9 +40,8 @@ public class CDatosNOM {
     String usuario;
     String region;
     String terminal;
+
     //EXTINTORES
-    
-    
     String ubicacion;
     String ultima_fecha_entrega;
     String proxima_recarga;
@@ -61,18 +59,15 @@ public class CDatosNOM {
     boolean obtruccion;
     String observacion;
     boolean firmado;
-    
 
-    
     boolean senalizacion;
-    
 
     //HUMO
     String marca;
     boolean prueba_funcionamiento;
     boolean ubicacion_fisica;
 
-        String nomEmpresa;
+    String nomEmpresa;
     boolean cMalas;
     boolean c_Regular;
     boolean c_Buena;
@@ -85,15 +80,149 @@ public class CDatosNOM {
     String numSerie;
     String diametroEXT;
     String espesor;
-    
-    
-    
-    
+
+    //EPP
+    String nombre_epp;
+    String area_epp;
+    String puesto_epp;
+    boolean casco_epp;
+    boolean lentes_de_seguridad_epp;
+    boolean botas_de_seguridad_epp;
+    boolean tapones_auditivos_epp;
+    boolean guantes_epp;
+    boolean careta_soldar_epp;
+    boolean careta_esmerilar_epp;
+    boolean mascarilla_epp;
+    boolean faja_epp;
+    boolean arnes_epp;
+    boolean uniforme_epp;
+    boolean firmado_epp;
+
+    public String getNombre_epp() {
+        return nombre_epp;
+    }
+
+    public void setNombre_epp(String nombre_epp) {
+        this.nombre_epp = nombre_epp;
+    }
+
+    public String getArea_epp() {
+        return area_epp;
+    }
+
+    public void setArea_epp(String area_epp) {
+        this.area_epp = area_epp;
+    }
+
+    public String getPuesto_epp() {
+        return puesto_epp;
+    }
+
+    public void setPuesto_epp(String puesto_epp) {
+        this.puesto_epp = puesto_epp;
+    }
+
+    public boolean isCasco_epp() {
+        return casco_epp;
+    }
+
+    public void setCasco_epp(boolean casco_epp) {
+        this.casco_epp = casco_epp;
+    }
+
+    public boolean isLentes_de_seguridad_epp() {
+        return lentes_de_seguridad_epp;
+    }
+
+    public void setLentes_de_seguridad_epp(boolean lentes_de_seguridad_epp) {
+        this.lentes_de_seguridad_epp = lentes_de_seguridad_epp;
+    }
+
+    public boolean isBotas_de_seguridad_epp() {
+        return botas_de_seguridad_epp;
+    }
+
+    public void setBotas_de_seguridad_epp(boolean botas_de_seguridad_epp) {
+        this.botas_de_seguridad_epp = botas_de_seguridad_epp;
+    }
+
+    public boolean isTapones_auditivos_epp() {
+        return tapones_auditivos_epp;
+    }
+
+    public void setTapones_auditivos_epp(boolean tapones_auditivos_epp) {
+        this.tapones_auditivos_epp = tapones_auditivos_epp;
+    }
+
+    public boolean isGuantes_epp() {
+        return guantes_epp;
+    }
+
+    public void setGuantes_epp(boolean guantes_epp) {
+        this.guantes_epp = guantes_epp;
+    }
+
+    public boolean isCareta_soldar_epp() {
+        return careta_soldar_epp;
+    }
+
+    public void setCareta_soldar_epp(boolean careta_soldar_epp) {
+        this.careta_soldar_epp = careta_soldar_epp;
+    }
+
+    public boolean isCareta_esmerilar_epp() {
+        return careta_esmerilar_epp;
+    }
+
+    public void setCareta_esmerilar_epp(boolean careta_esmerilar_epp) {
+        this.careta_esmerilar_epp = careta_esmerilar_epp;
+    }
+
+    public boolean isMascarilla_epp() {
+        return mascarilla_epp;
+    }
+
+    public void setMascarilla_epp(boolean mascarilla_epp) {
+        this.mascarilla_epp = mascarilla_epp;
+    }
+
+    public boolean isFaja_epp() {
+        return faja_epp;
+    }
+
+    public void setFaja_epp(boolean faja_epp) {
+        this.faja_epp = faja_epp;
+    }
+
+    public boolean isArnes_epp() {
+        return arnes_epp;
+    }
+
+    public void setArnes_epp(boolean arnes_epp) {
+        this.arnes_epp = arnes_epp;
+    }
+
+    public boolean isUniforme_epp() {
+        return uniforme_epp;
+    }
+
+    public void setUniforme_epp(boolean uniforme_epp) {
+        this.uniforme_epp = uniforme_epp;
+    }
+
+    public boolean isFirmado_epp() {
+        return firmado_epp;
+    }
+
+    public void setFirmado_epp(boolean firmado_epp) {
+        this.firmado_epp = firmado_epp;
+    }
+
     public TConexion getObj() {
         return obj;
     }
 
-    public String getUsuario() {    
+    public String getUsuario() {
         return usuario;
     }
 
@@ -225,8 +354,6 @@ public class CDatosNOM {
     public void setEspesor(String espesor) {
         this.espesor = espesor;
     }
-
-    
 
     public boolean isPrueba_funcionamiento() {
         return prueba_funcionamiento;
@@ -459,24 +586,21 @@ public class CDatosNOM {
             System.out.println("Error al actualizar la secuencia.");
         }
     }*/
-    
-    
     private void actualizarSecuencia(String ext, String nomTabla) {
         System.out.println("se intenta actualizar");
-        String sql = "SELECT setval('"+ext+"', COALESCE((SELECT MAX(id_bitacora) FROM "+nomTabla+"), 0) + 1, false)";
+        String sql = "SELECT setval('" + ext + "', COALESCE((SELECT MAX(id_bitacora) FROM " + nomTabla + "), 0) + 1, false)";
 
         try {
             Connection conn = null;
             conn = obj.establecerConexion();
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.execute();
-            System.out.println("Secuencia actualizada correctamente.");
+            //System.out.println("Secuencia actualizada correctamente.");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error al actualizar la secuencia.");
+            //System.out.println("Error al actualizar la secuencia.");
         }
     }
-
 
     public int obtenerIDNorma(String nombreNorma) {
         int idNorma = -1; // Valor predeterminado para indicar que no se encontró un resultado
@@ -910,10 +1034,10 @@ public class CDatosNOM {
             cs.setInt(19, iDUsuario);
             cs.setBoolean(20, isSenalizacion());
             cs.setInt(21, idTerminal);
-            
+
             String ext = "bitacora_id_bitacora_seq";
             String nomTabla = "bitacora";
-            actualizarSecuencia(ext,nomTabla);
+            actualizarSecuencia(ext, nomTabla);
             cs.execute();
 
             JOptionPane.showMessageDialog(null, "Inserción Existosa");
@@ -1141,7 +1265,6 @@ public class CDatosNOM {
             JTable paramTablaHumo, JTextField paramIDUsuario, JLabel paramResponsable,
             JLabel paramRegion, JLabel paramTerminales, JTextField paramIDBitacora,
             JTextField paramFechaRevision,
-            
             JTextField paramUbicacion, JTextField paramUltimaFecha, JTextField paramProximaFecha,
             JTextField paramMarca, JTextField paramTipoDetector,
             JCheckBox paramPruebaFuncionamiento, JCheckBox paramSoporte, JCheckBox paramUbicacionFisica,
@@ -1222,10 +1345,10 @@ public class CDatosNOM {
             cs.setInt(11, idNorma_fk);
             cs.setInt(12, idUsuario);
             cs.setInt(13, idTerminal);
-            
+
             String ext = "bitacora_humo_id_bitacora_seq";
             String nomTabla = "bitacora_humo";
-            actualizarSecuencia(ext,nomTabla);
+            actualizarSecuencia(ext, nomTabla);
             //sincronizarSecuenciaBitacoraHumo();
 
             cs.execute();
@@ -1344,22 +1467,19 @@ public class CDatosNOM {
     }
 
     public void seleccionarGas(
-            JTable paramtablaGas, JTextField paramIDUsuario,JLabel paramlabelResponsable,
-            JLabel paramlabelRegion,JLabel paramlabelTerminales,JTextField paramtxtIDBitacora,
+            JTable paramtablaGas, JTextField paramIDUsuario, JLabel paramlabelResponsable,
+            JLabel paramlabelRegion, JLabel paramlabelTerminales, JTextField paramtxtIDBitacora,
             JTextField paramtxtFecha,
-            
             JTextField paramnomEmpresa, JCheckBox paramcMalas, JCheckBox paramc_Buena, JCheckBox paramc_Regular,
-            JTextField paramcObservaciones, JTextField paramcapacidadTanque,JTextField paramfechaFabricacion,
+            JTextField paramcObservaciones, JTextField paramcapacidadTanque, JTextField paramfechaFabricacion,
             JTextField paramcRegistrada, JTextField paramtObservaciones, JTextField parammarcaTanque,
             JTextField paramnumSerie, JTextField paramdiametroEXT, JTextField paramespesor) {
-        
+
         // 
-        
-        
         try {
             int fila = paramtablaGas.getSelectedRow();
             if (fila >= 0) {
-                
+
 // Asignar valores a los JTextField
                 paramtxtIDBitacora.setText(paramtablaGas.getValueAt(fila, 0).toString());
                 paramtxtFecha.setText(paramtablaGas.getValueAt(fila, 1).toString());
@@ -1368,12 +1488,11 @@ public class CDatosNOM {
                 paramnomEmpresa.setText(paramtablaGas.getValueAt(fila, 4).toString());
                 paramlabelResponsable.setText(paramtablaGas.getValueAt(fila, 5).toString());
                 paramlabelTerminales.setText(paramtablaGas.getValueAt(fila, 6).toString());
-                
-                
+
                 paramcMalas.setSelected((Boolean) paramtablaGas.getValueAt(fila, 7));
                 paramc_Buena.setSelected((Boolean) paramtablaGas.getValueAt(fila, 8));
                 paramc_Regular.setSelected((Boolean) paramtablaGas.getValueAt(fila, 9));
-                
+
                 paramcObservaciones.setText(paramtablaGas.getValueAt(fila, 10).toString());
                 paramcapacidadTanque.setText(paramtablaGas.getValueAt(fila, 11).toString());
                 paramfechaFabricacion.setText(paramtablaGas.getValueAt(fila, 12).toString());
@@ -1537,14 +1656,13 @@ public class CDatosNOM {
             }
         }
     }
-    
+
     public void modificarGas(
             JTextField paramIdBitacoraHumo, JTextField paramFechaRevision, JTextField paramnomEmpresa,
             JCheckBox paramcMalas, JCheckBox paramc_Buena, JCheckBox paramc_Regular,
-            JTextField paramcObservaciones, JTextField paramcapacidadTanque,JTextField paramfechaFabricacion,
+            JTextField paramcObservaciones, JTextField paramcapacidadTanque, JTextField paramfechaFabricacion,
             JTextField paramcRegistrada, JTextField paramtObservaciones, JTextField parammarca,
-            JTextField paramnumSerie, JTextField paramdiametroEXT, JTextField paramespesor) 
-    {
+            JTextField paramnumSerie, JTextField paramdiametroEXT, JTextField paramespesor) {
         setiDbitacora(Integer.parseInt(paramIdBitacoraHumo.getText()));
         setFecha_revision(paramFechaRevision.getText());
         setNomEmpresa(paramnomEmpresa.getText());
@@ -1560,7 +1678,7 @@ public class CDatosNOM {
         setNumSerie(paramnumSerie.getText());
         setDiametroEXT(paramdiametroEXT.getText());
         setEspesor(paramespesor.getText());
-        
+
         TConexion obj3 = new TConexion();
         String sql = "UPDATE bitacora_instalacion_de_gas "
                 + "SET fecha_revision = ?,  nombre_empresa = ?, c_buena = ?, c_regular= ?, c_mala = ?, observaciones_soportes = ?, "
@@ -1602,7 +1720,7 @@ public class CDatosNOM {
             JTextField parammarca, JTextField paramnumSerie, JTextField paramdiametroEXT, JTextField paramespesor,
             JTextField paramId_Norma_Fk, JTextField paramId_Usuario_Fk, String paramNombreTerminal
     ) {
- 
+
         setFecha_revision(paramFechaRevision.getText());
         setNomEmpresa(paramnomEmpresa.getText());
         setC_Buena(paramc_Buena.isSelected());
@@ -1635,7 +1753,7 @@ public class CDatosNOM {
 
             cs.setString(1, getFecha_revision());
             cs.setString(2, getNomEmpresa());
-            cs.setBoolean(3,isC_Buena());
+            cs.setBoolean(3, isC_Buena());
             cs.setBoolean(4, iscMalas());
             cs.setBoolean(5, isC_Regular());
             cs.setString(6, getcObservaciones());
@@ -1651,12 +1769,10 @@ public class CDatosNOM {
             cs.setInt(15, idNorma_fk);
             cs.setInt(16, idUsuario);
             cs.setInt(17, idTerminal);
-            
-                        
+
             String ext = "bitacora_instalacion_de_gas_id_bitacora_seq";
             String nomTabla = "bitacora_instalacion_de_gas";
-            actualizarSecuencia(ext,nomTabla);
-            
+            actualizarSecuencia(ext, nomTabla);
 
             cs.execute();
             JOptionPane.showMessageDialog(null, "Inserción Existosa");
@@ -1664,6 +1780,364 @@ public class CDatosNOM {
             JOptionPane.showMessageDialog(null, "Error" + e.toString());
         }
 
+    }
+
+    /*FABIAN----------------------------------*/
+    public void MostrarEPP(JTable paramtablaEPP) {
+        TConexion obj2 = new TConexion();
+
+        // Crear el modelo de la tabla
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramtablaEPP.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Usuario");
+        modelo.addColumn("Responsable");
+        modelo.addColumn("Region");
+        modelo.addColumn("Terminal");
+        modelo.addColumn("ID Bitacora");
+        modelo.addColumn("Fecha Revision");
+
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Area");
+        modelo.addColumn("Puesto");
+
+        modelo.addColumn("Casco");
+        modelo.addColumn("Lentes de seguridad");
+        modelo.addColumn("Botas de seguridad");
+        modelo.addColumn("Tapones auditivos");
+        modelo.addColumn("Guantes");
+        modelo.addColumn("Careta para soldar");
+        modelo.addColumn("Careta para esmerilar");
+        modelo.addColumn("Mascarilla");
+        modelo.addColumn("Faja");
+        modelo.addColumn("Arnes");
+        modelo.addColumn("Uniforme");
+        modelo.addColumn("Firma");
+        modelo.addColumn("ID Norma");
+
+        paramtablaEPP.setModel(modelo);
+
+        // Consulta SQL
+        String sql = "SELECT DISTINCT "
+                + "    bp.id_usuario_fk, "
+                + "    u.nombre AS responsable, "
+                + "    r.nombre AS region, "
+                + "    STRING_AGG(DISTINCT t.nombre, ', ') AS terminales, "
+                + "    bp.id_bitacora, "
+                + "    bp.fecha_revision, "
+                + "    bp.nombre, "
+                + "    bp.area, "
+                + "    bp.puesto, "
+                + "    bp.casco, "
+                + "    bp.lentes_de_seguridad, "
+                + "    bp.botas_de_seguridad, "
+                + "    bp.tapones_auditivos, "
+                + "    bp.guantes, "
+                + "    bp.careta_soldar, "
+                + "    bp.careta_esmerilar, "
+                + "    bp.mascarilla, "
+                + "    bp.faja, "
+                + "    bp.arnes, "
+                + "    bp.uniforme, "
+                + "    bp.firmado, "
+                + "    bp.id_norma_fk "
+                + "FROM bitacora_epp bp "
+                + "JOIN usuarios u ON bp.id_usuario_fk = u.id_usuarios "
+                + "JOIN terminales t ON bp.id_terminal_fk = t.id_terminal "
+                + "JOIN regiones r ON t.id_region_fk = r.id_region "
+                + "LEFT JOIN terminales_usuarios tu ON tu.id_usuario = u.id_usuarios "
+                + "WHERE u.username = ? "
+                + "GROUP BY "
+                + "    bp.id_usuario_fk, "
+                + "    u.nombre, "
+                + "    r.nombre, "
+                + "    bp.id_bitacora, "
+                + "    bp.fecha_revision, "
+                + "    bp.nombre, "
+                + "    bp.area, "
+                + "    bp.puesto, "
+                + "    bp.casco, "
+                + "    bp.lentes_de_seguridad, "
+                + "    bp.botas_de_seguridad, "
+                + "    bp.tapones_auditivos, "
+                + "    bp.guantes, "
+                + "    bp.careta_soldar, "
+                + "    bp.careta_esmerilar, "
+                + "    bp.mascarilla, "
+                + "    bp.faja, "
+                + "    bp.arnes, "
+                + "    bp.uniforme, "
+                + "    bp.firmado, "
+                + "    bp.id_norma_fk;";
+
+        Object[] datos = new Object[22]; // Permitir String y Boolean
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = obj2.establecerConexion().prepareStatement(sql);
+            pst.setString(1, globalV.user); // Asignar el parámetro a la consulta
+
+            rs = pst.executeQuery();
+
+            // Verificar si hay datos antes de acceder a ellos
+            if (!rs.isBeforeFirst()) {
+                System.out.println("No hay datos en la consulta.");
+                return;
+            }
+
+            while (rs.next()) {
+                // Obtener datos de las columnas y convertir booleanos
+                datos[0] = rs.getString(1); // ID Usuario
+                datos[1] = rs.getString(2); // Responsable
+                datos[2] = rs.getString(3); // Región
+                datos[3] = rs.getString(4); // Terminales
+                datos[4] = rs.getString(5); // ID Bitácora
+                datos[5] = rs.getString(6); // Fecha Revisión
+                datos[6] = rs.getString(7); // Nombre
+                datos[7] = rs.getString(8); // Área
+                datos[8] = rs.getString(9); // Puesto
+                datos[9] = "t".equals(rs.getString(10)); // Casco
+                datos[10] = "t".equals(rs.getString(11)); // Lentes
+                datos[11] = "t".equals(rs.getString(12)); // Botas
+                datos[12] = "t".equals(rs.getString(13)); // Tapones
+                datos[13] = "t".equals(rs.getString(14)); // Guantes
+                datos[14] = "t".equals(rs.getString(15)); // Careta Soldar
+                datos[15] = "t".equals(rs.getString(16)); // Careta Esmerilar
+                datos[16] = "t".equals(rs.getString(17)); // Mascarilla
+                datos[17] = "t".equals(rs.getString(18)); // Faja
+                datos[18] = "t".equals(rs.getString(19)); // Arnés
+                datos[19] = "t".equals(rs.getString(20)); // Uniforme
+                datos[20] = "t".equals(rs.getString(21)); // Firma
+                datos[21] = rs.getString(22); // ID Norma
+
+                modelo.addRow(datos);
+            }
+
+            paramtablaEPP.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+    }
+
+    public void insertarEPP(JTextField paramFechaRevision, JTextField paramNombreEPP, JTextField paramAreaEPP, JTextField paramPuestoEPP,
+            JCheckBox paramCascoEPP, JCheckBox paramLentesDeSeguridadEPP, JCheckBox paramBotasDeSeguridadEPP, JCheckBox paramTaponesAuditivosEPP,
+            JCheckBox paramGuantesEPP, JCheckBox paramCaretaSoldarEPP, JCheckBox paramCaretaEsmerilarEPP, JCheckBox paramMascarillaEPP,
+            JCheckBox paramFajaEPP, JCheckBox paramArnesEPP, JCheckBox paramUniformeEPP, JCheckBox paramFirmadoEPP,
+            JTextField paramId_Norma_Fk, JTextField paramId_Usuario_fk, String paramNombreTerminal) {
+
+        setFecha_revision(paramFechaRevision.getText());
+        setNombre_epp(paramNombreEPP.getText());
+        setArea_epp(paramAreaEPP.getText());
+        setPuesto_epp(paramPuestoEPP.getText());
+        setCasco_epp(paramCascoEPP.isSelected());
+        setLentes_de_seguridad_epp(paramLentesDeSeguridadEPP.isSelected());
+        setBotas_de_seguridad_epp(paramBotasDeSeguridadEPP.isSelected());
+        setTapones_auditivos_epp(paramTaponesAuditivosEPP.isSelected());
+        setGuantes_epp(paramGuantesEPP.isSelected());
+        setCareta_soldar_epp(paramCaretaSoldarEPP.isSelected());
+        setCareta_esmerilar_epp(paramCaretaEsmerilarEPP.isSelected());
+        setMascarilla_epp(paramMascarillaEPP.isSelected());
+        setFaja_epp(paramFajaEPP.isSelected());
+        setArnes_epp(paramArnesEPP.isSelected());
+        setUniforme_epp(paramUniformeEPP.isSelected());
+        setFirmado_epp(paramFirmadoEPP.isSelected());
+
+        TConexion obj = new TConexion();
+
+        int idUsuario = obtenerIDUsuario();
+        int idNorma_fk = obtenerIDNorma(paramId_Norma_Fk.getText());
+        int idTerminal = obtenerIDTerminal(paramNombreTerminal);
+
+        String sql = "INSERT INTO public.bitacora_epp ("
+                + "fecha_revision, nombre, area, puesto, casco, "
+                + "lentes_de_seguridad, botas_de_seguridad, tapones_auditivos, guantes, "
+                + "careta_soldar, careta_esmerilar, mascarilla, faja, arnes, uniforme, firmado, "
+                + "id_norma_fk, id_usuario_fk, id_terminal_fk) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+        try {
+            CallableStatement cs = obj.establecerConexion().prepareCall(sql);
+
+            cs.setDate(1, java.sql.Date.valueOf(getFecha_revision()));
+            cs.setString(2, getNombre_epp());
+            cs.setString(3, getArea_epp());
+            cs.setString(4, getPuesto_epp());
+            //BOOLEANOS
+            cs.setBoolean(5, isCasco_epp());
+            cs.setBoolean(6, isLentes_de_seguridad_epp());
+            cs.setBoolean(7, isBotas_de_seguridad_epp());
+            cs.setBoolean(8, isTapones_auditivos_epp());
+            cs.setBoolean(9, isGuantes_epp());
+            cs.setBoolean(10, isCareta_soldar_epp());
+            cs.setBoolean(11, isCareta_esmerilar_epp());
+            cs.setBoolean(12, isMascarilla_epp());
+            cs.setBoolean(13, isFaja_epp());
+            cs.setBoolean(14, isArnes_epp());
+            cs.setBoolean(15, isUniforme_epp());
+            cs.setBoolean(16, isFirmado_epp());
+            cs.setInt(17, idNorma_fk);
+            cs.setInt(18, idUsuario);
+            cs.setInt(19, idTerminal);
+
+            String ext = "bitacora_epp_id_bitacora_seq";
+            String nomTabla = "bitacora_epp";
+            actualizarSecuencia(ext, nomTabla);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Inserción Existosa");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }
+    }
+
+    public void seleccionarEPP(
+            JTable paramTablaEPP, JTextField paramIDUsuario, JLabel paramlabelResponsable,
+            JLabel paramlabelRegion, JLabel paramlabelTerminales, JTextField paramtxtIDBitacora,
+            JTextField paramtxtFecha,
+            JTextField paramNombreEPP, JTextField paramAreaEPP, JTextField paramPuestoEPP,
+            JCheckBox paramCascoEPP, JCheckBox paramLentesDeSeguridadEPP, JCheckBox paramBotasDeSeguridadEPP, JCheckBox paramTaponesAuditivosEPP,
+            JCheckBox paramGuantesEPP, JCheckBox paramCaretaSoldarEPP, JCheckBox paramCaretaEsmerilarEPP, JCheckBox paramMascarillaEPP,
+            JCheckBox paramFajaEPP, JCheckBox paramArnesEPP, JCheckBox paramUniformeEPP, JCheckBox paramFirmadoEPP, JTextField paramIDNorma) {
+
+        // 
+        try {
+            int fila = paramTablaEPP.getSelectedRow();
+            if (fila >= 0) {
+
+                // Asignar valores a los JTextField
+                paramIDUsuario.setText(paramTablaEPP.getValueAt(fila, 0).toString());
+                paramlabelResponsable.setText(paramTablaEPP.getValueAt(fila, 1).toString());
+                paramlabelRegion.setText(paramTablaEPP.getValueAt(fila, 2).toString());
+                paramlabelTerminales.setText(paramTablaEPP.getValueAt(fila, 3).toString());
+                paramtxtIDBitacora.setText(paramTablaEPP.getValueAt(fila, 4).toString());
+                paramtxtFecha.setText(paramTablaEPP.getValueAt(fila, 5).toString());
+                //
+                paramNombreEPP.setText(paramTablaEPP.getValueAt(fila, 6).toString());
+                paramAreaEPP.setText(paramTablaEPP.getValueAt(fila, 7).toString());
+                paramPuestoEPP.setText(paramTablaEPP.getValueAt(fila, 8).toString());
+                //
+                paramCascoEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 9));
+                paramLentesDeSeguridadEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 10));
+                paramBotasDeSeguridadEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 11));
+                paramTaponesAuditivosEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 12));
+                paramGuantesEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 13));
+                paramCaretaSoldarEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 14));
+                paramCaretaEsmerilarEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 15));
+                paramMascarillaEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 16));
+                paramFajaEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 17));
+                paramArnesEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 18));
+                paramUniformeEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 19));
+                paramFirmadoEPP.setSelected((Boolean)paramTablaEPP.getValueAt(fila, 20));
+                //
+                paramIDNorma.setText(paramTablaEPP.getValueAt(fila, 21).toString());
+                
+                
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Fila no seleccionada");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+        }
+    }
+    
+    public void modificarEPP(JTextField paramIdBitacora, JTextField paramFechaRevision ) {
+
+        setiDbitacora(Integer.parseInt(paramIdBitacora.getText()));
+        
+        
+        /*setFecha_revision(paramFechaRevision.getText());
+        setUbicacion(paramUbicacion.getText());
+        setUltima_fecha_entrega(paramUltima_fecha_entrega.getText());
+        setProxima_recarga(paramProxima_recarga.getText());
+        setCapacidad_kgs(paramCapacidad_kgs.getText());
+        setTipo_agente_extinguidor(paramTipo_agente_extinguidor.getText());
+        //booleanos 
+        setManguera(paramManguera.isSelected());
+        setManometro(paramManometro.isSelected());
+        setSoporte(paramSoporte.isSelected());
+        setPresion(paramPresion.isSelected());
+        setCilindro(paramCilindro.isSelected());
+        setLimpieza(paramLimpieza.isSelected());
+        setEtiqueta(paramEtiqueta.isSelected());
+        setSeguro(paramSeguro.isSelected());
+        setObtruccion(paramObstruccion.isSelected());
+        setSenalizacion(paramSenalizacion.isSelected());
+        setObservacion(paramObservaciones.getText());
+        //setObservacion(paramObservaciones.getText());*/
+
+        //setFirmado(paramFirmado.isSelected());
+        //setIdNorma(Integer.parseInt(paramIdNorma.getText()));
+        //setiDUsuario(Integer.parseInt(paramIdUsuario.getText()));
+        //setIdTerminal(Integer.parseInt(paramIdTerminal.getText()));
+        TConexion obj3 = new TConexion();
+        String sql = "UPDATE public.bitacora "
+                + "SET fecha_revision = ?, "
+                + "ubicacion = ?, "
+                + "ultima_recarga = ?, "
+                + "proxima_recarga = ?, "
+                + "capacidad = ?, "
+                + "tipo_agente_extinguidor = ?, "
+                + "manguera = ?, "
+                + "manometro = ?, "
+                + "soporte = ?, "
+                + "presion = ?, "
+                + "cilindro = ?, "
+                + "limpieza = ?, "
+                + "etiqueta = ?, "
+                + "seguro = ?, "
+                + "obstruccion = ?, "
+                + "senalizacion = ?, "
+                + "observacion = ? "
+                + "WHERE id_bitacora = ?";
+
+        try {
+            CallableStatement cs = obj3.establecerConexion().prepareCall(sql);
+
+            cs.setString(1, getFecha_revision());
+            cs.setString(2, getUbicacion());
+            cs.setString(3, getUltima_fecha_entrega());
+            cs.setString(4, getProxima_recarga());
+            cs.setString(5, getCapacidad_kgs());
+            cs.setString(6, getTipo_agente_extinguidor());
+            //
+            cs.setBoolean(7, isManguera());
+            cs.setBoolean(8, isManometro());
+            cs.setBoolean(9, isSoporte());
+            cs.setBoolean(10, isPresion());
+            cs.setBoolean(11, isCilindro());
+            cs.setBoolean(12, isLimpieza());
+            cs.setBoolean(13, isEtiqueta());
+            cs.setBoolean(14, isSeguro());
+            cs.setBoolean(15, isObtruccion());
+            cs.setBoolean(16, isSenalizacion());
+            cs.setString(17, getObservacion());
+            cs.setInt(18, getiDbitacora());
+
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "Modificación Exitosa");
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No se modificó, error" + e.toString());
+        }
     }
 
 }

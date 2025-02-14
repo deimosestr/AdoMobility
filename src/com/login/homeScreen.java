@@ -1,6 +1,5 @@
 package com.login;
 
-
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.awt.Color;
@@ -18,7 +17,6 @@ import java.util.logging.Logger;
 import static javafx.scene.paint.Color.color;
 
 public class homeScreen extends javax.swing.JFrame {
-
 
     int xMouse, yMouse;
     TConexion conexion = new TConexion();
@@ -962,11 +960,11 @@ public class homeScreen extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(valores.toArray(new String[0]));
         // Asignar el m odelo al JComboBox
         listNom.setModel(modelo);
-        
-        
+
     }
-    private void actBtnMenu (){
-        
+
+    private void actBtnMenu() {
+
     }
 
 
@@ -1089,15 +1087,13 @@ public class homeScreen extends javax.swing.JFrame {
 
         if (btnGas.isSelected()) {
             obj.modificarGas(
-                    
-                     txtIDBitacora,txtFecha, 
+                    txtIDBitacora, txtFecha,
                     nomEmpresa, cMalas, c_Buena, c_Regular,
                     cObservaciones, capacidadTanque, fechaFabricacion,
                     cRegistrada, tObservaciones, marca, numSerie,
                     diametroEXT, espesor);
             obj.MostrarGas(tablaGas);
         }
-
 
 
     }//GEN-LAST:event_btnModificarMouseClicked
@@ -1130,16 +1126,15 @@ public class homeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExportarMouseClicked
 
     private void btnHumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHumoActionPerformed
-                                     
-    CardLayout layout = (CardLayout) bitacoras.getLayout();
-    layout.show(bitacoras, "humo");
+
+        CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "humo");
 
         btnExtintor.setSelected(false);
         btnHumo.setSelected(true);
         btnGas.setSelected(false);
-        
-        
-         
+
+
     }//GEN-LAST:event_btnHumoActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
@@ -1217,8 +1212,7 @@ public class homeScreen extends javax.swing.JFrame {
     private void btnExtintorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtintorActionPerformed
         CardLayout layout = (CardLayout) bitacoras.getLayout();
         layout.show(bitacoras, "extintores"); // Cambia a panel1
-        
-        
+
         btnExtintor.setSelected(true);
         btnHumo.setSelected(false);
         btnGas.setSelected(false);
@@ -1238,36 +1232,34 @@ public class homeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
     private void tablaGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGasMouseClicked
-obj.seleccionarGas(
-                tablaGas,txtiDUsuario,labelResponsable,labelRegiones,
-                labelTerminales,txtIDBitacora,txtFecha, 
-                
-                nomEmpresa,cMalas,c_Buena,c_Regular ,
-                cObservaciones,capacidadTanque, fechaFabricacion,
+        obj.seleccionarGas(
+                tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
+                labelTerminales, txtIDBitacora, txtFecha,
+                nomEmpresa, cMalas, c_Buena, c_Regular,
+                cObservaciones, capacidadTanque, fechaFabricacion,
                 cRegistrada, tObservaciones, marca, numSerie,
-                diametroEXT,espesor );
+                diametroEXT, espesor);
     }//GEN-LAST:event_tablaGasMouseClicked
 
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
 
-            if (btnExtintor.isSelected()) {
-                obj.insertarBitacoraExtintores(fechaFabricacion, ubicacion, ultimaRecarga, proximaRecarga,
-                        capacidad, agenteExtinguidor, chckManguera,
-                        chckManometro, chckSoporte, chckPresion, chckCilindro,
-                        chckLimpieza, chckEtiqueta, chckSeguro, chckObstrucciones, cObservaciones,
-                        firma, txtIDNorma, txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());
-                        //obj.MostrarExtintores(tabla);
+        if (btnExtintor.isSelected()) {
+            obj.insertarBitacoraExtintores(fechaFabricacion, ubicacion, ultimaRecarga, proximaRecarga,
+                    capacidad, agenteExtinguidor, chckManguera,
+                    chckManometro, chckSoporte, chckPresion, chckCilindro,
+                    chckLimpieza, chckEtiqueta, chckSeguro, chckObstrucciones, cObservaciones,
+                    firma, txtIDNorma, txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());
+            //obj.MostrarExtintores(tabla);
 
         }
 
         if (btnHumo.isSelected()) {
 
-              obj.insertarHumo(txtFecha, ubicacionHumo, ultimaFechaHumo, proximaFechaHumo, marcaHumo,
-                tipoDetectorHumo, pruebaFuncionamiento, chckSoporte, 
-                ubicacionFisica, observacionesHumo, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
+            obj.insertarHumo(txtFecha, ubicacionHumo, ultimaFechaHumo, proximaFechaHumo, marcaHumo,
+                    tipoDetectorHumo, pruebaFuncionamiento, chckSoporte,
+                    ubicacionFisica, observacionesHumo, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
             obj.MostrarHumo(tablaHumo);
-         
-        
+
         }
 
         if (btnGas.isSelected()) {
@@ -1276,7 +1268,7 @@ obj.seleccionarGas(
                     capacidadTanque, fechaFabricacion,
                     cRegistrada, tObservaciones, marca,
                     numSerie, diametroEXT, espesor, txtIDNorma,
-                    txtiDUsuario,listNom.getSelectedItem().toString());
+                    txtiDUsuario, listNom.getSelectedItem().toString());
             obj.MostrarGas(tablaGas);
         }
     }//GEN-LAST:event_btnInsertar1ActionPerformed

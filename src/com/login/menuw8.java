@@ -325,6 +325,7 @@ public class menuw8 extends javax.swing.JFrame {
         obj.setSize(790, 500);
         obj.setVisible(true);
         obj.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_organizacion1MouseClicked
 
     /**
