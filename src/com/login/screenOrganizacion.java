@@ -1078,28 +1078,26 @@ public class screenOrganizacion extends javax.swing.JFrame {
         // TODO add your handling code here:
         obj.seleccionarEPP(tablaEPP, txtiDUsuario, labelResponsable, labelRegiones,
                 labelTerminales, txtIDBitacora, txtFecha, nombreEPP,
-                areaEPP, puestoEPP, cascoEPP, lentesDeSeguridadEPP, 
-                lentesDeSeguridadEPP, taponesAuditivosEPP, guantesEPP, 
-                caretaSoldarEPP, caretaEsmerilarEPP, mascarillaEPP, fajaEPP, 
+                areaEPP, puestoEPP, cascoEPP, lentesDeSeguridadEPP,
+                lentesDeSeguridadEPP, taponesAuditivosEPP, guantesEPP,
+                caretaSoldarEPP, caretaEsmerilarEPP, mascarillaEPP, fajaEPP,
                 arnesEPP, uniformeEPP, firmadoEPP, txtIDNorma);
-        
+
     }//GEN-LAST:event_tablaEPPMouseClicked
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
         // TODO add your handling code here:
 
-        /*  if (btnExtintor.isSelected()) {
-            obj.modificarExtintores(
-                    txtIDBitacora, txtFecha, ubicacion, ultimaRecarga,
-                    proximaRecarga, capacidad, agenteExtinguidor,
-                    chckManguera, chckManometro, chckSoporte, chckPresion,
-                    chckCilindro, chckLimpieza, chckEtiqueta, chckSeguro,
-                    chckObstrucciones, chckSenalizacion, observaciones);
-            obj.MostrarExtintores(tbExtintores);
+        if (btnEPP.isSelected()) {
+            obj.modificarEPP(txtIDBitacora, txtFecha, nombreEPP, areaEPP, 
+                    puestoEPP, cascoEPP, lentesDeSeguridadEPP, lentesDeSeguridadEPP,
+                    taponesAuditivosEPP, guantesEPP, caretaSoldarEPP, 
+                    caretaEsmerilarEPP, mascarillaEPP, fajaEPP, arnesEPP, uniformeEPP, firmadoEPP);
+            obj.MostrarEPP(tablaEPP);
 
         }
 
-        if (btnHumo.isSelected()) {
+        /*if (btnHumo.isSelected()) {
             obj.modificarHumo(txtIDBitacora, txtFecha, ubicacionHumo,
                     ultimaFechaHumo, proximaFechaHumo, marcaHumo,
                     tipoDetectorHumo, pruebaFuncionamiento, soporteHumo,
@@ -1109,8 +1107,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         if (btnGas.isSelected()) {
             obj.modificarGas(
-                    
-                     txtIDBitacora,txtFecha, 
+                    txtIDBitacora, txtFecha,
                     nomEmpresa, cMalas, c_Buena, c_Regular,
                     cObservaciones, capacidadTanque, fechaFabricacion,
                     cRegistrada, tObservaciones, marca, numSerie,

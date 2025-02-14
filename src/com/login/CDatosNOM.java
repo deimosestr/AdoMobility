@@ -23,7 +23,6 @@ public class CDatosNOM {
 
     TConexion obj = new TConexion();
 
-
     //Panel info
     int iDbitacora;
     String fecha_revision;
@@ -52,7 +51,6 @@ public class CDatosNOM {
     boolean obstruccion;
     String observacion;
     boolean firmado;
-
 
     boolean senalizacion;
 
@@ -219,9 +217,11 @@ public class CDatosNOM {
     public String getUsuario() {
         return usuario;
     }
+
     public String getRegion() {
         return region;
     }
+
     public String getTerminal() {
         return terminal;
     }
@@ -592,7 +592,7 @@ public class CDatosNOM {
         return fecha; // Devuelve la fecha original si hay un error
     }
 }*/
-    /*public static String convertirFecha(String fecha) {
+ /*public static String convertirFecha(String fecha) {
         if (fecha == null || fecha.isEmpty()) {
             return null; // Retorna null en lugar de una cadena vacía
         }
@@ -607,38 +607,37 @@ public class CDatosNOM {
             return null; // Retorna null en caso de error
         }
     }*/
-public static String convertirFecha(String fecha) {
-    if (fecha == null || fecha.isEmpty()) {
-        return null; // Retorna null si la fecha es nula o vacía
-    }
-    
-    // Lista de formatos de entrada posibles
-    String[] formatos = {"yyyy-MM-dd", "dd/MM/yyyy", "MM/dd/yyyy"};
-    
-    for (String formato : formatos) {
-        try {
-            // Crear el formato de entrada
-            SimpleDateFormat formatoEntrada = new SimpleDateFormat(formato);
-            
-            // Analizar la fecha
-            java.util.Date fechaDate = formatoEntrada.parse(fecha);
-            
-            // Formato de salida (cambiar a yyyy-MM-dd)
-            SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
-            
-            // Retornar la fecha en el formato deseado
-            return formatoSalida.format(fechaDate);
-        } catch (ParseException e) {
-            // Si ocurre un error, simplemente continuamos con el siguiente formato
-            continue;
+    public static String convertirFecha(String fecha) {
+        if (fecha == null || fecha.isEmpty()) {
+            return null; // Retorna null si la fecha es nula o vacía
         }
-    }
-    
-    // Si no se pudo convertir la fecha, retornar null
-    System.err.println("Error al convertir la fecha: " + fecha);
-    return null;
-}
 
+        // Lista de formatos de entrada posibles
+        String[] formatos = {"yyyy-MM-dd", "dd/MM/yyyy", "MM/dd/yyyy"};
+
+        for (String formato : formatos) {
+            try {
+                // Crear el formato de entrada
+                SimpleDateFormat formatoEntrada = new SimpleDateFormat(formato);
+
+                // Analizar la fecha
+                java.util.Date fechaDate = formatoEntrada.parse(fecha);
+
+                // Formato de salida (cambiar a yyyy-MM-dd)
+                SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
+
+                // Retornar la fecha en el formato deseado
+                return formatoSalida.format(fechaDate);
+            } catch (ParseException e) {
+                // Si ocurre un error, simplemente continuamos con el siguiente formato
+                continue;
+            }
+        }
+
+        // Si no se pudo convertir la fecha, retornar null
+        System.err.println("Error al convertir la fecha: " + fecha);
+        return null;
+    }
 
     private void actualizarSecuencia(String ext, String nomTabla) {
         System.out.println("se intenta actualizar");
@@ -968,6 +967,7 @@ public static String convertirFecha(String fecha) {
             }
         }
     }
+
     public void seleccionarExtintores(
             JTable paramTablaNOM002, JTextField paramIDUsuario, JLabel paramResponsable,
             JLabel paramRegion, JLabel paramTerminales, JTextField paramIDBitacora,
@@ -983,15 +983,11 @@ public static String convertirFecha(String fecha) {
                 paramRegion.setText(paramTablaNOM002.getValueAt(fila, 2).toString());
                 paramTerminales.setText(paramTablaNOM002.getValueAt(fila, 3).toString());
                 paramIDBitacora.setText(paramTablaNOM002.getValueAt(fila, 4).toString());
-                
-                
+
                 //paramFechaRevision.setText(convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString()));
-                
-                
                 fechaR = convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString());
                 paramFechaRevision.setText(fechaR);
-                
-                
+
                 paramUbicacion.setText(paramTablaNOM002.getValueAt(fila, 6).toString());
                 paramUltimaRecarga.setText(paramTablaNOM002.getValueAt(fila, 7).toString());
                 paramProxima_recarga.setText(paramTablaNOM002.getValueAt(fila, 8).toString());
@@ -1519,9 +1515,9 @@ public static String convertirFecha(String fecha) {
         if (!rutas.isEmpty()) {
             // Añadir las rutas al combo box
             comboBox.addItem("Seleccione un video");
-            System.out.println("PDF generado exitosamente: " );
-            System.out.println("PDF generado exitosamente: " );
-            System.out.println("PDF generado exitosamente: " );
+            System.out.println("PDF generado exitosamente: ");
+            System.out.println("PDF generado exitosamente: ");
+            System.out.println("PDF generado exitosamente: ");
             for (String ruta : rutas) {
                 comboBox.addItem(ruta);
             }
@@ -1529,8 +1525,6 @@ public static String convertirFecha(String fecha) {
             JOptionPane.showMessageDialog(null, "No se encontraron rutas en la BD", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
-
 
     public void seleccionarGas(
             JTable paramtablaGas, JTextField paramIDUsuario, JLabel paramlabelResponsable,
@@ -1577,6 +1571,7 @@ public static String convertirFecha(String fecha) {
             JOptionPane.showMessageDialog(null, "Error: " + e.toString());
         }
     }
+
     public void MostrarGas(JTable paramtablaGas) {
         TConexion obj2 = new TConexion();
 
@@ -2109,12 +2104,10 @@ public static String convertirFecha(String fecha) {
                 paramFajaEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 17));
                 paramArnesEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 18));
                 paramUniformeEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 19));
-                paramFirmadoEPP.setSelected((Boolean)paramTablaEPP.getValueAt(fila, 20));
+                paramFirmadoEPP.setSelected((Boolean) paramTablaEPP.getValueAt(fila, 20));
                 //
                 paramIDNorma.setText(paramTablaEPP.getValueAt(fila, 21).toString());
-                
-                
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Fila no seleccionada");
             }
@@ -2122,86 +2115,84 @@ public static String convertirFecha(String fecha) {
             JOptionPane.showMessageDialog(null, "Error: " + e.toString());
         }
     }
-    
-    public void modificarEPP(JTextField paramIdBitacora, JTextField paramFechaRevision ) {
+
+    public void modificarEPP(JTextField paramIdBitacora, JTextField paramFechaRevisionEPP, JTextField paramNombreEPP,
+            JTextField paramAreaEPP, JTextField paramPuestoEPP, JCheckBox paramCascoEPP, JCheckBox paramLentesDeSeguridadEPP,
+            JCheckBox paramBotasDeSeguridadEPP, JCheckBox paramTaponesAuditivosEPP, JCheckBox paramGuantesEPP,
+            JCheckBox paramCaretaSoldarEPP, JCheckBox paramCaretaEsmerilarEPP,
+            JCheckBox paramMascarillaEPP, JCheckBox paramFajaEPP, JCheckBox paramArnesEPP, JCheckBox paramUniformeEPP, JCheckBox paramFirmadoEPP) {
 
         setiDbitacora(Integer.parseInt(paramIdBitacora.getText()));
-        
-        
-        /*setFecha_revision(paramFechaRevision.getText());
-        setUbicacion(paramUbicacion.getText());
-        setUltima_fecha_entrega(paramUltima_fecha_entrega.getText());
-        setProxima_recarga(paramProxima_recarga.getText());
-        setCapacidad_kgs(paramCapacidad_kgs.getText());
-        setTipo_agente_extinguidor(paramTipo_agente_extinguidor.getText());
-        //booleanos 
-        setManguera(paramManguera.isSelected());
-        setManometro(paramManometro.isSelected());
-        setSoporte(paramSoporte.isSelected());
-        setPresion(paramPresion.isSelected());
-        setCilindro(paramCilindro.isSelected());
-        setLimpieza(paramLimpieza.isSelected());
-        setEtiqueta(paramEtiqueta.isSelected());
-        setSeguro(paramSeguro.isSelected());
-        setObtruccion(paramObstruccion.isSelected());
-        setSenalizacion(paramSenalizacion.isSelected());
-        setObservacion(paramObservaciones.getText());
-        //setObservacion(paramObservaciones.getText());*/
+        setFecha_revision(paramFechaRevisionEPP.getText());
+        setNombre_epp(paramNombreEPP.getText());
+        setArea_epp(paramAreaEPP.getText());
+        setPuesto_epp(paramPuestoEPP.getText());
+        setCasco_epp(paramCascoEPP.isSelected());
+        setLentes_de_seguridad_epp(paramLentesDeSeguridadEPP.isSelected());
+        setBotas_de_seguridad_epp(paramBotasDeSeguridadEPP.isSelected());
+        setTapones_auditivos_epp(paramTaponesAuditivosEPP.isSelected());
+        setGuantes_epp(paramGuantesEPP.isSelected());
+        setCareta_soldar_epp(paramCaretaSoldarEPP.isSelected());
+        setCareta_esmerilar_epp(paramCaretaEsmerilarEPP.isSelected());
+        setMascarilla_epp(paramMascarillaEPP.isSelected());
+        setFaja_epp(paramFajaEPP.isSelected());
+        setArnes_epp(paramArnesEPP.isSelected());
+        setUniforme_epp(paramUniformeEPP.isSelected());
+        setFirmado_epp(paramFirmadoEPP.isSelected());
 
-        //setFirmado(paramFirmado.isSelected());
-        //setIdNorma(Integer.parseInt(paramIdNorma.getText()));
-        //setiDUsuario(Integer.parseInt(paramIdUsuario.getText()));
-        //setIdTerminal(Integer.parseInt(paramIdTerminal.getText()));
         TConexion obj3 = new TConexion();
-        String sql = "UPDATE public.bitacora "
-                + "SET fecha_revision = ?, "
-                + "ubicacion = ?, "
-                + "ultima_recarga = ?, "
-                + "proxima_recarga = ?, "
-                + "capacidad = ?, "
-                + "tipo_agente_extinguidor = ?, "
-                + "manguera = ?, "
-                + "manometro = ?, "
-                + "soporte = ?, "
-                + "presion = ?, "
-                + "cilindro = ?, "
-                + "limpieza = ?, "
-                + "etiqueta = ?, "
-                + "seguro = ?, "
-                + "obstruccion = ?, "
-                + "senalizacion = ?, "
-                + "observacion = ? "
-                + "WHERE id_bitacora = ?";
+        String sql = "UPDATE public.bitacora_epp "
+                + "SET fecha_revision=?, nombre=?, area=?, puesto=?, casco=?, "
+                + "lentes_de_seguridad=?, botas_de_seguridad=?, tapones_auditivos=?, guantes=?, "
+                + "careta_soldar=?, careta_esmerilar=?, mascarilla=?, faja=?, arnes=?, uniforme=?, "
+                + "firmado=? WHERE id_bitacora = ?";
 
         try {
-            CallableStatement cs = obj3.establecerConexion().prepareCall(sql);
+            String fechaTexto = paramFechaRevisionEPP.getText().trim(); // Eliminar espacios en blanco
 
-            cs.setString(1, getFecha_revision());
-            cs.setString(2, getUbicacion());
-            cs.setString(3, getUltima_fecha_recarga());
-            cs.setString(4, getProxima_recarga());
-            cs.setString(5, getCapacidad_kgs());
-            cs.setString(6, getTipo_agente_extinguidor());
-            //
-            cs.setBoolean(7, isManguera());
-            cs.setBoolean(8, isManometro());
-            cs.setBoolean(9, isSoporte());
-            cs.setBoolean(10, isPresion());
-            cs.setBoolean(11, isCilindro());
-            cs.setBoolean(12, isLimpieza());
-            cs.setBoolean(13, isEtiqueta());
-            cs.setBoolean(14, isSeguro());
-            cs.setBoolean(15, isObstruccion());
-            cs.setBoolean(16, isSenalizacion());
-            cs.setString(17, getObservacion());
-            cs.setInt(18, getiDbitacora());
+            // Verificar qué formato tiene realmente la fecha ingresada
+            //System.out.println("Fecha ingresada: " + fechaTexto);
 
-            cs.execute();
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            formato.setLenient(false); // Evita que acepte fechas inválidas como "2025/02/30"
 
-            JOptionPane.showMessageDialog(null, "Modificación Exitosa");
+            java.util.Date fechaUtil;
 
+            try {
+                fechaUtil = formato.parse(fechaTexto);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Usa yyyy/MM/dd.");
+                return;
+            }
+
+            java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+
+            try (Connection con = obj3.establecerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+                ps.setDate(1, fechaSQL); // Se usa setDate en lugar de setString
+                ps.setString(2, getNombre_epp());
+                ps.setString(3, getArea_epp());
+                ps.setString(4, getPuesto_epp());
+                ps.setBoolean(5, isCasco_epp());
+                ps.setBoolean(6, isLentes_de_seguridad_epp());
+                ps.setBoolean(7, isBotas_de_seguridad_epp());
+                ps.setBoolean(8, isTapones_auditivos_epp());
+                ps.setBoolean(9, isGuantes_epp());
+                ps.setBoolean(10, isCareta_soldar_epp());
+                ps.setBoolean(11, isCareta_esmerilar_epp());
+                ps.setBoolean(12, isMascarilla_epp());
+                ps.setBoolean(13, isFaja_epp());
+                ps.setBoolean(14, isArnes_epp());
+                ps.setBoolean(15, isUniforme_epp());
+                ps.setBoolean(16, isFirmado_epp());
+                ps.setInt(17, getiDbitacora());
+
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Modificación Exitosa");
+            }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No se modificó, error" + e.toString());
+            JOptionPane.showMessageDialog(null, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
