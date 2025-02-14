@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javafx.scene.paint.Color.color;
 
 public class homeScreen extends javax.swing.JFrame {
 
@@ -155,9 +154,9 @@ public class homeScreen extends javax.swing.JFrame {
         labelNorma = new javax.swing.JLabel();
         txtIDNorma = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        btnInsertar1 = new com.login.ModernButton();
-        btnModificar = new com.login.ModernButton();
-        btnExportar = new com.login.ModernButton();
+        btnInsertar1 = new ModernButton();
+        btnModificar = new ModernButton();
+        btnExportar = new ModernButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -1106,7 +1105,7 @@ public class homeScreen extends javax.swing.JFrame {
 
         if (btnExtintor.isSelected()) {
 
-            PDFExporter ejemplo = new PDFExporter(8f);
+            PDFExporter ejemplo = new PDFExporter();
             try {
                 ejemplo.ExtintorPDF();
             } catch (IOException ex) {
@@ -1314,12 +1313,12 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JPanel barNavMov;
     private javax.swing.JPanel bgHomeScreen;
     private javax.swing.JPanel bitacoras;
-    private com.login.ModernButton btnExportar;
+    private javax.swing.JButton btnExportar;
     private com.login.buttonsNormas btnExtintor;
     private com.login.buttonsNormas btnGas;
     private com.login.buttonsNormas btnHumo;
-    private com.login.ModernButton btnInsertar1;
-    private com.login.ModernButton btnModificar;
+    private javax.swing.JButton btnInsertar1;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JCheckBox cMalas;
     private javax.swing.JTextField cObservaciones;
     private javax.swing.JTextField cRegistrada;

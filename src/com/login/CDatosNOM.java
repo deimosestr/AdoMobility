@@ -1,35 +1,28 @@
 package com.login;
 
-import java.awt.Color;
-import java.awt.Component;
-//import java.awt.List;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import javax.swing.JCheckBox;
-import javax.swing.JTextField;
+import static com.login.globalV.fechaR;
 import java.sql.CallableStatement;
-import javax.swing.DefaultCellEditor;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import java.sql.PreparedStatement;
-import javax.swing.JLabel;
-import java.util.List;
-import java.util.ArrayList;
 
 public class CDatosNOM {
 
     TConexion obj = new TConexion();
+
 
     //Panel info
     int iDbitacora;
@@ -56,9 +49,10 @@ public class CDatosNOM {
     boolean limpieza;
     boolean etiqueta;
     boolean seguro;
-    boolean obtruccion;
+    boolean obstruccion;
     String observacion;
     boolean firmado;
+
 
     boolean senalizacion;
 
@@ -225,11 +219,9 @@ public class CDatosNOM {
     public String getUsuario() {
         return usuario;
     }
-
     public String getRegion() {
         return region;
     }
-
     public String getTerminal() {
         return terminal;
     }
@@ -403,7 +395,7 @@ public class CDatosNOM {
         this.ubicacion = ubicacion;
     }
 
-    public String getUltima_fecha_entrega() {
+    public String getUltima_fecha_recarga() {
         return ultima_fecha_entrega;
     }
 
@@ -499,12 +491,12 @@ public class CDatosNOM {
         this.seguro = seguro;
     }
 
-    public boolean isObtruccion() {
-        return obtruccion;
+    public boolean isObstruccion() {
+        return obstruccion;
     }
 
-    public void setObtruccion(boolean obtruccion) {
-        this.obtruccion = obtruccion;
+    public void setObstruccion(boolean obstruccion) {
+        this.obstruccion = obstruccion;
     }
 
     public String getObservacion() {
@@ -586,6 +578,68 @@ public class CDatosNOM {
             System.out.println("Error al actualizar la secuencia.");
         }
     }*/
+ /*public static String convertirFecha(String fecha) {
+    if (fecha == null || fecha.trim().isEmpty()) {
+        return "";
+    }
+    try {
+        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatoSalida = new SimpleDateFormat("dd/MM/yyyy");
+        java.util.Date fechaDate = formatoEntrada.parse(fecha);
+        return formatoSalida.format(fechaDate);
+    } catch (ParseException e) {
+        System.out.println("Error al convertir la fecha: " + fecha);
+        return fecha; // Devuelve la fecha original si hay un error
+    }
+}*/
+    /*public static String convertirFecha(String fecha) {
+        if (fecha == null || fecha.isEmpty()) {
+            return null; // Retorna null en lugar de una cadena vacía
+        }
+        try {
+            SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatoSalida = new SimpleDateFormat("dd/MM/yyyy");
+
+            java.util.Date fechaDate = formatoEntrada.parse(fecha);
+            return formatoSalida.format(fechaDate);
+        } catch (ParseException e) {
+            System.err.println("Error al convertir la fecha: " + fecha + " - " + e.getMessage());
+            return null; // Retorna null en caso de error
+        }
+    }*/
+public static String convertirFecha(String fecha) {
+    if (fecha == null || fecha.isEmpty()) {
+        return null; // Retorna null si la fecha es nula o vacía
+    }
+    
+    // Lista de formatos de entrada posibles
+    String[] formatos = {"yyyy-MM-dd", "dd/MM/yyyy", "MM/dd/yyyy"};
+    
+    for (String formato : formatos) {
+        try {
+            // Crear el formato de entrada
+            SimpleDateFormat formatoEntrada = new SimpleDateFormat(formato);
+            
+            // Analizar la fecha
+            java.util.Date fechaDate = formatoEntrada.parse(fecha);
+            
+            // Formato de salida (cambiar a yyyy-MM-dd)
+            SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
+            
+            // Retornar la fecha en el formato deseado
+            return formatoSalida.format(fechaDate);
+        } catch (ParseException e) {
+            // Si ocurre un error, simplemente continuamos con el siguiente formato
+            continue;
+        }
+    }
+    
+    // Si no se pudo convertir la fecha, retornar null
+    System.err.println("Error al convertir la fecha: " + fecha);
+    return null;
+}
+
+
     private void actualizarSecuencia(String ext, String nomTabla) {
         System.out.println("se intenta actualizar");
         String sql = "SELECT setval('" + ext + "', COALESCE((SELECT MAX(id_bitacora) FROM " + nomTabla + "), 0) + 1, false)";
@@ -872,7 +926,7 @@ public class CDatosNOM {
                 datos[2] = rs.getString(3); // Region
                 datos[3] = rs.getString(4); // terminales
                 datos[4] = rs.getString(5); // id_bitacora
-                datos[5] = rs.getString(6); // fecha_revision
+                datos[5] = convertirFecha(rs.getString(6)); // fecha_revision
                 datos[6] = rs.getString(7); // ubicacion
                 datos[7] = rs.getString(8); // ultima recarga
                 datos[8] = rs.getString(9); // proxima recarga
@@ -897,8 +951,6 @@ public class CDatosNOM {
                 modelo.addRow(datos);
             }
 
-            paramTablaNOM002.setModel(modelo);
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
         } finally {
@@ -916,8 +968,6 @@ public class CDatosNOM {
             }
         }
     }
-
-    //METODOS DE EXTINTORES
     public void seleccionarExtintores(
             JTable paramTablaNOM002, JTextField paramIDUsuario, JLabel paramResponsable,
             JLabel paramRegion, JLabel paramTerminales, JTextField paramIDBitacora,
@@ -933,7 +983,15 @@ public class CDatosNOM {
                 paramRegion.setText(paramTablaNOM002.getValueAt(fila, 2).toString());
                 paramTerminales.setText(paramTablaNOM002.getValueAt(fila, 3).toString());
                 paramIDBitacora.setText(paramTablaNOM002.getValueAt(fila, 4).toString());
-                paramFechaRevision.setText(paramTablaNOM002.getValueAt(fila, 5).toString());
+                
+                
+                //paramFechaRevision.setText(convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString()));
+                
+                
+                fechaR = convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString());
+                paramFechaRevision.setText(fechaR);
+                
+                
                 paramUbicacion.setText(paramTablaNOM002.getValueAt(fila, 6).toString());
                 paramUltimaRecarga.setText(paramTablaNOM002.getValueAt(fila, 7).toString());
                 paramProxima_recarga.setText(paramTablaNOM002.getValueAt(fila, 8).toString());
@@ -987,7 +1045,7 @@ public class CDatosNOM {
         setLimpieza(paramLimpieza.isSelected());
         setEtiqueta(paramEtiqueta.isSelected());
         setSeguro(paramSeguro.isSelected());
-        setObtruccion(paramObstruccion.isSelected());
+        setObstruccion(paramObstruccion.isSelected());
         setObservacion(paramObservaciones.getText());
         setFirmado(paramFirmado.isSelected());
         //setIdNorma(Integer.parseInt(paramId_Norma_Fk.getText()));
@@ -1011,10 +1069,13 @@ public class CDatosNOM {
         try {
             CallableStatement cs = obj.establecerConexion().prepareCall(sql);
 
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            java.sql.Date fechaRevision = new java.sql.Date(formato.parse(getFecha_revision()).getTime());
+
             //cs.setInt(1, getiDbitacora());
-            cs.setString(1, getFecha_revision());
+            cs.setDate(1, fechaRevision);
             cs.setString(2, getUbicacion());
-            cs.setString(3, getUltima_fecha_entrega());
+            cs.setString(3, getUltima_fecha_recarga());
             cs.setString(4, getProxima_recarga());
             cs.setString(5, getCapacidad_kgs());
             cs.setString(6, getTipo_agente_extinguidor());
@@ -1027,7 +1088,7 @@ public class CDatosNOM {
             cs.setBoolean(12, isLimpieza());
             cs.setBoolean(13, isEtiqueta());
             cs.setBoolean(14, isSeguro());
-            cs.setBoolean(15, isObtruccion());
+            cs.setBoolean(15, isObstruccion());
             cs.setString(16, getObservacion());
             cs.setBoolean(17, isFirmado());
             cs.setInt(18, idNorma_fk);
@@ -1070,7 +1131,7 @@ public class CDatosNOM {
         setLimpieza(paramLimpieza.isSelected());
         setEtiqueta(paramEtiqueta.isSelected());
         setSeguro(paramSeguro.isSelected());
-        setObtruccion(paramObstruccion.isSelected());
+        setObstruccion(paramObstruccion.isSelected());
         setSenalizacion(paramSenalizacion.isSelected());
         setObservacion(paramObservaciones.getText());
         //setObservacion(paramObservaciones.getText());
@@ -1105,7 +1166,7 @@ public class CDatosNOM {
 
             cs.setString(1, getFecha_revision());
             cs.setString(2, getUbicacion());
-            cs.setString(3, getUltima_fecha_entrega());
+            cs.setString(3, getUltima_fecha_recarga());
             cs.setString(4, getProxima_recarga());
             cs.setString(5, getCapacidad_kgs());
             cs.setString(6, getTipo_agente_extinguidor());
@@ -1118,7 +1179,7 @@ public class CDatosNOM {
             cs.setBoolean(12, isLimpieza());
             cs.setBoolean(13, isEtiqueta());
             cs.setBoolean(14, isSeguro());
-            cs.setBoolean(15, isObtruccion());
+            cs.setBoolean(15, isObstruccion());
             cs.setBoolean(16, isSenalizacion());
             cs.setString(17, getObservacion());
             cs.setInt(18, getiDbitacora());
@@ -1332,7 +1393,7 @@ public class CDatosNOM {
 
             cs.setString(1, getFecha_revision());
             cs.setString(2, getUbicacion());
-            cs.setString(3, getUltima_fecha_entrega());
+            cs.setString(3, getUltima_fecha_recarga());
             cs.setString(4, getProxima_recarga());
             cs.setString(5, getMarca());
             cs.setString(6, getTipo_agente_extinguidor());
@@ -1388,7 +1449,7 @@ public class CDatosNOM {
 
             cs.setString(1, getFecha_revision());
             cs.setString(2, getUbicacion());
-            cs.setString(3, getUltima_fecha_entrega());
+            cs.setString(3, getUltima_fecha_recarga());
             cs.setString(4, getProxima_recarga());
             cs.setString(5, getMarca());
             cs.setString(6, getTipo_agente_extinguidor());
@@ -1458,6 +1519,9 @@ public class CDatosNOM {
         if (!rutas.isEmpty()) {
             // Añadir las rutas al combo box
             comboBox.addItem("Seleccione un video");
+            System.out.println("PDF generado exitosamente: " );
+            System.out.println("PDF generado exitosamente: " );
+            System.out.println("PDF generado exitosamente: " );
             for (String ruta : rutas) {
                 comboBox.addItem(ruta);
             }
@@ -1465,6 +1529,8 @@ public class CDatosNOM {
             JOptionPane.showMessageDialog(null, "No se encontraron rutas en la BD", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
+
 
     public void seleccionarGas(
             JTable paramtablaGas, JTextField paramIDUsuario, JLabel paramlabelResponsable,
@@ -1511,7 +1577,6 @@ public class CDatosNOM {
             JOptionPane.showMessageDialog(null, "Error: " + e.toString());
         }
     }
-
     public void MostrarGas(JTable paramtablaGas) {
         TConexion obj2 = new TConexion();
 
@@ -2113,7 +2178,7 @@ public class CDatosNOM {
 
             cs.setString(1, getFecha_revision());
             cs.setString(2, getUbicacion());
-            cs.setString(3, getUltima_fecha_entrega());
+            cs.setString(3, getUltima_fecha_recarga());
             cs.setString(4, getProxima_recarga());
             cs.setString(5, getCapacidad_kgs());
             cs.setString(6, getTipo_agente_extinguidor());
@@ -2126,7 +2191,7 @@ public class CDatosNOM {
             cs.setBoolean(12, isLimpieza());
             cs.setBoolean(13, isEtiqueta());
             cs.setBoolean(14, isSeguro());
-            cs.setBoolean(15, isObtruccion());
+            cs.setBoolean(15, isObstruccion());
             cs.setBoolean(16, isSenalizacion());
             cs.setString(17, getObservacion());
             cs.setInt(18, getiDbitacora());

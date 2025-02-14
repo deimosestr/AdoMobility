@@ -1,5 +1,6 @@
 package com.login;
 
+import com.login.TConexion;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -474,8 +475,8 @@ public class Login extends javax.swing.JFrame {
 
                 if ("paoky".equalsIgnoreCase(username)) {
                     // Ventana especial para "paoky"
-                    adminScreen obj = new adminScreen();
-                    obj.setVisible(true);
+                    //adminScreen obj = new adminScreen();
+                   // obj.setVisible(true);
 
                 } else {
                     // Ventana normal para otros usuarios

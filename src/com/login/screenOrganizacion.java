@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javafx.scene.paint.Color.color;
+//import static javafx.scene.paint.Color.color;
 
 public class screenOrganizacion extends javax.swing.JFrame {
 
@@ -1128,7 +1128,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         if (btnEPP.isSelected()) {
 
-            PDFExporter ejemplo = new PDFExporter(8f);
+            PDFExporter ejemplo = new PDFExporter();
             try {
                 ejemplo.ExtintorPDF();
             } catch (IOException ex) {
