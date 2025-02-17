@@ -1061,15 +1061,37 @@ public class CDatosNOM {
                 + "etiqueta, seguro, obstruccion, observacion, firmado, id_norma_fk, id_usuario_fk, "
                 + "senalizacion, id_terminal_fk) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        
+            String fechaTexto = paramFecha_Revision.getText().trim(); // Eliminar espacios en blanco
+
+            // Verificar qué formato tiene realmente la fecha ingresada
+            System.out.println("Fecha ingresada: " + fechaTexto);
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            formato.setLenient(false); // Evita que acepte fechas inválidas como "2025/02/30"
+
+            java.util.Date fechaUtil;
+
+            try {
+                fechaUtil = formato.parse(fechaTexto);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Usa yyyy/MM/dd.");
+                return;
+            }
+
+            java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+
+        
 
         try {
             CallableStatement cs = obj.establecerConexion().prepareCall(sql);
 
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            java.sql.Date fechaRevision = new java.sql.Date(formato.parse(getFecha_revision()).getTime());
+            //SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            //java.sql.Date fechaRevision = new java.sql.Date(formato.parse(getFecha_revision()).getTime());
 
             //cs.setInt(1, getiDbitacora());
-            cs.setDate(1, fechaRevision);
+            cs.setDate(1, java.sql.Date.valueOf(getFecha_revision()));
+
+            //cs.setDate(1, fechaRevision);
             cs.setString(2, getUbicacion());
             cs.setString(3, getUltima_fecha_recarga());
             cs.setString(4, getProxima_recarga());
@@ -1099,11 +1121,14 @@ public class CDatosNOM {
 
             JOptionPane.showMessageDialog(null, "Inserción Existosa");
 
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error" + e.toString());
         }
+    
     }
-
+    
+   
     public void modificarExtintores(JTextField paramIdBitacora, JTextField paramFechaRevision,
             JTextField paramUbicacion, JTextField paramUltima_fecha_entrega, JTextField paramProxima_recarga,
             JTextField paramCapacidad_kgs, JTextField paramTipo_agente_extinguidor,
@@ -2152,7 +2177,6 @@ public class CDatosNOM {
 
             // Verificar qué formato tiene realmente la fecha ingresada
             //System.out.println("Fecha ingresada: " + fechaTexto);
-
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             formato.setLenient(false); // Evita que acepte fechas inválidas como "2025/02/30"
 
