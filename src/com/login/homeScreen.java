@@ -1125,15 +1125,11 @@ public class homeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExportarMouseClicked
 
     private void btnHumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHumoActionPerformed
-
         CardLayout layout = (CardLayout) bitacoras.getLayout();
         layout.show(bitacoras, "humo");
-
         btnExtintor.setSelected(false);
         btnHumo.setSelected(true);
         btnGas.setSelected(false);
-
-
     }//GEN-LAST:event_btnHumoActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
@@ -1191,13 +1187,9 @@ public class homeScreen extends javax.swing.JFrame {
     private void btnGasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGasActionPerformed
         CardLayout layout = (CardLayout) bitacoras.getLayout();
         layout.show(bitacoras, "gas"); // Cambia al panel humo.
-
         btnExtintor.setSelected(false);
         btnHumo.setSelected(false);
         btnGas.setSelected(true);
-
-        // Cambiar color de botón seleccionado
-
     }//GEN-LAST:event_btnGasActionPerformed
 
     private void btnGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGasMouseClicked

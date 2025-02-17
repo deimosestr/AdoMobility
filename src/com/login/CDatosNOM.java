@@ -2152,7 +2152,6 @@ public class CDatosNOM {
 
             // Verificar qué formato tiene realmente la fecha ingresada
             //System.out.println("Fecha ingresada: " + fechaTexto);
-
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             formato.setLenient(false); // Evita que acepte fechas inválidas como "2025/02/30"
 
