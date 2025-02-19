@@ -1016,7 +1016,7 @@ public class CDatosNOM {
         }
     }
 
-    public void insertarBitacoraExtintores(
+    public void insertarBitacoraExtin(
             JTextField paramFecha_Revision, JTextField paramUbicacion,
             JTextField paramUltima_Recarga, JTextField paramProxima_Recarga, JTextField paramCapacidad_kgs, JTextField paramTipo_agente_extinguidor,
             JCheckBox paramManguera, JCheckBox paramManometro, JCheckBox paramSoporte, JCheckBox paramPresion,
@@ -1025,14 +1025,13 @@ public class CDatosNOM {
             JTextField paramObservaciones, JCheckBox paramFirmado, JTextField paramId_Norma_Fk,
             JTextField paramId_Usuario_Fk, JCheckBox paramSenalizacion, String paramNombreTerminal) {
 
-        //setiDbitacora(Integer.parseInt(paramIDBitacora.getText()));
         setFecha_revision(paramFecha_Revision.getText());
         setUbicacion(paramUbicacion.getText());
         setUltima_fecha_entrega(paramUltima_Recarga.getText());
         setProxima_recarga(paramProxima_Recarga.getText());
         setCapacidad_kgs(paramCapacidad_kgs.getText());
         setTipo_agente_extinguidor(paramTipo_agente_extinguidor.getText());
-        //booleanos
+        //Datos booleanos
         setManguera(paramManguera.isSelected());
         setManometro(paramManometro.isSelected());
         setSoporte(paramSoporte.isSelected());
@@ -1043,11 +1042,7 @@ public class CDatosNOM {
         setSeguro(paramSeguro.isSelected());
         setObstruccion(paramObstruccion.isSelected());
         setObservacion(paramObservaciones.getText());
-        setFirmado(paramFirmado.isSelected());
-        //setIdNorma(Integer.parseInt(paramId_Norma_Fk.getText()));
-        //setiDUsuario(Integer.parseInt(paramId_Usuario_Fk.getText()));
         setSenalizacion(paramSenalizacion.isSelected());
-        //setIdTerminal(Integer.parseInt(paramId_Terminal_Fk.getText()));
 
         TConexion obj = new TConexion();
 
@@ -1065,11 +1060,7 @@ public class CDatosNOM {
         try {
             CallableStatement cs = obj.establecerConexion().prepareCall(sql);
 
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            java.sql.Date fechaRevision = new java.sql.Date(formato.parse(getFecha_revision()).getTime());
-
-            //cs.setInt(1, getiDbitacora());
-            cs.setDate(1, fechaRevision);
+            cs.setDate(1, java.sql.Date.valueOf(getFecha_revision()));
             cs.setString(2, getUbicacion());
             cs.setString(3, getUltima_fecha_recarga());
             cs.setString(4, getProxima_recarga());
@@ -1092,101 +1083,16 @@ public class CDatosNOM {
             cs.setBoolean(20, isSenalizacion());
             cs.setInt(21, idTerminal);
 
-            String ext = "bitacora_id_bitacora_seq";
-            String nomTabla = "bitacora";
+            String ext = "bitacora_epp_id_bitacora_seq";
+            String nomTabla = "bitacora_epp";
             actualizarSecuencia(ext, nomTabla);
+
             cs.execute();
-
             JOptionPane.showMessageDialog(null, "Inserción Existosa");
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error" + e.toString());
         }
-    }
 
-    public void modificarExtintores(JTextField paramIdBitacora, JTextField paramFechaRevision,
-            JTextField paramUbicacion, JTextField paramUltima_fecha_entrega, JTextField paramProxima_recarga,
-            JTextField paramCapacidad_kgs, JTextField paramTipo_agente_extinguidor,
-            JCheckBox paramManguera, JCheckBox paramManometro, JCheckBox paramSoporte, JCheckBox paramPresion,
-            JCheckBox paramCilindro, JCheckBox paramLimpieza, JCheckBox paramEtiqueta, JCheckBox paramSeguro,
-            JCheckBox paramObstruccion, JCheckBox paramSenalizacion, JTextField paramObservaciones) {
-
-        setiDbitacora(Integer.parseInt(paramIdBitacora.getText()));
-        setFecha_revision(paramFechaRevision.getText());
-        setUbicacion(paramUbicacion.getText());
-        setUltima_fecha_entrega(paramUltima_fecha_entrega.getText());
-        setProxima_recarga(paramProxima_recarga.getText());
-        setCapacidad_kgs(paramCapacidad_kgs.getText());
-        setTipo_agente_extinguidor(paramTipo_agente_extinguidor.getText());
-        //booleanos 
-        setManguera(paramManguera.isSelected());
-        setManometro(paramManometro.isSelected());
-        setSoporte(paramSoporte.isSelected());
-        setPresion(paramPresion.isSelected());
-        setCilindro(paramCilindro.isSelected());
-        setLimpieza(paramLimpieza.isSelected());
-        setEtiqueta(paramEtiqueta.isSelected());
-        setSeguro(paramSeguro.isSelected());
-        setObstruccion(paramObstruccion.isSelected());
-        setSenalizacion(paramSenalizacion.isSelected());
-        setObservacion(paramObservaciones.getText());
-        //setObservacion(paramObservaciones.getText());
-
-        //setFirmado(paramFirmado.isSelected());
-        //setIdNorma(Integer.parseInt(paramIdNorma.getText()));
-        //setiDUsuario(Integer.parseInt(paramIdUsuario.getText()));
-        //setIdTerminal(Integer.parseInt(paramIdTerminal.getText()));
-        TConexion obj3 = new TConexion();
-        String sql = "UPDATE public.bitacora "
-                + "SET fecha_revision = ?, "
-                + "ubicacion = ?, "
-                + "ultima_recarga = ?, "
-                + "proxima_recarga = ?, "
-                + "capacidad = ?, "
-                + "tipo_agente_extinguidor = ?, "
-                + "manguera = ?, "
-                + "manometro = ?, "
-                + "soporte = ?, "
-                + "presion = ?, "
-                + "cilindro = ?, "
-                + "limpieza = ?, "
-                + "etiqueta = ?, "
-                + "seguro = ?, "
-                + "obstruccion = ?, "
-                + "senalizacion = ?, "
-                + "observacion = ? "
-                + "WHERE id_bitacora = ?";
-
-        try {
-            CallableStatement cs = obj3.establecerConexion().prepareCall(sql);
-
-            cs.setString(1, getFecha_revision());
-            cs.setString(2, getUbicacion());
-            cs.setString(3, getUltima_fecha_recarga());
-            cs.setString(4, getProxima_recarga());
-            cs.setString(5, getCapacidad_kgs());
-            cs.setString(6, getTipo_agente_extinguidor());
-            //
-            cs.setBoolean(7, isManguera());
-            cs.setBoolean(8, isManometro());
-            cs.setBoolean(9, isSoporte());
-            cs.setBoolean(10, isPresion());
-            cs.setBoolean(11, isCilindro());
-            cs.setBoolean(12, isLimpieza());
-            cs.setBoolean(13, isEtiqueta());
-            cs.setBoolean(14, isSeguro());
-            cs.setBoolean(15, isObstruccion());
-            cs.setBoolean(16, isSenalizacion());
-            cs.setString(17, getObservacion());
-            cs.setInt(18, getiDbitacora());
-
-            cs.execute();
-
-            JOptionPane.showMessageDialog(null, "Modificación Exitosa");
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No se modificó, error" + e.toString());
-        }
     }
 
     //METODOS HUMO
@@ -1316,6 +1222,106 @@ public class CDatosNOM {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
             }
         }
+    }
+    public void modificarBitacoraExtintores(
+            JTextField paramIdBitacora, JTextField paramFechaRevision,
+            JTextField paramUbicacion, JTextField paramUltima_fecha_entrega, JTextField paramProxima_recarga,
+            JTextField paramCapacidad_kgs, JTextField paramTipo_agente_extinguidor,
+            JCheckBox paramManguera, JCheckBox paramManometro, JCheckBox paramSoporte, JCheckBox paramPresion,
+            JCheckBox paramCilindro, JCheckBox paramLimpieza, JCheckBox paramEtiqueta, JCheckBox paramSeguro,
+            JCheckBox paramObstruccion, JCheckBox paramSenalizacion, JTextField paramObservaciones) {
+
+        setiDbitacora(Integer.parseInt(paramIdBitacora.getText()));
+        setFecha_revision(paramFechaRevision.getText());
+        setUbicacion(paramUbicacion.getText());
+        setUltima_fecha_entrega(paramUltima_fecha_entrega.getText());
+        setProxima_recarga(paramProxima_recarga.getText());
+        setCapacidad_kgs(paramCapacidad_kgs.getText());
+        setTipo_agente_extinguidor(paramTipo_agente_extinguidor.getText());
+        setManguera(paramManguera.isSelected());
+        setManometro(paramManometro.isSelected());
+        setSoporte(paramSoporte.isSelected());
+        setPresion(paramPresion.isSelected());
+        setCilindro(paramCilindro.isSelected());
+        setLimpieza(paramLimpieza.isSelected());
+        setEtiqueta(paramEtiqueta.isSelected());
+        setSeguro(paramSeguro.isSelected());
+        setObstruccion(paramObstruccion.isSelected());
+        setSenalizacion(paramSenalizacion.isSelected());
+        setObservacion(paramObservaciones.getText());
+
+        TConexion obj3 = new TConexion();
+
+        String sql = "UPDATE public.bitacora SET fecha_revision = ?, ubicacion = ?, ultima_recarga = ?, proxima_recarga = ?, "
+                + "capacidad = ?, tipo_agente_extinguidor = ?, manguera = ?, manometro = ?, "
+                + "soporte = ?, presion = ?, cilindro = ?, limpieza = ?, "
+                + "etiqueta = ?, seguro = ?, obstruccion = ?, senalizacion = ?, "
+                + "observacion = ? WHERE id_bitacora = ?";
+        try {
+            String fechaTexto = paramFechaRevision.getText().trim(); // Eliminar espacios en blanco
+
+            // Verificar qué formato tiene realmente la fecha ingresada
+            //System.out.println("Fecha ingresada: " + fechaTexto);
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            formato.setLenient(false); // Evita que acepte fechas inválidas como "2025/02/30"
+
+            java.util.Date fechaUtil;
+
+            try {
+                fechaUtil = formato.parse(fechaTexto);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Usa yyyy-MM-dd.");
+                return;
+            }
+
+            java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+
+            try (Connection con = obj3.establecerConexion(); PreparedStatement cs = con.prepareStatement(sql)) {
+
+                cs.setDate(1, fechaSQL);
+                cs.setString(2, getUbicacion());
+                cs.setString(3, getUltima_fecha_recarga());
+                cs.setString(4, getProxima_recarga());
+                cs.setString(5, getCapacidad_kgs());
+                cs.setString(6, getTipo_agente_extinguidor());
+                cs.setBoolean(7, isManguera());
+                cs.setBoolean(8, isManometro());
+                cs.setBoolean(9, isSoporte());
+                cs.setBoolean(10, isPresion());
+                cs.setBoolean(11, isCilindro());
+                cs.setBoolean(12, isLimpieza());
+                cs.setBoolean(13, isEtiqueta());
+                cs.setBoolean(14, isSeguro());
+                cs.setBoolean(15, isObstruccion());
+                cs.setBoolean(16, isSenalizacion());
+                cs.setString(17, getObservacion());
+                cs.setInt(18, getiDbitacora());
+                /*ps.setDate(1, fechaSQL); // Se usa setDate en lugar de setString
+                ps.setString(2, getNombre_epp());
+                ps.setString(3, getArea_epp());
+                ps.setString(4, getPuesto_epp());
+                ps.setBoolean(5, isCasco_epp());
+                ps.setBoolean(6, isLentes_de_seguridad_epp());
+                ps.setBoolean(7, isBotas_de_seguridad_epp());
+                ps.setBoolean(8, isTapones_auditivos_epp());
+                ps.setBoolean(9, isGuantes_epp());
+                ps.setBoolean(10, isCareta_soldar_epp());
+                ps.setBoolean(11, isCareta_esmerilar_epp());
+                ps.setBoolean(12, isMascarilla_epp());
+                ps.setBoolean(13, isFaja_epp());
+                ps.setBoolean(14, isArnes_epp());
+                ps.setBoolean(15, isUniforme_epp());
+                ps.setBoolean(16, isFirmado_epp());
+                ps.setInt(17, getiDbitacora());*/
+
+                cs.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Modificación Exitosa");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+
     }
 
     public void seleccionarHumo(

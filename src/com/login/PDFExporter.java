@@ -54,13 +54,18 @@ public class PDFExporter {
                     + "b.seguro, b.obstruccion, b.observacion, b.fecha_revision "
                     + "FROM bitacora b "
                     + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
-                    + "WHERE u.username = ? AND b.fecha_revision = TO_DATE(?, 'YYYY-MM-DD');";
+                    + "WHERE u.username = ? "
+                    + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? " // Filtra por mes
+                    + "AND EXTRACT(YEAR FROM b.fecha_revision) = ?";   // Filtra por año
 
             PreparedStatement statement = conn.prepareStatement(sql);
 
             LocalDate fecha = LocalDate.parse(globalV.fechaR);  // Asegúrate que globalV.fechaR esté en formato correcto
+            int mes = fecha.getMonthValue();
+            int ano = fecha.getYear();
             statement.setString(1, globalV.user);  // Asegúrate de que "globalV.user" esté definido
-            statement.setString(2, globalV.fechaR);
+            statement.setInt(2, mes);
+            statement.setInt(3, ano);
             ResultSet resultSet = statement.executeQuery();
 
             PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
@@ -125,7 +130,6 @@ public class PDFExporter {
             System.out.println("PDF generado exitosamente: " + destino);
             System.out.println("PDF generado exitosamente: " + destino);
             System.out.println("PDF generado exitosamente: " + destino);
-            
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1066,12 +1066,10 @@ public class homeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (btnExtintor.isSelected()) {
-            obj.modificarExtintores(
-                    txtIDBitacora, txtFecha, ubicacion, ultimaRecarga,
-                    proximaRecarga, capacidad, agenteExtinguidor,
-                    chckManguera, chckManometro, chckSoporte, chckPresion,
-                    chckCilindro, chckLimpieza, chckEtiqueta, chckSeguro,
-                    chckObstrucciones, chckSenalizacion, observaciones);
+            obj.modificarBitacoraExtintores(txtIDBitacora, txtFecha, ubicacion, 
+                    ultimaRecarga, proximaRecarga, capacidad, agenteExtinguidor, 
+                    chckManguera, chckManometro, chckSoporte, chckPresion, chckCilindro, chckLimpieza,
+                    chckEtiqueta, chckSeguro, chckObstrucciones, chckSenalizacion, observaciones);
             obj.MostrarExtintores(tbExtintores);
 
         }
@@ -1235,12 +1233,18 @@ public class homeScreen extends javax.swing.JFrame {
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
 
         if (btnExtintor.isSelected()) {
-            obj.insertarBitacoraExtintores(fechaFabricacion, ubicacion, ultimaRecarga, proximaRecarga,
+            /*obj.insertarBitacoraExtintores(fechaFabricacion, ubicacion, ultimaRecarga, proximaRecarga,
                     capacidad, agenteExtinguidor, chckManguera,
                     chckManometro, chckSoporte, chckPresion, chckCilindro,
                     chckLimpieza, chckEtiqueta, chckSeguro, chckObstrucciones, cObservaciones,
-                    firma, txtIDNorma, txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());
-            //obj.MostrarExtintores(tabla);
+                    firma, txtIDNorma, txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());*/
+            obj.insertarBitacoraExtin(txtFecha, ubicacion, ultimaRecarga,
+                    proximaRecarga, capacidad, agenteExtinguidor,
+                    chckManguera, chckManometro, chckSoporte, chckPresion, 
+                    chckCilindro, chckLimpieza, chckEtiqueta, chckSeguro, 
+                    chckObstrucciones, observaciones, firma, txtIDNorma, 
+                    txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());
+            obj.MostrarExtintores(tbExtintores);
 
         }
 
