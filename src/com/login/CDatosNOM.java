@@ -1430,8 +1430,8 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
             JTextField paramFechaRevision, JTextField paramUbicacion, JTextField paramUltima_Fecha_pila,
             JTextField paramProximo_Cambio, JTextField paramMarca, JTextField paramTipo_Detector, JCheckBox paramPrueba_Funcionamiento,
             JCheckBox paramSoporte, JCheckBox paramUbicacion_Fisica, JTextField paramObservaciones,
-            JTextField paramId_Norma_Fk, JTextField paramId_Usuario_Fk, String paramNombreTerminal
-    ) {
+            JTextField paramId_Norma_Fk, JTextField paramId_Usuario_Fk, String paramNombreTerminal) {
+
         setFecha_revision(paramFechaRevision.getText());
         setUbicacion(paramUbicacion.getText());
         setUltima_fecha_entrega(paramUltima_Fecha_pila.getText());
@@ -1457,7 +1457,7 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
         try {
             CallableStatement cs = obj.establecerConexion().prepareCall(sql);
 
-            cs.setString(1, getFecha_revision());
+            cs.setDate(1, java.sql.Date.valueOf(getFecha_revision()));
             cs.setString(2, getUbicacion());
             cs.setString(3, getUltima_fecha_recarga());
             cs.setString(4, getProxima_recarga());
@@ -1511,21 +1511,40 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
                 + "WHERE id_bitacora = ?";
 
         try {
-            CallableStatement cs = obj3.establecerConexion().prepareCall(sql);
+            String fechaTexto = paramFechaRevision.getText().trim(); // Eliminar espacios en blanco
 
-            cs.setString(1, getFecha_revision());
-            cs.setString(2, getUbicacion());
-            cs.setString(3, getUltima_fecha_recarga());
-            cs.setString(4, getProxima_recarga());
-            cs.setString(5, getMarca());
-            cs.setString(6, getTipo_agente_extinguidor());
-            cs.setBoolean(7, isPrueba_funcionamiento());
-            cs.setBoolean(8, isSoporte());
-            cs.setBoolean(9, isUbicacion_fisica());
-            cs.setString(10, getObservacion());
-            cs.setInt(11, getiDbitacora());
+            // Verificar qué formato tiene realmente la fecha ingresada
+            //System.out.println("Fecha ingresada: " + fechaTexto);
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            formato.setLenient(false); // Evita que acepte fechas inválidas como "2025/02/30"
 
-            cs.execute();
+            java.util.Date fechaUtil;
+
+            try {
+                fechaUtil = formato.parse(fechaTexto);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Usa yyyy-MM-dd.");
+                return;
+            }
+
+            java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+
+            try (Connection con = obj3.establecerConexion(); PreparedStatement cs = con.prepareStatement(sql)) {
+
+                cs.setDate(1, fechaSQL);
+                cs.setString(2, getUbicacion());
+                cs.setString(3, getUltima_fecha_recarga());
+                cs.setString(4, getProxima_recarga());
+                cs.setString(5, getMarca());
+                cs.setString(6, getTipo_agente_extinguidor());
+                cs.setBoolean(7, isPrueba_funcionamiento());
+                cs.setBoolean(8, isSoporte());
+                cs.setBoolean(9, isUbicacion_fisica());
+                cs.setString(10, getObservacion());
+                cs.setInt(11, getiDbitacora());
+                cs.execute();
+            }
+
             JOptionPane.showMessageDialog(null, "Modificación Exitosa");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se modificó, error" + e.toString());
@@ -1817,26 +1836,45 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
                 + "WHERE id_bitacora = ?";
 
         try {
-            CallableStatement cs = obj3.establecerConexion().prepareCall(sql);
+            String fechaTexto = paramFechaRevision.getText().trim(); // Eliminar espacios en blanco
 
-            cs.setString(1, getFecha_revision());
-            cs.setString(2, getNomEmpresa());
-            cs.setBoolean(3, isC_Buena());
-            cs.setBoolean(4, isC_Regular());
-            cs.setBoolean(5, iscMalas());
-            cs.setString(6, getcObservaciones());
-            cs.setString(7, getCapacidadTanque());
-            cs.setString(8, getFechaFabricacion());
-            cs.setString(9, getcRegistrada());
-            cs.setString(10, gettObservaciones());
-            cs.setString(11, getMarcaTanque());
-            cs.setString(12, getNumSerie());
-            cs.setString(13, getDiametroEXT());
-            cs.setString(14, getEspesor());
-            cs.setInt(15, getiDbitacora());
+            // Verificar qué formato tiene realmente la fecha ingresada
+            //System.out.println("Fecha ingresada: " + fechaTexto);
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            formato.setLenient(false); // Evita que acepte fechas inválidas como "2025/02/30"
 
-            cs.execute();
-            JOptionPane.showMessageDialog(null, "Modificación Exitosa");
+            java.util.Date fechaUtil;
+
+            try {
+                fechaUtil = formato.parse(fechaTexto);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Usa yyyy-MM-dd.");
+                return;
+            }
+
+            java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+
+            try (Connection con = obj3.establecerConexion(); PreparedStatement cs = con.prepareStatement(sql)) {
+
+                cs.setDate(1, fechaSQL);
+                cs.setString(2, getNomEmpresa());
+                cs.setBoolean(3, isC_Buena());
+                cs.setBoolean(4, isC_Regular());
+                cs.setBoolean(5, iscMalas());
+                cs.setString(6, getcObservaciones());
+                cs.setString(7, getCapacidadTanque());
+                cs.setString(8, getFechaFabricacion());
+                cs.setString(9, getcRegistrada());
+                cs.setString(10, gettObservaciones());
+                cs.setString(11, getMarcaTanque());
+                cs.setString(12, getNumSerie());
+                cs.setString(13, getDiametroEXT());
+                cs.setString(14, getEspesor());
+                cs.setInt(15, getiDbitacora());
+
+                cs.execute();
+                JOptionPane.showMessageDialog(null, "Modificación Exitosa");
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se modificó, error" + e.toString());
         }
@@ -1848,8 +1886,7 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
             JCheckBox paramc_Buena, JCheckBox paramc_Regular, JTextField paramcObservaciones, JTextField paramCapacidadTanque,
             JTextField paramfechaFabricacion, JTextField paramcRegistrada, JTextField paramtObservaciones,
             JTextField parammarca, JTextField paramnumSerie, JTextField paramdiametroEXT, JTextField paramespesor,
-            JTextField paramId_Norma_Fk, JTextField paramId_Usuario_Fk, String paramNombreTerminal
-    ) {
+            JTextField paramId_Norma_Fk, JTextField paramId_Usuario_Fk, String paramNombreTerminal) {
 
         setFecha_revision(paramFechaRevision.getText());
         setNomEmpresa(paramnomEmpresa.getText());
@@ -1881,7 +1918,7 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
         try {
             CallableStatement cs = obj.establecerConexion().prepareCall(sql);
 
-            cs.setString(1, getFecha_revision());
+            cs.setDate(1, java.sql.Date.valueOf(getFecha_revision()));
             cs.setString(2, getNomEmpresa());
             cs.setBoolean(3, isC_Buena());
             cs.setBoolean(4, iscMalas());

@@ -1113,6 +1113,16 @@ public class homeScreen extends javax.swing.JFrame {
         }
 
         if (btnHumo.isSelected()) {
+                    if (btnHumo.isSelected()) {
+
+            PDFExporter ejemplo = new PDFExporter();
+            try {
+                ejemplo.HumoPDF();
+            } catch (IOException ex) {
+                Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
 
         }
 
