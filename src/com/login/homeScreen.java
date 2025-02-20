@@ -81,33 +81,42 @@ public class homeScreen extends javax.swing.JFrame {
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
         gas = new javax.swing.JPanel();
-        titulo = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        nomEmpresa = new javax.swing.JTextField();
-        cMalas = new javax.swing.JCheckBox();
-        c_Buena = new javax.swing.JCheckBox();
-        c_Regular = new javax.swing.JCheckBox();
-        cObservaciones = new javax.swing.JTextField();
-        capacidadTanque = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        fondoSoporte = new javax.swing.JPanel();
         fechaFabricacion = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        cRegistrada = new javax.swing.JTextField();
+        fechaDeFabricacion = new javax.swing.JLabel();
+        separadorCapTanque = new javax.swing.JSeparator();
+        capacidadTanque = new javax.swing.JTextField();
+        capacidaTanque = new javax.swing.JLabel();
         tObservaciones = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        marca = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        numSerie = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        diametroEXT = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        espesor = new javax.swing.JTextField();
+        cMalas = new javax.swing.JCheckBox();
+        c_Regular = new javax.swing.JCheckBox();
+        c_Buena = new javax.swing.JCheckBox();
+        titulo = new javax.swing.JLabel();
+        labelNombreEmpresa = new javax.swing.JLabel();
+        nomEmpresa = new javax.swing.JTextField();
+        separadorNomEmpresa = new javax.swing.JSeparator();
+        jSeparator1 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
         tbGas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaGas = new javax.swing.JTable();
+        fondoTanque = new javax.swing.JPanel();
+        cObservaciones = new javax.swing.JTextField();
+        espesorGas = new javax.swing.JLabel();
+        diametroExterior = new javax.swing.JLabel();
+        numSerieGas = new javax.swing.JLabel();
+        marcaGas = new javax.swing.JLabel();
+        capacidadRegistrada = new javax.swing.JLabel();
+        espesor = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator6 = new javax.swing.JSeparator();
+        jSeparator13 = new javax.swing.JSeparator();
+        jSeparator14 = new javax.swing.JSeparator();
+        diametroEXT = new javax.swing.JTextField();
+        numSerie = new javax.swing.JTextField();
+        marca = new javax.swing.JTextField();
+        cRegistrada = new javax.swing.JTextField();
         extintores = new javax.swing.JPanel();
         informacion1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -153,7 +162,7 @@ public class homeScreen extends javax.swing.JFrame {
         labelTerminales = new javax.swing.JLabel();
         labelNorma = new javax.swing.JLabel();
         txtIDNorma = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        botonesInferiores = new javax.swing.JPanel();
         btnInsertar1 = new ModernButton();
         btnModificar = new ModernButton();
         btnExportar = new ModernButton();
@@ -301,7 +310,7 @@ public class homeScreen extends javax.swing.JFrame {
         humo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbHumo.setBackground(new java.awt.Color(255, 255, 255));
-        tbHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        tbHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
         tablaHumo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -393,7 +402,7 @@ public class homeScreen extends javax.swing.JFrame {
         humo.add(ubicacionFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 80, 20));
 
         observacionesHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        observacionesHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        observacionesHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
         humo.add(observacionesHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 310, 60));
 
         jSeparator5.setBackground(new java.awt.Color(197, 172, 204));
@@ -423,22 +432,48 @@ public class homeScreen extends javax.swing.JFrame {
         gas.setBackground(new java.awt.Color(255, 255, 255));
         gas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        titulo.setBackground(new java.awt.Color(255, 255, 255));
-        titulo.setText("Condicion General de soportes");
-        gas.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
+        fondoSoporte.setBackground(new java.awt.Color(255, 255, 255));
+        fondoSoporte.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Soporte", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        fondoSoporte.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Nombre de la empresa:");
-        gas.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-        nomEmpresa.addActionListener(new java.awt.event.ActionListener() {
+        fechaFabricacion.setBorder(null);
+        fechaFabricacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomEmpresaActionPerformed(evt);
+                fechaFabricacionActionPerformed(evt);
             }
         });
-        gas.add(nomEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 190, 20));
+        fondoSoporte.add(fechaFabricacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 170, -1));
+
+        fechaDeFabricacion.setText("Fecha de fabricacion:");
+        fondoSoporte.add(fechaDeFabricacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
+
+        separadorCapTanque.setBackground(new java.awt.Color(197, 172, 204));
+        separadorCapTanque.setForeground(new java.awt.Color(197, 172, 204));
+        fondoSoporte.add(separadorCapTanque, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 170, 10));
+
+        capacidadTanque.setBorder(null);
+        capacidadTanque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                capacidadTanqueActionPerformed(evt);
+            }
+        });
+        fondoSoporte.add(capacidadTanque, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 170, -1));
+
+        capacidaTanque.setText("Capacidad del tanque:");
+        fondoSoporte.add(capacidaTanque, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+
+        tObservaciones.setBackground(new java.awt.Color(255, 255, 255));
+        tObservaciones.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        tObservaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        tObservaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tObservacionesActionPerformed(evt);
+            }
+        });
+        fondoSoporte.add(tObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 310, 70));
 
         cMalas.setBackground(new java.awt.Color(255, 255, 255));
-        cMalas.setText("         Malas");
+        cMalas.setText("Malas");
         cMalas.setBorder(null);
         cMalas.setBorderPainted(true);
         cMalas.addActionListener(new java.awt.event.ActionListener() {
@@ -446,10 +481,21 @@ public class homeScreen extends javax.swing.JFrame {
                 cMalasActionPerformed(evt);
             }
         });
-        gas.add(cMalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 100, 20));
+        fondoSoporte.add(cMalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 100, 20));
+
+        c_Regular.setBackground(new java.awt.Color(255, 255, 255));
+        c_Regular.setText("Regular");
+        c_Regular.setBorder(null);
+        c_Regular.setBorderPainted(true);
+        c_Regular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                c_RegularActionPerformed(evt);
+            }
+        });
+        fondoSoporte.add(c_Regular, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 100, 20));
 
         c_Buena.setBackground(new java.awt.Color(255, 255, 255));
-        c_Buena.setText("         Buena");
+        c_Buena.setText("Buena");
         c_Buena.setBorder(null);
         c_Buena.setBorderPainted(true);
         c_Buena.setMaximumSize(new java.awt.Dimension(80, 20));
@@ -459,104 +505,40 @@ public class homeScreen extends javax.swing.JFrame {
                 c_BuenaActionPerformed(evt);
             }
         });
-        gas.add(c_Buena, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 100, 20));
+        fondoSoporte.add(c_Buena, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 100, 20));
 
-        c_Regular.setBackground(new java.awt.Color(255, 255, 255));
-        c_Regular.setText("         Regular");
-        c_Regular.setBorder(null);
-        c_Regular.setBorderPainted(true);
-        c_Regular.addActionListener(new java.awt.event.ActionListener() {
+        titulo.setBackground(new java.awt.Color(255, 255, 255));
+        titulo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        titulo.setText("Condicion General de soportes");
+        fondoSoporte.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+
+        labelNombreEmpresa.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        labelNombreEmpresa.setText("Nombre de la empresa:");
+        fondoSoporte.add(labelNombreEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        nomEmpresa.setBorder(null);
+        nomEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                c_RegularActionPerformed(evt);
+                nomEmpresaActionPerformed(evt);
             }
         });
-        gas.add(c_Regular, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 100, 20));
+        fondoSoporte.add(nomEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 170, 20));
 
-        cObservaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        cObservaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cObservacionesActionPerformed(evt);
-            }
-        });
-        gas.add(cObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 230, 80));
+        separadorNomEmpresa.setBackground(new java.awt.Color(197, 172, 204));
+        separadorNomEmpresa.setForeground(new java.awt.Color(197, 172, 204));
+        fondoSoporte.add(separadorNomEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 170, 10));
 
-        capacidadTanque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                capacidadTanqueActionPerformed(evt);
-            }
-        });
-        gas.add(capacidadTanque, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 70, -1));
+        jSeparator1.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator1.setForeground(new java.awt.Color(197, 172, 204));
+        fondoSoporte.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 170, 10));
 
-        jLabel1.setText("Capacidad del tanque");
-        gas.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
-
-        jLabel3.setText("Fecha de fabricacion");
-        gas.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
-
-        fechaFabricacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechaFabricacionActionPerformed(evt);
-            }
-        });
-        gas.add(fechaFabricacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 70, -1));
-
-        jLabel4.setText("Capacidad registrada");
-        gas.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 120, 20));
-        gas.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
-
-        cRegistrada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cRegistradaActionPerformed(evt);
-            }
-        });
-        gas.add(cRegistrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 70, -1));
-
-        tObservaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        tObservaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tObservacionesActionPerformed(evt);
-            }
-        });
-        gas.add(tObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 310, 90));
-
-        jLabel6.setText("Marca");
-        gas.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, -1, -1));
-
-        marca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                marcaActionPerformed(evt);
-            }
-        });
-        gas.add(marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 70, -1));
-
-        jLabel7.setText("# Serie");
-        gas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, -1));
-
-        numSerie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numSerieActionPerformed(evt);
-            }
-        });
-        gas.add(numSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 120, -1));
-
-        jLabel8.setText("Diametro exterior");
-        gas.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
-        gas.add(diametroEXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 80, -1));
-
-        jLabel9.setText("Espesor");
-        gas.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
-
-        espesor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                espesorActionPerformed(evt);
-            }
-        });
-        gas.add(espesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 70, -1));
+        gas.add(fondoSoporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 330, 240));
 
         jLabel10.setText("Especificaciones del Tanque");
         gas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
 
-        jScrollPane1.setBorder(null);
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Informacion", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jScrollPane1MouseClicked(evt);
@@ -597,13 +579,103 @@ public class homeScreen extends javax.swing.JFrame {
 
         gas.add(tbGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 510, 100));
 
+        fondoTanque.setBackground(new java.awt.Color(255, 255, 255));
+        fondoTanque.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Tanque", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        fondoTanque.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cObservaciones.setBackground(new java.awt.Color(255, 255, 255));
+        cObservaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        cObservaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cObservacionesActionPerformed(evt);
+            }
+        });
+        fondoTanque.add(cObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 230, 60));
+
+        espesorGas.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        espesorGas.setText("Espesor:");
+        fondoTanque.add(espesorGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+
+        diametroExterior.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        diametroExterior.setText("Diametro exterior:");
+        fondoTanque.add(diametroExterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        numSerieGas.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        numSerieGas.setText("Num. Serie:");
+        fondoTanque.add(numSerieGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+
+        marcaGas.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        marcaGas.setText("Marca:");
+        fondoTanque.add(marcaGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+
+        capacidadRegistrada.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        capacidadRegistrada.setText("Capacidad registrada:");
+        fondoTanque.add(capacidadRegistrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 130, 20));
+
+        espesor.setBorder(null);
+        espesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                espesorActionPerformed(evt);
+            }
+        });
+        fondoTanque.add(espesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 100, -1));
+
+        jSeparator2.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator2.setForeground(new java.awt.Color(197, 172, 204));
+        fondoTanque.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 100, 10));
+
+        jSeparator3.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator3.setForeground(new java.awt.Color(197, 172, 204));
+        fondoTanque.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 100, 10));
+
+        jSeparator6.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator6.setForeground(new java.awt.Color(197, 172, 204));
+        fondoTanque.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 100, 10));
+
+        jSeparator13.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator13.setForeground(new java.awt.Color(197, 172, 204));
+        fondoTanque.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 100, 10));
+
+        jSeparator14.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator14.setForeground(new java.awt.Color(197, 172, 204));
+        fondoTanque.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 100, 10));
+
+        diametroEXT.setBorder(null);
+        fondoTanque.add(diametroEXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 100, -1));
+
+        numSerie.setBorder(null);
+        numSerie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numSerieActionPerformed(evt);
+            }
+        });
+        fondoTanque.add(numSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 100, -1));
+
+        marca.setBorder(null);
+        marca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                marcaActionPerformed(evt);
+            }
+        });
+        fondoTanque.add(marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 100, -1));
+
+        cRegistrada.setBorder(null);
+        cRegistrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cRegistradaActionPerformed(evt);
+            }
+        });
+        fondoTanque.add(cRegistrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 100, -1));
+
+        gas.add(fondoTanque, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 250, 240));
+
         bitacoras.add(gas, "card4");
 
         extintores.setBackground(new java.awt.Color(255, 255, 255));
         extintores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         informacion1.setBackground(new java.awt.Color(255, 255, 255));
-        informacion1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        informacion1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
         tbExtintores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -752,9 +824,10 @@ public class homeScreen extends javax.swing.JFrame {
         chckObstrucciones.setText("Obstrucciones");
         extintores.add(chckObstrucciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 120, -1));
 
+        observaciones.setBackground(new java.awt.Color(255, 255, 255));
         observaciones.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        observaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
-        extintores.add(observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 310, 80));
+        observaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        extintores.add(observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 300, 80));
 
         firma.setBackground(new java.awt.Color(255, 255, 255));
         firma.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
@@ -818,6 +891,7 @@ public class homeScreen extends javax.swing.JFrame {
         txtIDBitacora.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 3, true));
         panelinfo.add(txtIDBitacora, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 30, -1));
 
+        txtFecha.setBackground(new java.awt.Color(255, 255, 255));
         txtFecha.setFont(new java.awt.Font("Roboto", 1, 10)); // NOI18N
         txtFecha.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204), 3), "Fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_BOTTOM, new java.awt.Font("Roboto", 1, 12))); // NOI18N
         txtFecha.addActionListener(new java.awt.event.ActionListener() {
@@ -857,8 +931,8 @@ public class homeScreen extends javax.swing.JFrame {
 
         bgHomeScreen.add(panelinfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 610, 60));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        botonesInferiores.setBackground(new java.awt.Color(255, 255, 255));
+        botonesInferiores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnInsertar1.setText("AGREGAR");
         btnInsertar1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -871,7 +945,7 @@ public class homeScreen extends javax.swing.JFrame {
                 btnInsertar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnInsertar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
+        botonesInferiores.add(btnInsertar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
 
         btnModificar.setText("MODIFICAR");
         btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -884,7 +958,7 @@ public class homeScreen extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+        botonesInferiores.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
 
         btnExportar.setText("EXPORTAR");
         btnExportar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -897,9 +971,9 @@ public class homeScreen extends javax.swing.JFrame {
                 btnExportarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        botonesInferiores.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        bgHomeScreen.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 610, 50));
+        bgHomeScreen.add(botonesInferiores, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 610, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1066,8 +1140,8 @@ public class homeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (btnExtintor.isSelected()) {
-            obj.modificarBitacoraExtintores(txtIDBitacora, txtFecha, ubicacion, 
-                    ultimaRecarga, proximaRecarga, capacidad, agenteExtinguidor, 
+            obj.modificarBitacoraExtintores(txtIDBitacora, txtFecha, ubicacion,
+                    ultimaRecarga, proximaRecarga, capacidad, agenteExtinguidor,
                     chckManguera, chckManometro, chckSoporte, chckPresion, chckCilindro, chckLimpieza,
                     chckEtiqueta, chckSeguro, chckObstrucciones, chckSenalizacion, observaciones);
             obj.MostrarExtintores(tbExtintores);
@@ -1233,17 +1307,34 @@ public class homeScreen extends javax.swing.JFrame {
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
 
         if (btnExtintor.isSelected()) {
-            /*obj.insertarBitacoraExtintores(fechaFabricacion, ubicacion, ultimaRecarga, proximaRecarga,
-                    capacidad, agenteExtinguidor, chckManguera,
-                    chckManometro, chckSoporte, chckPresion, chckCilindro,
-                    chckLimpieza, chckEtiqueta, chckSeguro, chckObstrucciones, cObservaciones,
-                    firma, txtIDNorma, txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());*/
             obj.insertarBitacoraExtin(txtFecha, ubicacion, ultimaRecarga,
                     proximaRecarga, capacidad, agenteExtinguidor,
-                    chckManguera, chckManometro, chckSoporte, chckPresion, 
-                    chckCilindro, chckLimpieza, chckEtiqueta, chckSeguro, 
-                    chckObstrucciones, observaciones, firma, txtIDNorma, 
+                    chckManguera, chckManometro, chckSoporte, chckPresion,
+                    chckCilindro, chckLimpieza, chckEtiqueta, chckSeguro,
+                    chckObstrucciones, observaciones, firma, txtIDNorma,
                     txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());
+            txtFecha.setText("");
+            ubicacion.setText("");
+            ultimaRecarga.setText("");
+            proximaRecarga.setText("");
+            capacidad.setText("");
+            agenteExtinguidor.setText("");
+            observaciones.setText("");
+            firma.setText("");
+            txtIDNorma.setText("");
+            txtiDUsuario.setText("");
+
+            // Desmarcar checkboxes
+            chckManguera.setSelected(false);
+            chckManometro.setSelected(false);
+            chckSoporte.setSelected(false);
+            chckPresion.setSelected(false);
+            chckCilindro.setSelected(false);
+            chckLimpieza.setSelected(false);
+            chckEtiqueta.setSelected(false);
+            chckSeguro.setSelected(false);
+            chckObstrucciones.setSelected(false);
+            chckSenalizacion.setSelected(false);
             obj.MostrarExtintores(tbExtintores);
 
         }
@@ -1309,6 +1400,7 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JPanel barNavMov;
     private javax.swing.JPanel bgHomeScreen;
     private javax.swing.JPanel bitacoras;
+    private javax.swing.JPanel botonesInferiores;
     private javax.swing.JButton btnExportar;
     private com.login.buttonsNormas btnExtintor;
     private com.login.buttonsNormas btnGas;
@@ -1320,7 +1412,9 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JTextField cRegistrada;
     private javax.swing.JCheckBox c_Buena;
     private javax.swing.JCheckBox c_Regular;
+    private javax.swing.JLabel capacidaTanque;
     private javax.swing.JTextField capacidad;
+    private javax.swing.JLabel capacidadRegistrada;
     private javax.swing.JTextField capacidadTanque;
     private javax.swing.JCheckBox chckCilindro;
     private javax.swing.JCheckBox chckEtiqueta;
@@ -1333,37 +1427,38 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JCheckBox chckSenalizacion;
     private javax.swing.JCheckBox chckSoporte;
     private javax.swing.JTextField diametroEXT;
+    private javax.swing.JLabel diametroExterior;
     private javax.swing.JTextField espesor;
+    private javax.swing.JLabel espesorGas;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel extintores;
+    private javax.swing.JLabel fechaDeFabricacion;
     private javax.swing.JTextField fechaFabricacion;
     private javax.swing.JCheckBox firma;
+    private javax.swing.JPanel fondoSoporte;
+    private javax.swing.JPanel fondoTanque;
     private javax.swing.JPanel gas;
     private javax.swing.JPanel humo;
     private javax.swing.JPanel informacion1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator15;
     private javax.swing.JSeparator jSeparator16;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
@@ -1372,6 +1467,7 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel labelCapacidad;
     private javax.swing.JLabel labelFecha;
     private javax.swing.JLabel labelMarcaHumo;
+    private javax.swing.JLabel labelNombreEmpresa;
     private javax.swing.JLabel labelNorma;
     private javax.swing.JLabel labelProximaFechaHumo;
     private javax.swing.JLabel labelProximaRecarga;
@@ -1387,10 +1483,12 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> listNom;
     private javax.swing.JLabel logoDerecha;
     private javax.swing.JTextField marca;
+    private javax.swing.JLabel marcaGas;
     private javax.swing.JTextField marcaHumo;
     private javax.swing.JPanel menuDeOpciones;
     private javax.swing.JTextField nomEmpresa;
     private javax.swing.JTextField numSerie;
+    private javax.swing.JLabel numSerieGas;
     private javax.swing.JTextField observaciones;
     private javax.swing.JTextField observacionesHumo;
     private javax.swing.JPanel panelinfo;
@@ -1399,6 +1497,8 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JCheckBox pruebaFuncionamiento;
     private javax.swing.JPanel returnPanel;
     private javax.swing.JLabel returnTxt;
+    private javax.swing.JSeparator separadorCapTanque;
+    private javax.swing.JSeparator separadorNomEmpresa;
     private javax.swing.JCheckBox soporteHumo;
     private javax.swing.JTextField tObservaciones;
     private javax.swing.JTable tablaGas;
