@@ -1,15 +1,23 @@
 package com.login;
 
 import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.property.VerticalAlignment;
+import java.awt.Canvas;
 import java.io.IOException;
 
 import java.sql.Connection;
@@ -59,10 +67,10 @@ public class PDFExporter {
                     + "AND EXTRACT(YEAR FROM b.fecha_revision) = ?";   // Filtra por año
 
             PreparedStatement statement = conn.prepareStatement(sql);
-
+            
             LocalDate fecha = LocalDate.parse(globalV.fechaR);  // Asegúrate que globalV.fechaR esté en formato correcto
             int mes = fecha.getMonthValue();
-            int ano = fecha.getYear();
+            int ano= fecha.getYear();
             statement.setString(1, globalV.user);  // Asegúrate de que "globalV.user" esté definido
             statement.setInt(2, mes);
             statement.setInt(3, ano);
@@ -111,9 +119,17 @@ public class PDFExporter {
                 table.addCell(new Cell().add(new Paragraph(resultSet.getString("obstruccion")).setFontSize(7f)));
                 table.addCell(new Cell().add(new Paragraph(resultSet.getString("observacion")).setFontSize(7f)));
             }
-
+            
+            Table tabla2 = new Table(new float[]{50});
+            tabla2.addHeaderCell(new Cell().add(new Paragraph("FIRMA DE QUIEN REALIZA LA REVISION")).setFontSize(5.5f).setTextAlignment(TextAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE));
+            tabla2.addCell(new Cell().setHeight(20));
+            Div div = new Div().setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(100)).add(tabla2);
+            
+            
+            tabla2.setWidth(400);
+            
+            
             float pageHeight = pdfDoc.getDefaultPageSize().getHeight();
-
 // Configurar la posición inicial de la tabla
             float x = 50; // Desde el borde izquierdo
             float initialY = pageHeight - 50; // Posición desde arriba (50 de margen)
@@ -122,15 +138,38 @@ public class PDFExporter {
 // Agregar tabla directamente sin setFixedPosition
             table.setWidth(width);
             document.add(table.setMarginTop(103)); // Asegura que no se desplace hacia abajo
+            document.add (div.setMarginTop(5).setMarginLeft(160));
+            
+            // Crear un PdfCanvas para sobreponer texto
+        // Crear un Canvas para sobreponer texto
+// Crear un PdfCanvas para sobreponer texto
+PdfPage page = pdfDoc.getLastPage(); // Obtener la última página
+PdfCanvas pdfCanvas = new PdfCanvas(page); // Crear un PdfCanvas en la página
+// Definir la posición del texto (x, y)
+float z = 150; // Posición horizontal (ajusta según sea necesario)
+float y = 489.3f;
+        ; // Posición vertical (ajusta según sea necesario)
 
-            document.close();
-            System.out.println("PDF generado exitosamente: " + destino);
+// Dibujar el texto sobrepuesto
+pdfCanvas.beginText() // Iniciar el modo de texto
+    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f) // Fuente y tamaño
+    .setFillColor(ColorConstants.BLACK) // Color del texto
+    .moveText(z, y) // Mover a la posición (x, y)
+    .showText(globalV.fechaR) // Dibujar el texto
+    .endText(); // Finalizar el modo de texto
 
-            System.out.println("PDF generado exitosamente: " + destino);
-            System.out.println("PDF generado exitosamente: " + destino);
-            System.out.println("PDF generado exitosamente: " + destino);
-            System.out.println("PDF generado exitosamente: " + destino);
-
+// Definir la posición del texto (x, y)
+float m = 200; // Posición horizontal (ajusta según sea necesario)
+float n = 503;
+        ; // Posición vertical (ajusta según sea necesario)
+// Dibujar el texto sobrepuesto
+pdfCanvas.beginText() // Iniciar el modo de texto
+    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f) // Fuente y tamaño
+    .setFillColor(ColorConstants.BLACK) // Color del texto
+    .moveText(m, n) // Mover a la posición (x, y)
+    .showText(globalV.direccion) // Dibujar el texto
+    .endText(); // Finalizar el modo de texto
+document.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
