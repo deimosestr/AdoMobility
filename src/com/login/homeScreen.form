@@ -281,7 +281,7 @@
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                         <TitledBorder justification="2" title="Informaci&#xf3;n">
                           <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder>
+                            <LineBorder roundedCorners="true" thickness="2">
                               <Color PropertyName="color" blue="cc" green="ac" red="c5" type="rgb"/>
                             </LineBorder>
                           </Border>
@@ -299,12 +299,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane3" alignment="0" pref="570" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="0" pref="568" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane3" alignment="1" pref="108" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="1" pref="107" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -538,7 +538,7 @@
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                         <TitledBorder justification="2" title="Observaciones">
                           <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder>
+                            <LineBorder roundedCorners="true" thickness="2">
                               <Color PropertyName="color" blue="cc" green="ac" red="c5" type="rgb"/>
                             </LineBorder>
                           </Border>
@@ -715,7 +715,7 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="150" y="200" width="170" height="10"/>
+                          <AbsoluteConstraints x="150" y="230" width="170" height="10"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -899,7 +899,7 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JSeparator" name="jSeparator1">
+                    <Component class="javax.swing.JSeparator" name="separadorCapTanque1">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="ac" red="c5" type="rgb"/>
@@ -910,7 +910,7 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="150" y="230" width="170" height="10"/>
+                          <AbsoluteConstraints x="150" y="200" width="170" height="10"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -927,16 +927,24 @@
                   </Constraints>
                 </Component>
                 <Container class="javax.swing.JPanel" name="tbGas">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                  </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="50" y="240" width="510" height="100"/>
+                      <AbsoluteConstraints x="10" y="240" width="590" height="100"/>
                     </Constraint>
                   </Constraints>
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="1" pref="510" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="1" pref="590" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -1291,7 +1299,7 @@
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                         <TitledBorder justification="2" title="Informaci&#xf3;n">
                           <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder>
+                            <LineBorder roundedCorners="true" thickness="2">
                               <Color PropertyName="color" blue="cc" green="ac" red="c5" type="rgb"/>
                             </LineBorder>
                           </Border>
@@ -1309,12 +1317,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" pref="570" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="568" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="1" pref="98" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="1" pref="97" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -1745,7 +1753,7 @@
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                         <TitledBorder justification="2" title="Observaciones">
                           <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder>
+                            <LineBorder roundedCorners="true" thickness="2">
                               <Color PropertyName="color" blue="cc" green="ac" red="c5" type="rgb"/>
                             </LineBorder>
                           </Border>
@@ -2065,7 +2073,6 @@
                 <Property name="text" type="java.lang.String" value="AGREGAR"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnInsertar1MouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInsertar1ActionPerformed"/>
               </Events>
               <AuxValues>

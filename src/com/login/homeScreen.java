@@ -1,5 +1,6 @@
 package com.login;
 
+import static com.login.globalV.conectar;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.awt.Color;
@@ -18,7 +19,6 @@ import java.util.logging.Logger;
 public class homeScreen extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-    TConexion conexion = new TConexion();
     CDatosNOM obj = new CDatosNOM();
 
     public homeScreen() {
@@ -39,6 +39,7 @@ public class homeScreen extends javax.swing.JFrame {
         buttonsNormas btnExtintores = new buttonsNormas();
         buttonsNormas btnHumo = new buttonsNormas();
         buttonsNormas btnGas = new buttonsNormas();
+        System.out.println("Seguimiento de cadena 3: "+conectar);
     }
 
     @SuppressWarnings("unchecked")
@@ -95,7 +96,7 @@ public class homeScreen extends javax.swing.JFrame {
         labelNombreEmpresa = new javax.swing.JLabel();
         nomEmpresa = new javax.swing.JTextField();
         separadorNomEmpresa = new javax.swing.JSeparator();
-        jSeparator1 = new javax.swing.JSeparator();
+        separadorCapTanque1 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
         tbGas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -310,7 +311,7 @@ public class homeScreen extends javax.swing.JFrame {
         humo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbHumo.setBackground(new java.awt.Color(255, 255, 255));
-        tbHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        tbHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
         tablaHumo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -335,11 +336,11 @@ public class homeScreen extends javax.swing.JFrame {
         tbHumo.setLayout(tbHumoLayout);
         tbHumoLayout.setHorizontalGroup(
             tbHumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
         tbHumoLayout.setVerticalGroup(
             tbHumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
         );
 
         humo.add(tbHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 580, 130));
@@ -402,7 +403,7 @@ public class homeScreen extends javax.swing.JFrame {
         humo.add(ubicacionFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 80, 20));
 
         observacionesHumo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        observacionesHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        observacionesHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
         humo.add(observacionesHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 310, 60));
 
         jSeparator5.setBackground(new java.awt.Color(197, 172, 204));
@@ -449,7 +450,7 @@ public class homeScreen extends javax.swing.JFrame {
 
         separadorCapTanque.setBackground(new java.awt.Color(197, 172, 204));
         separadorCapTanque.setForeground(new java.awt.Color(197, 172, 204));
-        fondoSoporte.add(separadorCapTanque, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 170, 10));
+        fondoSoporte.add(separadorCapTanque, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 170, 10));
 
         capacidadTanque.setBorder(null);
         capacidadTanque.addActionListener(new java.awt.event.ActionListener() {
@@ -528,14 +529,17 @@ public class homeScreen extends javax.swing.JFrame {
         separadorNomEmpresa.setForeground(new java.awt.Color(197, 172, 204));
         fondoSoporte.add(separadorNomEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 170, 10));
 
-        jSeparator1.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator1.setForeground(new java.awt.Color(197, 172, 204));
-        fondoSoporte.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 170, 10));
+        separadorCapTanque1.setBackground(new java.awt.Color(197, 172, 204));
+        separadorCapTanque1.setForeground(new java.awt.Color(197, 172, 204));
+        fondoSoporte.add(separadorCapTanque1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 170, 10));
 
         gas.add(fondoSoporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 330, 240));
 
         jLabel10.setText("Especificaciones del Tanque");
         gas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
+
+        tbGas.setBackground(new java.awt.Color(255, 255, 255));
+        tbGas.setForeground(new java.awt.Color(255, 255, 255));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Informacion", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
@@ -568,7 +572,7 @@ public class homeScreen extends javax.swing.JFrame {
         tbGas.setLayout(tbGasLayout);
         tbGasLayout.setHorizontalGroup(
             tbGasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
         );
         tbGasLayout.setVerticalGroup(
             tbGasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -577,7 +581,7 @@ public class homeScreen extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        gas.add(tbGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 510, 100));
+        gas.add(tbGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 590, 100));
 
         fondoTanque.setBackground(new java.awt.Color(255, 255, 255));
         fondoTanque.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Tanque", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
@@ -675,7 +679,7 @@ public class homeScreen extends javax.swing.JFrame {
         extintores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         informacion1.setBackground(new java.awt.Color(255, 255, 255));
-        informacion1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        informacion1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
         tbExtintores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -700,11 +704,11 @@ public class homeScreen extends javax.swing.JFrame {
         informacion1.setLayout(informacion1Layout);
         informacion1Layout.setHorizontalGroup(
             informacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
         informacion1Layout.setVerticalGroup(
             informacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
         );
 
         extintores.add(informacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 580, 120));
@@ -826,7 +830,7 @@ public class homeScreen extends javax.swing.JFrame {
 
         observaciones.setBackground(new java.awt.Color(255, 255, 255));
         observaciones.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        observaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        observaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
         extintores.add(observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 300, 80));
 
         firma.setBackground(new java.awt.Color(255, 255, 255));
@@ -935,11 +939,6 @@ public class homeScreen extends javax.swing.JFrame {
         botonesInferiores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnInsertar1.setText("AGREGAR");
-        btnInsertar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInsertar1MouseClicked(evt);
-            }
-        });
         btnInsertar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertar1ActionPerformed(evt);
@@ -1028,30 +1027,41 @@ public class homeScreen extends javax.swing.JFrame {
         // Método que devuelve la lista de nombres (ajusta según tu lógica)
         int idUsuario = obj.obtenerIDUsuario();
         List<String> valores = obj.obtenerNombreTerminales(idUsuario);
-
         // Crear un modelo para el JComboBox con los valores
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(valores.toArray(new String[0]));
         // Asignar el m odelo al JComboBox
         listNom.setModel(modelo);
-
     }
 
     private void actBtnMenu() {
 
     }
 
-
+    
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         // TODO add your handling code here:
-        int opcion = JOptionPane.showConfirmDialog(null, "Deseas cerrar sesion?", "Aviso", JOptionPane.YES_OPTION);
-        if (opcion == 0) {
-            conexion.cerrarConexion();
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?", "Aviso", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            System.out.println("Sí, cerrar sesión.");
+
+            // Cerrar la conexión a la base de datos
+            if(conectar == null){
+                System.out.println("la conexion es nula");
+            } 
+            if (conectar != null) {
+                TConexion.cerrarConexion(conectar);
+                System.out.println("Conexión cerrada correctamente.");
+            }
+
+            // Abrir la ventana de login
             Login obj = new Login();
             obj.setVisible(true);
             obj.setLocationRelativeTo(null);
+
+            // Cerrar la ventana actual
             this.dispose();
         } else {
-
+            System.out.println("No, no cerrar sesión.");
         }
     }//GEN-LAST:event_exitTxtMouseClicked
 
@@ -1169,9 +1179,6 @@ public class homeScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnModificarMouseClicked
 
-    private void btnInsertar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertar1MouseClicked
-    }//GEN-LAST:event_btnInsertar1MouseClicked
-
     private void btnExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarMouseClicked
         // TODO add your handling code here:
 
@@ -1187,6 +1194,16 @@ public class homeScreen extends javax.swing.JFrame {
         }
 
         if (btnHumo.isSelected()) {
+            if (btnHumo.isSelected()) {
+
+                PDFExporter ejemplo = new PDFExporter();
+                try {
+                    ejemplo.HumoPDF();
+                } catch (IOException ex) {
+                    Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
 
         }
 
@@ -1446,7 +1463,6 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
@@ -1498,6 +1514,7 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JPanel returnPanel;
     private javax.swing.JLabel returnTxt;
     private javax.swing.JSeparator separadorCapTanque;
+    private javax.swing.JSeparator separadorCapTanque1;
     private javax.swing.JSeparator separadorNomEmpresa;
     private javax.swing.JCheckBox soporteHumo;
     private javax.swing.JTextField tObservaciones;

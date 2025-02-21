@@ -1,5 +1,6 @@
 package com.login;
 
+import static com.login.globalV.conectar;
 import com.login.TConexion;
 import java.awt.Color;
 import java.sql.Connection;
@@ -16,7 +17,8 @@ public class Login extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     private boolean isPasswordVisible = false;
-    private final TConexion conexion = new TConexion();
+    //private final TConexion conexion = new TConexion();
+    //Connection conn = null;
 
     public Login() {
         initComponents();
@@ -26,7 +28,7 @@ public class Login extends javax.swing.JFrame {
         p1.setLocationRelativeTo(null);
     }
 
-    private void iniciarSesion() {
+    public void iniciarSesion() {
         String username = usuarioField.getText();
         String password = new String(passwordField1.getPassword());
 
@@ -35,9 +37,12 @@ public class Login extends javax.swing.JFrame {
             return;
         }
 
-        try (Connection conn = DatabaseConnection.getConnection()) {
+        
+        try {
+            conectar = TConexion.establecerConexion(); // Establecer la conexión
+            System.out.println("Seguimiento de cadena 1: "+conectar);
             String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
+            PreparedStatement pstmt = conectar.prepareStatement(query);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
@@ -53,10 +58,10 @@ public class Login extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.");
-        }
+        } 
     }
 
-    private void togglePasswordVisibility() {
+    /*private void togglePasswordVisibility() {
         if (isPasswordVisible) {
             passwordField1.setEchoChar('•');
             showPasswordBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/ver.png"))); // Icono de ojo cerrado
@@ -190,7 +195,7 @@ public class Login extends javax.swing.JFrame {
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
-    }
+    }*/
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -455,44 +460,7 @@ public class Login extends javax.swing.JFrame {
 
     private void enterTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterTxtMouseClicked
         // AQUI VA EL METODO DONDE AL HACER CLICK VALIDA EL USUARIO
-        String username = usuarioField.getText();
-        String password = new String(passwordField1.getPassword());
-
-        if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña no pueden estar vacíos.");
-            return;
-        }
-
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                globalV.user = username;
-
-                if ("paoky".equalsIgnoreCase(username)) {
-                    // Ventana especial para "paoky"
-                    //adminScreen obj = new adminScreen();
-                   // obj.setVisible(true);
-
-                } else {
-                    // Ventana normal para otros usuarios
-                    menuw8 mainFrame = new menuw8();
-                    mainFrame.setVisible(true);
-                }
-
-                this.dispose(); // Cierra la ventana de login actual
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.");
-        }
+        iniciarSesion();
     }//GEN-LAST:event_enterTxtMouseClicked
 
 
@@ -528,23 +496,23 @@ public class Login extends javax.swing.JFrame {
 
     private void registerTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerTxtMouseClicked
         // TODO add your handling code here:
-        registerUser();
+        //registerUser();
     }//GEN-LAST:event_registerTxtMouseClicked
 
     private void forgotPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPassMouseClicked
         // TODO add your handling code here:
-        forgotPassword();
+       // forgotPassword();
     }//GEN-LAST:event_forgotPassMouseClicked
 
     private void showPasswordBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPasswordBtnMouseClicked
         // TODO add your handling code here:
-        togglePasswordVisibility();
+       // togglePasswordVisibility();
     }//GEN-LAST:event_showPasswordBtnMouseClicked
 
     private void passwordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordField1KeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            iniciarSesion(); // Llama al método de validación de inicio de sesión
+           iniciarSesion(); // Llama al método de validación de inicio de sesión
         }
     }//GEN-LAST:event_passwordField1KeyPressed
 

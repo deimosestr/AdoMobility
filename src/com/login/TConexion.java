@@ -1,5 +1,6 @@
 package com.login;
 
+import static com.login.globalV.conectar;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,21 +8,23 @@ import javax.swing.JOptionPane;
 
 public class TConexion {
 
-    private Connection conectar = null;
+    // Atributos estáticos
+    //private static Connection conectar = null;
 
-    private final String usuario = "postgres";
-    private final String contrasenia = "1906";
-    private final String bd = "bdMobility";
-    private final String ip = "localhost";
-    private final String puerto = "5432";
+    private static final String usuario = "postgres";
+    private static final String contrasenia = "1906";
+    private static final String bd = "bdMobility";
+    private static final String ip = "localhost";
+    private static final String puerto = "5432";
 
-    private final String cadena = "jdbc:postgresql://" + ip + ":" + puerto + "/" + bd;
+    private static final String cadena = "jdbc:postgresql://" + ip + ":" + puerto + "/" + bd;
 
-    public Connection establecerConexion() {
+    // Método estático para establecer la conexión
+    public static Connection establecerConexion() {
         try {
             Class.forName("org.postgresql.Driver");
             conectar = DriverManager.getConnection(cadena, usuario, contrasenia);
-            //System.out.println("Conexión exitosa a la base de datos.");
+            System.out.println("Conexión exitosa a la base de datos.");
             return conectar;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos: " + e.getMessage());
@@ -34,14 +37,19 @@ public class TConexion {
         }
     }
 
-    public void cerrarConexion() {
-        try {
-            if (conectar != null && !conectar.isClosed()) {
-                conectar.close();
-               // System.out.println("Conexión cerrada correctamente.");
+    // Método estático para cerrar la conexión
+    public static void cerrarConexion(Connection conexion) {
+        if (conexion != null) {
+            try {
+                if (!conexion.isClosed()) {
+                    conexion.close();
+                    System.out.println("Conexión cerrada correctamente.");
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.toString());
+        } else {
+            System.out.println("La conexión es null.");
         }
     }
 }

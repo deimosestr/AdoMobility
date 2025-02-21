@@ -1162,6 +1162,11 @@
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                         <TitledBorder justification="2" title="Informaci&#xf3;n">
+                          <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder roundedCorners="true" thickness="2">
+                              <Color PropertyName="color" blue="cc" green="ac" red="c5" type="rgb"/>
+                            </LineBorder>
+                          </Border>
                           <Font PropertyName="font" name="Roboto Light" size="12" style="1"/>
                         </TitledBorder>
                       </Border>
@@ -1176,12 +1181,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane3" alignment="0" pref="570" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="0" pref="568" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane3" alignment="1" pref="138" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="1" pref="137" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>

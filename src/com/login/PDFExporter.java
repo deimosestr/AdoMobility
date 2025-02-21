@@ -1,15 +1,23 @@
 package com.login;
 
 import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.property.VerticalAlignment;
+import java.awt.Canvas;
 import java.io.IOException;
 
 import java.sql.Connection;
@@ -60,7 +68,9 @@ public class PDFExporter {
 
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            LocalDate fecha = LocalDate.parse(globalV.fechaR);  // Asegúrate que globalV.fechaR esté en formato correcto
+            //LocalDate fecha = LocalDate.parse(globalV.fechaR);  // Asegúrate que globalV.fechaR esté en formato correcto
+            LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            System.out.println(globalV.fechaR);
             int mes = fecha.getMonthValue();
             int ano = fecha.getYear();
             statement.setString(1, globalV.user);  // Asegúrate de que "globalV.user" esté definido
@@ -112,8 +122,14 @@ public class PDFExporter {
                 table.addCell(new Cell().add(new Paragraph(resultSet.getString("observacion")).setFontSize(7f)));
             }
 
-            float pageHeight = pdfDoc.getDefaultPageSize().getHeight();
+            Table tabla2 = new Table(new float[]{50});
+            tabla2.addHeaderCell(new Cell().add(new Paragraph("FIRMA DE QUIEN REALIZA LA REVISION")).setFontSize(5.5f).setTextAlignment(TextAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE));
+            tabla2.addCell(new Cell().setHeight(20));
+            Div div = new Div().setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(100)).add(tabla2);
 
+            tabla2.setWidth(400);
+
+            float pageHeight = pdfDoc.getDefaultPageSize().getHeight();
 // Configurar la posición inicial de la tabla
             float x = 50; // Desde el borde izquierdo
             float initialY = pageHeight - 50; // Posición desde arriba (50 de margen)
@@ -122,24 +138,47 @@ public class PDFExporter {
 // Agregar tabla directamente sin setFixedPosition
             table.setWidth(width);
             document.add(table.setMarginTop(103)); // Asegura que no se desplace hacia abajo
+            document.add(div.setMarginTop(5).setMarginLeft(160));
 
+            // Crear un PdfCanvas para sobreponer texto
+            // Crear un Canvas para sobreponer texto
+// Crear un PdfCanvas para sobreponer texto
+            PdfPage page = pdfDoc.getLastPage(); // Obtener la última página
+            PdfCanvas pdfCanvas = new PdfCanvas(page); // Crear un PdfCanvas en la página
+// Definir la posición del texto (x, y)
+            float z = 150; // Posición horizontal (ajusta según sea necesario)
+            float y = 489.3f;
+            ; // Posición vertical (ajusta según sea necesario)
+
+// Dibujar el texto sobrepuesto
+            pdfCanvas.beginText() // Iniciar el modo de texto
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f) // Fuente y tamaño
+                    .setFillColor(ColorConstants.BLACK) // Color del texto
+                    .moveText(z, y) // Mover a la posición (x, y)
+                    .showText(globalV.fechaR) // Dibujar el texto
+                    .endText(); // Finalizar el modo de texto
+
+// Definir la posición del texto (x, y)
+            float m = 200; // Posición horizontal (ajusta según sea necesario)
+            float n = 503;
+            ; // Posición vertical (ajusta según sea necesario)
+// Dibujar el texto sobrepuesto
+            pdfCanvas.beginText() // Iniciar el modo de texto
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f) // Fuente y tamaño
+                    .setFillColor(ColorConstants.BLACK) // Color del texto
+                    .moveText(m, n) // Mover a la posición (x, y)
+                    .showText(globalV.direccion) // Dibujar el texto
+                    .endText(); // Finalizar el modo de texto
             document.close();
-            System.out.println("PDF generado exitosamente: " + destino);
-
-            System.out.println("PDF generado exitosamente: " + destino);
-            System.out.println("PDF generado exitosamente: " + destino);
-            System.out.println("PDF generado exitosamente: " + destino);
-            System.out.println("PDF generado exitosamente: " + destino);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /*public void HumoPDF() throws IOException {
+    public void HumoPDF() throws IOException {
 
-        String plantilla = "C:\\Users\\Alan\\Downloads\\plantillaHumo.pdf";
-        String destino = "C:\\Users\\Alan\\Desktop\\exportaciones\\plantillaHumo.pdf";
+        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
+        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
 
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
@@ -147,72 +186,108 @@ public class PDFExporter {
         try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
             System.out.println("Conexión exitosa con la base de datos.");
 
-            String sql = "SELECT DISTINCT b.ubicacion, b.ultima_recarga, b.proxima_recarga, b.capacidad, b.tipo_agente_extinguidor, "
-                    + "b.manguera, b.manometro, b.soporte, b.presion, b.cilindro, b.limpieza, b.senalizacion, "
-                    + "b.etiqueta, b.seguro, b.obstruccion, b.observacion "
-                    + "FROM bitacora b "
+            String sql = "SELECT DISTINCT "
+                    + "b.ubicacion, b.ultima_fecha_pila, b.proximo_cambio_pila, b.marca, "
+                    + "b.tipo_detector, b.prueba_funcionamiento, b.soporte, b.ubicacion_fisica, "
+                    + "b.observacion, b.id_norma_fk, b.if_terminal_fk, b.fecha_revision "
+                    + "FROM bitacora_humo b "
                     + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
-                    + "WHERE u.username = 'deimos' "
-                    + "GROUP BY b.ubicacion, b.ultima_recarga, b.proxima_recarga, b.capacidad, b.tipo_agente_extinguidor, "
-                    + "b.manguera, b.manometro, b.soporte, b.presion, b.cilindro, b.limpieza, b.senalizacion, "
-                    + "b.etiqueta, b.seguro, b.obstruccion, b.observacion;";
+                    + "WHERE u.username = ? "
+                    + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? " // Filtra por mes
+                    + "AND EXTRACT(YEAR FROM b.fecha_revision) = ?";   // Filtra por año
 
             PreparedStatement statement = conn.prepareStatement(sql);
+
+            LocalDate fecha = LocalDate.parse(globalV.fechaR);  // Asegúrate que globalV.fechaR esté en formato correcto
+            int mes = fecha.getMonthValue();
+            int ano = fecha.getYear();
+            statement.setString(1, globalV.user);  // Asegúrate de que "globalV.user" esté definido
+            statement.setInt(2, mes);
+            statement.setInt(3, ano);
             ResultSet resultSet = statement.executeQuery();
 
             PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
 
-            Table table = new Table(new float[]{2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5});
+            Table table = new Table(new float[]{0.5f, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2});
 
-            /*table.addHeaderCell(new Cell().add(new Paragraph("Ubicación")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("U. Recarga")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("P. Recarga")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Capacidad")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Tipo A Extintor")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Manguera")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Manómetro")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Soporte")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Presión")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Cilindro")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Limpieza")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Señalización")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Etiqueta")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Seguro")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Obstrucción")).setFontSize(titleFont));
-            table.addHeaderCell(new Cell().add(new Paragraph("Observación")).setFontSize(titleFont));*/
- /*
+            table.addHeaderCell(new Cell().add(new Paragraph("#")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Ubicación")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Ultima fecha de compra de pila")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("proximo cambio de pila")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Marca")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Tipo de detector")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Prueba de Funcionamiento")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Soporte")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Ubicacion fisica")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Observacion")).setFontSize(7f));
+
+            contador = 0;
             while (resultSet.next()) {
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ubicacion")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ultima_recarga")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("proxima_recarga")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("capacidad")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("tipo_agente_extinguidor")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("manguera")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("manometro")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("soporte")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("presion")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("cilindro")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("limpieza")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("senalizacion")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("etiqueta")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("seguro")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("obstruccion")).setFontSize(8f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("observacion")).setFontSize(8f)));
+                contador++;
+                table.addCell(new Cell().add(new Paragraph("" + contador).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph("ubicacion").setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph("ultima_fecha_pila").setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph("proximo_cambio_pila").setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph("marca").setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph("tipo_detector").setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph("prueba_funcionamiento")));
+                table.addCell(new Cell().add(new Paragraph("soporte").setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph("ubicacion_fisica").setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph("observacion").setFontSize(7f)));
+
             }
 
-            // Configurar la posición de la tabla
-            float x = 80; // Posición desde el borde izquierdo
-            float y = 230; // Posición desde el borde inferior
-            float width = 500; // Ancho de la tabla
-            table.setFixedPosition(x, y, width);
+            Table tabla2 = new Table(new float[]{50});
+            tabla2.addHeaderCell(new Cell().add(new Paragraph("FIRMA DE QUIEN REALIZA LA REVISION")).setFontSize(5.5f).setTextAlignment(TextAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE));
+            tabla2.addCell(new Cell().setHeight(20));
+            Div div = new Div().setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(100)).add(tabla2);
 
-            document.add(table);
+            tabla2.setWidth(400);
+
+            float pageHeight = pdfDoc.getDefaultPageSize().getHeight();
+// Configurar la posición inicial de la tabla
+            float x = 50; // Desde el borde izquierdo
+            float initialY = pageHeight - 50; // Posición desde arriba (50 de margen)
+            float width = 718; // Ancho de la tabla
+
+// Agregar tabla directamente sin setFixedPosition
+            table.setWidth(width);
+            document.add(table.setMarginTop(103)); // Asegura que no se desplace hacia abajo
+            document.add(div.setMarginTop(5).setMarginLeft(160));
+
+            // Crear un PdfCanvas para sobreponer texto
+            // Crear un Canvas para sobreponer texto
+// Crear un PdfCanvas para sobreponer texto
+            PdfPage page = pdfDoc.getLastPage(); // Obtener la última página
+            PdfCanvas pdfCanvas = new PdfCanvas(page); // Crear un PdfCanvas en la página
+// Definir la posición del texto (x, y)
+/*float z = 150; // Posición horizontal (ajusta según sea necesario)
+float y = 489.3f;
+        ; // Posición vertical (ajusta según sea necesario)
+             */
+// Dibujar el texto sobrepuesto
+/*pdfCanvas.beginText() // Iniciar el modo de texto
+    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f) // Fuente y tamaño
+    .setFillColor(ColorConstants.BLACK) // Color del texto
+    .moveText(z, y) // Mover a la posición (x, y)
+    .showText(globalV.fechaR) // Dibujar el texto
+    .endText(); // Finalizar el modo de texto
+             */
+// Definir la posición del texto (x, y)
+            float m = 200; // Posición horizontal (ajusta según sea necesario)
+            float n = 503;
+            ; // Posición vertical (ajusta según sea necesario)
+// Dibujar el texto sobrepuesto
+            pdfCanvas.beginText() // Iniciar el modo de texto
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f) // Fuente y tamaño
+                    .setFillColor(ColorConstants.BLACK) // Color del texto
+                    .moveText(m, n) // Mover a la posición (x, y)
+                    .showText(globalV.direccion) // Dibujar el texto
+                    .endText(); // Finalizar el modo de texto
             document.close();
-            System.out.println("PDF generado exitosamente: " + destino);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }

@@ -658,7 +658,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
         epp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbEPP.setBackground(new java.awt.Color(255, 255, 255));
-        tbEPP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        tbEPP.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
         tablaEPP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -683,11 +683,11 @@ public class screenOrganizacion extends javax.swing.JFrame {
         tbEPP.setLayout(tbEPPLayout);
         tbEPPLayout.setHorizontalGroup(
             tbEPPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
         tbEPPLayout.setVerticalGroup(
             tbEPPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
         );
 
         epp.add(tbEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 580, 160));
@@ -988,7 +988,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
         // TODO add your handling code here:
         int opcion = JOptionPane.showConfirmDialog(null, "Deseas cerrar sesion?", "Aviso", JOptionPane.YES_OPTION);
         if (opcion == 0) {
-            conexion.cerrarConexion();
+           // conexion.cerrarConexion();
             Login obj = new Login();
             obj.setVisible(true);
             obj.setLocationRelativeTo(null);
