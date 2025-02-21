@@ -273,13 +273,25 @@ public class PDFExporter {
 
         // Sobreescribir la dirección
         float m = 215; // Ajusta según sea necesario
-        float n = 496; // Ajusta según sea necesario
+        float n = 497; // Ajusta según sea necesario
         pdfCanvas.beginText()
             .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
             .setFillColor(ColorConstants.BLACK)
             .moveText(m, n)
             .showText(globalV.direccion)
             .endText();
+        
+
+        // Sobreescribir la dirección
+        float x = 215; // Ajusta según sea necesario
+        float y = 482; // Ajusta según sea necesario
+        pdfCanvas.beginText()
+            .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
+            .setFillColor(ColorConstants.BLACK)
+            .moveText(x, y)
+            .showText(globalV.fechaR)
+            .endText();
+                System.out.println(globalV.fechaR);
 
         // Cerrar el documento
         document.close();
