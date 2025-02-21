@@ -850,60 +850,60 @@ public class CDatosNOM {
         return nombresTerminales; // Retornar la lista de nombres
     }
 
-public String obtenerdireccion(int idUsuario, String nomTerminal) {
-    String direccionTerminal = null; // Variable para almacenar la dirección
-    Connection conexion = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
+    public String obtenerdireccion(int idUsuario, String nomTerminal) {
+        String direccionTerminal = null; // Variable para almacenar la dirección
+        Connection conexion = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
 
-    try {
-        // Establecer la conexión
-        TConexion obj2 = new TConexion();
-        conexion = obj2.establecerConexion();
-
-        // Consulta SQL
-        String sql = "SELECT ubicacion "
-                   + "FROM terminales t "
-                   + "JOIN terminales_usuarios tu ON t.id_terminal = tu.id_terminal "
-                   + "JOIN usuarios u ON u.id_usuarios = tu.id_usuario "
-                   + "WHERE u.id_usuarios = ? AND t.nombre = ?"; // Usar AND en lugar de coma
-        pst = conexion.prepareStatement(sql);
-
-        // Asignar los parámetros a la consulta
-        pst.setInt(1, idUsuario);
-        System.out.println("usuario"+idUsuario);
-        pst.setString(2, nomTerminal);
-        System.out.println("nomterminal "+nomTerminal);
-        System.out.println("nombre de terminal "+nomTerminal);
-        // Ejecutar la consulta
-        rs = pst.executeQuery();
-
-        // Procesar los resultados
-        if (rs.next()) { // Solo obtener el primer resultado
-            direccionTerminal = rs.getString("ubicacion");
-        }
-    } catch (Exception e) {
-        e.printStackTrace(); // Imprime cualquier error para depuración
-    } finally {
-        // Cerrar los recursos
         try {
-            if (rs != null) {
-                rs.close();
+            // Establecer la conexión
+            TConexion obj2 = new TConexion();
+            conexion = obj2.establecerConexion();
+
+            // Consulta SQL
+            String sql = "SELECT ubicacion "
+                    + "FROM terminales t "
+                    + "JOIN terminales_usuarios tu ON t.id_terminal = tu.id_terminal "
+                    + "JOIN usuarios u ON u.id_usuarios = tu.id_usuario "
+                    + "WHERE u.id_usuarios = ? AND t.nombre = ?"; // Usar AND en lugar de coma
+            pst = conexion.prepareStatement(sql);
+
+            // Asignar los parámetros a la consulta
+            pst.setInt(1, idUsuario);
+            System.out.println("usuario" + idUsuario);
+            pst.setString(2, nomTerminal);
+            System.out.println("nomterminal " + nomTerminal);
+            System.out.println("nombre de terminal " + nomTerminal);
+            // Ejecutar la consulta
+            rs = pst.executeQuery();
+
+            // Procesar los resultados
+            if (rs.next()) { // Solo obtener el primer resultado
+                direccionTerminal = rs.getString("ubicacion");
             }
-            if (pst != null) {
-                pst.close();
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+        } finally {
+            // Cerrar los recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            if (conexion != null) {
-                conexion.close();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
+        // Retornar la dirección de la terminal (o null si no hay resultados)
+        System.out.println("ubicacion=" + direccionTerminal);
+        return direccionTerminal;
     }
-    // Retornar la dirección de la terminal (o null si no hay resultados)
-    System.out.println("ubicacion="+direccionTerminal);
-    return direccionTerminal;
-}
 
     public void MostrarExtintores(JTable paramTablaNOM002) {
         TConexion obj2 = new TConexion();
@@ -1032,16 +1032,17 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
             JTextField paramObservacion, JCheckBox paramFirmado, JTextField paramIDNorma) {
         try {
             int fila = paramTablaNOM002.getSelectedRow();
-            String nomTerminal = "";        
+            String nomTerminal = "";
+
             if (fila >= 0) {
                 // Asignar valores a los JTextField
                 paramIDUsuario.setText(paramTablaNOM002.getValueAt(fila, 0).toString());
                 paramResponsable.setText(paramTablaNOM002.getValueAt(fila, 1).toString());
                 paramRegion.setText(paramTablaNOM002.getValueAt(fila, 2).toString());
-                
-                        nomTerminal = paramTablaNOM002.getValueAt(fila, 3).toString();
+
+                nomTerminal = paramTablaNOM002.getValueAt(fila, 3).toString();
                 paramTerminales.setText(nomTerminal);
-                        paramIDBitacora.setText(paramTablaNOM002.getValueAt(fila, 4).toString());
+                paramIDBitacora.setText(paramTablaNOM002.getValueAt(fila, 4).toString());
 
                 //paramFechaRevision.setText(convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString()));
                 fechaR = convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString());
@@ -1070,9 +1071,9 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
             } else {
                 JOptionPane.showMessageDialog(null, "Fila no seleccionada");
             }
-                    //int idTerminal = obtenerIDTerminal(nomTerminal);
-                    int iDUsuario = obtenerIDUsuario();
-                    direccion = obtenerdireccion(iDUsuario, nomTerminal);
+            //int idTerminal = obtenerIDTerminal(nomTerminal);
+            int iDUsuario = obtenerIDUsuario();
+            direccion = obtenerdireccion(iDUsuario, nomTerminal);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.toString());
@@ -1398,14 +1399,18 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
             JTextField paramObservacion, JTextField paramIDNormaHumo) {
         try {
             int fila = paramTablaHumo.getSelectedRow();
+            String nomTerminal = "";
             if (fila >= 0) {
                 // Asignar valores a los JTextField
                 paramIDUsuario.setText(paramTablaHumo.getValueAt(fila, 0).toString());
                 paramResponsable.setText(paramTablaHumo.getValueAt(fila, 1).toString());
                 paramRegion.setText(paramTablaHumo.getValueAt(fila, 2).toString());
-                paramTerminales.setText(paramTablaHumo.getValueAt(fila, 3).toString());
+
+                nomTerminal = paramTablaHumo.getValueAt(fila, 3).toString();
+                paramTerminales.setText(nomTerminal);
                 paramIDBitacora.setText(paramTablaHumo.getValueAt(fila, 4).toString());
-                paramFechaRevision.setText(paramTablaHumo.getValueAt(fila, 5).toString());
+                fechaR = convertirFecha(paramTablaHumo.getValueAt(fila, 5).toString());
+                paramFechaRevision.setText(fechaR);
                 paramUbicacion.setText(paramTablaHumo.getValueAt(fila, 6).toString());
                 paramUltimaFecha.setText(paramTablaHumo.getValueAt(fila, 7).toString());
                 paramProximaFecha.setText(paramTablaHumo.getValueAt(fila, 8).toString());
@@ -1421,6 +1426,8 @@ public String obtenerdireccion(int idUsuario, String nomTerminal) {
             } else {
                 JOptionPane.showMessageDialog(null, "Fila no seleccionada");
             }
+            int iDUsuario = obtenerIDUsuario();
+            direccion = obtenerdireccion(iDUsuario, nomTerminal);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.toString());
         }
