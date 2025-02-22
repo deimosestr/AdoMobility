@@ -174,7 +174,9 @@ public class PDFExporter {
             e.printStackTrace();
         }
     }
-        public void HumoPDF() throws IOException {
+ 
+    
+           public void HumoPDF() throws IOException {
     String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
     String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
 
@@ -299,4 +301,83 @@ public class PDFExporter {
         e.printStackTrace();
     }
 }
+           
+           
+                      public void GasPDF() throws IOException {
+    String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\BITACORA GAS.pdf";
+    String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
+
+    PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
+    PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
+
+    try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
+        System.out.println("Conexión exitosa con la base de datos.");
+
+        String sql = "SELECT "
+                + "b.ubicacion, b.ultima_fecha_pila, b.proximo_cambio_pila, b.marca, "
+                + "b.tipo_detector, b.prueba_funcionamiento, b.soporte, b.ubicacion_fisica, "
+                + "b.observacion, b.id_norma_fk, b.id_terminal_fk, b.fecha_revision "
+                + "FROM bitacora_humo b "
+                + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                + "WHERE u.username = ? "
+                + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? "
+                + "AND EXTRACT(YEAR FROM b.fecha_revision) = ?";
+
+        PreparedStatement statement = conn.prepareStatement(sql);
+
+        // Validar que globalV.fechaR no sea null o esté vacía
+        if (globalV.fechaR == null || globalV.fechaR.isEmpty()) {
+            throw new IllegalArgumentException("La fecha no puede ser nula o vacía.");
+        }
+
+        // Parsear la fecha
+        LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        int mes = fecha.getMonthValue();
+        int ano = fecha.getYear();
+
+        statement.setString(1, globalV.user);
+        statement.setInt(2, mes);
+        statement.setInt(3, ano);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        // Crear el documento PDF
+        PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+        Document document = new Document(pdfDoc);
+
+        // Crear la tabla con anchos de columna definidos
+        
+        // Sobreescribir texto en el PDF
+        PdfPage page = pdfDoc.getLastPage();
+        PdfCanvas pdfCanvas = new PdfCanvas(page);
+
+        // Sobreescribir la dirección
+        float m = 215; // Ajusta según sea necesario
+        float n = 497; // Ajusta según sea necesario
+        pdfCanvas.beginText()
+            .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
+            .setFillColor(ColorConstants.BLACK)
+            .moveText(m, n)
+            .showText(globalV.direccion)
+            .endText();
+        
+
+        // Sobreescribir la dirección
+        float x = 215; // Ajusta según sea necesario
+        float y = 482; // Ajusta según sea necesario
+        pdfCanvas.beginText()
+            .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
+            .setFillColor(ColorConstants.BLACK)
+            .moveText(x, y)
+            .showText(globalV.fechaR)
+            .endText();
+                System.out.println(globalV.fechaR);
+
+        // Cerrar el documento
+        document.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
 }

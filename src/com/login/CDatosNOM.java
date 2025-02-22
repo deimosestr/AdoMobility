@@ -1634,16 +1634,22 @@ public class CDatosNOM {
         // 
         try {
             int fila = paramtablaGas.getSelectedRow();
+            String nomTerminal = "";
+
             if (fila >= 0) {
 
 // Asignar valores a los JTextField
                 paramtxtIDBitacora.setText(paramtablaGas.getValueAt(fila, 0).toString());
-                paramtxtFecha.setText(paramtablaGas.getValueAt(fila, 1).toString());
+
+                fechaR = convertirFecha(paramtablaGas.getValueAt(fila, 1).toString());
+                paramtxtFecha.setText(fechaR);
                 paramIDUsuario.setText(paramtablaGas.getValueAt(fila, 2).toString());
                 paramlabelRegion.setText(paramtablaGas.getValueAt(fila, 3).toString());
                 paramnomEmpresa.setText(paramtablaGas.getValueAt(fila, 4).toString());
                 paramlabelResponsable.setText(paramtablaGas.getValueAt(fila, 5).toString());
-                paramlabelTerminales.setText(paramtablaGas.getValueAt(fila, 6).toString());
+
+                nomTerminal = paramtablaGas.getValueAt(fila, 6).toString();
+                paramlabelTerminales.setText(nomTerminal);
 
                 paramcMalas.setSelected((Boolean) paramtablaGas.getValueAt(fila, 7));
                 paramc_Buena.setSelected((Boolean) paramtablaGas.getValueAt(fila, 8));
