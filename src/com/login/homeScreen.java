@@ -1273,7 +1273,16 @@ public class homeScreen extends javax.swing.JFrame {
         }
 
         if (btnGas.isSelected()) {
+            if (btnGas.isSelected()) {
 
+                PDFExporter ejemplo = new PDFExporter();
+                try {
+                    ejemplo.GasPDF();
+                } catch (IOException ex) {
+                    Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
         }
 
     }//GEN-LAST:event_btnExportarMouseClicked

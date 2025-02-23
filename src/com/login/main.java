@@ -22,3 +22,4 @@ public class main {
         obj.setLocationRelativeTo(null);*/
     }
 }
+   
