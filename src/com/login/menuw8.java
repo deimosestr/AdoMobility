@@ -19,11 +19,9 @@ public class menuw8 extends javax.swing.JFrame {
     FondoPanel fondo = new FondoPanel();
     int xMouse, yMouse;
     private boolean isPasswordVisible = false;
-    //private final TConexion conexion = new TConexion();
-    //private Connection conn;
 
     public menuw8() {
-        
+
         //Aplicar transparencias
         setUndecorated(true);
         setBackground(new Color(255, 255, 255));
@@ -33,7 +31,7 @@ public class menuw8 extends javax.swing.JFrame {
         this.setSize(800, 500);  // Solo si quieres cambiar el tamaño por código       
         panelMenu.setOpaque(false);
         etiquetaUsuarios.setText(globalV.user);
-        System.out.println("Seguimiento de cadena 2: "+conectar);
+        //System.out.println("Seguimiento de cadena 2: "+conectar);
 
     }
 
@@ -285,12 +283,15 @@ public class menuw8 extends javax.swing.JFrame {
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?", "Aviso", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
-            System.out.println("Sí, cerrar sesión.");
+            //System.out.println("Sí, cerrar sesión.");
 
             // Cerrar la conexión a la base de datos
+            if (conectar == null) {
+                System.out.println("la conexion es nula");
+            }
             if (conectar != null) {
                 TConexion.cerrarConexion(conectar);
-                System.out.println("Conexión cerrada correctamente.");
+                //System.out.println("Conexión cerrada correctamente.");
             }
 
             // Abrir la ventana de login
@@ -301,7 +302,7 @@ public class menuw8 extends javax.swing.JFrame {
             // Cerrar la ventana actual
             this.dispose();
         } else {
-            System.out.println("No, no cerrar sesión.");
+            //System.out.println("No, no cerrar sesión.");
         }
 
     }//GEN-LAST:event_exitTxtMouseClicked

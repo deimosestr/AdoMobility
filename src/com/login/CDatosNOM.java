@@ -22,8 +22,6 @@ import javax.swing.table.TableRowSorter;
 
 public class CDatosNOM {
 
-    TConexion obj = new TConexion();
-
     //Panel info
     int iDbitacora;
     String fecha_revision;
@@ -211,10 +209,6 @@ public class CDatosNOM {
         this.firmado_epp = firmado_epp;
     }
 
-    public TConexion getObj() {
-        return obj;
-    }
-
     public String getUsuario() {
         return usuario;
     }
@@ -278,10 +272,6 @@ public class CDatosNOM {
     //Gas
     public String getEspesor() {
         return espesor;
-    }
-
-    public void setObj(TConexion obj) {
-        this.obj = obj;
     }
 
     public void setUsuario(String usuario) {
@@ -548,66 +538,6 @@ public class CDatosNOM {
         this.idTerminal = idTerminal;
     }
 
-    /*private void sincronizarSecuenciaBitacoraHumo() {
-        String sql = "SELECT setval('bitacora_humo_id_bitacora_seq', COALESCE((SELECT MAX(id_bitacora) FROM bitacora_humo), 0) + 1, false);";
-
-        try {
-            Connection conn = null;
-            conn = obj.establecerConexion(); // Conexión a la base de datos
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.execute();
-            System.out.println("Secuencia de bitacora_humo sincronizada correctamente.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error al sincronizar la secuencia de bitacora_humo.");
-        }
-    }
-    
-
-
-    private void actualizarSecuencia() {
-        String sql = "SELECT setval('bitacora_id_bitacora_seq', COALESCE((SELECT MAX(id_bitacora) FROM bitacora), 0) + 1, false)";
-
-        try {
-            Connection conn = null;
-            conn = obj.establecerConexion();
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.execute();
-            System.out.println("Secuencia actualizada correctamente.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error al actualizar la secuencia.");
-        }
-    }*/
- /*public static String convertirFecha(String fecha) {
-    if (fecha == null || fecha.trim().isEmpty()) {
-        return "";
-    }
-    try {
-        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat formatoSalida = new SimpleDateFormat("dd/MM/yyyy");
-        java.util.Date fechaDate = formatoEntrada.parse(fecha);
-        return formatoSalida.format(fechaDate);
-    } catch (ParseException e) {
-        System.out.println("Error al convertir la fecha: " + fecha);
-        return fecha; // Devuelve la fecha original si hay un error
-    }
-}*/
- /*public static String convertirFecha(String fecha) {
-        if (fecha == null || fecha.isEmpty()) {
-            return null; // Retorna null en lugar de una cadena vacía
-        }
-        try {
-            SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat formatoSalida = new SimpleDateFormat("dd/MM/yyyy");
-
-            java.util.Date fechaDate = formatoEntrada.parse(fecha);
-            return formatoSalida.format(fechaDate);
-        } catch (ParseException e) {
-            System.err.println("Error al convertir la fecha: " + fecha + " - " + e.getMessage());
-            return null; // Retorna null en caso de error
-        }
-    }*/
     public static String convertirFecha(String fecha) {
         if (fecha == null || fecha.isEmpty()) {
             return null; // Retorna null si la fecha es nula o vacía
@@ -641,13 +571,13 @@ public class CDatosNOM {
     }
 
     private void actualizarSecuencia(String ext, String nomTabla) {
-        System.out.println("se intenta actualizar");
+        //System.out.println("se intenta actualizar");
         String sql = "SELECT setval('" + ext + "', COALESCE((SELECT MAX(id_bitacora) FROM " + nomTabla + "), 0) + 1, false)";
-
+        PreparedStatement pst = null;
         try {
-            Connection conn = null;
-            conn = obj.establecerConexion();
-            PreparedStatement pst = conn.prepareStatement(sql);
+            /*Connection conn = null;
+            conn = obj.establecerConexion();*/
+            pst = globalV.conectar.prepareStatement(sql);
             pst.execute();
             //System.out.println("Secuencia actualizada correctamente.");
         } catch (SQLException e) {
@@ -658,18 +588,13 @@ public class CDatosNOM {
 
     public int obtenerIDNorma(String nombreNorma) {
         int idNorma = -1; // Valor predeterminado para indicar que no se encontró un resultado
-        Connection conexion = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
         try {
-            // Establecer la conexión
-            TConexion obj2 = new TConexion();
-            conexion = obj2.establecerConexion();
-
             // Consulta SQL
             String sql = "SELECT id_norma FROM normas WHERE nombre = ? LIMIT 1;";
-            pst = conexion.prepareStatement(sql);
+            pst = globalV.conectar.prepareStatement(sql);
 
             // Asignar el parámetro a la consulta
             pst.setString(1, nombreNorma);
@@ -683,8 +608,9 @@ public class CDatosNOM {
             }
         } catch (Exception e) {
             e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener el ID de la norma: " + e.getMessage());
         } finally {
-            // Cerrar los recursos
+            // Cerrar solo el PreparedStatement y el ResultSet
             try {
                 if (rs != null) {
                     rs.close();
@@ -692,11 +618,8 @@ public class CDatosNOM {
                 if (pst != null) {
                     pst.close();
                 }
-                if (conexion != null) {
-                    conexion.close();
-                }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
             }
         }
 
@@ -705,18 +628,13 @@ public class CDatosNOM {
 
     public int obtenerIDUsuario() {
         int idUsuario = -1; // Valor predeterminado para indicar que no se encontró un resultado
-        Connection conexion = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
         try {
-            // Establecer la conexión
-            TConexion obj2 = new TConexion();
-            conexion = obj2.establecerConexion();
-
             // Consulta SQL
             String sql = "SELECT id_usuarios FROM usuarios WHERE username = ? LIMIT 1;";
-            pst = conexion.prepareStatement(sql);
+            pst = globalV.conectar.prepareStatement(sql);
 
             // Asignar el parámetro a la consulta
             pst.setString(1, globalV.user);
@@ -730,8 +648,9 @@ public class CDatosNOM {
             }
         } catch (Exception e) {
             e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener el ID del usuario: " + e.getMessage());
         } finally {
-            // Cerrar los recursos
+            // Cerrar solo el PreparedStatement y el ResultSet
             try {
                 if (rs != null) {
                     rs.close();
@@ -739,11 +658,8 @@ public class CDatosNOM {
                 if (pst != null) {
                     pst.close();
                 }
-                if (conexion != null) {
-                    conexion.close();
-                }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
             }
         }
 
@@ -752,18 +668,13 @@ public class CDatosNOM {
 
     public int obtenerIDTerminal(String nombreTerminal) {
         int idTerminal = -1; // Valor predeterminado para indicar que no se encontró un resultado
-        Connection conexion = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
         try {
-            // Establecer la conexión
-            TConexion obj2 = new TConexion();
-            conexion = obj2.establecerConexion();
-
             // Consulta SQL
             String sql = "SELECT id_terminal FROM terminales WHERE nombre = ? LIMIT 1;";
-            pst = conexion.prepareStatement(sql);
+            pst = globalV.conectar.prepareStatement(sql);
 
             // Asignar el parámetro a la consulta
             pst.setString(1, nombreTerminal);
@@ -773,12 +684,13 @@ public class CDatosNOM {
 
             // Obtener el primer resultado
             if (rs.next()) {
-                idNorma = rs.getInt("id_terminal");
+                idTerminal = rs.getInt("id_terminal");
             }
         } catch (Exception e) {
             e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener el ID de la terminal: " + e.getMessage());
         } finally {
-            // Cerrar los recursos
+            // Cerrar solo el PreparedStatement y el ResultSet
             try {
                 if (rs != null) {
                     rs.close();
@@ -786,35 +698,27 @@ public class CDatosNOM {
                 if (pst != null) {
                     pst.close();
                 }
-                if (conexion != null) {
-                    conexion.close();
-                }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
             }
         }
 
-        return idNorma;
+        return idTerminal;
     }
 
     public List<String> obtenerNombreTerminales(int idUsuario) {
         List<String> nombresTerminales = new ArrayList<>(); // Inicializar la lista vacía
-        Connection conexion = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
         try {
-            // Establecer la conexión
-            TConexion obj2 = new TConexion();
-            conexion = obj2.establecerConexion();
-
             // Consulta SQL
             String sql = "SELECT t.nombre "
                     + "FROM terminales t "
                     + "JOIN terminales_usuarios tu ON t.id_terminal = tu.id_terminal "
                     + "JOIN usuarios u ON u.id_usuarios = tu.id_usuario "
                     + "WHERE u.id_usuarios = ?;";
-            pst = conexion.prepareStatement(sql);
+            pst = globalV.conectar.prepareStatement(sql);
 
             // Asignar el parámetro a la consulta
             pst.setInt(1, idUsuario);
@@ -823,15 +727,15 @@ public class CDatosNOM {
             rs = pst.executeQuery();
 
             // Procesar los resultados y agregar a la lista
-            //nombresTerminales.add("Selecciona una terminal");
             while (rs.next()) {
                 String nombreTerminal = rs.getString("nombre");
                 nombresTerminales.add(nombreTerminal);
             }
         } catch (Exception e) {
             e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener nombres de terminales: " + e.getMessage());
         } finally {
-            // Cerrar los recursos
+            // Cerrar solo el PreparedStatement y el ResultSet
             try {
                 if (rs != null) {
                     rs.close();
@@ -839,11 +743,8 @@ public class CDatosNOM {
                 if (pst != null) {
                     pst.close();
                 }
-                if (conexion != null) {
-                    conexion.close();
-                }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
             }
         }
 
@@ -852,29 +753,22 @@ public class CDatosNOM {
 
     public String obtenerdireccion(int idUsuario, String nomTerminal) {
         String direccionTerminal = null; // Variable para almacenar la dirección
-        Connection conexion = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
         try {
-            // Establecer la conexión
-            TConexion obj2 = new TConexion();
-            conexion = obj2.establecerConexion();
-
             // Consulta SQL
             String sql = "SELECT ubicacion "
                     + "FROM terminales t "
                     + "JOIN terminales_usuarios tu ON t.id_terminal = tu.id_terminal "
                     + "JOIN usuarios u ON u.id_usuarios = tu.id_usuario "
                     + "WHERE u.id_usuarios = ? AND t.nombre = ?"; // Usar AND en lugar de coma
-            pst = conexion.prepareStatement(sql);
+            pst = globalV.conectar.prepareStatement(sql);
 
             // Asignar los parámetros a la consulta
             pst.setInt(1, idUsuario);
-            System.out.println("usuario" + idUsuario);
             pst.setString(2, nomTerminal);
-            System.out.println("nomterminal " + nomTerminal);
-            System.out.println("nombre de terminal " + nomTerminal);
+
             // Ejecutar la consulta
             rs = pst.executeQuery();
 
@@ -884,8 +778,9 @@ public class CDatosNOM {
             }
         } catch (Exception e) {
             e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener la dirección de la terminal: " + e.getMessage());
         } finally {
-            // Cerrar los recursos
+            // Cerrar solo el PreparedStatement y el ResultSet
             try {
                 if (rs != null) {
                     rs.close();
@@ -893,25 +788,19 @@ public class CDatosNOM {
                 if (pst != null) {
                     pst.close();
                 }
-                if (conexion != null) {
-                    conexion.close();
-                }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
             }
         }
+
         // Retornar la dirección de la terminal (o null si no hay resultados)
         System.out.println("ubicacion=" + direccionTerminal);
         return direccionTerminal;
     }
 
     public void MostrarExtintores(JTable paramTablaNOM002) {
-        TConexion obj2 = new TConexion();
-
         // Crear el modelo de la tabla con tipos específicos y celdas no editables
-        DefaultTableModel modelo = new DefaultTableModel() {
-        };
-
+        DefaultTableModel modelo = new DefaultTableModel();
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         paramTablaNOM002.setRowSorter(OrdenarTabla);
 
@@ -969,7 +858,7 @@ public class CDatosNOM {
 
         try {
             // Establecer conexión y preparar la consulta
-            pst = obj2.establecerConexion().prepareStatement(sql);
+            pst = globalV.conectar.prepareStatement(sql);
             pst.setString(1, globalV.user); // Asignar el parámetro a la consulta
 
             rs = pst.executeQuery();
@@ -1108,8 +997,6 @@ public class CDatosNOM {
         setObservacion(paramObservaciones.getText());
         setSenalizacion(paramSenalizacion.isSelected());
 
-        TConexion obj = new TConexion();
-
         int iDUsuario = obtenerIDUsuario();
         int idNorma_fk = obtenerIDNorma(paramId_Norma_Fk.getText());
         int idTerminal = obtenerIDTerminal(paramNombreTerminal);
@@ -1122,7 +1009,7 @@ public class CDatosNOM {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
-            CallableStatement cs = obj.establecerConexion().prepareCall(sql);
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
 
             cs.setDate(1, java.sql.Date.valueOf(getFecha_revision()));
             cs.setString(2, getUbicacion());
@@ -1161,11 +1048,8 @@ public class CDatosNOM {
 
     //METODOS HUMO
     public void MostrarHumo(JTable paramTablaHumo) {
-        TConexion obj2 = new TConexion();
-
         // Crear el modelo de la tabla con tipos específicos y celdas no editables
-        DefaultTableModel modelo = new DefaultTableModel() {
-        };
+        DefaultTableModel modelo = new DefaultTableModel();
 
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         paramTablaHumo.setRowSorter(OrdenarTabla);
@@ -1239,7 +1123,7 @@ public class CDatosNOM {
 
         try {
             // Establecer conexión y preparar la consulta
-            pst = obj2.establecerConexion().prepareStatement(sql);
+            pst = globalV.conectar.prepareStatement(sql);
             pst.setString(1, globalV.user); // Asignar el parámetro a la consulta
 
             rs = pst.executeQuery();
@@ -1315,76 +1199,67 @@ public class CDatosNOM {
         setSenalizacion(paramSenalizacion.isSelected());
         setObservacion(paramObservaciones.getText());
 
-        TConexion obj3 = new TConexion();
-
         String sql = "UPDATE public.bitacora SET fecha_revision = ?, ubicacion = ?, ultima_recarga = ?, proxima_recarga = ?, "
                 + "capacidad = ?, tipo_agente_extinguidor = ?, manguera = ?, manometro = ?, "
                 + "soporte = ?, presion = ?, cilindro = ?, limpieza = ?, "
                 + "etiqueta = ?, seguro = ?, obstruccion = ?, senalizacion = ?, "
                 + "observacion = ? WHERE id_bitacora = ?";
-        try {
-            String fechaTexto = paramFechaRevision.getText().trim(); // Eliminar espacios en blanco
 
-            // Verificar qué formato tiene realmente la fecha ingresada
-            //System.out.println("Fecha ingresada: " + fechaTexto);
+        PreparedStatement pst = null;
+
+        try {
+            // Validar y convertir la fecha
+            String fechaTexto = paramFechaRevision.getText().trim(); // Eliminar espacios en blanco
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             formato.setLenient(false); // Evita que acepte fechas inválidas como "2025/02/30"
 
             java.util.Date fechaUtil;
-
             try {
                 fechaUtil = formato.parse(fechaTexto);
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Usa yyyy-MM-dd.");
                 return;
             }
-
             java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
 
-            try (Connection con = obj3.establecerConexion(); PreparedStatement cs = con.prepareStatement(sql)) {
+            // Usar la conexión global
+            pst = globalV.conectar.prepareStatement(sql);
 
-                cs.setDate(1, fechaSQL);
-                cs.setString(2, getUbicacion());
-                cs.setString(3, getUltima_fecha_recarga());
-                cs.setString(4, getProxima_recarga());
-                cs.setString(5, getCapacidad_kgs());
-                cs.setString(6, getTipo_agente_extinguidor());
-                cs.setBoolean(7, isManguera());
-                cs.setBoolean(8, isManometro());
-                cs.setBoolean(9, isSoporte());
-                cs.setBoolean(10, isPresion());
-                cs.setBoolean(11, isCilindro());
-                cs.setBoolean(12, isLimpieza());
-                cs.setBoolean(13, isEtiqueta());
-                cs.setBoolean(14, isSeguro());
-                cs.setBoolean(15, isObstruccion());
-                cs.setBoolean(16, isSenalizacion());
-                cs.setString(17, getObservacion());
-                cs.setInt(18, getiDbitacora());
-                /*ps.setDate(1, fechaSQL); // Se usa setDate en lugar de setString
-                ps.setString(2, getNombre_epp());
-                ps.setString(3, getArea_epp());
-                ps.setString(4, getPuesto_epp());
-                ps.setBoolean(5, isCasco_epp());
-                ps.setBoolean(6, isLentes_de_seguridad_epp());
-                ps.setBoolean(7, isBotas_de_seguridad_epp());
-                ps.setBoolean(8, isTapones_auditivos_epp());
-                ps.setBoolean(9, isGuantes_epp());
-                ps.setBoolean(10, isCareta_soldar_epp());
-                ps.setBoolean(11, isCareta_esmerilar_epp());
-                ps.setBoolean(12, isMascarilla_epp());
-                ps.setBoolean(13, isFaja_epp());
-                ps.setBoolean(14, isArnes_epp());
-                ps.setBoolean(15, isUniforme_epp());
-                ps.setBoolean(16, isFirmado_epp());
-                ps.setInt(17, getiDbitacora());*/
+            // Asignar los parámetros a la consulta
+            pst.setDate(1, fechaSQL);
+            pst.setString(2, getUbicacion());
+            pst.setString(3, getUltima_fecha_recarga());
+            pst.setString(4, getProxima_recarga());
+            pst.setString(5, getCapacidad_kgs());
+            pst.setString(6, getTipo_agente_extinguidor());
+            pst.setBoolean(7, isManguera());
+            pst.setBoolean(8, isManometro());
+            pst.setBoolean(9, isSoporte());
+            pst.setBoolean(10, isPresion());
+            pst.setBoolean(11, isCilindro());
+            pst.setBoolean(12, isLimpieza());
+            pst.setBoolean(13, isEtiqueta());
+            pst.setBoolean(14, isSeguro());
+            pst.setBoolean(15, isObstruccion());
+            pst.setBoolean(16, isSenalizacion());
+            pst.setString(17, getObservacion());
+            pst.setInt(18, getiDbitacora());
 
-                cs.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Modificación Exitosa");
-            }
+            // Ejecutar la actualización
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Modificación Exitosa");
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
+        } finally {
+            // Cerrar solo el PreparedStatement
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar el PreparedStatement: " + ex.getMessage());
+            }
         }
 
     }
@@ -1450,8 +1325,6 @@ public class CDatosNOM {
         setUbicacion_fisica(paramUbicacion_Fisica.isSelected());
         setObservacion(paramObservaciones.getText());
 
-        TConexion obj = new TConexion();
-
         int idUsuario = obtenerIDUsuario();
         int idNorma_fk = obtenerIDNorma(paramId_Norma_Fk.getText());
         int idTerminal = obtenerIDTerminal(paramNombreTerminal);
@@ -1462,7 +1335,7 @@ public class CDatosNOM {
                 + "id_norma_fk, id_usuario_fk, id_terminal_fk)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
-            CallableStatement cs = obj.establecerConexion().prepareCall(sql);
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
 
             cs.setDate(1, java.sql.Date.valueOf(getFecha_revision()));
             cs.setString(2, getUbicacion());
@@ -1497,8 +1370,8 @@ public class CDatosNOM {
             JTextField paramIdBitacoraHumo, JTextField paramFechaRevision, JTextField paramUbicacion,
             JTextField paramUltima_Fecha_pila, JTextField paramProximo_Cambio, JTextField paramMarca,
             JTextField paramTipo_Detector, JCheckBox paramPrueba_Funcionamiento,
-            JCheckBox paramSoporte, JCheckBox paramUbicacion_Fisica, JTextField paramObservaciones
-    ) {
+            JCheckBox paramSoporte, JCheckBox paramUbicacion_Fisica, JTextField paramObservaciones) {
+
         setiDbitacora(Integer.parseInt(paramIdBitacoraHumo.getText()));
         setFecha_revision(paramFechaRevision.getText());
         setUbicacion(paramUbicacion.getText());
@@ -1511,11 +1384,11 @@ public class CDatosNOM {
         setUbicacion_fisica(paramUbicacion_Fisica.isSelected());
         setObservacion(paramObservaciones.getText());
 
-        TConexion obj3 = new TConexion();
         String sql = "UPDATE bitacora_humo "
                 + "SET fecha_revision = ?, ubicacion = ?, ultima_fecha_pila = ?, proximo_cambio_pila = ?, marca = ?, "
                 + "tipo_detector = ?, prueba_funcionamiento = ?, soporte = ?, ubicacion_fisica = ?, observacion = ? "
                 + "WHERE id_bitacora = ?";
+        PreparedStatement cs = null;
 
         try {
             String fechaTexto = paramFechaRevision.getText().trim(); // Eliminar espacios en blanco
@@ -1535,44 +1408,47 @@ public class CDatosNOM {
             }
 
             java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+            cs = globalV.conectar.prepareCall(sql);
 
-            try (Connection con = obj3.establecerConexion(); PreparedStatement cs = con.prepareStatement(sql)) {
-
-                cs.setDate(1, fechaSQL);
-                cs.setString(2, getUbicacion());
-                cs.setString(3, getUltima_fecha_recarga());
-                cs.setString(4, getProxima_recarga());
-                cs.setString(5, getMarca());
-                cs.setString(6, getTipo_agente_extinguidor());
-                cs.setBoolean(7, isPrueba_funcionamiento());
-                cs.setBoolean(8, isSoporte());
-                cs.setBoolean(9, isUbicacion_fisica());
-                cs.setString(10, getObservacion());
-                cs.setInt(11, getiDbitacora());
-                cs.execute();
-            }
+            cs.setDate(1, fechaSQL);
+            cs.setString(2, getUbicacion());
+            cs.setString(3, getUltima_fecha_recarga());
+            cs.setString(4, getProxima_recarga());
+            cs.setString(5, getMarca());
+            cs.setString(6, getTipo_agente_extinguidor());
+            cs.setBoolean(7, isPrueba_funcionamiento());
+            cs.setBoolean(8, isSoporte());
+            cs.setBoolean(9, isUbicacion_fisica());
+            cs.setString(10, getObservacion());
+            cs.setInt(11, getiDbitacora());
+            cs.execute();
 
             JOptionPane.showMessageDialog(null, "Modificación Exitosa");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se modificó, error" + e.toString());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar solo el PreparedStatement
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar el PreparedStatement: " + ex.getMessage());
+            }
         }
 
     }
     //ALAN--------------------------------------------------------------------------------------------------------
 
-    public List<String> obtenerRutas() { //metodo para obtener rutas de videos
-        List<String> rutas = new ArrayList<>();
-        Connection conexion = null;
+    public List<String> obtenerRutas() {
+        List<String> rutas = new ArrayList<>(); // Lista para almacenar las rutas de los videos
         PreparedStatement pst = null;
         ResultSet rs = null;
 
         try {
-            // Establecer la conexión a la base de datos
-            conexion = obj.establecerConexion();
-
             // Consulta SQL para obtener las rutas
             String sql = "SELECT ruta FROM lista_videos;";
-            pst = conexion.prepareStatement(sql);
+            pst = globalV.conectar.prepareStatement(sql);
 
             // Ejecutar la consulta
             rs = pst.executeQuery();
@@ -1585,7 +1461,7 @@ public class CDatosNOM {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al obtener rutas de la BD", "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
-            // Cerrar recursos
+            // Cerrar solo el PreparedStatement y el ResultSet
             try {
                 if (rs != null) {
                     rs.close();
@@ -1593,15 +1469,12 @@ public class CDatosNOM {
                 if (pst != null) {
                     pst.close();
                 }
-                if (conexion != null) {
-                    conexion.close();
-                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
 
-        return rutas;
+        return rutas; // Retornar la lista de rutas
     }
 
     // Método para cargar las rutas en un combobox video
@@ -1611,8 +1484,6 @@ public class CDatosNOM {
         if (!rutas.isEmpty()) {
             // Añadir las rutas al combo box
             comboBox.addItem("Seleccione un video");
-            System.out.println("PDF generado exitosamente: ");
-            System.out.println("PDF generado exitosamente: ");
             System.out.println("PDF generado exitosamente: ");
             for (String ruta : rutas) {
                 comboBox.addItem(ruta);
@@ -1630,13 +1501,11 @@ public class CDatosNOM {
             JTextField paramcObservaciones, JTextField paramcapacidadTanque, JTextField paramfechaFabricacion,
             JTextField paramcRegistrada, JTextField paramtObservaciones, JTextField parammarcaTanque,
             JTextField paramnumSerie, JTextField paramdiametroEXT, JTextField paramespesor) {
-
-        // 
         try {
             int fila = paramtablaGas.getSelectedRow();
             if (fila >= 0) {
 
-// Asignar valores a los JTextField
+                // Asignar valores a los JTextField
                 paramtxtIDBitacora.setText(paramtablaGas.getValueAt(fila, 0).toString());
                 paramtxtFecha.setText(paramtablaGas.getValueAt(fila, 1).toString());
                 paramIDUsuario.setText(paramtablaGas.getValueAt(fila, 2).toString());
@@ -1669,12 +1538,8 @@ public class CDatosNOM {
     }
 
     public void MostrarGas(JTable paramtablaGas) {
-        TConexion obj2 = new TConexion();
-
         // Crear el modelo de la tabla con tipos específicos y celdas no editables
-        DefaultTableModel modelo = new DefaultTableModel() {
-        };
-
+        DefaultTableModel modelo = new DefaultTableModel();
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         paramtablaGas.setRowSorter(OrdenarTabla);
 
@@ -1760,7 +1625,7 @@ public class CDatosNOM {
 
         try {
             // Establecer conexión y preparar la consulta
-            pst = obj2.establecerConexion().prepareStatement(sql);
+            pst = globalV.conectar.prepareStatement(sql);
             pst.setString(1, globalV.user); // Asignar el parámetro a la consulta
 
             rs = pst.executeQuery();
@@ -1819,6 +1684,7 @@ public class CDatosNOM {
             JTextField paramcObservaciones, JTextField paramcapacidadTanque, JTextField paramfechaFabricacion,
             JTextField paramcRegistrada, JTextField paramtObservaciones, JTextField parammarca,
             JTextField paramnumSerie, JTextField paramdiametroEXT, JTextField paramespesor) {
+
         setiDbitacora(Integer.parseInt(paramIdBitacoraHumo.getText()));
         setFecha_revision(paramFechaRevision.getText());
         setNomEmpresa(paramnomEmpresa.getText());
@@ -1835,55 +1701,59 @@ public class CDatosNOM {
         setDiametroEXT(paramdiametroEXT.getText());
         setEspesor(paramespesor.getText());
 
-        TConexion obj3 = new TConexion();
         String sql = "UPDATE bitacora_instalacion_de_gas "
                 + "SET fecha_revision = ?,  nombre_empresa = ?, c_buena = ?, c_regular= ?, c_mala = ?, observaciones_soportes = ?, "
                 + "capacidad = ?, fecha_fabricacion = ?, capacidad_reg = ?, observaciones_gen_revisor = ?, marca = ?, serie = ?, "
                 + "diametro = ?, espesor = ? "
                 + "WHERE id_bitacora = ?";
 
-        try {
-            String fechaTexto = paramFechaRevision.getText().trim(); // Eliminar espacios en blanco
+        PreparedStatement cs = null;
 
-            // Verificar qué formato tiene realmente la fecha ingresada
-            //System.out.println("Fecha ingresada: " + fechaTexto);
+        try {
+            // Validar y convertir la fecha
+            String fechaTexto = paramFechaRevision.getText().trim(); // Eliminar espacios en blanco
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             formato.setLenient(false); // Evita que acepte fechas inválidas como "2025/02/30"
 
             java.util.Date fechaUtil;
-
             try {
                 fechaUtil = formato.parse(fechaTexto);
             } catch (ParseException e) {
                 JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Usa yyyy-MM-dd.");
                 return;
             }
-
             java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+            cs = globalV.conectar.prepareStatement(sql);
 
-            try (Connection con = obj3.establecerConexion(); PreparedStatement cs = con.prepareStatement(sql)) {
+            cs.setDate(1, fechaSQL);
+            cs.setString(2, getNomEmpresa());
+            cs.setBoolean(3, isC_Buena());
+            cs.setBoolean(4, isC_Regular());
+            cs.setBoolean(5, iscMalas());
+            cs.setString(6, getcObservaciones());
+            cs.setString(7, getCapacidadTanque());
+            cs.setString(8, getFechaFabricacion());
+            cs.setString(9, getcRegistrada());
+            cs.setString(10, gettObservaciones());
+            cs.setString(11, getMarcaTanque());
+            cs.setString(12, getNumSerie());
+            cs.setString(13, getDiametroEXT());
+            cs.setString(14, getEspesor());
+            cs.setInt(15, getiDbitacora());
 
-                cs.setDate(1, fechaSQL);
-                cs.setString(2, getNomEmpresa());
-                cs.setBoolean(3, isC_Buena());
-                cs.setBoolean(4, isC_Regular());
-                cs.setBoolean(5, iscMalas());
-                cs.setString(6, getcObservaciones());
-                cs.setString(7, getCapacidadTanque());
-                cs.setString(8, getFechaFabricacion());
-                cs.setString(9, getcRegistrada());
-                cs.setString(10, gettObservaciones());
-                cs.setString(11, getMarcaTanque());
-                cs.setString(12, getNumSerie());
-                cs.setString(13, getDiametroEXT());
-                cs.setString(14, getEspesor());
-                cs.setInt(15, getiDbitacora());
-
-                cs.execute();
-                JOptionPane.showMessageDialog(null, "Modificación Exitosa");
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Modificación Exitosa");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar solo el PreparedStatement
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar el PreparedStatement: " + ex.getMessage());
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se modificó, error" + e.toString());
         }
 
     }
@@ -1910,8 +1780,6 @@ public class CDatosNOM {
         setDiametroEXT(paramdiametroEXT.getText());
         setEspesor(paramespesor.getText());
 
-        TConexion obj = new TConexion();
-
         int idUsuario = obtenerIDUsuario();
         int idNorma_fk = obtenerIDNorma(paramId_Norma_Fk.getText());
         int idTerminal = obtenerIDTerminal(paramNombreTerminal);
@@ -1923,7 +1791,7 @@ public class CDatosNOM {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            CallableStatement cs = obj.establecerConexion().prepareCall(sql);
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
 
             cs.setDate(1, java.sql.Date.valueOf(getFecha_revision()));
             cs.setString(2, getNomEmpresa());
@@ -1958,8 +1826,6 @@ public class CDatosNOM {
 
     /*FABIAN----------------------------------*/
     public void MostrarEPP(JTable paramtablaEPP) {
-        TConexion obj2 = new TConexion();
-
         // Crear el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
@@ -1972,11 +1838,9 @@ public class CDatosNOM {
         modelo.addColumn("Terminal");
         modelo.addColumn("ID Bitacora");
         modelo.addColumn("Fecha Revision");
-
         modelo.addColumn("Nombre");
         modelo.addColumn("Area");
         modelo.addColumn("Puesto");
-
         modelo.addColumn("Casco");
         modelo.addColumn("Lentes de seguridad");
         modelo.addColumn("Botas de seguridad");
@@ -2051,8 +1915,8 @@ public class CDatosNOM {
         ResultSet rs = null;
 
         try {
-            // Establecer conexión y preparar la consulta
-            pst = obj2.establecerConexion().prepareStatement(sql);
+            // Usar la conexión global
+            pst = globalV.conectar.prepareStatement(sql);
             pst.setString(1, globalV.user); // Asignar el parámetro a la consulta
 
             rs = pst.executeQuery();
@@ -2096,7 +1960,7 @@ public class CDatosNOM {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
         } finally {
-            // Cerrar recursos
+            // Cerrar solo el PreparedStatement y el ResultSet
             try {
                 if (rs != null) {
                     rs.close();
@@ -2105,7 +1969,7 @@ public class CDatosNOM {
                     pst.close();
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+                JOptionPane.showMessageDialog(null, "Error al cerrar recursos: " + ex.toString());
             }
         }
     }
@@ -2133,8 +1997,6 @@ public class CDatosNOM {
         setUniforme_epp(paramUniformeEPP.isSelected());
         setFirmado_epp(paramFirmadoEPP.isSelected());
 
-        TConexion obj = new TConexion();
-
         int idUsuario = obtenerIDUsuario();
         int idNorma_fk = obtenerIDNorma(paramId_Norma_Fk.getText());
         int idTerminal = obtenerIDTerminal(paramNombreTerminal);
@@ -2147,7 +2009,7 @@ public class CDatosNOM {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
-            CallableStatement cs = obj.establecerConexion().prepareCall(sql);
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
 
             cs.setDate(1, java.sql.Date.valueOf(getFecha_revision()));
             cs.setString(2, getNombre_epp());
@@ -2254,13 +2116,13 @@ public class CDatosNOM {
         setUniforme_epp(paramUniformeEPP.isSelected());
         setFirmado_epp(paramFirmadoEPP.isSelected());
 
-        TConexion obj3 = new TConexion();
         String sql = "UPDATE public.bitacora_epp "
                 + "SET fecha_revision=?, nombre=?, area=?, puesto=?, casco=?, "
                 + "lentes_de_seguridad=?, botas_de_seguridad=?, tapones_auditivos=?, guantes=?, "
                 + "careta_soldar=?, careta_esmerilar=?, mascarilla=?, faja=?, arnes=?, uniforme=?, "
                 + "firmado=? WHERE id_bitacora = ?";
 
+        PreparedStatement ps = null;
         try {
             String fechaTexto = paramFechaRevisionEPP.getText().trim(); // Eliminar espacios en blanco
 
@@ -2279,34 +2141,39 @@ public class CDatosNOM {
             }
 
             java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+            ps = globalV.conectar.prepareStatement(sql);
 
-            try (Connection con = obj3.establecerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, fechaSQL); // Se usa setDate en lugar de setString
+            ps.setString(2, getNombre_epp());
+            ps.setString(3, getArea_epp());
+            ps.setString(4, getPuesto_epp());
+            ps.setBoolean(5, isCasco_epp());
+            ps.setBoolean(6, isLentes_de_seguridad_epp());
+            ps.setBoolean(7, isBotas_de_seguridad_epp());
+            ps.setBoolean(8, isTapones_auditivos_epp());
+            ps.setBoolean(9, isGuantes_epp());
+            ps.setBoolean(10, isCareta_soldar_epp());
+            ps.setBoolean(11, isCareta_esmerilar_epp());
+            ps.setBoolean(12, isMascarilla_epp());
+            ps.setBoolean(13, isFaja_epp());
+            ps.setBoolean(14, isArnes_epp());
+            ps.setBoolean(15, isUniforme_epp());
+            ps.setBoolean(16, isFirmado_epp());
+            ps.setInt(17, getiDbitacora());
 
-                ps.setDate(1, fechaSQL); // Se usa setDate en lugar de setString
-                ps.setString(2, getNombre_epp());
-                ps.setString(3, getArea_epp());
-                ps.setString(4, getPuesto_epp());
-                ps.setBoolean(5, isCasco_epp());
-                ps.setBoolean(6, isLentes_de_seguridad_epp());
-                ps.setBoolean(7, isBotas_de_seguridad_epp());
-                ps.setBoolean(8, isTapones_auditivos_epp());
-                ps.setBoolean(9, isGuantes_epp());
-                ps.setBoolean(10, isCareta_soldar_epp());
-                ps.setBoolean(11, isCareta_esmerilar_epp());
-                ps.setBoolean(12, isMascarilla_epp());
-                ps.setBoolean(13, isFaja_epp());
-                ps.setBoolean(14, isArnes_epp());
-                ps.setBoolean(15, isUniforme_epp());
-                ps.setBoolean(16, isFirmado_epp());
-                ps.setInt(17, getiDbitacora());
-
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Modificación Exitosa");
-            }
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Modificación Exitosa");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
+        } finally {
+            // Cerrar solo el PreparedStatement
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar el PreparedStatement: " + ex.getMessage());
+            }
         }
     }
-
 }

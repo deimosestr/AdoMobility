@@ -1,5 +1,6 @@
 package com.login;
 
+import static com.login.globalV.conectar;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.awt.Color;
@@ -19,7 +20,6 @@ import java.util.logging.Logger;
 public class screenOrganizacion extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-    TConexion conexion = new TConexion();
     CDatosNOM obj = new CDatosNOM();
 
     public screenOrganizacion() {
@@ -986,15 +986,28 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         // TODO add your handling code here:
-        int opcion = JOptionPane.showConfirmDialog(null, "Deseas cerrar sesion?", "Aviso", JOptionPane.YES_OPTION);
-        if (opcion == 0) {
-           // conexion.cerrarConexion();
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?", "Aviso", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            //System.out.println("Sí, cerrar sesión.");
+
+            // Cerrar la conexión a la base de datos
+            if(conectar == null){
+                System.out.println("la conexion es nula");
+            } 
+            if (conectar != null) {
+                TConexion.cerrarConexion(conectar);
+                //System.out.println("Conexión cerrada correctamente.");
+            }
+
+            // Abrir la ventana de login
             Login obj = new Login();
             obj.setVisible(true);
             obj.setLocationRelativeTo(null);
+
+            // Cerrar la ventana actual
             this.dispose();
         } else {
-
+            //System.out.println("No, no cerrar sesión.");
         }
     }//GEN-LAST:event_exitTxtMouseClicked
 

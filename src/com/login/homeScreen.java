@@ -39,7 +39,7 @@ public class homeScreen extends javax.swing.JFrame {
         buttonsNormas btnExtintores = new buttonsNormas();
         buttonsNormas btnHumo = new buttonsNormas();
         buttonsNormas btnGas = new buttonsNormas();
-        System.out.println("Seguimiento de cadena 3: "+conectar);
+        //System.out.println("Seguimiento de cadena 3: "+conectar);
     }
 
     @SuppressWarnings("unchecked")
@@ -1037,20 +1037,20 @@ public class homeScreen extends javax.swing.JFrame {
 
     }
 
-    
+
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         // TODO add your handling code here:
         int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?", "Aviso", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
-            System.out.println("Sí, cerrar sesión.");
+            //System.out.println("Sí, cerrar sesión.");
 
             // Cerrar la conexión a la base de datos
-            if(conectar == null){
+            if (conectar == null) {
                 System.out.println("la conexion es nula");
-            } 
+            }
             if (conectar != null) {
                 TConexion.cerrarConexion(conectar);
-                System.out.println("Conexión cerrada correctamente.");
+                //System.out.println("Conexión cerrada correctamente.");
             }
 
             // Abrir la ventana de login
@@ -1061,7 +1061,7 @@ public class homeScreen extends javax.swing.JFrame {
             // Cerrar la ventana actual
             this.dispose();
         } else {
-            System.out.println("No, no cerrar sesión.");
+            //System.out.println("No, no cerrar sesión.");
         }
     }//GEN-LAST:event_exitTxtMouseClicked
 
@@ -1154,8 +1154,33 @@ public class homeScreen extends javax.swing.JFrame {
                     ultimaRecarga, proximaRecarga, capacidad, agenteExtinguidor,
                     chckManguera, chckManometro, chckSoporte, chckPresion, chckCilindro, chckLimpieza,
                     chckEtiqueta, chckSeguro, chckObstrucciones, chckSenalizacion, observaciones);
-            obj.MostrarExtintores(tbExtintores);
+            //PanelInfo
+            labelResponsable.setText("Usuario");
+            txtIDBitacora.setText("");
+            labelRegiones.setText("Region");
+            labelTerminales.setText("Terminal");
+            txtFecha.setText("");
+            txtiDUsuario.setText("");
+            txtIDNorma.setText("NOM-002-STPS-2010");
+            //datos
+            ubicacion.setText("");
+            ultimaRecarga.setText("");
+            proximaRecarga.setText("");
+            capacidad.setText("");
+            agenteExtinguidor.setText("");
+            chckManguera.setSelected(false);
+            chckManometro.setSelected(false);
+            chckSoporte.setSelected(false);
+            chckPresion.setSelected(false);
+            chckCilindro.setSelected(false);
+            chckLimpieza.setSelected(false);
+            chckEtiqueta.setSelected(false);
+            chckSeguro.setSelected(false);
+            chckObstrucciones.setSelected(false);
+            chckSenalizacion.setSelected(false);
+            observaciones.setText("");
 
+            obj.MostrarExtintores(tbExtintores);
         }
 
         if (btnHumo.isSelected()) {
@@ -1163,6 +1188,24 @@ public class homeScreen extends javax.swing.JFrame {
                     ultimaFechaHumo, proximaFechaHumo, marcaHumo,
                     tipoDetectorHumo, pruebaFuncionamiento, soporteHumo,
                     ubicacionFisica, observacionesHumo);
+            //PanelInfo
+            labelResponsable.setText("Usuario");
+            txtIDBitacora.setText("");
+            labelRegiones.setText("Region");
+            labelTerminales.setText("Terminal");
+            txtFecha.setText("");
+            txtiDUsuario.setText("");
+            txtIDNorma.setText("NOM-002-STPS-2010");
+            //datos
+            ubicacionHumo.setText("");
+            ultimaFechaHumo.setText("");
+            proximaFechaHumo.setText("");
+            marcaHumo.setText("");
+            tipoDetectorHumo.setText("");
+            pruebaFuncionamiento.setSelected(false);
+            soporteHumo.setSelected(false);
+            ubicacionFisica.setSelected(false);
+            observacionesHumo.setText("");
             obj.MostrarHumo(tablaHumo);
         }
 
@@ -1173,6 +1216,28 @@ public class homeScreen extends javax.swing.JFrame {
                     cObservaciones, capacidadTanque, fechaFabricacion,
                     cRegistrada, tObservaciones, marca, numSerie,
                     diametroEXT, espesor);
+            //PanelInfo
+            labelResponsable.setText("Usuario");
+            txtIDBitacora.setText("");
+            labelRegiones.setText("Region");
+            labelTerminales.setText("Terminal");
+            txtFecha.setText("");
+            txtiDUsuario.setText("");
+            txtIDNorma.setText("NOM-002-STPS-2010");
+            //datos
+            nomEmpresa.setText("");
+            cMalas.setSelected(false);
+            c_Buena.setSelected(false);
+            c_Regular.setSelected(false);
+            cObservaciones.setText("");
+            capacidadTanque.setText("");
+            fechaFabricacion.setText("");
+            cRegistrada.setText("");
+            marca.setText("");
+            numSerie.setText("");
+            diametroEXT.setText("");
+            espesor.setText("");
+            tObservaciones.setText("");
             obj.MostrarGas(tablaGas);
         }
 
@@ -1330,16 +1395,22 @@ public class homeScreen extends javax.swing.JFrame {
                     chckCilindro, chckLimpieza, chckEtiqueta, chckSeguro,
                     chckObstrucciones, observaciones, firma, txtIDNorma,
                     txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());
+            //panel info
+            labelResponsable.setText("Usuario");
+            txtIDBitacora.setText("");
+            labelRegiones.setText("Region");
+            labelTerminales.setText("Terminal");
             txtFecha.setText("");
+            txtiDUsuario.setText("");
+            txtIDNorma.setText("NOM-002-STPS-2010");
+
+            //datos
             ubicacion.setText("");
             ultimaRecarga.setText("");
             proximaRecarga.setText("");
             capacidad.setText("");
             agenteExtinguidor.setText("");
             observaciones.setText("");
-            firma.setText("");
-            txtIDNorma.setText("");
-            txtiDUsuario.setText("");
 
             // Desmarcar checkboxes
             chckManguera.setSelected(false);
@@ -1357,10 +1428,29 @@ public class homeScreen extends javax.swing.JFrame {
         }
 
         if (btnHumo.isSelected()) {
-
             obj.insertarHumo(txtFecha, ubicacionHumo, ultimaFechaHumo, proximaFechaHumo, marcaHumo,
-                    tipoDetectorHumo, pruebaFuncionamiento, chckSoporte,
+                    tipoDetectorHumo, pruebaFuncionamiento, soporteHumo,
                     ubicacionFisica, observacionesHumo, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
+            //panel info
+            labelResponsable.setText("Usuario");
+            txtIDBitacora.setText("");
+            labelRegiones.setText("Region");
+            labelTerminales.setText("Terminal");
+            txtFecha.setText("");
+            txtiDUsuario.setText("");
+            txtIDNorma.setText("NOM-002-STPS-2010");
+            
+            //datos
+            ubicacionHumo.setText("");
+            ultimaFechaHumo.setText("");
+            proximaFechaHumo.setText("");
+            marcaHumo.setText("");
+            tipoDetectorHumo.setText("");
+            pruebaFuncionamiento.setSelected(false);
+            soporteHumo.setSelected(false);
+            ubicacionFisica.setSelected(false);
+            observacionesHumo.setText("");
+            
             obj.MostrarHumo(tablaHumo);
 
         }
@@ -1372,6 +1462,29 @@ public class homeScreen extends javax.swing.JFrame {
                     cRegistrada, tObservaciones, marca,
                     numSerie, diametroEXT, espesor, txtIDNorma,
                     txtiDUsuario, listNom.getSelectedItem().toString());
+            //panel info
+            labelResponsable.setText("Usuario");
+            txtIDBitacora.setText("");
+            labelRegiones.setText("Region");
+            labelTerminales.setText("Terminal");
+            txtFecha.setText("");
+            txtiDUsuario.setText("");
+            txtIDNorma.setText("NOM-002-STPS-2010");
+            //datos
+            nomEmpresa.setText("");
+            cMalas.setSelected(false);
+            c_Buena.setSelected(false);
+            c_Regular.setSelected(false);
+            cObservaciones.setText("");
+            capacidadTanque.setText("");
+            fechaFabricacion.setText("");
+            cRegistrada.setText("");
+            tObservaciones.setText("");
+            marca.setText("");
+            numSerie.setText("");
+            diametroEXT.setText("");
+            espesor.setText("");
+            
             obj.MostrarGas(tablaGas);
         }
     }//GEN-LAST:event_btnInsertar1ActionPerformed

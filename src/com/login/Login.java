@@ -17,15 +17,10 @@ public class Login extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     private boolean isPasswordVisible = false;
-    //private final TConexion conexion = new TConexion();
-    //Connection conn = null;
+    
 
     public Login() {
         initComponents();
-        homeScreen p1 = new homeScreen();
-        setBackground(new Color(255, 255, 255));
-        p1.setSize(800, 500);
-        p1.setLocationRelativeTo(null);
     }
 
     public void iniciarSesion() {
@@ -40,7 +35,7 @@ public class Login extends javax.swing.JFrame {
         
         try {
             conectar = TConexion.establecerConexion(); // Establecer la conexión
-            System.out.println("Seguimiento de cadena 1: "+conectar);
+            //System.out.println("Seguimiento de cadena 1: "+conectar);
             String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
             PreparedStatement pstmt = conectar.prepareStatement(query);
             pstmt.setString(1, username);
@@ -61,7 +56,7 @@ public class Login extends javax.swing.JFrame {
         } 
     }
 
-    /*private void togglePasswordVisibility() {
+    private void togglePasswordVisibility() {
         if (isPasswordVisible) {
             passwordField1.setEchoChar('•');
             showPasswordBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/ver.png"))); // Icono de ojo cerrado
@@ -72,7 +67,7 @@ public class Login extends javax.swing.JFrame {
         isPasswordVisible = !isPasswordVisible;
     }
 
-    private void forgotPassword() {
+    /*private void forgotPassword() {
         javax.swing.JTextField emailField = new javax.swing.JTextField();
 
         Object[] message = {
@@ -506,7 +501,7 @@ public class Login extends javax.swing.JFrame {
 
     private void showPasswordBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPasswordBtnMouseClicked
         // TODO add your handling code here:
-       // togglePasswordVisibility();
+        togglePasswordVisibility();
     }//GEN-LAST:event_showPasswordBtnMouseClicked
 
     private void passwordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordField1KeyPressed
