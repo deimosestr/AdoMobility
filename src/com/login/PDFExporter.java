@@ -174,210 +174,208 @@ public class PDFExporter {
             e.printStackTrace();
         }
     }
- 
-    
-           public void HumoPDF() throws IOException {
-    String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
-    String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
 
-    PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
-    PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
+    public void HumoPDF() throws IOException {
+        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
+        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
 
-    try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
-        System.out.println("Conexión exitosa con la base de datos.");
+        PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
+        PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
 
-        String sql = "SELECT "
-                + "b.ubicacion, b.ultima_fecha_pila, b.proximo_cambio_pila, b.marca, "
-                + "b.tipo_detector, b.prueba_funcionamiento, b.soporte, b.ubicacion_fisica, "
-                + "b.observacion, b.id_norma_fk, b.id_terminal_fk, b.fecha_revision "
-                + "FROM bitacora_humo b "
-                + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
-                + "WHERE u.username = ? "
-                + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? "
-                + "AND EXTRACT(YEAR FROM b.fecha_revision) = ?";
+        try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
+            System.out.println("Conexión exitosa con la base de datos.");
 
-        PreparedStatement statement = conn.prepareStatement(sql);
+            String sql = "SELECT "
+                    + "b.ubicacion, b.ultima_fecha_pila, b.proximo_cambio_pila, b.marca, "
+                    + "b.tipo_detector, b.prueba_funcionamiento, b.soporte, b.ubicacion_fisica, "
+                    + "b.observacion, b.id_norma_fk, b.id_terminal_fk, b.fecha_revision "
+                    + "FROM bitacora_humo b "
+                    + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                    + "WHERE u.username = ? "
+                    + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? "
+                    + "AND EXTRACT(YEAR FROM b.fecha_revision) = ? "
+                    + "AND b.id_terminal_fk = ? ";
 
-        // Validar que globalV.fechaR no sea null o esté vacía
-        if (globalV.fechaR == null || globalV.fechaR.isEmpty()) {
-            throw new IllegalArgumentException("La fecha no puede ser nula o vacía.");
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            // Validar que globalV.fechaR no sea null o esté vacía
+            if (globalV.fechaR == null || globalV.fechaR.isEmpty()) {
+                throw new IllegalArgumentException("La fecha no puede ser nula o vacía.");
+            }
+
+            // Parsear la fecha
+            LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            int mes = fecha.getMonthValue();
+            int ano = fecha.getYear();
+
+            statement.setString(1, globalV.user);
+            statement.setInt(2, mes);
+            statement.setInt(3, ano);
+            statement.setInt(4, globalV.idter);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Crear el documento PDF
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            Document document = new Document(pdfDoc);
+
+            // Crear la tabla con anchos de columna definidos
+            Table table = new Table(new float[]{0.4f, 1.8f, 1.8f, 1.8f, 1.3f, 1.5f, 1.8f, 1.5f, 1.5f, 1.5f});
+            table.setWidth(UnitValue.createPercentValue(94.8f)); // Ajustar el ancho de la tabla
+
+            // Agregar encabezados
+            table.addHeaderCell(new Cell().add(new Paragraph("#")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Ubicación")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Última fecha de pila")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Próximo cambio de pila")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Marca")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Tipo de detector")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Prueba de funcionamiento")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Soporte")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Ubicación física")).setFontSize(7f));
+            table.addHeaderCell(new Cell().add(new Paragraph("Observación")).setFontSize(7f));
+
+            int contador = 0;
+            while (resultSet.next()) {
+                contador++;
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(contador)).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ubicacion")).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ultima_fecha_pila")).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("proximo_cambio_pila")).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("marca")).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("tipo_detector")).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("prueba_funcionamiento")).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("soporte")).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ubicacion_fisica")).setFontSize(7f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("observacion")).setFontSize(7f)));
+            }
+
+            // Agregar la tabla al documento
+            document.add(table.setMarginTop(112).setMarginLeft(35.5f)); // Ajustar margen superior
+
+            // Crear tabla de firma
+            Table tabla2 = new Table(new float[]{50});
+            tabla2.addHeaderCell(new Cell().add(new Paragraph("FIRMA DE QUIEN REALIZA LA REVISIÓN"))
+                    .setFontSize(5.5f)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setVerticalAlignment(VerticalAlignment.MIDDLE));
+            tabla2.addCell(new Cell().setHeight(20));
+
+            Div div = new Div()
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setWidth(UnitValue.createPercentValue(100))
+                    .add(tabla2);
+            tabla2.setWidth(400);
+
+            // Agregar la tabla de firma al documento
+            document.add(div.setMarginTop(5).setMarginLeft(160));
+
+            // Sobreescribir texto en el PDF
+            PdfPage page = pdfDoc.getLastPage();
+            PdfCanvas pdfCanvas = new PdfCanvas(page);
+
+            // Sobreescribir la dirección
+            float m = 215; // Ajusta según sea necesario
+            float n = 497; // Ajusta según sea necesario
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
+                    .setFillColor(ColorConstants.BLACK)
+                    .moveText(m, n)
+                    .showText(globalV.direccion)
+                    .endText();
+
+            // Sobreescribir la dirección
+            float x = 215; // Ajusta según sea necesario
+            float y = 482; // Ajusta según sea necesario
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
+                    .setFillColor(ColorConstants.BLACK)
+                    .moveText(x, y)
+                    .showText(globalV.fechaR)
+                    .endText();
+            System.out.println(globalV.fechaR);
+
+            // Cerrar el documento
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        // Parsear la fecha
-        LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        int mes = fecha.getMonthValue();
-        int ano = fecha.getYear();
-
-        statement.setString(1, globalV.user);
-        statement.setInt(2, mes);
-        statement.setInt(3, ano);
-
-        ResultSet resultSet = statement.executeQuery();
-
-        // Crear el documento PDF
-        PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
-        Document document = new Document(pdfDoc);
-
-        // Crear la tabla con anchos de columna definidos
-        Table table = new Table(new float[]{0.4f, 1.8f, 1.8f, 1.8f, 1.3f, 1.5f, 1.8f, 1.5f, 1.5f, 1.5f});
-        table.setWidth(UnitValue.createPercentValue(94.8f)); // Ajustar el ancho de la tabla
-
-        // Agregar encabezados
-        table.addHeaderCell(new Cell().add(new Paragraph("#")).setFontSize(7f));
-        table.addHeaderCell(new Cell().add(new Paragraph("Ubicación")).setFontSize(7f));
-        table.addHeaderCell(new Cell().add(new Paragraph("Última fecha de pila")).setFontSize(7f));
-        table.addHeaderCell(new Cell().add(new Paragraph("Próximo cambio de pila")).setFontSize(7f));
-        table.addHeaderCell(new Cell().add(new Paragraph("Marca")).setFontSize(7f));
-        table.addHeaderCell(new Cell().add(new Paragraph("Tipo de detector")).setFontSize(7f));
-        table.addHeaderCell(new Cell().add(new Paragraph("Prueba de funcionamiento")).setFontSize(7f));
-        table.addHeaderCell(new Cell().add(new Paragraph("Soporte")).setFontSize(7f));
-        table.addHeaderCell(new Cell().add(new Paragraph("Ubicación física")).setFontSize(7f));
-        table.addHeaderCell(new Cell().add(new Paragraph("Observación")).setFontSize(7f));
-
-        int contador = 0;
-        while (resultSet.next()) {
-            contador++;
-            table.addCell(new Cell().add(new Paragraph(String.valueOf(contador)).setFontSize(7f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("ubicacion")).setFontSize(7f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("ultima_fecha_pila")).setFontSize(7f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("proximo_cambio_pila")).setFontSize(7f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("marca")).setFontSize(7f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("tipo_detector")).setFontSize(7f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("prueba_funcionamiento")).setFontSize(7f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("soporte")).setFontSize(7f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("ubicacion_fisica")).setFontSize(7f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("observacion")).setFontSize(7f)));
-        }
-
-        // Agregar la tabla al documento
-        document.add(table.setMarginTop(112).setMarginLeft(35.5f)); // Ajustar margen superior
-
-        // Crear tabla de firma
-        Table tabla2 = new Table(new float[]{50});
-        tabla2.addHeaderCell(new Cell().add(new Paragraph("FIRMA DE QUIEN REALIZA LA REVISIÓN"))
-            .setFontSize(5.5f)
-            .setTextAlignment(TextAlignment.CENTER)
-            .setVerticalAlignment(VerticalAlignment.MIDDLE));
-        tabla2.addCell(new Cell().setHeight(20));
-
-        Div div = new Div()
-            .setTextAlignment(TextAlignment.CENTER)
-            .setWidth(UnitValue.createPercentValue(100))
-            .add(tabla2);
-        tabla2.setWidth(400);
-
-        // Agregar la tabla de firma al documento
-        document.add(div.setMarginTop(5).setMarginLeft(160));
-
-        // Sobreescribir texto en el PDF
-        PdfPage page = pdfDoc.getLastPage();
-        PdfCanvas pdfCanvas = new PdfCanvas(page);
-
-        // Sobreescribir la dirección
-        float m = 215; // Ajusta según sea necesario
-        float n = 497; // Ajusta según sea necesario
-        pdfCanvas.beginText()
-            .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
-            .setFillColor(ColorConstants.BLACK)
-            .moveText(m, n)
-            .showText(globalV.direccion)
-            .endText();
-        
-
-        // Sobreescribir la dirección
-        float x = 215; // Ajusta según sea necesario
-        float y = 482; // Ajusta según sea necesario
-        pdfCanvas.beginText()
-            .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
-            .setFillColor(ColorConstants.BLACK)
-            .moveText(x, y)
-            .showText(globalV.fechaR)
-            .endText();
-                System.out.println(globalV.fechaR);
-
-        // Cerrar el documento
-        document.close();
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
-           
-           
-                      public void GasPDF() throws IOException {
-    String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\BITACORA GAS.pdf";
-    String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
 
-    PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
-    PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
+    public void GasPDF() throws IOException {
+        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\BITACORA GAS.pdf";
+        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
 
-    try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
-        System.out.println("Conexión exitosa con la base de datos.");
+        PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
+        PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
 
-        String sql = "SELECT "
-                + "b.ubicacion, b.ultima_fecha_pila, b.proximo_cambio_pila, b.marca, "
-                + "b.tipo_detector, b.prueba_funcionamiento, b.soporte, b.ubicacion_fisica, "
-                + "b.observacion, b.id_norma_fk, b.id_terminal_fk, b.fecha_revision "
-                + "FROM bitacora_humo b "
-                + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
-                + "WHERE u.username = ? "
-                + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? "
-                + "AND EXTRACT(YEAR FROM b.fecha_revision) = ?";
+        try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
+            System.out.println("Conexión exitosa con la base de datos.");
 
-        PreparedStatement statement = conn.prepareStatement(sql);
+            String sql = "SELECT "
+                    + "b.ubicacion, b.ultima_fecha_pila, b.proximo_cambio_pila, b.marca, "
+                    + "b.tipo_detector, b.prueba_funcionamiento, b.soporte, b.ubicacion_fisica, "
+                    + "b.observacion, b.id_norma_fk, b.id_terminal_fk, b.fecha_revision "
+                    + "FROM bitacora_humo b "
+                    + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                    + "WHERE u.username = ? "
+                    + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? "
+                    + "AND EXTRACT(YEAR FROM b.fecha_revision) = ? ";
+                    //+ "AND b.id_terminal_fk = ? "; // Aquí me aseguré de que hay un espacio antes de "AND"
 
-        // Validar que globalV.fechaR no sea null o esté vacía
-        if (globalV.fechaR == null || globalV.fechaR.isEmpty()) {
-            throw new IllegalArgumentException("La fecha no puede ser nula o vacía.");
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            // Validar que globalV.fechaR no sea null o esté vacía
+            if (globalV.fechaR == null || globalV.fechaR.isEmpty()) {
+                throw new IllegalArgumentException("La fecha no puede ser nula o vacía.");
+            }
+
+            // Parsear la fecha
+            LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            int mes = fecha.getMonthValue();
+            int ano = fecha.getYear();
+
+            statement.setString(1, globalV.user);
+            statement.setInt(2, mes);
+            statement.setInt(3, ano);
+            //statement.setInt(4, globalV.idter);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            // Crear el documento PDF
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            Document document = new Document(pdfDoc);
+
+            // Crear la tabla con anchos de columna definidos
+            // Sobreescribir texto en el PDF
+            PdfPage page = pdfDoc.getLastPage();
+            PdfCanvas pdfCanvas = new PdfCanvas(page);
+
+            // Sobreescribir la dirección
+            float m = 215; // Ajusta según sea necesario
+            float n = 497; // Ajusta según sea necesario
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
+                    .setFillColor(ColorConstants.BLACK)
+                    .moveText(m, n)
+                    .showText(globalV.direccion)
+                    .endText();
+
+            // Sobreescribir la dirección
+            float x = 215; // Ajusta según sea necesario
+            float y = 482; // Ajusta según sea necesario
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
+                    .setFillColor(ColorConstants.BLACK)
+                    .moveText(x, y)
+                    .showText(globalV.fechaR)
+                    .endText();
+            System.out.println(globalV.fechaR);
+
+            // Cerrar el documento
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        // Parsear la fecha
-        LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        int mes = fecha.getMonthValue();
-        int ano = fecha.getYear();
-
-        statement.setString(1, globalV.user);
-        statement.setInt(2, mes);
-        statement.setInt(3, ano);
-
-        ResultSet resultSet = statement.executeQuery();
-
-        // Crear el documento PDF
-        PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
-        Document document = new Document(pdfDoc);
-
-        // Crear la tabla con anchos de columna definidos
-        
-        // Sobreescribir texto en el PDF
-        PdfPage page = pdfDoc.getLastPage();
-        PdfCanvas pdfCanvas = new PdfCanvas(page);
-
-        // Sobreescribir la dirección
-        float m = 215; // Ajusta según sea necesario
-        float n = 497; // Ajusta según sea necesario
-        pdfCanvas.beginText()
-            .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
-            .setFillColor(ColorConstants.BLACK)
-            .moveText(m, n)
-            .showText(globalV.direccion)
-            .endText();
-        
-
-        // Sobreescribir la dirección
-        float x = 215; // Ajusta según sea necesario
-        float y = 482; // Ajusta según sea necesario
-        pdfCanvas.beginText()
-            .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
-            .setFillColor(ColorConstants.BLACK)
-            .moveText(x, y)
-            .showText(globalV.fechaR)
-            .endText();
-                System.out.println(globalV.fechaR);
-
-        // Cerrar el documento
-        document.close();
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
 }
