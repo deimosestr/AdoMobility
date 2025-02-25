@@ -963,6 +963,7 @@ public class CDatosNOM {
             //int idTerminal = obtenerIDTerminal(nomTerminal);
             int iDUsuario = obtenerIDUsuario();
             direccion = obtenerdireccion(iDUsuario, nomTerminal);
+            globalV.idter = obtenerIDTerminal(nomTerminal);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.toString());
@@ -1303,6 +1304,9 @@ public class CDatosNOM {
             }
             int iDUsuario = obtenerIDUsuario();
             direccion = obtenerdireccion(iDUsuario, nomTerminal);
+
+            globalV.idter = obtenerIDTerminal(nomTerminal);
+            System.out.println(globalV.idter);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.toString());
         }

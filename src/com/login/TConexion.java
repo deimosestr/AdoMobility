@@ -12,6 +12,8 @@ public class TConexion {
     private static final String contrasenia = "1906"; //"190601";
     private static final String bd = "bdMobility";
     private static final String ip = "localhost"; //"34.55.167.82"; //;
+
+    
     private static final String puerto = "5432"; //sigue siendo el mismo
     private static final String cadena = "jdbc:postgresql://" + ip + ":" + puerto + "/" + bd;
 
