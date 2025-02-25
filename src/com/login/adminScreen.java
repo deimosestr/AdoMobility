@@ -71,7 +71,6 @@ public class adminScreen extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
-        caretaEsmerilarEPP = new javax.swing.JCheckBox();
         labelAreaEPP1 = new javax.swing.JLabel();
         areaEPP1 = new javax.swing.JTextField();
         jSeparator11 = new javax.swing.JSeparator();
@@ -296,11 +295,11 @@ public class adminScreen extends javax.swing.JFrame {
 
         labelPuestoEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         labelPuestoEPP.setText("Puesto");
-        epp.add(labelPuestoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 110, -1));
+        epp.add(labelPuestoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 50, -1));
 
         puestoEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         puestoEPP.setBorder(null);
-        epp.add(puestoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 140, -1));
+        epp.add(puestoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 140, -1));
 
         lentesDeSeguridadEPP.setBackground(new java.awt.Color(255, 255, 255));
         lentesDeSeguridadEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
@@ -319,38 +318,33 @@ public class adminScreen extends javax.swing.JFrame {
         jSeparator12.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator12.setForeground(new java.awt.Color(197, 172, 204));
         jSeparator12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        epp.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 140, 10));
-
-        caretaEsmerilarEPP.setBackground(new java.awt.Color(255, 255, 255));
-        caretaEsmerilarEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        caretaEsmerilarEPP.setText("Careta para esmerilar");
-        epp.add(caretaEsmerilarEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, -1, -1));
+        epp.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 140, 10));
 
         labelAreaEPP1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         labelAreaEPP1.setText("Correo");
-        epp.add(labelAreaEPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 100, -1));
+        epp.add(labelAreaEPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 50, -1));
 
         areaEPP1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         areaEPP1.setBorder(null);
-        epp.add(areaEPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 150, 20));
+        epp.add(areaEPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 140, 20));
 
         jSeparator11.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator11.setForeground(new java.awt.Color(197, 172, 204));
         jSeparator11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        epp.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 150, 10));
+        epp.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 140, 10));
 
         labelAreaEPP2.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelAreaEPP2.setText("Password");
-        epp.add(labelAreaEPP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 100, -1));
+        labelAreaEPP2.setText("Password:");
+        epp.add(labelAreaEPP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 70, -1));
 
         areaEPP2.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         areaEPP2.setBorder(null);
-        epp.add(areaEPP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 150, 20));
+        epp.add(areaEPP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 140, 20));
 
         jSeparator13.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator13.setForeground(new java.awt.Color(197, 172, 204));
         jSeparator13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        epp.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 150, 10));
+        epp.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 140, 10));
 
         menuUsuario1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         menuUsuario1.setText("Nombre");
@@ -729,7 +723,6 @@ public class adminScreen extends javax.swing.JFrame {
     private com.login.ModernButton btnExportar;
     private com.login.ModernButton btnInsertar1;
     private com.login.ModernButton btnModificar;
-    private javax.swing.JCheckBox caretaEsmerilarEPP;
     private javax.swing.JPanel epp;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
