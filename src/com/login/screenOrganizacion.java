@@ -33,7 +33,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         bitacoras.add(epp, "epp");
         //bitacoras.add(epp, "humo");
-        bitacoras.add(gas, "gas");
+        // bitacoras.add(gas, "gas");
 
         buttonsNormas btnExtintores = new buttonsNormas();
         buttonsNormas btnHumo = new buttonsNormas();
@@ -991,9 +991,9 @@ public class screenOrganizacion extends javax.swing.JFrame {
             //System.out.println("Sí, cerrar sesión.");
 
             // Cerrar la conexión a la base de datos
-            if(conectar == null){
+            if (conectar == null) {
                 System.out.println("la conexion es nula");
-            } 
+            }
             if (conectar != null) {
                 TConexion.cerrarConexion(conectar);
                 //System.out.println("Conexión cerrada correctamente.");
@@ -1072,39 +1072,13 @@ public class screenOrganizacion extends javax.swing.JFrame {
         returnPanel.setForeground(Color.black);
     }//GEN-LAST:event_returnTxtMouseExited
 
-    private void tbExtintoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbExtintoresMouseClicked
-        // TODO add your handling code here:
-        obj.seleccionarExtintores(tbExtintores, txtiDUsuario, labelResponsable,
-                labelRegiones, labelTerminales,
-                txtIDBitacora, txtFecha,
-                ubicacion, ultimaRecarga,
-                proximaRecarga, capacidad,
-                agenteExtinguidor,
-                chckManguera, chckManometro, chckSoporte,
-                chckPresion, chckCilindro, chckLimpieza,
-                chckSenalizacion, chckEtiqueta, chckSeguro,
-                chckObstrucciones, observaciones, firma,
-                txtIDNorma);
-    }//GEN-LAST:event_tbExtintoresMouseClicked
-
-    private void tablaEPPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEPPMouseClicked
-        // TODO add your handling code here:
-        obj.seleccionarEPP(tablaEPP, txtiDUsuario, labelResponsable, labelRegiones,
-                labelTerminales, txtIDBitacora, txtFecha, nombreEPP,
-                areaEPP, puestoEPP, cascoEPP, lentesDeSeguridadEPP,
-                lentesDeSeguridadEPP, taponesAuditivosEPP, guantesEPP,
-                caretaSoldarEPP, caretaEsmerilarEPP, mascarillaEPP, fajaEPP,
-                arnesEPP, uniformeEPP, firmadoEPP, txtIDNorma);
-
-    }//GEN-LAST:event_tablaEPPMouseClicked
-
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
         // TODO add your handling code here:
 
         if (btnEPP.isSelected()) {
-            obj.modificarEPP(txtIDBitacora, txtFecha, nombreEPP, areaEPP, 
+            obj.modificarEPP(txtIDBitacora, txtFecha, nombreEPP, areaEPP,
                     puestoEPP, cascoEPP, lentesDeSeguridadEPP, lentesDeSeguridadEPP,
-                    taponesAuditivosEPP, guantesEPP, caretaSoldarEPP, 
+                    taponesAuditivosEPP, guantesEPP, caretaSoldarEPP,
                     caretaEsmerilarEPP, mascarillaEPP, fajaEPP, arnesEPP, uniformeEPP, firmadoEPP);
             obj.MostrarEPP(tablaEPP);
 
@@ -1173,54 +1147,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExportarActionPerformed
 
-    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaActionPerformed
-
-    private void cMalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMalasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cMalasActionPerformed
-
-    private void c_BuenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_BuenaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_c_BuenaActionPerformed
-
-    private void c_RegularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_RegularActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_c_RegularActionPerformed
-
-    private void cObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cObservacionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cObservacionesActionPerformed
-
-    private void capacidadTanqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacidadTanqueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_capacidadTanqueActionPerformed
-
-    private void fechaFabricacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaFabricacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechaFabricacionActionPerformed
-
-    private void cRegistradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cRegistradaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cRegistradaActionPerformed
-
-    private void marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_marcaActionPerformed
-
-    private void numSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numSerieActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numSerieActionPerformed
-
-    private void espesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espesorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_espesorActionPerformed
-
-    private void tObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tObservacionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tObservacionesActionPerformed
-
     private void btnGasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGasActionPerformed
         CardLayout layout = (CardLayout) bitacoras.getLayout();
         layout.show(bitacoras, "gas"); // Cambia al panel humo.
@@ -1237,35 +1163,9 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         epp.setVisible(false);    }//GEN-LAST:event_btnGasMouseClicked
 
-    private void listNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listNomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listNomActionPerformed
-
     private void btnEPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEPPActionPerformed
 
     }//GEN-LAST:event_btnEPPActionPerformed
-
-    private void txtIDNormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDNormaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDNormaActionPerformed
-
-    private void nomEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomEmpresaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomEmpresaActionPerformed
-
-    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
-
-    }//GEN-LAST:event_jScrollPane1MouseClicked
-
-    private void tablaGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGasMouseClicked
-        obj.seleccionarGas(
-                tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
-                labelTerminales, txtIDBitacora, txtFecha,
-                nomEmpresa, cMalas, c_Buena, c_Regular,
-                cObservaciones, capacidadTanque, fechaFabricacion,
-                cRegistrada, tObservaciones, marca, numSerie,
-                diametroEXT, espesor);
-    }//GEN-LAST:event_tablaGasMouseClicked
 
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
 
@@ -1300,6 +1200,96 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void tablaEPPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEPPMouseClicked
+        // TODO add your handling code here:
+        obj.seleccionarEPP(tablaEPP, txtiDUsuario, labelResponsable, labelRegiones,
+                labelTerminales, txtIDBitacora, txtFecha, nombreEPP,
+                areaEPP, puestoEPP, cascoEPP, lentesDeSeguridadEPP,
+                lentesDeSeguridadEPP, taponesAuditivosEPP, guantesEPP,
+                caretaSoldarEPP, caretaEsmerilarEPP, mascarillaEPP, fajaEPP,
+                arnesEPP, uniformeEPP, firmadoEPP, txtIDNorma);
+    }//GEN-LAST:event_tablaEPPMouseClicked
+
+    private void tbExtintoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbExtintoresMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tbExtintoresMouseClicked
+
+    private void txtIDNormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDNormaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDNormaActionPerformed
+
+    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaActionPerformed
+
+    private void listNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listNomActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_listNomActionPerformed
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void tablaGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGasMouseClicked
+        obj.seleccionarGas(
+            tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
+            labelTerminales, txtIDBitacora, txtFecha,
+            nomEmpresa, cMalas, c_Buena, c_Regular,
+            cObservaciones, capacidadTanque, fechaFabricacion,
+            cRegistrada, tObservaciones, marca, numSerie,
+            diametroEXT, espesor);
+    }//GEN-LAST:event_tablaGasMouseClicked
+
+    private void espesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espesorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_espesorActionPerformed
+
+    private void numSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numSerieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numSerieActionPerformed
+
+    private void marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marcaActionPerformed
+
+    private void tObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tObservacionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tObservacionesActionPerformed
+
+    private void cRegistradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cRegistradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cRegistradaActionPerformed
+
+    private void fechaFabricacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaFabricacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaFabricacionActionPerformed
+
+    private void capacidadTanqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacidadTanqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_capacidadTanqueActionPerformed
+
+    private void cObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cObservacionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cObservacionesActionPerformed
+
+    private void c_RegularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_RegularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_c_RegularActionPerformed
+
+    private void c_BuenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_BuenaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_c_BuenaActionPerformed
+
+    private void cMalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMalasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cMalasActionPerformed
+
+    private void nomEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomEmpresaActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
