@@ -22,6 +22,7 @@ import javax.swing.table.TableRowSorter;
 
 public class CDatosNOM {
 
+    String id;
     //Panel info
     int iDbitacora;
     String fecha_revision;
@@ -88,6 +89,71 @@ public class CDatosNOM {
     boolean arnes_epp;
     boolean uniforme_epp;
     boolean firmado_epp;
+
+    //Administrador
+    String nombreUser;
+    String correoUser;
+    String username;
+    String password;
+    boolean activoUser;
+    int idRegion;
+    int idRole;
+
+    public String getNombreUser() {
+        return nombreUser;
+    }
+
+    public void setNombreUser(String nombreUser) {
+        this.nombreUser = nombreUser;
+    }
+
+    public String getCorreoUser() {
+        return correoUser;
+    }
+
+    public void setCorreoUser(String correoUser) {
+        this.correoUser = correoUser;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isActivoUser() {
+        return activoUser;
+    }
+
+    public void setActivoUser(boolean activoUser) {
+        this.activoUser = activoUser;
+    }
+
+    public int getIdRegion() {
+        return idRegion;
+    }
+
+    public void setIdRegion(int idRegion) {
+        this.idRegion = idRegion;
+    }
+
+    public int getIdRole() {
+        return idRole;
+    }
+
+    public void setIdRole(int idRole) {
+        this.idRole = idRole;
+    }
 
     public String getNombre_epp() {
         return nombre_epp;
@@ -570,9 +636,9 @@ public class CDatosNOM {
         return null;
     }
 
-    private void actualizarSecuencia(String ext, String nomTabla) {
+    private void actualizarSecuencia(String ext, String nomTabla, String id) {
         //System.out.println("se intenta actualizar");
-        String sql = "SELECT setval('" + ext + "', COALESCE((SELECT MAX(id_bitacora) FROM " + nomTabla + "), 0) + 1, false)";
+        String sql = "SELECT setval('" + ext + "', COALESCE((SELECT MAX(" + id + ") FROM " + nomTabla + "), 0) + 1, false)";
         PreparedStatement pst = null;
         try {
             /*Connection conn = null;
@@ -749,6 +815,162 @@ public class CDatosNOM {
         }
 
         return nombresTerminales; // Retornar la lista de nombres
+    }
+
+    public int obtenerIDRegiones(String nombreRegion) {
+        int idTerminal = -1; // Valor predeterminado para indicar que no se encontró un resultado
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Consulta SQL
+            String sql = "SELECT id_region FROM regiones WHERE nombre = ? LIMIT 1;";
+            pst = globalV.conectar.prepareStatement(sql);
+
+            // Asignar el parámetro a la consulta
+            pst.setString(1, nombreRegion);
+
+            // Ejecutar la consulta
+            rs = pst.executeQuery();
+
+            // Obtener el primer resultado
+            if (rs.next()) {
+                idTerminal = rs.getInt("id_region");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener el ID de la terminal: " + e.getMessage());
+        } finally {
+            // Cerrar solo el PreparedStatement y el ResultSet
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
+            }
+        }
+
+        return idTerminal;
+    }
+
+    public int obtenerIDRoles(String nombreRoles) {
+        int idTerminal = -1; // Valor predeterminado para indicar que no se encontró un resultado
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Consulta SQL
+            String sql = "SELECT id_rol FROM roles WHERE nombre_rol = ? LIMIT 1;";
+            pst = globalV.conectar.prepareStatement(sql);
+
+            // Asignar el parámetro a la consulta
+            pst.setString(1, nombreRoles);
+
+            // Ejecutar la consulta
+            rs = pst.executeQuery();
+
+            // Obtener el primer resultado
+            if (rs.next()) {
+                idTerminal = rs.getInt("id_rol");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener el ID de la terminal: " + e.getMessage());
+        } finally {
+            // Cerrar solo el PreparedStatement y el ResultSet
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
+            }
+        }
+
+        return idTerminal;
+    }
+
+    public List<String> obtenerNombreRegiones() {
+        List<String> nombresRegiones = new ArrayList<>(); // Inicializar la lista vacía
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Consulta SQL
+            String sql = "SELECT nombre FROM public.regiones ORDER BY id_region ASC;";
+            pst = globalV.conectar.prepareStatement(sql);
+
+            // Ejecutar la consulta
+            rs = pst.executeQuery();
+
+            // Procesar los resultados y agregar a la lista
+            while (rs.next()) {
+                String nombreRegion = rs.getString("nombre");
+                nombresRegiones.add(nombreRegion);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener nombres de regiones: " + e.getMessage());
+        } finally {
+            // Cerrar solo el PreparedStatement y el ResultSet
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
+            }
+        }
+
+        return nombresRegiones; // Retornar la lista de nombres
+    }
+
+    public List<String> obtenerNombreRoles() {
+        List<String> nombresRoles = new ArrayList<>(); // Inicializar la lista vacía
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Consulta SQL
+            String sql = "SELECT nombre_rol FROM public.roles ORDER BY id_rol ASC;";
+            pst = globalV.conectar.prepareStatement(sql);
+
+            // Ejecutar la consulta
+            rs = pst.executeQuery();
+
+            // Procesar los resultados y agregar a la lista
+            while (rs.next()) {
+                String nombreRol = rs.getString("nombre_rol");
+                nombresRoles.add(nombreRol);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener nombres de roles: " + e.getMessage());
+        } finally {
+            // Cerrar solo el PreparedStatement y el ResultSet
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
+            }
+        }
+
+        return nombresRoles; // Retornar la lista de nombres
     }
 
     public String obtenerdireccion(int idUsuario, String nomTerminal) {
@@ -1037,7 +1259,8 @@ public class CDatosNOM {
 
             String ext = "bitacora_epp_id_bitacora_seq";
             String nomTabla = "bitacora_epp";
-            actualizarSecuencia(ext, nomTabla);
+            id = "id_bitacora";
+            actualizarSecuencia(ext, nomTabla, id);
 
             cs.execute();
             JOptionPane.showMessageDialog(null, "Inserción Existosa");
@@ -1359,7 +1582,8 @@ public class CDatosNOM {
 
             String ext = "bitacora_humo_id_bitacora_seq";
             String nomTabla = "bitacora_humo";
-            actualizarSecuencia(ext, nomTabla);
+            id = "id_bitacora";
+            actualizarSecuencia(ext, nomTabla, id);
             //sincronizarSecuenciaBitacoraHumo();
 
             cs.execute();
@@ -1824,7 +2048,8 @@ public class CDatosNOM {
 
             String ext = "bitacora_instalacion_de_gas_id_bitacora_seq";
             String nomTabla = "bitacora_instalacion_de_gas";
-            actualizarSecuencia(ext, nomTabla);
+            id = "id_bitacora";
+            actualizarSecuencia(ext, nomTabla, id);
 
             cs.execute();
             JOptionPane.showMessageDialog(null, "Inserción Existosa");
@@ -2044,7 +2269,8 @@ public class CDatosNOM {
 
             String ext = "bitacora_epp_id_bitacora_seq";
             String nomTabla = "bitacora_epp";
-            actualizarSecuencia(ext, nomTabla);
+            id = "id_bitacora";
+            actualizarSecuencia(ext, nomTabla, id);
 
             cs.execute();
             JOptionPane.showMessageDialog(null, "Inserción Existosa");
@@ -2186,4 +2412,154 @@ public class CDatosNOM {
             }
         }
     }
+
+    //METODOS ADMINISTRADOR
+    public void mostrarUsuarios(JTable paramTablaUsuarios) {
+        // Crear el modelo de la tabla con tipos específicos y celdas no editables
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaUsuarios.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Usuario");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Correo");
+        modelo.addColumn("Username");
+        modelo.addColumn("Password");
+        modelo.addColumn("Activo");
+        modelo.addColumn("ID Region");
+        modelo.addColumn("ID Role");
+
+        paramTablaUsuarios.setModel(modelo);
+
+        String sql = "SELECT * FROM public.usuarios;";
+        Object[] datos = new Object[8]; // Cambiado a Object[] para permitir tanto String como Boolean
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            //pst.setString(0, globalV.user); // Asignar el parámetro a la consulta
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas y convertir las booleanas
+                datos[0] = rs.getString(1); // ID usuario
+                datos[1] = rs.getString(2); // Responsable
+                datos[2] = rs.getString(3); // Region
+                datos[3] = rs.getString(4); // terminales
+                datos[4] = rs.getString(5); // id_bitacora
+                datos[5] = "t".equals(rs.getString(6));
+                datos[6] = rs.getString(7); // ubicacion
+                datos[7] = rs.getString(8); // ultima recarga
+
+                modelo.addRow(datos);
+            }
+            paramTablaUsuarios.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                //obj2.cerrarConexion(); // Método para cerrar conexión en TConexion
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+    }
+
+    public void insertarUSUARIO(JTextField paramNombreUsuario, JTextField paramCorreo, JTextField paramUsername,
+            JTextField paramPassword, JCheckBox paramActivo, String paramIDRegion, String paramIDRol) {
+
+        setNombreUser(paramNombreUsuario.getText());
+        setCorreoUser(paramCorreo.getText());
+        setUsername(paramUsername.getText());
+        setPassword(paramPassword.getText());
+        setActivoUser(paramActivo.isSelected());
+        int idRegion = obtenerIDRegiones(paramIDRegion);
+        int idRol = obtenerIDRoles(paramIDRol);
+
+        //int idUsuario = obtenerIDUsuario();
+        //int idNorma_fk = obtenerIDNorma(paramId_Norma_Fk.getText());
+        //int idTerminal = obtenerIDTerminal(paramNombreTerminal);
+        String sql = "INSERT INTO public.usuarios(nombre, correo, username, password, activo, id_region_fk, id_role_fk) VALUES (?, ?, ?, ?, ?, ?, ? )";
+
+        try {
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
+
+            cs.setString(1, getNombreUser());
+            cs.setString(2, getCorreoUser());
+            cs.setString(3, getUsername());
+            cs.setString(4, getPassword());
+            cs.setBoolean(5, isActivoUser());
+            cs.setInt(6, idRegion);
+            cs.setInt(7, idRol);
+
+            String ext = "usuarios_id_usuarios_seq";
+            String nomTabla = "usuarios";
+            id = "id_usuarios";
+            actualizarSecuencia(ext, nomTabla, id);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Inserción Existosa");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }
+    }
+
+
+    /* public void insertarUsuario(String nombre, String correo, String username, String password, boolean activo,
+            String nombreRegion, String nombreRol) {
+        PreparedStatement pst = null;
+
+        try {
+            // Consulta SQL para insertar un nuevo usuario
+            String sql = "INSERT INTO public.usuarios (nombre, correo, username, password, activo, id_region_fk, id_role_fk) "
+                    + "VALUES (?, ?, ?, ?, ?, (SELECT id_region FROM public.regiones WHERE nombre = ?), "
+                    + "(SELECT id_rol FROM public.roles WHERE nombre = ?));";
+
+            // Crear el PreparedStatement
+            pst = globalV.conectar.prepareStatement(sql);
+
+            // Asignar los valores a los parámetros de la consulta
+            pst.setString(1, nombre);
+            pst.setString(2, correo);
+            pst.setString(3, username);
+            pst.setString(4, password);
+            pst.setBoolean(5, activo);
+            pst.setString(6, nombreRegion); // Obtener el ID de la región a partir del nombre
+            pst.setString(7, nombreRol);   // Obtener el ID del rol a partir del nombre
+
+            // Ejecutar la inserción
+            int filasAfectadas = pst.executeUpdate();
+
+            // Verificar si la inserción fue exitosa
+            if (filasAfectadas > 0) {
+                System.out.println("Usuario insertado correctamente.");
+            } else {
+                System.out.println("No se pudo insertar el usuario.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al insertar usuario: " + e.getMessage());
+        } finally {
+            // Cerrar el PreparedStatement
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
+            }
+        }
+    }*/
 }

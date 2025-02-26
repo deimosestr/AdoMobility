@@ -1,5 +1,6 @@
 package com.login;
 
+import com.login.TConexion;
 import static com.login.globalV.conectar;
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 //import static javafx.scene.paint.Color.color;
 
 public class adminScreen extends javax.swing.JFrame {
@@ -27,11 +29,12 @@ public class adminScreen extends javax.swing.JFrame {
         setSize(790, 500);
         setLocationRelativeTo(null);
         llenarComboBox();
+        llenarComboBoxRoles(comboRoles);
         //llenarComboBoxHumo();
         //bitacoras.setVisible(false);
-        obj.MostrarEPP(tablaEPP);
+        obj.mostrarUsuarios(tablaUsers);
 
-        bitacoras.add(epp, "epp");
+        bitacoras.add(usuarios, "epp");
         //bitacoras.add(epp, "humo");
         //bitacoras.add(gas, "gas");
 
@@ -57,29 +60,31 @@ public class adminScreen extends javax.swing.JFrame {
         menuRegiones = new com.login.buttonsNormas();
         bitacoras = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        epp = new javax.swing.JPanel();
-        tbEPP = new javax.swing.JPanel();
+        usuarios = new javax.swing.JPanel();
+        tablaUsuarios = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tablaEPP = new javax.swing.JTable();
+        tablaUsers = new javax.swing.JTable();
         menuUsuario = new javax.swing.JLabel();
-        nombreEPP = new javax.swing.JTextField();
+        adminUsuario = new javax.swing.JTextField();
         labelAreaEPP = new javax.swing.JLabel();
-        areaEPP = new javax.swing.JTextField();
+        adminUsername = new javax.swing.JTextField();
         labelPuestoEPP = new javax.swing.JLabel();
-        puestoEPP = new javax.swing.JTextField();
-        lentesDeSeguridadEPP = new javax.swing.JCheckBox();
+        checkActivo = new javax.swing.JCheckBox();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
-        jSeparator12 = new javax.swing.JSeparator();
         labelAreaEPP1 = new javax.swing.JLabel();
-        areaEPP1 = new javax.swing.JTextField();
+        adminCorreo = new javax.swing.JTextField();
         jSeparator11 = new javax.swing.JSeparator();
         labelAreaEPP2 = new javax.swing.JLabel();
-        areaEPP2 = new javax.swing.JTextField();
+        adminPassword = new javax.swing.JTextField();
         jSeparator13 = new javax.swing.JSeparator();
         menuUsuario1 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
-        nombreEPP1 = new javax.swing.JTextField();
+        adminNombre = new javax.swing.JTextField();
+        comboRegiones = new javax.swing.JComboBox<>();
+        comboRoles = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        insertarUser = new com.login.ModernButton();
         jPanel1 = new javax.swing.JPanel();
         btnInsertar1 = new com.login.ModernButton();
         btnModificar = new com.login.ModernButton();
@@ -239,13 +244,13 @@ public class adminScreen extends javax.swing.JFrame {
 
         bitacoras.add(jPanel5, "card5");
 
-        epp.setBackground(new java.awt.Color(255, 255, 255));
-        epp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        usuarios.setBackground(new java.awt.Color(255, 255, 255));
+        usuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tbEPP.setBackground(new java.awt.Color(255, 255, 255));
-        tbEPP.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        tablaUsuarios.setBackground(new java.awt.Color(255, 255, 255));
+        tablaUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
-        tablaEPP.setModel(new javax.swing.table.DefaultTableModel(
+        tablaUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -256,109 +261,133 @@ public class adminScreen extends javax.swing.JFrame {
 
             }
         ));
-        tablaEPP.setAutoResizeMode(0);
-        tablaEPP.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaUsers.setAutoResizeMode(0);
+        tablaUsers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaEPPMouseClicked(evt);
+                tablaUsersMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tablaEPP);
+        jScrollPane3.setViewportView(tablaUsers);
 
-        javax.swing.GroupLayout tbEPPLayout = new javax.swing.GroupLayout(tbEPP);
-        tbEPP.setLayout(tbEPPLayout);
-        tbEPPLayout.setHorizontalGroup(
-            tbEPPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout tablaUsuariosLayout = new javax.swing.GroupLayout(tablaUsuarios);
+        tablaUsuarios.setLayout(tablaUsuariosLayout);
+        tablaUsuariosLayout.setHorizontalGroup(
+            tablaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
-        tbEPPLayout.setVerticalGroup(
-            tbEPPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        tablaUsuariosLayout.setVerticalGroup(
+            tablaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
         );
 
-        epp.add(tbEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 580, 160));
+        usuarios.add(tablaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 580, 160));
 
         menuUsuario.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         menuUsuario.setText("Su ID de usuario es:");
-        epp.add(menuUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 20));
+        usuarios.add(menuUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 20));
 
-        nombreEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        nombreEPP.setBorder(null);
-        epp.add(nombreEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 140, -1));
+        adminUsuario.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        adminUsuario.setBorder(null);
+        usuarios.add(adminUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 140, -1));
 
         labelAreaEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         labelAreaEPP.setText("Username");
-        epp.add(labelAreaEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 100, -1));
+        usuarios.add(labelAreaEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 100, -1));
 
-        areaEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        areaEPP.setBorder(null);
-        epp.add(areaEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 140, 20));
+        adminUsername.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        adminUsername.setBorder(null);
+        usuarios.add(adminUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 140, 20));
 
         labelPuestoEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelPuestoEPP.setText("Puesto");
-        epp.add(labelPuestoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 50, -1));
+        labelPuestoEPP.setText("Asignar Terminal: ");
+        usuarios.add(labelPuestoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 110, -1));
 
-        puestoEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        puestoEPP.setBorder(null);
-        epp.add(puestoEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 140, -1));
-
-        lentesDeSeguridadEPP.setBackground(new java.awt.Color(255, 255, 255));
-        lentesDeSeguridadEPP.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        lentesDeSeguridadEPP.setText("Activo");
-        epp.add(lentesDeSeguridadEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 80, 20));
+        checkActivo.setBackground(new java.awt.Color(255, 255, 255));
+        checkActivo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        checkActivo.setText("Activo");
+        usuarios.add(checkActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 80, 20));
 
         jSeparator5.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator5.setForeground(new java.awt.Color(197, 172, 204));
-        epp.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 140, 10));
+        usuarios.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 140, 10));
 
         jSeparator10.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator10.setForeground(new java.awt.Color(197, 172, 204));
         jSeparator10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        epp.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 140, 10));
-
-        jSeparator12.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator12.setForeground(new java.awt.Color(197, 172, 204));
-        jSeparator12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        epp.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 140, 10));
+        usuarios.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 140, 10));
 
         labelAreaEPP1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         labelAreaEPP1.setText("Correo");
-        epp.add(labelAreaEPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 50, -1));
+        usuarios.add(labelAreaEPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 50, -1));
 
-        areaEPP1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        areaEPP1.setBorder(null);
-        epp.add(areaEPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 140, 20));
+        adminCorreo.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        adminCorreo.setBorder(null);
+        usuarios.add(adminCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 140, 20));
 
         jSeparator11.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator11.setForeground(new java.awt.Color(197, 172, 204));
         jSeparator11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        epp.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 140, 10));
+        usuarios.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 140, 10));
 
         labelAreaEPP2.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         labelAreaEPP2.setText("Password:");
-        epp.add(labelAreaEPP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 70, -1));
+        usuarios.add(labelAreaEPP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 70, -1));
 
-        areaEPP2.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        areaEPP2.setBorder(null);
-        epp.add(areaEPP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 140, 20));
+        adminPassword.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        adminPassword.setBorder(null);
+        usuarios.add(adminPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 140, 20));
 
         jSeparator13.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator13.setForeground(new java.awt.Color(197, 172, 204));
         jSeparator13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        epp.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 140, 10));
+        usuarios.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 140, 10));
 
         menuUsuario1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         menuUsuario1.setText("Nombre");
-        epp.add(menuUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 20));
+        usuarios.add(menuUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 20));
 
         jSeparator6.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator6.setForeground(new java.awt.Color(197, 172, 204));
-        epp.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 140, 10));
+        usuarios.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 140, 10));
 
-        nombreEPP1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        nombreEPP1.setBorder(null);
-        epp.add(nombreEPP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 140, -1));
+        adminNombre.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        adminNombre.setBorder(null);
+        usuarios.add(adminNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 140, -1));
 
-        bitacoras.add(epp, "card3");
+        comboRegiones.setBackground(new java.awt.Color(255, 255, 255));
+        comboRegiones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboRegiones.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Regiones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        comboRegiones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboRegionesMouseClicked(evt);
+            }
+        });
+        usuarios.add(comboRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 140, 40));
+
+        comboRoles.setBackground(new java.awt.Color(255, 255, 255));
+        comboRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboRoles.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Roles", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        comboRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboRolesActionPerformed(evt);
+            }
+        });
+        usuarios.add(comboRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 140, 40));
+
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Lista Terminales", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        usuarios.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 140, 40));
+
+        insertarUser.setText("AGREGAR USUARIO");
+        insertarUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                insertarUserMouseClicked(evt);
+            }
+        });
+        usuarios.add(insertarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, -1, -1));
+
+        bitacoras.add(usuarios, "card3");
 
         bgHomeScreen.add(bitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 610, 410));
 
@@ -422,7 +451,7 @@ public class adminScreen extends javax.swing.JFrame {
 
     private Boolean validateFields() {
         // Validar campos de texto
-       /* if (txtFecha.getText().trim().isEmpty()
+        /* if (txtFecha.getText().trim().isEmpty()
                 || ubicacion.getText().trim().isEmpty()
                 || ultimaRecarga.getText().trim().isEmpty()
                 || proximaRecarga.getText().trim().isEmpty()
@@ -456,21 +485,26 @@ public class adminScreen extends javax.swing.JFrame {
     }
 
     private void llenarComboBox() {
-        // Método que devuelve la lista de nombres (ajusta según tu lógica)
-        int idUsuario = obj.obtenerIDUsuario();
-        List<String> valores = obj.obtenerNombreTerminales(idUsuario);
+        // Obtener la lista de nombres de regiones
+        List<String> valores = obj.obtenerNombreRegiones();
 
         // Crear un modelo para el JComboBox con los valores
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(valores.toArray(new String[0]));
-        // Asignar el m odelo al JComboBox
-       // listNom.setModel(modelo);
 
+        // Asignar el modelo al JComboBox
+        comboRegiones.setModel(modelo);
     }
 
-    private void actBtnMenu() {
+    private void llenarComboBoxRoles(JComboBox<String> comboBoxRoles) {
+        // Obtener la lista de nombres de roles
+        List<String> nombresRoles = obj.obtenerNombreRoles();
 
+        // Crear un modelo para el JComboBox con los valores
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(nombresRoles.toArray(new String[0]));
+
+        // Asignar el modelo al JComboBox
+        comboRoles.setModel(modelo);
     }
-
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         // TODO add your handling code here:
@@ -479,9 +513,9 @@ public class adminScreen extends javax.swing.JFrame {
             //System.out.println("Sí, cerrar sesión.");
 
             // Cerrar la conexión a la base de datos
-            if(conectar == null){
+            if (conectar == null) {
                 System.out.println("la conexion es nula");
-            } 
+            }
             if (conectar != null) {
                 TConexion.cerrarConexion(conectar);
                 //System.out.println("Conexión cerrada correctamente.");
@@ -559,10 +593,6 @@ public class adminScreen extends javax.swing.JFrame {
         returnPanel.setBackground(Color.white);
         returnPanel.setForeground(Color.black);
     }//GEN-LAST:event_returnTxtMouseExited
-
-    private void tablaEPPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEPPMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tablaEPPMouseClicked
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
         // TODO add your handling code here:
@@ -644,7 +674,7 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void menuRegionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRegionesMouseClicked
 
-        epp.setVisible(false);    }//GEN-LAST:event_menuRegionesMouseClicked
+        usuarios.setVisible(false);    }//GEN-LAST:event_menuRegionesMouseClicked
 
     private void menuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuariosActionPerformed
 
@@ -653,7 +683,6 @@ public class adminScreen extends javax.swing.JFrame {
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
 
         if (menuUsuarios.isSelected()) {
-           
 
         }
 
@@ -680,6 +709,26 @@ public class adminScreen extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void comboRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboRolesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboRolesActionPerformed
+
+    private void tablaUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsersMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaUsersMouseClicked
+
+    private void comboRegionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboRegionesMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_comboRegionesMouseClicked
+
+    private void insertarUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarUserMouseClicked
+        // TODO add your handling code here:
+        obj.insertarUSUARIO(adminNombre, adminCorreo, adminUsername, adminPassword,
+                checkActivo, comboRegiones.getSelectedItem().toString(), comboRoles.getSelectedItem().toString());
+        obj.mostrarUsuarios(tablaUsers);
+    }//GEN-LAST:event_insertarUserMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -714,24 +763,29 @@ public class adminScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField areaEPP;
-    private javax.swing.JTextField areaEPP1;
-    private javax.swing.JTextField areaEPP2;
+    private javax.swing.JTextField adminCorreo;
+    private javax.swing.JTextField adminNombre;
+    private javax.swing.JTextField adminPassword;
+    private javax.swing.JTextField adminUsername;
+    private javax.swing.JTextField adminUsuario;
     private javax.swing.JPanel barNavMov;
     private javax.swing.JPanel bgHomeScreen;
     private javax.swing.JPanel bitacoras;
     private com.login.ModernButton btnExportar;
     private com.login.ModernButton btnInsertar1;
     private com.login.ModernButton btnModificar;
-    private javax.swing.JPanel epp;
+    private javax.swing.JCheckBox checkActivo;
+    private javax.swing.JComboBox<String> comboRegiones;
+    private javax.swing.JComboBox<String> comboRoles;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
+    private com.login.ModernButton insertarUser;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
@@ -739,7 +793,6 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JLabel labelAreaEPP1;
     private javax.swing.JLabel labelAreaEPP2;
     private javax.swing.JLabel labelPuestoEPP;
-    private javax.swing.JCheckBox lentesDeSeguridadEPP;
     private javax.swing.JLabel logoDerecha;
     private javax.swing.JPanel menuDeOpciones;
     private com.login.buttonsNormas menuRegiones;
@@ -747,12 +800,10 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JLabel menuUsuario;
     private javax.swing.JLabel menuUsuario1;
     private com.login.buttonsNormas menuUsuarios;
-    private javax.swing.JTextField nombreEPP;
-    private javax.swing.JTextField nombreEPP1;
-    private javax.swing.JTextField puestoEPP;
     private javax.swing.JPanel returnPanel;
     private javax.swing.JLabel returnTxt;
-    private javax.swing.JTable tablaEPP;
-    private javax.swing.JPanel tbEPP;
+    private javax.swing.JTable tablaUsers;
+    private javax.swing.JPanel tablaUsuarios;
+    private javax.swing.JPanel usuarios;
     // End of variables declaration//GEN-END:variables
 }
