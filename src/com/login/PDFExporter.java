@@ -26,7 +26,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class PDFExporter {
 
@@ -304,6 +306,7 @@ public class PDFExporter {
     public void GasPDF() throws IOException {
         String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\BITACORA GAS.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
+        List<Object[]> bitacoras = new ArrayList<>();
 
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
@@ -311,16 +314,12 @@ public class PDFExporter {
         try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
             System.out.println("Conexión exitosa con la base de datos.");
 
-            String sql = "SELECT "
-                    + "b.ubicacion, b.ultima_fecha_pila, b.proximo_cambio_pila, b.marca, "
-                    + "b.tipo_detector, b.prueba_funcionamiento, b.soporte, b.ubicacion_fisica, "
-                    + "b.observacion, b.id_norma_fk, b.id_terminal_fk, b.fecha_revision "
-                    + "FROM bitacora_humo b "
-                    + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
-                    + "WHERE u.username = ? "
-                    + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? "
-                    + "AND EXTRACT(YEAR FROM b.fecha_revision) = ? ";
-                    //+ "AND b.id_terminal_fk = ? "; // Aquí me aseguré de que hay un espacio antes de "AND"
+            String sql = "SELECT id_bitacora, fecha_revision, id_norma_fk, id_usuario_fk, id_terminal_fk, "
+                    + "nombre_empresa, c_buena, c_regular, c_mala, observaciones_soportes, "
+                    + "capacidad, fecha_fabricacion, capacidad_reg, observaciones_gen_revisor, "
+                    + "marca, serie, diametro, espesor "
+                    + "FROM public.bitacora_instalacion_de_gas "
+                    + "WHERE id_usuario_fk = ? AND fecha_revision = ?";
 
             PreparedStatement statement = conn.prepareStatement(sql);
 
@@ -329,52 +328,89 @@ public class PDFExporter {
                 throw new IllegalArgumentException("La fecha no puede ser nula o vacía.");
             }
 
-            // Parsear la fecha
-            LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            int mes = fecha.getMonthValue();
-            int ano = fecha.getYear();
+            CDatosNOM usuarioDAO = new CDatosNOM();  // Crear una instancia de UsuarioDAO
+            int id = usuarioDAO.obtenerIDUsuario();
 
-            statement.setString(1, globalV.user);
-            statement.setInt(2, mes);
-            statement.setInt(3, ano);
-            //statement.setInt(4, globalV.idter);
+            // Asignar parámetros a la consulta
+            statement.setInt(1, id);
+            statement.setString(2, globalV.fechaR);
 
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet rs = statement.executeQuery();
 
-            // Crear el documento PDF
+            // Extraer datos de la base y guardarlos en una lista
+            while (rs.next()) {
+                System.out.println("Recuperando bitácora con ID: " + rs.getInt("id_bitacora"));
+
+                Object[] bitacora = {
+                    rs.getInt("id_bitacora"),
+                    rs.getDate("fecha_revision"),
+                    rs.getInt("id_norma_fk"),
+                    rs.getInt("id_usuario_fk"),
+                    rs.getInt("id_terminal_fk"),
+                    rs.getString("nombre_empresa"),
+                    rs.getString("c_buena"),
+                    rs.getString("c_regular"),
+                    rs.getString("c_mala"),
+                    rs.getString("observaciones_soportes"),
+                    rs.getString("capacidad"),
+                    rs.getString("fecha_fabricacion"),
+                    rs.getString("capacidad_reg"),
+                    rs.getString("observaciones_gen_revisor"),
+                    rs.getString("marca"),
+                    rs.getString("serie"),
+                    rs.getString("diametro"),
+                    rs.getString("espesor")
+                };
+
+                bitacoras.add(bitacora);
+            }
+            System.out.println("Total de registros obtenidos: " + bitacoras.size());
+
+            // Cargar la plantilla PDF
             PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
 
-            // Crear la tabla con anchos de columna definidos
-            // Sobreescribir texto en el PDF
+            // Obtener la última página del PDF
             PdfPage page = pdfDoc.getLastPage();
             PdfCanvas pdfCanvas = new PdfCanvas(page);
 
-            // Sobreescribir la dirección
-            float m = 215; // Ajusta según sea necesario
-            float n = 497; // Ajusta según sea necesario
-            pdfCanvas.beginText()
-                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
-                    .setFillColor(ColorConstants.BLACK)
-                    .moveText(m, n)
-                    .showText(globalV.direccion)
-                    .endText();
+            // Coordenadas para colocar los datos (ejemplo)
+            float[][] posiciones = {
+                {50, 50}, {60, 60}, {70, 70}, {80, 80}, {90, 150}, {100, 150} // Añadí más posiciones
+            };
 
-            // Sobreescribir la dirección
-            float x = 215; // Ajusta según sea necesario
-            float y = 482; // Ajusta según sea necesario
-            pdfCanvas.beginText()
-                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
-                    .setFillColor(ColorConstants.BLACK)
-                    .moveText(x, y)
-                    .showText(globalV.fechaR)
-                    .endText();
-            System.out.println(globalV.fechaR);
+            int index = 0;
+            System.out.println("Cantidad de registros en bitacoras: " + bitacoras.size());
+
+            for (Object[] b : bitacoras) {
+                System.out.println("Imprimiendo bitacora: " + b[0]);  // Mostrar el primer valor de cada bitacora
+                if (index >= posiciones.length) {
+                    System.out.println("Se alcanzó el límite de posiciones.");
+                    break;  // Evitar sobrepasar las posiciones
+                }
+
+                float x = posiciones[index][0];  // Posición X
+                float y = posiciones[index][1];  // Posición Y
+
+                // Escribir el primer campo del registro en la posición especificada
+                pdfCanvas.beginText()
+                        .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 12f)
+                        .setFillColor(ColorConstants.BLACK)
+                        .moveText(x, y)
+                        .showText(b[index].toString());  // Acceso al primer campo de bitacora
+                pdfCanvas.endText();
+                index++;
+            }
 
             // Cerrar el documento
             document.close();
+            pdfDoc.close();
+
+            System.out.println("PDF generado con éxito en: " + destino);
+
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error al generar el PDF: " + e.getMessage());
         }
     }
 
