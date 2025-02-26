@@ -17,7 +17,6 @@ public class Login extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     private boolean isPasswordVisible = false;
-    
 
     public Login() {
         initComponents();
@@ -32,7 +31,6 @@ public class Login extends javax.swing.JFrame {
             return;
         }
 
-        
         try {
             conectar = TConexion.establecerConexion(); // Establecer la conexión
             //System.out.println("Seguimiento de cadena 1: "+conectar);
@@ -44,16 +42,23 @@ public class Login extends javax.swing.JFrame {
 
             if (rs.next()) {
                 globalV.user = usuarioField.getText();
-                menuw8 mainFrame = new menuw8();
-                mainFrame.setVisible(true);
-                this.dispose(); // Cerrar la ventana de login actual
+                if (username.equals("paoky")) {
+                    adminScreen admin = new adminScreen();
+                    admin.setVisible(true);
+                    this.dispose();
+                } else {
+                    menuw8 mainFrame = new menuw8();
+                    mainFrame.setVisible(true);
+                    this.dispose();
+                }
+                // Cerrar la ventana de login actual
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.");
-        } 
+        }
     }
 
     private void togglePasswordVisibility() {
@@ -191,7 +196,6 @@ public class Login extends javax.swing.JFrame {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }*/
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -496,7 +500,7 @@ public class Login extends javax.swing.JFrame {
 
     private void forgotPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPassMouseClicked
         // TODO add your handling code here:
-       // forgotPassword();
+        // forgotPassword();
     }//GEN-LAST:event_forgotPassMouseClicked
 
     private void showPasswordBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPasswordBtnMouseClicked
@@ -507,7 +511,7 @@ public class Login extends javax.swing.JFrame {
     private void passwordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordField1KeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-           iniciarSesion(); // Llama al método de validación de inicio de sesión
+            iniciarSesion(); // Llama al método de validación de inicio de sesión
         }
     }//GEN-LAST:event_passwordField1KeyPressed
 
