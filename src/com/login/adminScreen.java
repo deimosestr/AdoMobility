@@ -30,17 +30,19 @@ public class adminScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         llenarComboBox();
         llenarComboBoxRoles(comboRoles);
+        llenarComboBoxTerminalesG(comboTerminales);
+        llenarComboBoxUsuarios(listaUsuarios);
         //llenarComboBoxHumo();
         //bitacoras.setVisible(false);
         obj.mostrarUsuarios(tablaUsers);
 
-        bitacoras.add(usuarios, "epp");
-        //bitacoras.add(epp, "humo");
-        //bitacoras.add(gas, "gas");
+        bitacoras.add(usuarios, "usuarios");
+        bitacoras.add(terminales, "terminales");
+        bitacoras.add(bitacorasGeneral, "bitacorasGeneral");
 
-        buttonsNormas btnExtintores = new buttonsNormas();
-        buttonsNormas btnHumo = new buttonsNormas();
-        buttonsNormas btnGas = new buttonsNormas();
+        buttonsNormas btnUsuario = new buttonsNormas();
+        buttonsNormas menuTerminales = new buttonsNormas();
+        buttonsNormas menuRegiones = new buttonsNormas();
     }
 
     @SuppressWarnings("unchecked")
@@ -55,11 +57,12 @@ public class adminScreen extends javax.swing.JFrame {
         returnPanel = new javax.swing.JPanel();
         returnTxt = new javax.swing.JLabel();
         menuDeOpciones = new javax.swing.JPanel();
-        menuUsuarios = new com.login.buttonsNormas();
+        btnUsuarios = new com.login.buttonsNormas();
         menuTerminales = new com.login.buttonsNormas();
         menuRegiones = new com.login.buttonsNormas();
         bitacoras = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        bitacorasGeneral = new javax.swing.JPanel();
+        terminales = new javax.swing.JPanel();
         usuarios = new javax.swing.JPanel();
         tablaUsuarios = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -83,8 +86,10 @@ public class adminScreen extends javax.swing.JFrame {
         adminNombre = new javax.swing.JTextField();
         comboRegiones = new javax.swing.JComboBox<>();
         comboRoles = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboTerminales = new javax.swing.JComboBox<>();
         insertarUser = new com.login.ModernButton();
+        modernButton1 = new com.login.ModernButton();
+        listaUsuarios = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         btnInsertar1 = new com.login.ModernButton();
         btnModificar = new com.login.ModernButton();
@@ -182,19 +187,19 @@ public class adminScreen extends javax.swing.JFrame {
         menuDeOpciones.setForeground(new java.awt.Color(197, 172, 204));
         menuDeOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        menuUsuarios.setText("USUARIOS");
-        menuUsuarios.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        menuUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnUsuarios.setText("USUARIOS");
+        btnUsuarios.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuUsuariosMouseClicked(evt);
+                btnUsuariosMouseClicked(evt);
             }
         });
-        menuUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuUsuariosActionPerformed(evt);
+                btnUsuariosActionPerformed(evt);
             }
         });
-        menuDeOpciones.add(menuUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 35));
+        menuDeOpciones.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 35));
 
         menuTerminales.setText("TERMINALES");
         menuTerminales.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
@@ -229,20 +234,35 @@ public class adminScreen extends javax.swing.JFrame {
         bitacoras.setBackground(new java.awt.Color(255, 255, 255));
         bitacoras.setLayout(new java.awt.CardLayout());
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        bitacorasGeneral.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout bitacorasGeneralLayout = new javax.swing.GroupLayout(bitacorasGeneral);
+        bitacorasGeneral.setLayout(bitacorasGeneralLayout);
+        bitacorasGeneralLayout.setHorizontalGroup(
+            bitacorasGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 610, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        bitacorasGeneralLayout.setVerticalGroup(
+            bitacorasGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 410, Short.MAX_VALUE)
         );
 
-        bitacoras.add(jPanel5, "card5");
+        bitacoras.add(bitacorasGeneral, "card5");
+
+        terminales.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout terminalesLayout = new javax.swing.GroupLayout(terminales);
+        terminales.setLayout(terminalesLayout);
+        terminalesLayout.setHorizontalGroup(
+            terminalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 610, Short.MAX_VALUE)
+        );
+        terminalesLayout.setVerticalGroup(
+            terminalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 410, Short.MAX_VALUE)
+        );
+
+        bitacoras.add(terminales, "card5");
 
         usuarios.setBackground(new java.awt.Color(255, 255, 255));
         usuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -277,10 +297,10 @@ public class adminScreen extends javax.swing.JFrame {
         );
         tablaUsuariosLayout.setVerticalGroup(
             tablaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
         );
 
-        usuarios.add(tablaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 580, 160));
+        usuarios.add(tablaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 580, 140));
 
         menuUsuario.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         menuUsuario.setText("Su ID de usuario es:");
@@ -374,10 +394,10 @@ public class adminScreen extends javax.swing.JFrame {
         });
         usuarios.add(comboRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 140, 40));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Lista Terminales", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        usuarios.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 140, 40));
+        comboTerminales.setBackground(new java.awt.Color(255, 255, 255));
+        comboTerminales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboTerminales.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Lista Terminales", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        usuarios.add(comboTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 140, 40));
 
         insertarUser.setText("AGREGAR USUARIO");
         insertarUser.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -385,7 +405,20 @@ public class adminScreen extends javax.swing.JFrame {
                 insertarUserMouseClicked(evt);
             }
         });
-        usuarios.add(insertarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, -1, -1));
+        usuarios.add(insertarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, -1, -1));
+
+        modernButton1.setText("ASIGNAR TERMINAL");
+        modernButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modernButton1MouseClicked(evt);
+            }
+        });
+        usuarios.add(modernButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, -1, -1));
+
+        listaUsuarios.setBackground(new java.awt.Color(255, 255, 255));
+        listaUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listaUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Lista Usuarios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        usuarios.add(listaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 190, 40));
 
         bitacoras.add(usuarios, "card3");
 
@@ -506,6 +539,28 @@ public class adminScreen extends javax.swing.JFrame {
         comboRoles.setModel(modelo);
     }
 
+    private void llenarComboBoxTerminalesG(JComboBox<String> comboBoxTerminalG) {
+        // Obtener la lista de nombres de roles
+        List<String> nombreTerminal = obj.obtenerTerminalesNombre();
+
+        // Crear un modelo para el JComboBox con los valores
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(nombreTerminal.toArray(new String[0]));
+
+        // Asignar el modelo al JComboBox
+        comboTerminales.setModel(modelo);
+    }
+    
+    private void llenarComboBoxUsuarios(JComboBox<String> comboBoxUsuarios) {
+        // Obtener la lista de nombres de roles
+        List<String> nombres = obj.obtenerNombreUsuarios();
+
+        // Crear un modelo para el JComboBox con los valores
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(nombres.toArray(new String[0]));
+
+        // Asignar el modelo al JComboBox
+        listaUsuarios.setModel(modelo);
+    }
+
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         // TODO add your handling code here:
         int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?", "Aviso", JOptionPane.YES_NO_OPTION);
@@ -561,15 +616,17 @@ public class adminScreen extends javax.swing.JFrame {
         exitTxt.setForeground(Color.black);
     }//GEN-LAST:event_exitTxtMouseExited
 
-    private void menuUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuUsuariosMouseClicked
-        CardLayout layout = (CardLayout) bitacoras.getLayout();
-        layout.show(bitacoras, "epp"); // Cambia a panel1
+    private void btnUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseClicked
+       CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "usuarios"); // Cambia a panel1
 
-        menuUsuarios.setSelected(true);
-        menuTerminales.setSelected(false);
+        
+        btnUsuarios.setSelected(true);
         menuRegiones.setSelected(false);
+        menuTerminales.setSelected(false);
 
-    }//GEN-LAST:event_menuUsuariosMouseClicked
+
+    }//GEN-LAST:event_btnUsuariosMouseClicked
 
     private void menuTerminalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuTerminalesMouseClicked
 
@@ -623,7 +680,7 @@ public class adminScreen extends javax.swing.JFrame {
     private void btnExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarMouseClicked
         // TODO add your handling code here:
 
-        if (menuUsuarios.isSelected()) {
+        if (btnUsuarios.isSelected()) {
 
             PDFExporter ejemplo = new PDFExporter();
             try {
@@ -647,9 +704,9 @@ public class adminScreen extends javax.swing.JFrame {
     private void menuTerminalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTerminalesActionPerformed
 
         CardLayout layout = (CardLayout) bitacoras.getLayout();
-        layout.show(bitacoras, "humo");
+        layout.show(bitacoras, "terminales");
 
-        menuUsuarios.setSelected(false);
+        btnUsuarios.setSelected(false);
         menuTerminales.setSelected(true);
         menuRegiones.setSelected(false);
 
@@ -664,7 +721,7 @@ public class adminScreen extends javax.swing.JFrame {
         CardLayout layout = (CardLayout) bitacoras.getLayout();
         layout.show(bitacoras, "gas"); // Cambia al panel humo.
 
-        menuUsuarios.setSelected(false);
+        btnUsuarios.setSelected(false);
         menuTerminales.setSelected(false);
         menuRegiones.setSelected(true);
 
@@ -676,13 +733,13 @@ public class adminScreen extends javax.swing.JFrame {
 
         usuarios.setVisible(false);    }//GEN-LAST:event_menuRegionesMouseClicked
 
-    private void menuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuariosActionPerformed
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
 
-    }//GEN-LAST:event_menuUsuariosActionPerformed
+    }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
 
-        if (menuUsuarios.isSelected()) {
+        if (btnUsuarios.isSelected()) {
 
         }
 
@@ -720,7 +777,7 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void comboRegionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboRegionesMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_comboRegionesMouseClicked
 
     private void insertarUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarUserMouseClicked
@@ -729,6 +786,11 @@ public class adminScreen extends javax.swing.JFrame {
                 checkActivo, comboRegiones.getSelectedItem().toString(), comboRoles.getSelectedItem().toString());
         obj.mostrarUsuarios(tablaUsers);
     }//GEN-LAST:event_insertarUserMouseClicked
+
+    private void modernButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton1MouseClicked
+        // TODO add your handling code here:
+        obj.asignarTerminal(listaUsuarios.getSelectedItem().toString(), comboTerminales.getSelectedItem().toString());
+    }//GEN-LAST:event_modernButton1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -771,18 +833,19 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JPanel barNavMov;
     private javax.swing.JPanel bgHomeScreen;
     private javax.swing.JPanel bitacoras;
+    private javax.swing.JPanel bitacorasGeneral;
     private com.login.ModernButton btnExportar;
     private com.login.ModernButton btnInsertar1;
     private com.login.ModernButton btnModificar;
+    private com.login.buttonsNormas btnUsuarios;
     private javax.swing.JCheckBox checkActivo;
     private javax.swing.JComboBox<String> comboRegiones;
     private javax.swing.JComboBox<String> comboRoles;
+    private javax.swing.JComboBox<String> comboTerminales;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private com.login.ModernButton insertarUser;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -793,17 +856,19 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JLabel labelAreaEPP1;
     private javax.swing.JLabel labelAreaEPP2;
     private javax.swing.JLabel labelPuestoEPP;
+    private javax.swing.JComboBox<String> listaUsuarios;
     private javax.swing.JLabel logoDerecha;
     private javax.swing.JPanel menuDeOpciones;
     private com.login.buttonsNormas menuRegiones;
     private com.login.buttonsNormas menuTerminales;
     private javax.swing.JLabel menuUsuario;
     private javax.swing.JLabel menuUsuario1;
-    private com.login.buttonsNormas menuUsuarios;
+    private com.login.ModernButton modernButton1;
     private javax.swing.JPanel returnPanel;
     private javax.swing.JLabel returnTxt;
     private javax.swing.JTable tablaUsers;
     private javax.swing.JPanel tablaUsuarios;
+    private javax.swing.JPanel terminales;
     private javax.swing.JPanel usuarios;
     // End of variables declaration//GEN-END:variables
 }
