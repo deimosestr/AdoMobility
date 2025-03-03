@@ -98,6 +98,23 @@ public class CDatosNOM {
     boolean activoUser;
     int idRegion;
     int idRole;
+    int idUsuario;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public String getNombreUser() {
         return nombreUser;
@@ -815,6 +832,82 @@ public class CDatosNOM {
         }
 
         return nombresTerminales; // Retornar la lista de nombres
+    }
+
+    public List<String> obtenerTerminalesNombre() {
+        List<String> nombresRoles = new ArrayList<>(); // Inicializar la lista vacía
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Consulta SQL
+            String sql = "SELECT nombre FROM public.terminales ORDER BY id_terminal ASC;";
+            pst = globalV.conectar.prepareStatement(sql);
+
+            // Ejecutar la consulta
+            rs = pst.executeQuery();
+
+            // Procesar los resultados y agregar a la lista
+            while (rs.next()) {
+                String nombreRol = rs.getString("nombre");
+                nombresRoles.add(nombreRol);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener nombres de roles: " + e.getMessage());
+        } finally {
+            // Cerrar solo el PreparedStatement y el ResultSet
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
+            }
+        }
+
+        return nombresRoles; // Retornar la lista de nombres
+    }
+
+    public List<String> obtenerNombreUsuarios() {
+        List<String> nombresRoles = new ArrayList<>(); // Inicializar la lista vacía
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Consulta SQL
+            String sql = "SELECT nombre FROM public.usuarios ORDER BY id_usuarios ASC;";
+            pst = globalV.conectar.prepareStatement(sql);
+
+            // Ejecutar la consulta
+            rs = pst.executeQuery();
+
+            // Procesar los resultados y agregar a la lista
+            while (rs.next()) {
+                String nombreRol = rs.getString("nombre");
+                nombresRoles.add(nombreRol);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener nombres de roles: " + e.getMessage());
+        } finally {
+            // Cerrar solo el PreparedStatement y el ResultSet
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
+            }
+        }
+
+        return nombresRoles; // Retornar la lista de nombres
     }
 
     public int obtenerIDRegiones(String nombreRegion) {
@@ -2427,13 +2520,44 @@ public class CDatosNOM {
         modelo.addColumn("Username");
         modelo.addColumn("Password");
         modelo.addColumn("Activo");
-        modelo.addColumn("ID Region");
-        modelo.addColumn("ID Role");
+        modelo.addColumn("Region");
+        modelo.addColumn("Rol");
+        modelo.addColumn("Terminales Asignadas");
 
         paramTablaUsuarios.setModel(modelo);
 
-        String sql = "SELECT * FROM public.usuarios;";
-        Object[] datos = new Object[8]; // Cambiado a Object[] para permitir tanto String como Boolean
+        String sql = "SELECT "
+                + "u.id_usuarios, "
+                + "u.nombre, "
+                + "u.correo, "
+                + "u.username, "
+                + "u.password, "
+                + "u.activo, "
+                + "r.nombre AS nombre_region, "
+                + // Nombre de la región
+                "ro.nombre_rol AS nombre_rol, "
+                + // Nombre del rol
+                "CASE "
+                + "    WHEN COUNT(t.nombre) > 0 THEN '{' || STRING_AGG(t.nombre, ', ') || '}' "
+                + "    ELSE '{}' "
+                + "END AS nombre_terminales "
+                + "FROM "
+                + "public.usuarios u "
+                + "LEFT JOIN "
+                + "public.regiones r ON u.id_region_fk = r.id_region "
+                + // JOIN para obtener el nombre de la región
+                "LEFT JOIN "
+                + "public.roles ro ON u.id_role_fk = ro.id_rol "
+                + // JOIN para obtener el nombre del rol
+                "LEFT JOIN "
+                + "public.terminales_usuarios tu ON u.id_usuarios = tu.id_usuario "
+                + "LEFT JOIN "
+                + "public.terminales t ON tu.id_terminal = t.id_terminal "
+                + "GROUP BY "
+                + "u.id_usuarios, u.nombre, u.correo, u.username, u.password, u.activo, r.nombre, ro.nombre_rol "
+                + "ORDER BY "
+                + "u.id_usuarios ASC;";
+        Object[] datos = new Object[9]; // Cambiado a Object[] para permitir tanto String como Boolean
         PreparedStatement pst = null;
         ResultSet rs = null;
 
@@ -2454,6 +2578,7 @@ public class CDatosNOM {
                 datos[5] = "t".equals(rs.getString(6));
                 datos[6] = rs.getString(7); // ubicacion
                 datos[7] = rs.getString(8); // ultima recarga
+                datos[8] = rs.getString(9); // ultima recarga
 
                 modelo.addRow(datos);
             }
@@ -2516,6 +2641,30 @@ public class CDatosNOM {
         }
     }
 
+    public void asignarTerminal(String paramIDUsuario, String paramIDTerminal) {
+        int idUsuario = obtenerIDUsuario();
+        int idTerminal = obtenerIDTerminal(paramIDTerminal);
+
+        String sql = "INSERT INTO public.terminales_usuarios(id_usuario, id_terminal) VALUES (?, ?);";
+
+        try {
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
+
+            cs.setInt(1, idUsuario);
+            cs.setInt(2, idTerminal);
+
+            String ext = "usuarios_id_usuarios_seq";
+            String nomTabla = "usuarios";
+            id = "id_usuarios";
+            actualizarSecuencia(ext, nomTabla, id);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Asignación Existosa");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }
+
+    }
 
     /* public void insertarUsuario(String nombre, String correo, String username, String password, boolean activo,
             String nombreRegion, String nombreRol) {
