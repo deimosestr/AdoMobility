@@ -28,7 +28,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PDFExporter {
 
@@ -303,115 +305,111 @@ public class PDFExporter {
         }
     }
 
-    public void GasPDF() throws IOException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\BITACORA GAS.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
-        List<Object[]> bitacoras = new ArrayList<>();
+public void GasPDF() throws IOException {
+    String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\BITACORA GAS.pdf";
+    String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
 
-        PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
-        PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
+    PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
+    PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
 
-        try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
-            System.out.println("Conexión exitosa con la base de datos.");
+    Map<String, Object> bitacora = new HashMap<>();
 
-            String sql = "SELECT id_bitacora, fecha_revision, id_norma_fk, id_usuario_fk, id_terminal_fk, "
-                    + "nombre_empresa, c_buena, c_regular, c_mala, observaciones_soportes, "
-                    + "capacidad, fecha_fabricacion, capacidad_reg, observaciones_gen_revisor, "
-                    + "marca, serie, diametro, espesor "
-                    + "FROM public.bitacora_instalacion_de_gas "
-                    + "WHERE id_usuario_fk = ? AND fecha_revision = ?";
+    try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
+        System.out.println("Conexión exitosa con la base de datos.");
 
-            PreparedStatement statement = conn.prepareStatement(sql);
+String sql = "SELECT id_bitacora, fecha_revision, id_norma_fk, id_usuario_fk, id_terminal_fk, "
+            + "nombre_empresa, c_buena, c_regular, c_mala, observaciones_soportes, "
+            + "capacidad, fecha_fabricacion, capacidad_reg, observaciones_gen_revisor, "
+            + "marca, serie, diametro, espesor "
+            + "FROM public.bitacora_instalacion_de_gas "
+            + "WHERE id_usuario_fk = ? AND fecha_revision = TO_DATE(?, 'YYYY-MM-DD')";
 
-            // Validar que globalV.fechaR no sea null o esté vacía
-            if (globalV.fechaR == null || globalV.fechaR.isEmpty()) {
-                throw new IllegalArgumentException("La fecha no puede ser nula o vacía.");
-            }
 
-            CDatosNOM usuarioDAO = new CDatosNOM();  // Crear una instancia de UsuarioDAO
-            int id = usuarioDAO.obtenerIDUsuario();
+        PreparedStatement statement = conn.prepareStatement(sql);
 
-            // Asignar parámetros a la consulta
-            statement.setInt(1, id);
-            statement.setString(2, globalV.fechaR);
+        if (globalV.fechaR == null || globalV.fechaR.isEmpty()) {
+            throw new IllegalArgumentException("La fecha no puede ser nula o vacía.");
+        }
 
-            ResultSet rs = statement.executeQuery();
+        CDatosNOM usuarioDAO = new CDatosNOM();
+        int id = usuarioDAO.obtenerIDUsuario();
 
-            // Extraer datos de la base y guardarlos en una lista
-            while (rs.next()) {
-                System.out.println("Recuperando bitácora con ID: " + rs.getInt("id_bitacora"));
+        statement.setInt(1, id);
+        statement.setString(2, globalV.fechaR);
 
-                Object[] bitacora = {
-                    rs.getInt("id_bitacora"),
-                    rs.getDate("fecha_revision"),
-                    rs.getInt("id_norma_fk"),
-                    rs.getInt("id_usuario_fk"),
-                    rs.getInt("id_terminal_fk"),
-                    rs.getString("nombre_empresa"),
-                    rs.getString("c_buena"),
-                    rs.getString("c_regular"),
-                    rs.getString("c_mala"),
-                    rs.getString("observaciones_soportes"),
-                    rs.getString("capacidad"),
-                    rs.getString("fecha_fabricacion"),
-                    rs.getString("capacidad_reg"),
-                    rs.getString("observaciones_gen_revisor"),
-                    rs.getString("marca"),
-                    rs.getString("serie"),
-                    rs.getString("diametro"),
-                    rs.getString("espesor")
-                };
+        ResultSet rs = statement.executeQuery();
 
-                bitacoras.add(bitacora);
-            }
-            System.out.println("Total de registros obtenidos: " + bitacoras.size());
+        if (rs.next()) {
+            bitacora.put("id_bitacora", rs.getString("id_bitacora"));
+            bitacora.put("fecha_revision", rs.getDate("fecha_revision"));
+            bitacora.put("id_norma_fk", rs.getString("id_norma_fk"));
+            bitacora.put("id_usuario_fk", rs.getString("id_usuario_fk"));
+            bitacora.put("id_terminal_fk", rs.getString("id_terminal_fk"));
+            bitacora.put("nombre_empresa", rs.getString("nombre_empresa"));
+            bitacora.put("c_buena", rs.getString("c_buena"));
+            bitacora.put("c_regular", rs.getString("c_regular"));
+            bitacora.put("c_mala", rs.getString("c_mala"));
+            bitacora.put("observaciones_soportes", rs.getString("observaciones_soportes"));
+            bitacora.put("capacidad", rs.getString("capacidad"));
+            bitacora.put("fecha_fabricacion", rs.getString("fecha_fabricacion"));
+            bitacora.put("capacidad_reg", rs.getString("capacidad_reg"));
+            bitacora.put("observaciones_gen_revisor", rs.getString("observaciones_gen_revisor"));
+            bitacora.put("marca", rs.getString("marca"));
+            bitacora.put("serie", rs.getString("serie"));
+            bitacora.put("diametro", rs.getString("diametro"));
+            bitacora.put("espesor", rs.getString("espesor"));
+        } else {
+            System.out.println("No se encontraron registros.");
+            return;
+        }
 
-            // Cargar la plantilla PDF
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
-            Document document = new Document(pdfDoc);
+        // Cargar la plantilla PDF
+        PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+        Document document = new Document(pdfDoc);
+        PdfPage page = pdfDoc.getLastPage();
+        PdfCanvas pdfCanvas = new PdfCanvas(page);
 
-            // Obtener la última página del PDF
-            PdfPage page = pdfDoc.getLastPage();
-            PdfCanvas pdfCanvas = new PdfCanvas(page);
+        // Aquí defines las posiciones exactas para cada campo
+        Map<String, float[]> posiciones = new HashMap<>();
+        //posiciones.put("id_bitacora", new float[]{50, 700});
+        posiciones.put("fecha_revision", new float[]{370, 780});
+        posiciones.put("nombre_empresa", new float[]{370, 798});
+        posiciones.put("capacidad", new float[]{77, 616});
+        posiciones.put("capacidad_reg", new float[]{65, 577});
+        posiciones.put("fecha_fabricacion", new float[]{143, 616});
+        posiciones.put("marca", new float[]{140, 515});
+        posiciones.put("serie", new float[]{199, 515});
+        posiciones.put("diametro", new float[]{423, 515});
+        posiciones.put("espesor", new float[]{528, 515});
+        posiciones.put("observaciones_gen_revisor", new float[]{310, 577});
+        posiciones.put("observaciones_soportes", new float[]{468, 675});
 
-            // Coordenadas para colocar los datos (ejemplo)
-            float[][] posiciones = {
-                {50, 50}, {60, 60}, {70, 70}, {80, 80}, {90, 150}, {100, 150} // Añadí más posiciones
-            };
 
-            int index = 0;
-            System.out.println("Cantidad de registros en bitacoras: " + bitacoras.size());
+        for (Map.Entry<String, float[]> entry : posiciones.entrySet()) {
+            String campo = entry.getKey();
+            float x = entry.getValue()[0];
+            float y = entry.getValue()[1];
 
-            for (Object[] b : bitacoras) {
-                System.out.println("Imprimiendo bitacora: " + b[0]);  // Mostrar el primer valor de cada bitacora
-                if (index >= posiciones.length) {
-                    System.out.println("Se alcanzó el límite de posiciones.");
-                    break;  // Evitar sobrepasar las posiciones
-                }
-
-                float x = posiciones[index][0];  // Posición X
-                float y = posiciones[index][1];  // Posición Y
-
-                // Escribir el primer campo del registro en la posición especificada
+            Object valor = bitacora.get(campo);
+            if (valor != null) {
                 pdfCanvas.beginText()
-                        .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 12f)
+                        .setFontAndSize(font, 8f)
                         .setFillColor(ColorConstants.BLACK)
                         .moveText(x, y)
-                        .showText(b[index].toString());  // Acceso al primer campo de bitacora
-                pdfCanvas.endText();
-                index++;
+                        .showText(valor.toString())
+                        .endText();
             }
-
-            // Cerrar el documento
-            document.close();
-            pdfDoc.close();
-
-            System.out.println("PDF generado con éxito en: " + destino);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error al generar el PDF: " + e.getMessage());
         }
+
+        document.close();
+        pdfDoc.close();
+        System.out.println("PDF generado con éxito en: " + destino);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("Error al generar el PDF: " + e.getMessage());
     }
+}
+
 
 }
