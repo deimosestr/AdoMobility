@@ -2403,16 +2403,23 @@ public class CDatosNOM {
         // 
         try {
             int fila = paramTablaEPP.getSelectedRow();
+            String nomTerminales;
+
             if (fila >= 0) {
 
                 // Asignar valores a los JTextField
                 paramIDUsuario.setText(paramTablaEPP.getValueAt(fila, 0).toString());
                 paramlabelResponsable.setText(paramTablaEPP.getValueAt(fila, 1).toString());
                 paramlabelRegion.setText(paramTablaEPP.getValueAt(fila, 2).toString());
-                paramlabelTerminales.setText(paramTablaEPP.getValueAt(fila, 3).toString());
+
+                nomTerminales = paramTablaEPP.getValueAt(fila, 3).toString();
+                paramlabelTerminales.setText(nomTerminales);
                 paramtxtIDBitacora.setText(paramTablaEPP.getValueAt(fila, 4).toString());
-                paramtxtFecha.setText(paramTablaEPP.getValueAt(fila, 5).toString());
-                //
+
+                globalV.fechaR = paramTablaEPP.getValueAt(fila, 5).toString();
+                paramtxtFecha.setText(globalV.fechaR);
+
+//
                 paramNombreEPP.setText(paramTablaEPP.getValueAt(fila, 6).toString());
                 paramAreaEPP.setText(paramTablaEPP.getValueAt(fila, 7).toString());
                 paramPuestoEPP.setText(paramTablaEPP.getValueAt(fila, 8).toString());
