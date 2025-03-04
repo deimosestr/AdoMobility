@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -99,6 +100,24 @@ public class CDatosNOM {
     int idRegion;
     int idRole;
     int idUsuario;
+    String nombreTerminal;
+    String ubicacionTerminal;
+
+    public String getNombreTerminal() {
+        return nombreTerminal;
+    }
+
+    public void setNombreTerminal(String nombreTerminal) {
+        this.nombreTerminal = nombreTerminal;
+    }
+
+    public String getUbicacionTerminal() {
+        return ubicacionTerminal;
+    }
+
+    public void setUbicacionTerminal(String ubicacionTerminal) {
+        this.ubicacionTerminal = ubicacionTerminal;
+    }
 
     public String getId() {
         return id;
@@ -2641,6 +2660,38 @@ public class CDatosNOM {
         }
     }
 
+    public void seleccionarUsuario(JTable paramTablaUsuarios, JTextField paramIDUsuario, JTextField paramNombreUsuarios,
+            JTextField paramCorreoUsuarios, JTextField paramUsername, JTextField paramPassword, JCheckBox paramActivo,
+            JComboBox paramRegion, JComboBox paramRoles) {
+        try {
+            int fila = paramTablaUsuarios.getSelectedRow();
+            if (fila >= 0) {
+
+                // Asignar valores a los JTextField
+                paramIDUsuario.setText(paramTablaUsuarios.getValueAt(fila, 0).toString());
+                paramNombreUsuarios.setText(paramTablaUsuarios.getValueAt(fila, 1).toString());
+                paramCorreoUsuarios.setText(paramTablaUsuarios.getValueAt(fila, 2).toString());
+                paramUsername.setText(paramTablaUsuarios.getValueAt(fila, 3).toString());
+                paramPassword.setText(paramTablaUsuarios.getValueAt(fila, 4).toString());
+                paramActivo.setSelected((Boolean) paramTablaUsuarios.getValueAt(fila, 5));
+                String regionSeleccionada = paramTablaUsuarios.getValueAt(fila, 6).toString(); // Región
+                String rolSeleccionado = paramTablaUsuarios.getValueAt(fila, 7).toString(); // Rol
+
+                // Establecer la región seleccionada en el JComboBox
+                paramRegion.setSelectedItem(regionSeleccionada);
+
+                // Establecer el rol seleccionado en el JComboBox
+                paramRoles.setSelectedItem(rolSeleccionado);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Fila no seleccionada");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+        }
+
+    }
+
     public void asignarTerminal(String paramIDUsuario, String paramIDTerminal) {
         int idUsuario = obtenerIDUsuario();
         int idTerminal = obtenerIDTerminal(paramIDTerminal);
@@ -2653,9 +2704,9 @@ public class CDatosNOM {
             cs.setInt(1, idUsuario);
             cs.setInt(2, idTerminal);
 
-            String ext = "usuarios_id_usuarios_seq";
-            String nomTabla = "usuarios";
-            id = "id_usuarios";
+            String ext = "terminales_usuarios_id_usuario_seq";
+            String nomTabla = "terminales_usuarios";
+            id = "id_usuario";
             actualizarSecuencia(ext, nomTabla, id);
 
             cs.execute();
@@ -2663,8 +2714,120 @@ public class CDatosNOM {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error" + e.toString());
         }
-
     }
+
+    public void revocarTerminal(String paramIDUsuario, String paramIDTerminal) {
+        int idUsuario = obtenerIDUsuario();
+        int idTerminal = obtenerIDTerminal(paramIDTerminal);
+
+        // Query para eliminar la asignación
+        String sql = "DELETE FROM public.terminales_usuarios WHERE id_usuario = ? AND id_terminal = ?;";
+
+        try {
+            // Preparar la sentencia
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
+
+            // Asignar los parámetros
+            cs.setInt(1, idUsuario);
+            cs.setInt(2, idTerminal);
+
+            // Ejecutar la sentencia
+            int filasAfectadas = cs.executeUpdate();
+
+            // Verificar si se eliminó alguna fila
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Revocación Exitosa");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la asignación para revocar");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+        }
+    }
+
+    public void insertarTerminal(JTextField paramNombreTerminal, JTextField paramUbicacionTerminal, String paramIDRegion) {
+        setNombreTerminal(paramNombreTerminal.getText());
+        setUbicacionTerminal(paramUbicacionTerminal.getText());
+        int idRegion = obtenerIDRegiones(paramIDRegion);
+
+        String sql = "INSERT INTO public.terminales (nombre, ubicacion, id_region_fk) VALUES (?, ?, ?);";
+
+        try {
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
+
+            cs.setString(1, getNombreTerminal());
+            cs.setString(2, getUbicacionTerminal());
+            cs.setInt(3, idRegion);
+
+            String ext = "terminales_id_terminal_seq";
+            String nomTabla = "terminales";
+            id = "id_terminal";
+            actualizarSecuencia(ext, nomTabla, id);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Inserción Existosa");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }
+    }
+
+    public void mostrarTerminales(JTable paramTablaTerminales) {
+        // Crear el modelo de la tabla con tipos específicos y celdas no editables
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaTerminales.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Terminal");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Ubicacion");
+        modelo.addColumn("Region");
+        paramTablaTerminales.setModel(modelo);
+
+        String sql = "SELECT t.id_terminal, t.nombre, t.ubicacion, r.nombre AS nombre_region "
+                + "FROM public.terminales t "
+                + "JOIN public.regiones r ON t.id_region_fk = r.id_region "
+                + "ORDER BY t.id_terminal ASC";
+        Object[] datos = new Object[4]; // Cambiado a Object[] para permitir tanto String como Boolean
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            //pst.setString(0, globalV.user); // Asignar el parámetro a la consulta
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas y convertir las booleanas
+                datos[0] = rs.getString(1); // 
+                datos[1] = rs.getString(2); // 
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4); // 
+
+                modelo.addRow(datos);
+            }
+            paramTablaTerminales.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                //obj2.cerrarConexion(); // Método para cerrar conexión en TConexion
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+    }
+
 
     /* public void insertarUsuario(String nombre, String correo, String username, String password, boolean activo,
             String nombreRegion, String nombreRol) {

@@ -33,25 +33,30 @@ public class Login extends javax.swing.JFrame {
 
         try {
             conectar = TConexion.establecerConexion(); // Establecer la conexión
-            //System.out.println("Seguimiento de cadena 1: "+conectar);
-            String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
+            String query = "SELECT id_usuarios, username, id_role_fk FROM usuarios WHERE username = ? AND password = ?";
             PreparedStatement pstmt = conectar.prepareStatement(query);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                globalV.user = usuarioField.getText();
-                if (username.equals("paoky")) {
+                int idRole = rs.getInt("id_role_fk"); // Obtener el id_role_fk
+                globalV.user = rs.getString("username"); // Guardar el nombre de usuario en una variable global
+
+                // Definir el ID del rol de administrador
+                int idRolAdministrador = 2; // Cambia este valor según tu base de datos
+
+                // Redirigir según el rol
+                if (idRole == idRolAdministrador) {
+                    // Si es administrador, abrir la ventana de administrador
                     adminScreen admin = new adminScreen();
                     admin.setVisible(true);
-                    this.dispose();
                 } else {
+                    // Si no es administrador, abrir la ventana por defecto
                     menuw8 mainFrame = new menuw8();
                     mainFrame.setVisible(true);
-                    this.dispose();
                 }
-                // Cerrar la ventana de login actual
+                this.dispose(); // Cerrar la ventana de login actual
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
             }
