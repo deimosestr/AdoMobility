@@ -1114,7 +1114,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
             PDFExporter ejemplo = new PDFExporter();
             try {
-                ejemplo.ExtintorPDF();
+                ejemplo.EppPDF();
             } catch (IOException ex) {
                 Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
             }
