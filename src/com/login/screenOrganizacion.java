@@ -55,6 +55,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
         btnEPP = new com.login.buttonsNormas();
         btnHumo = new com.login.buttonsNormas();
         btnGas = new com.login.buttonsNormas();
+        modernButton1 = new com.login.ModernButton();
         bitacoras = new javax.swing.JPanel();
         gas = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
@@ -292,6 +293,16 @@ public class screenOrganizacion extends javax.swing.JFrame {
             }
         });
         menuDeOpciones.add(btnGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
+
+        modernButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/limpiar.png"))); // NOI18N
+        modernButton1.setText("LIMPIAR CAMPOS");
+        modernButton1.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
+        modernButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modernButton1MouseClicked(evt);
+            }
+        });
+        menuDeOpciones.add(modernButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 160, -1));
 
         bgHomeScreen.add(menuDeOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 500));
 
@@ -1082,6 +1093,29 @@ public class screenOrganizacion extends javax.swing.JFrame {
                     puestoEPP, cascoEPP, lentesDeSeguridadEPP, lentesDeSeguridadEPP,
                     taponesAuditivosEPP, guantesEPP, caretaSoldarEPP,
                     caretaEsmerilarEPP, mascarillaEPP, fajaEPP, arnesEPP, uniformeEPP, firmadoEPP);
+            labelResponsable.setText("Usuario");
+            txtIDBitacora.setText("");
+            labelRegiones.setText("Region");
+            labelTerminales.setText("Terminal");
+            txtFecha.setText("");
+            txtiDUsuario.setText("");
+            txtIDNorma.setText("NOM-017-STPS-2008");
+            ////
+            nombreEPP.setText("");
+            areaEPP.setText("");
+            puestoEPP.setText("");
+            lentesDeSeguridadEPP.setSelected(false);
+            caretaEsmerilarEPP.setSelected(false);
+            cascoEPP.setSelected(false);
+            botasSegEPP.setSelected(false);
+            fajaEPP.setSelected(false);
+            taponesAuditivosEPP.setSelected(false);
+            guantesEPP.setSelected(false);
+            uniformeEPP.setSelected(false);
+            mascarillaEPP.setSelected(false);
+            arnesEPP.setSelected(false);
+            caretaSoldarEPP.setSelected(false);
+            firmadoEPP.setSelected(false);
             obj.MostrarEPP(tablaEPP);
 
         }
@@ -1175,6 +1209,29 @@ public class screenOrganizacion extends javax.swing.JFrame {
             obj.insertarEPP(txtFecha, nombreEPP, areaEPP, puestoEPP,
                     cascoEPP, lentesDeSeguridadEPP, botasSegEPP, taponesAuditivosEPP, guantesEPP, caretaSoldarEPP, caretaEsmerilarEPP,
                     mascarillaEPP, fajaEPP, arnesEPP, uniformeEPP, firmadoEPP, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
+            labelResponsable.setText("Usuario");
+            txtIDBitacora.setText("");
+            labelRegiones.setText("Region");
+            labelTerminales.setText("Terminal");
+            txtFecha.setText("");
+            txtiDUsuario.setText("");
+            txtIDNorma.setText("NOM-017-STPS-2008");
+            ////
+            nombreEPP.setText("");
+            areaEPP.setText("");
+            puestoEPP.setText("");
+            lentesDeSeguridadEPP.setSelected(false);
+            caretaEsmerilarEPP.setSelected(false);
+            cascoEPP.setSelected(false);
+            botasSegEPP.setSelected(false);
+            fajaEPP.setSelected(false);
+            taponesAuditivosEPP.setSelected(false);
+            guantesEPP.setSelected(false);
+            uniformeEPP.setSelected(false);
+            mascarillaEPP.setSelected(false);
+            arnesEPP.setSelected(false);
+            caretaSoldarEPP.setSelected(false);
+            firmadoEPP.setSelected(false);
             obj.MostrarEPP(tablaEPP);
 
         }
@@ -1228,7 +1285,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
     private void listNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listNomActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_listNomActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
@@ -1237,12 +1294,12 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
     private void tablaGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGasMouseClicked
         obj.seleccionarGas(
-            tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
-            labelTerminales, txtIDBitacora, txtFecha,
-            nomEmpresa, cMalas, c_Buena, c_Regular,
-            cObservaciones, capacidadTanque, fechaFabricacion,
-            cRegistrada, tObservaciones, marca, numSerie,
-            diametroEXT, espesor);
+                tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
+                labelTerminales, txtIDBitacora, txtFecha,
+                nomEmpresa, cMalas, c_Buena, c_Regular,
+                cObservaciones, capacidadTanque, fechaFabricacion,
+                cRegistrada, tObservaciones, marca, numSerie,
+                diametroEXT, espesor);
     }//GEN-LAST:event_tablaGasMouseClicked
 
     private void espesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espesorActionPerformed
@@ -1292,6 +1349,33 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private void nomEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomEmpresaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomEmpresaActionPerformed
+
+    private void modernButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton1MouseClicked
+        // TODO add your handling code here:
+        labelResponsable.setText("Usuario");
+        txtIDBitacora.setText("");
+        labelRegiones.setText("Region");
+        labelTerminales.setText("Terminal");
+        txtFecha.setText("");
+        txtiDUsuario.setText("");
+        txtIDNorma.setText("NOM-017-STPS-2008");
+        ////
+        nombreEPP.setText("");
+        areaEPP.setText("");
+        puestoEPP.setText("");
+        lentesDeSeguridadEPP.setSelected(false);
+        caretaEsmerilarEPP.setSelected(false);
+        cascoEPP.setSelected(false);
+        botasSegEPP.setSelected(false);
+        fajaEPP.setSelected(false);
+        taponesAuditivosEPP.setSelected(false);
+        guantesEPP.setSelected(false);
+        uniformeEPP.setSelected(false);
+        mascarillaEPP.setSelected(false);
+        arnesEPP.setSelected(false);
+        caretaSoldarEPP.setSelected(false);
+        firmadoEPP.setSelected(false);
+    }//GEN-LAST:event_modernButton1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1416,6 +1500,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private javax.swing.JTextField marca;
     private javax.swing.JCheckBox mascarillaEPP;
     private javax.swing.JPanel menuDeOpciones;
+    private com.login.ModernButton modernButton1;
     private javax.swing.JTextField nomEmpresa;
     private javax.swing.JTextField nombreEPP;
     private javax.swing.JTextField numSerie;
