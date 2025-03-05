@@ -23,6 +23,7 @@ public class adminScreen extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     CDatosNOM obj = new CDatosNOM();
+    
 
     public adminScreen() {
         initComponents();
@@ -33,8 +34,8 @@ public class adminScreen extends javax.swing.JFrame {
         llenarComboBoxRoles(comboRoles);
         llenarComboBoxTerminalesG(comboTerminales);
         llenarComboBoxTerminalesG(comboTerminales1);
-        llenarComboBoxUsuarios(listaUsuarios);
-        llenarComboBoxUsuarios(listaUsuarios1);
+        llenarComboBoxUsuariosUP(listaUsuarios);
+        llenarComboBoxUsuariosDOWN(listaUsuarios);
         llenarComboBoxRegiones(comboboxRegionTerminales);
         //llenarComboBoxHumo();
         //bitacoras.setVisible(false);
@@ -65,6 +66,7 @@ public class adminScreen extends javax.swing.JFrame {
         btnUsuarios = new com.login.buttonsNormas();
         menuTerminales = new com.login.buttonsNormas();
         menuRegiones = new com.login.buttonsNormas();
+        modernButton1 = new com.login.ModernButton();
         bitacoras = new javax.swing.JPanel();
         bitacorasGeneral = new javax.swing.JPanel();
         terminales = new javax.swing.JPanel();
@@ -78,7 +80,7 @@ public class adminScreen extends javax.swing.JFrame {
         ubicacionTerminalAdmin = new javax.swing.JTextField();
         comboboxRegionTerminales = new javax.swing.JComboBox<>();
         jSeparator4 = new javax.swing.JSeparator();
-        asignarTerminal = new com.login.ModernButton();
+        agregarTerminal = new com.login.ModernButton();
         tablaTerminales = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableTerminalesAdmin = new javax.swing.JTable();
@@ -107,12 +109,12 @@ public class adminScreen extends javax.swing.JFrame {
         comboRoles = new javax.swing.JComboBox<>();
         comboTerminales = new javax.swing.JComboBox<>();
         insertarUser = new com.login.ModernButton();
-        modernButton1 = new com.login.ModernButton();
+        revocarTerminal = new com.login.ModernButton();
         listaUsuarios = new javax.swing.JComboBox<>();
         labelPuestoEPP1 = new javax.swing.JLabel();
         comboTerminales1 = new javax.swing.JComboBox<>();
         listaUsuarios1 = new javax.swing.JComboBox<>();
-        modernButton2 = new com.login.ModernButton();
+        asignarTerminal = new com.login.ModernButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -248,6 +250,16 @@ public class adminScreen extends javax.swing.JFrame {
         });
         menuDeOpciones.add(menuRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
 
+        modernButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/limpiar.png"))); // NOI18N
+        modernButton1.setText("LIMPIAR CAMPOS");
+        modernButton1.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
+        modernButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modernButton1MouseClicked(evt);
+            }
+        });
+        menuDeOpciones.add(modernButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 160, -1));
+
         bgHomeScreen.add(menuDeOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 500));
 
         bitacoras.setBackground(new java.awt.Color(255, 255, 255));
@@ -317,13 +329,13 @@ public class adminScreen extends javax.swing.JFrame {
         jSeparator4.setForeground(new java.awt.Color(197, 172, 204));
         terminales.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 190, 10));
 
-        asignarTerminal.setText("REGISTRAR TERMINAL");
-        asignarTerminal.addMouseListener(new java.awt.event.MouseAdapter() {
+        agregarTerminal.setText("REGISTRAR TERMINAL");
+        agregarTerminal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                asignarTerminalMouseClicked(evt);
+                agregarTerminalMouseClicked(evt);
             }
         });
-        terminales.add(asignarTerminal, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 190, -1));
+        terminales.add(agregarTerminal, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 190, -1));
 
         tablaTerminales.setBackground(new java.awt.Color(255, 255, 255));
         tablaTerminales.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
@@ -404,6 +416,7 @@ public class adminScreen extends javax.swing.JFrame {
         menuUsuario.setText("Su ID de usuario es:");
         usuarios.add(menuUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 20));
 
+        adminUsuario.setBackground(new java.awt.Color(255, 255, 255));
         adminUsuario.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         adminUsuario.setBorder(null);
         usuarios.add(adminUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 140, -1));
@@ -495,7 +508,7 @@ public class adminScreen extends javax.swing.JFrame {
         comboTerminales.setBackground(new java.awt.Color(255, 255, 255));
         comboTerminales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboTerminales.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Lista Terminales", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        usuarios.add(comboTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 140, 40));
+        usuarios.add(comboTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 140, 40));
 
         insertarUser.setText("AGREGAR USUARIO");
         insertarUser.setFont(new java.awt.Font("ROBOTO", 1, 12)); // NOI18N
@@ -506,19 +519,19 @@ public class adminScreen extends javax.swing.JFrame {
         });
         usuarios.add(insertarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 150, -1));
 
-        modernButton1.setText("QUITAR TERMINAL");
-        modernButton1.setFont(new java.awt.Font("ROBOTO", 1, 12)); // NOI18N
-        modernButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        revocarTerminal.setText("QUITAR TERMINAL");
+        revocarTerminal.setFont(new java.awt.Font("ROBOTO", 1, 12)); // NOI18N
+        revocarTerminal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modernButton1MouseClicked(evt);
+                revocarTerminalMouseClicked(evt);
             }
         });
-        usuarios.add(modernButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 150, -1));
+        usuarios.add(revocarTerminal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 150, -1));
 
         listaUsuarios.setBackground(new java.awt.Color(255, 255, 255));
         listaUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         listaUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Lista Usuarios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        usuarios.add(listaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 190, 40));
+        usuarios.add(listaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 190, 40));
 
         labelPuestoEPP1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         labelPuestoEPP1.setText("Asignar Terminal: ");
@@ -527,21 +540,21 @@ public class adminScreen extends javax.swing.JFrame {
         comboTerminales1.setBackground(new java.awt.Color(255, 255, 255));
         comboTerminales1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboTerminales1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Lista Terminales", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        usuarios.add(comboTerminales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 140, 40));
+        usuarios.add(comboTerminales1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 140, 40));
 
         listaUsuarios1.setBackground(new java.awt.Color(255, 255, 255));
         listaUsuarios1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         listaUsuarios1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Lista Usuarios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        usuarios.add(listaUsuarios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 190, 40));
+        usuarios.add(listaUsuarios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 190, 40));
 
-        modernButton2.setText("ASIGNAR TERMINAL");
-        modernButton2.setFont(new java.awt.Font("ROBOTO", 1, 12)); // NOI18N
-        modernButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        asignarTerminal.setText("ASIGNAR TERMINAL");
+        asignarTerminal.setFont(new java.awt.Font("ROBOTO", 1, 12)); // NOI18N
+        asignarTerminal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modernButton2MouseClicked(evt);
+                asignarTerminalMouseClicked(evt);
             }
         });
-        usuarios.add(modernButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 150, -1));
+        usuarios.add(asignarTerminal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 150, -1));
 
         bitacoras.add(usuarios, "card3");
 
@@ -641,7 +654,7 @@ public class adminScreen extends javax.swing.JFrame {
         comboTerminales1.setModel(modelo);
     }
 
-    private void llenarComboBoxUsuarios(JComboBox<String> comboBoxUsuarios) {
+    private void llenarComboBoxUsuariosUP(JComboBox<String> comboBoxUsuarios) {
         // Obtener la lista de nombres de roles
         List<String> nombres = obj.obtenerNombreUsuarios();
 
@@ -650,6 +663,16 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         listaUsuarios.setModel(modelo);
+    }
+    
+    private void llenarComboBoxUsuariosDOWN(JComboBox<String> comboBoxUsuarios) {
+        // Obtener la lista de nombres de roles
+        List<String> nombres = obj.obtenerNombreUsuarios();
+
+        // Crear un modelo para el JComboBox con los valores
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(nombres.toArray(new String[0]));
+
+        // Asignar el modelo al JComboBox
         listaUsuarios1.setModel(modelo);
     }
 
@@ -780,8 +803,8 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void tablaUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsersMouseClicked
         // TODO add your handling code here:
-        obj.seleccionarUsuario(tablaUsers, adminUsuario, 
-                adminNombre, adminCorreo, adminUsername, 
+        obj.seleccionarUsuario(tablaUsers, adminUsuario,
+                adminNombre, adminCorreo, adminUsername,
                 adminPassword, checkActivo, comboRegiones, comboRoles);
     }//GEN-LAST:event_tablaUsersMouseClicked
 
@@ -794,22 +817,32 @@ public class adminScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         obj.insertarUSUARIO(adminNombre, adminCorreo, adminUsername, adminPassword,
                 checkActivo, comboRegiones.getSelectedItem().toString(), comboRoles.getSelectedItem().toString());
+        adminUsuario.setText("");
+        adminCorreo.setText("");
+        adminNombre.setText("");
+        adminPassword.setText("");
+        adminUsername.setText("");
+        checkActivo.setSelected(false);
+        llenarComboBoxUsuariosUP(listaUsuarios);
+        llenarComboBoxTerminalesG(comboTerminales);
         obj.mostrarUsuarios(tablaUsers);
     }//GEN-LAST:event_insertarUserMouseClicked
 
-    private void modernButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton1MouseClicked
+    private void revocarTerminalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revocarTerminalMouseClicked
         // TODO add your handling code here:
-        obj.revocarTerminal(listaUsuarios1.getSelectedItem().toString(), comboTerminales1.getSelectedItem().toString());
-        obj.mostrarTerminales(tableTerminalesAdmin);
-    }//GEN-LAST:event_modernButton1MouseClicked
+        obj.revocarTerminal(listaUsuarios1, comboTerminales1.getSelectedItem().toString());
+        
+        obj.mostrarUsuarios(tablaUsers);
+        //obj.mostrarTerminales(tableTerminalesAdmin);
+    }//GEN-LAST:event_revocarTerminalMouseClicked
 
-    private void asignarTerminalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_asignarTerminalMouseClicked
+    private void agregarTerminalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarTerminalMouseClicked
         // TODO add your handling code here:
         obj.insertarTerminal(nombreTerminalAdmin, ubicacionTerminalAdmin,
                 comboboxRegionTerminales.getSelectedItem().toString());
         obj.mostrarTerminales(tablaUsers);
 
-    }//GEN-LAST:event_asignarTerminalMouseClicked
+    }//GEN-LAST:event_agregarTerminalMouseClicked
 
     private void tableTerminalesAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTerminalesAdminMouseClicked
         // TODO add your handling code here:
@@ -819,12 +852,43 @@ public class adminScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_idTerminalAdminActionPerformed
 
-    private void modernButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton2MouseClicked
+    private void asignarTerminalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_asignarTerminalMouseClicked
         // TODO add your handling code here:
-        obj.asignarTerminal(listaUsuarios.getSelectedItem().toString(), comboTerminales.getSelectedItem().toString());
-        obj.mostrarUsuarios(tablaUsers);
+        int idUsuario = obj.obtenerIDUsuarioGeneral(listaUsuarios);
+        if (listaUsuarios.getSelectedItem() == null || comboTerminales.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar un usuario y una terminal.");
+            return;
+        }
 
-    }//GEN-LAST:event_modernButton2MouseClicked
+        try {
+            // Obtener el valor seleccionado en el JComboBox de terminales
+            String idTerminalSeleccionado = comboTerminales.getSelectedItem().toString();
+
+            // Llamar al método asignarTerminal
+            obj.asignarTerminal(listaUsuarios, idTerminalSeleccionado);
+
+            // Actualizar la tabla de usuarios (si es necesario)
+            obj.mostrarUsuarios(tablaUsers);
+
+            // Mostrar mensaje de éxito
+            //JOptionPane.showMessageDialog(this, "Asignación realizada correctamente.");
+        } catch (Exception e) {
+            // Mostrar mensaje de error
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_asignarTerminalMouseClicked
+
+    private void modernButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton1MouseClicked
+        // TODO add your handling code here:
+        adminUsuario.setText("");
+        adminCorreo.setText("");
+        adminNombre.setText("");
+        adminPassword.setText("");
+        adminUsername.setText("");
+        checkActivo.setSelected(false);
+        llenarComboBoxUsuariosUP(listaUsuarios);
+        llenarComboBoxTerminalesG(comboTerminales);
+    }//GEN-LAST:event_modernButton1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -864,6 +928,7 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JTextField adminPassword;
     private javax.swing.JTextField adminUsername;
     private javax.swing.JTextField adminUsuario;
+    private com.login.ModernButton agregarTerminal;
     private com.login.ModernButton asignarTerminal;
     private javax.swing.JPanel barNavMov;
     private javax.swing.JPanel bgHomeScreen;
@@ -907,10 +972,10 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JLabel menuUsuario;
     private javax.swing.JLabel menuUsuario1;
     private com.login.ModernButton modernButton1;
-    private com.login.ModernButton modernButton2;
     private javax.swing.JTextField nombreTerminalAdmin;
     private javax.swing.JPanel returnPanel;
     private javax.swing.JLabel returnTxt;
+    private com.login.ModernButton revocarTerminal;
     private javax.swing.JPanel tablaTerminales;
     private javax.swing.JTable tablaUsers;
     private javax.swing.JPanel tablaUsuarios;

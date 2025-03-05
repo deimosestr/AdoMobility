@@ -728,6 +728,57 @@ public class CDatosNOM {
         return idNorma;
     }
 
+    public int obtenerIDUsuarioGeneral(JComboBox<String> listaUsuarios) {
+        int idUsuario = -1; // Valor predeterminado para indicar que no se encontró un resultado
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Obtener el valor seleccionado en el JComboBox
+            String nombreUsuarioSeleccionado = (String) listaUsuarios.getSelectedItem();
+
+            // Verificar si se seleccionó un valor válido
+            if (nombreUsuarioSeleccionado == null || nombreUsuarioSeleccionado.isEmpty()) {
+                System.out.println("No se ha seleccionado un usuario válido.");
+                return idUsuario;
+            }
+
+            // Consulta SQL para obtener el ID del usuario basado en el nombre
+            String sql = "SELECT id_usuarios FROM usuarios WHERE nombre = ?;";
+            pst = globalV.conectar.prepareStatement(sql);
+
+            // Asignar el parámetro a la consulta
+            pst.setString(1, nombreUsuarioSeleccionado);
+
+            // Ejecutar la consulta
+            rs = pst.executeQuery();
+
+            // Obtener el primer resultado
+            if (rs.next()) {
+                idUsuario = rs.getInt("id_usuarios");
+            } else {
+                System.out.println("No se encontró el usuario en la base de datos.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener el ID del usuario: " + e.getMessage());
+        } finally {
+            // Cerrar solo el PreparedStatement y el ResultSet
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
+            }
+        }
+
+        return idUsuario;
+    }
+
     public int obtenerIDUsuario() {
         int idUsuario = -1; // Valor predeterminado para indicar que no se encontró un resultado
         PreparedStatement pst = null;
@@ -2699,36 +2750,27 @@ public class CDatosNOM {
 
     }
 
-    public void asignarTerminal(String paramIDUsuario, String paramIDTerminal) {
-        int idUsuario = obtenerIDUsuario();
-        int idTerminal = obtenerIDTerminal(paramIDTerminal);
+    public void asignarTerminal(JComboBox<String> listaUsuarios, String paramIDTerminal) {
+        // Obtener el ID del usuario seleccionado en el JComboBox
+        int idUsuario = obtenerIDUsuarioGeneral(listaUsuarios);
 
-        String sql = "INSERT INTO public.terminales_usuarios(id_usuario, id_terminal) VALUES (?, ?);";
-
-        try {
-            CallableStatement cs = globalV.conectar.prepareCall(sql);
-
-            cs.setInt(1, idUsuario);
-            cs.setInt(2, idTerminal);
-
-            String ext = "terminales_usuarios_id_usuario_seq";
-            String nomTabla = "terminales_usuarios";
-            id = "id_usuario";
-            actualizarSecuencia(ext, nomTabla, id);
-
-            cs.execute();
-            JOptionPane.showMessageDialog(null, "Asignación Existosa");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        // Verificar si se obtuvo un ID de usuario válido
+        if (idUsuario == -1) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener el ID del usuario.");
+            return;
         }
-    }
 
-    public void revocarTerminal(String paramIDUsuario, String paramIDTerminal) {
-        int idUsuario = obtenerIDUsuario();
+        // Obtener el ID de la terminal
         int idTerminal = obtenerIDTerminal(paramIDTerminal);
 
-        // Query para eliminar la asignación
-        String sql = "DELETE FROM public.terminales_usuarios WHERE id_usuario = ? AND id_terminal = ?;";
+        // Verificar si se obtuvo un ID de terminal válido
+        if (idTerminal == -1) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener el ID de la terminal.");
+            return;
+        }
+
+        // Consulta SQL para la inserción
+        String sql = "INSERT INTO public.terminales_usuarios(id_usuario, id_terminal) VALUES (?, ?);";
 
         try {
             // Preparar la sentencia
@@ -2738,8 +2780,49 @@ public class CDatosNOM {
             cs.setInt(1, idUsuario);
             cs.setInt(2, idTerminal);
 
+            // Actualizar la secuencia (si es necesario)
+            String ext = "terminales_usuarios_id_usuarios_seq";
+            String nomTabla = "terminales_usuarios";
+            String id = "id_usuario";
+            actualizarSecuencia(ext, nomTabla, id);
+
+            // Ejecutar la inserción
+            cs.execute();
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "Asignación Exitosa");
+        } catch (Exception e) {
+            // Mostrar mensaje de error
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+        }
+    }
+
+    public void revocarTerminal(JComboBox nombreUsuario, String nombreTerminal) {
+        // Obtener el ID del usuario desde el nombre
+        int idUsuario = obtenerIDUsuarioGeneral(nombreUsuario);
+        if (idUsuario == -1) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener el ID del usuario.");
+            return;
+        }
+
+        // Obtener el ID de la terminal
+        int idTerminal = obtenerIDTerminal(nombreTerminal);
+        if (idTerminal == -1) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener el ID de la terminal.");
+            return;
+        }
+
+        // Query para eliminar la asignación
+        String sql = "DELETE FROM public.terminales_usuarios WHERE id_usuario = ? AND id_terminal = ?;";
+
+        // Usar PreparedStatement en lugar de CallableStatement
+        try (PreparedStatement pstmt = globalV.conectar.prepareStatement(sql)) {
+            // Asignar los parámetros
+            pstmt.setInt(1, idUsuario);
+            pstmt.setInt(2, idTerminal);
+
             // Ejecutar la sentencia
-            int filasAfectadas = cs.executeUpdate();
+            int filasAfectadas = pstmt.executeUpdate();
 
             // Verificar si se eliminó alguna fila
             if (filasAfectadas > 0) {
@@ -2747,8 +2830,14 @@ public class CDatosNOM {
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró la asignación para revocar");
             }
+        } catch (SQLException e) {
+            // Manejar errores de SQL
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al revocar la terminal: " + e.getMessage());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+            // Manejar otros errores
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error inesperado: " + e.getMessage());
         }
     }
 

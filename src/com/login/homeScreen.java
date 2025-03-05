@@ -57,6 +57,7 @@ public class homeScreen extends javax.swing.JFrame {
         btnExtintor = new com.login.buttonsNormas();
         btnHumo = new com.login.buttonsNormas();
         btnGas = new com.login.buttonsNormas();
+        modernButton1 = new com.login.ModernButton();
         bitacoras = new javax.swing.JPanel();
         humo = new javax.swing.JPanel();
         tbHumo = new javax.swing.JPanel();
@@ -302,6 +303,16 @@ public class homeScreen extends javax.swing.JFrame {
             }
         });
         menuDeOpciones.add(btnGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
+
+        modernButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/limpiar.png"))); // NOI18N
+        modernButton1.setText("LIMPIAR CAMPOS");
+        modernButton1.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
+        modernButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modernButton1MouseClicked(evt);
+            }
+        });
+        menuDeOpciones.add(modernButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 160, -1));
 
         bgHomeScreen.add(menuDeOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 500));
 
@@ -859,7 +870,9 @@ public class homeScreen extends javax.swing.JFrame {
         panelinfo.setBackground(new java.awt.Color(255, 255, 255));
         panelinfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        listNom.setBackground(new java.awt.Color(255, 255, 255));
         listNom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listNom.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true)));
         listNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listNomActionPerformed(evt);
@@ -1486,7 +1499,7 @@ public class homeScreen extends javax.swing.JFrame {
             txtFecha.setText("");
             txtiDUsuario.setText("");
             txtIDNorma.setText("NOM-002-STPS-2010");
-            
+
             //datos
             ubicacionHumo.setText("");
             ultimaFechaHumo.setText("");
@@ -1497,7 +1510,7 @@ public class homeScreen extends javax.swing.JFrame {
             soporteHumo.setSelected(false);
             ubicacionFisica.setSelected(false);
             observacionesHumo.setText("");
-            
+
             obj.MostrarHumo(tablaHumo);
 
         }
@@ -1531,7 +1544,7 @@ public class homeScreen extends javax.swing.JFrame {
             numSerie.setText("");
             diametroEXT.setText("");
             espesor.setText("");
-            
+
             obj.MostrarGas(tablaGas);
         }
     }//GEN-LAST:event_btnInsertar1ActionPerformed
@@ -1540,9 +1553,75 @@ public class homeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void listRazonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRazonActionPerformed
+    private void modernButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_listRazonActionPerformed
+        labelResponsable.setText("Usuario");
+        txtIDBitacora.setText("");
+        labelRegiones.setText("Region");
+        labelTerminales.setText("Terminal");
+        txtFecha.setText("");
+        txtiDUsuario.setText("");
+        txtIDNorma.setText("NOM-002-STPS-2010");
+
+        //datos
+        ubicacion.setText("");
+        ultimaRecarga.setText("");
+        proximaRecarga.setText("");
+        capacidad.setText("");
+        agenteExtinguidor.setText("");
+        observaciones.setText("");
+        // Desmarcar checkboxes
+        chckManguera.setSelected(false);
+        chckManometro.setSelected(false);
+        chckSoporte.setSelected(false);
+        chckPresion.setSelected(false);
+        chckCilindro.setSelected(false);
+        chckLimpieza.setSelected(false);
+        chckEtiqueta.setSelected(false);
+        chckSeguro.setSelected(false);
+        chckObstrucciones.setSelected(false);
+        chckSenalizacion.setSelected(false);
+
+        labelResponsable.setText("Usuario");
+        txtIDBitacora.setText("");
+        labelRegiones.setText("Region");
+        labelTerminales.setText("Terminal");
+        txtFecha.setText("");
+        txtiDUsuario.setText("");
+        txtIDNorma.setText("NOM-002-STPS-2010");
+
+        //datos
+        ubicacionHumo.setText("");
+        ultimaFechaHumo.setText("");
+        proximaFechaHumo.setText("");
+        marcaHumo.setText("");
+        tipoDetectorHumo.setText("");
+        pruebaFuncionamiento.setSelected(false);
+        soporteHumo.setSelected(false);
+        ubicacionFisica.setSelected(false);
+        observacionesHumo.setText("");
+        labelResponsable.setText("Usuario");
+        txtIDBitacora.setText("");
+        labelRegiones.setText("Region");
+        labelTerminales.setText("Terminal");
+        txtFecha.setText("");
+        txtiDUsuario.setText("");
+        txtIDNorma.setText("NOM-002-STPS-2010");
+        //datos
+        nomEmpresa.setText("");
+        cMalas.setSelected(false);
+        c_Buena.setSelected(false);
+        c_Regular.setSelected(false);
+        cObservaciones.setText("");
+        capacidadTanque.setText("");
+        fechaFabricacion.setText("");
+        cRegistrada.setText("");
+        tObservaciones.setText("");
+        marca.setText("");
+        numSerie.setText("");
+        diametroEXT.setText("");
+        espesor.setText("");
+    }//GEN-LAST:event_modernButton1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1667,6 +1746,7 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel marcaGas;
     private javax.swing.JTextField marcaHumo;
     private javax.swing.JPanel menuDeOpciones;
+    private com.login.ModernButton modernButton1;
     private javax.swing.JTextField nomEmpresa;
     private javax.swing.JTextField numSerie;
     private javax.swing.JLabel numSerieGas;
