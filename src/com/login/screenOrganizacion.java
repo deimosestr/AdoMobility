@@ -2,20 +2,16 @@ package com.login;
 
 import static com.login.globalV.conectar;
 import java.awt.CardLayout;
-import java.sql.Connection;
+
 import java.awt.Color;
 import java.io.IOException;
-//import java.awt.List;
-import javax.crypto.AEADBadTagException;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import java.util.List;
-import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//import static javafx.scene.paint.Color.color;
 
 public class screenOrganizacion extends javax.swing.JFrame {
 
@@ -158,6 +154,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
         btnInsertar1 = new com.login.ModernButton();
         btnModificar = new com.login.ModernButton();
         btnExportar = new com.login.ModernButton();
+        listRazon = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -888,7 +885,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
                 btnInsertar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnInsertar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
+        jPanel1.add(btnInsertar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
 
         btnModificar.setText("MODIFICAR");
         btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -901,7 +898,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, -1, -1));
 
         btnExportar.setText("EXPORTAR");
         btnExportar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -914,7 +911,15 @@ public class screenOrganizacion extends javax.swing.JFrame {
                 btnExportarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel1.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
+
+        listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listRazon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listRazonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 160, -1));
 
         bgHomeScreen.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 610, 50));
 
@@ -977,6 +982,23 @@ public class screenOrganizacion extends javax.swing.JFrame {
         // Asignar el m odelo al JComboBox
         listNom.setModel(modelo);
 
+        // Crear una lista de razones sociales
+        String[] razonesSociales = {
+            "Razón Social A",
+            "Razón Social B",
+            "Razón Social C",
+            "Razón Social D"
+        };
+
+        // Crear un modelo para el JComboBox con las razones sociales
+        DefaultComboBoxModel<String> modelo2 = new DefaultComboBoxModel<>(razonesSociales);
+
+        // Asignar el modelo al JComboBox
+        listRazon.setModel(modelo2);
+
+        // Agregar un mensaje inicial (opcional)
+        listRazon.insertItemAt("Seleccione razón social", 0); // Insertar el mensaje inicial en la posición 0
+        listRazon.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
     }
 
     private void actBtnMenu() {
@@ -1109,12 +1131,18 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
     private void btnExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarMouseClicked
         // TODO add your handling code here:
+        String seleccion = (String) listRazon.getSelectedItem();
 
+        // Verificar si el mensaje inicial está seleccionado
+        if ("Seleccione razón social".equals(seleccion)) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una razón social válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener la ejecución si no se ha seleccionado una razón social válida
+        }
         if (btnEPP.isSelected()) {
 
             PDFExporter ejemplo = new PDFExporter();
             try {
-                ejemplo.EppPDF();
+                ejemplo.EppPDF(seleccion);
             } catch (IOException ex) {
                 Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1226,7 +1254,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
     private void listNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listNomActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_listNomActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
@@ -1235,12 +1263,12 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
     private void tablaGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGasMouseClicked
         obj.seleccionarGas(
-            tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
-            labelTerminales, txtIDBitacora, txtFecha,
-            nomEmpresa, cMalas, c_Buena, c_Regular,
-            cObservaciones, capacidadTanque, fechaFabricacion,
-            cRegistrada, tObservaciones, marca, numSerie,
-            diametroEXT, espesor);
+                tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
+                labelTerminales, txtIDBitacora, txtFecha,
+                nomEmpresa, cMalas, c_Buena, c_Regular,
+                cObservaciones, capacidadTanque, fechaFabricacion,
+                cRegistrada, tObservaciones, marca, numSerie,
+                diametroEXT, espesor);
     }//GEN-LAST:event_tablaGasMouseClicked
 
     private void espesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espesorActionPerformed
@@ -1290,6 +1318,10 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private void nomEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomEmpresaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomEmpresaActionPerformed
+
+    private void listRazonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRazonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listRazonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1410,6 +1442,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JCheckBox lentesDeSeguridadEPP;
     private javax.swing.JComboBox<String> listNom;
+    private javax.swing.JComboBox<String> listRazon;
     private javax.swing.JLabel logoDerecha;
     private javax.swing.JTextField marca;
     private javax.swing.JCheckBox mascarillaEPP;

@@ -184,8 +184,15 @@ public class PDFExporter {
         }
         return valor.equalsIgnoreCase("T") ? "X" : "N/A"; // Convertir "T" a "X" y cualquier otro valor a "N/A"
     }
+    
+        private String convertirBooleano2(String valor) {
+        if (valor == null) {
+            return ""; // Si el valor es nulo, devolver "N/A"
+        }
+        return valor.equalsIgnoreCase("T") ? "X" : ""; // Convertir "T" a "X" y cualquier otro valor a "N/A"
+    }
 
-    public void ExtintorPDF() throws IOException {
+    public void ExtintorPDF(String razonSocial) throws IOException {
         String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\Plantillanom002.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla.pdf";
 
@@ -300,7 +307,18 @@ public class PDFExporter {
                     .moveText(m, n)
                     .showText(globalV.direccion)
                     .endText();
-
+            
+            
+            //impresion de razon social
+            float j = 200;
+            float k = 517;
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
+                    .setFillColor(ColorConstants.BLACK)
+                    .moveText(j, k)
+                    .showText(razonSocial)
+                    .endText();
+            
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -308,7 +326,7 @@ public class PDFExporter {
     }
 
 // Método para convertir valores booleanos
-    public void HumoPDF() throws IOException {
+    public void HumoPDF(String razonSocial) throws IOException {
         String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
 
@@ -426,6 +444,16 @@ public class PDFExporter {
                     .showText(globalV.fechaR)
                     .endText();
             System.out.println(globalV.fechaR);
+            
+                        //impresion de razon social
+            float j = 215;
+            float k = 512;
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f)
+                    .setFillColor(ColorConstants.BLACK)
+                    .moveText(j, k)
+                    .showText(razonSocial)
+                    .endText();
 
             // Cerrar el documento
             document.close();
@@ -434,7 +462,7 @@ public class PDFExporter {
         }
     }
 
-    public void GasPDF() throws IOException {
+    public void GasPDF(String razonSocial) throws IOException {
         String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\BITACORA GAS.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
 
@@ -473,10 +501,10 @@ public class PDFExporter {
                 bitacora.put("id_norma_fk", rs.getString("id_norma_fk"));
                 bitacora.put("id_usuario_fk", rs.getString("id_usuario_fk"));
                 bitacora.put("id_terminal_fk", rs.getString("id_terminal_fk"));
-                bitacora.put("nombre_empresa", rs.getString("nombre_empresa"));
-                bitacora.put("c_buena", rs.getString("c_buena"));
-                bitacora.put("c_regular", rs.getString("c_regular"));
-                bitacora.put("c_mala", rs.getString("c_mala"));
+                bitacora.put("nombre_empresa", (razonSocial));
+                bitacora.put("c_buena", convertirBooleano2(rs.getString("c_buena")));
+                bitacora.put("c_regular", convertirBooleano2(rs.getString("c_regular")));
+                bitacora.put("c_mala", convertirBooleano2(rs.getString("c_mala")));
                 bitacora.put("observaciones_soportes", rs.getString("observaciones_soportes"));
                 bitacora.put("capacidad", rs.getString("capacidad"));
                 bitacora.put("fecha_fabricacion", rs.getString("fecha_fabricacion"));
@@ -511,6 +539,9 @@ public class PDFExporter {
             posiciones.put("espesor", new float[]{528, 515});
             posiciones.put("observaciones_gen_revisor", new float[]{310, 577});
             posiciones.put("observaciones_soportes", new float[]{468, 675});
+            posiciones.put("c_buena", new float[]{331,664});
+            posiciones.put("c_mala", new float[]{439,664});
+            posiciones.put("c_regular", new float[]{388,664});
 
             for (Map.Entry<String, float[]> entry : posiciones.entrySet()) {
                 String campo = entry.getKey();
@@ -527,7 +558,8 @@ public class PDFExporter {
                             .endText();
                 }
             }
-
+                        //impresion de razon social
+            
             document.close();
             pdfDoc.close();
             System.out.println("PDF generado con éxito en: " + destino);
@@ -538,7 +570,7 @@ public class PDFExporter {
         }
     }
 
-    public void EppPDF() throws IOException {
+    public void EppPDF(String razonSocial) throws IOException {
         String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla EPP.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\PLANTILLA EPP.pdf";
 

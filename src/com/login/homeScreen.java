@@ -167,6 +167,7 @@ public class homeScreen extends javax.swing.JFrame {
         btnInsertar1 = new ModernButton();
         btnModificar = new ModernButton();
         btnExportar = new ModernButton();
+        listRazon = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -944,7 +945,7 @@ public class homeScreen extends javax.swing.JFrame {
                 btnInsertar1ActionPerformed(evt);
             }
         });
-        botonesInferiores.add(btnInsertar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
+        botonesInferiores.add(btnInsertar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
 
         btnModificar.setText("MODIFICAR");
         btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -957,7 +958,7 @@ public class homeScreen extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        botonesInferiores.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+        botonesInferiores.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
 
         btnExportar.setText("EXPORTAR");
         btnExportar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -970,7 +971,15 @@ public class homeScreen extends javax.swing.JFrame {
                 btnExportarActionPerformed(evt);
             }
         });
-        botonesInferiores.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        botonesInferiores.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
+
+        listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listRazon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listRazonActionPerformed(evt);
+            }
+        });
+        botonesInferiores.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 220, -1));
 
         bgHomeScreen.add(botonesInferiores, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 610, 50));
 
@@ -1031,7 +1040,27 @@ public class homeScreen extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(valores.toArray(new String[0]));
         // Asignar el m odelo al JComboBox
         listNom.setModel(modelo);
-    }
+        
+        
+    // Crear una lista de razones sociales
+    String[] razonesSociales = {
+        "Autobuses alas de oro S.A de C.V",
+        "Ómnibus Cristóbal Colón S.A de C.V",
+    };
+
+    // Crear un modelo para el JComboBox con las razones sociales
+    DefaultComboBoxModel<String> modelo2 = new DefaultComboBoxModel<>(razonesSociales);
+
+    // Asignar el modelo al JComboBox
+    listRazon.setModel(modelo2);
+
+    // Agregar un mensaje inicial (opcional)
+    listRazon.insertItemAt("Seleccione razón social", 0); // Insertar el mensaje inicial en la posición 0
+    listRazon.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
+}
+        
+        
+    
 
     private void actBtnMenu() {
 
@@ -1246,12 +1275,21 @@ public class homeScreen extends javax.swing.JFrame {
 
     private void btnExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarMouseClicked
         // TODO add your handling code here:
+        
+        String seleccion = (String) listRazon.getSelectedItem();
 
+    // Verificar si el mensaje inicial está seleccionado
+    if ("Seleccione razón social".equals(seleccion)) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una razón social válida.", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Detener la ejecución si no se ha seleccionado una razón social válida
+    }
+
+        
         if (btnExtintor.isSelected()) {
 
             PDFExporter ejemplo = new PDFExporter();
             try {
-                ejemplo.ExtintorPDF();
+                ejemplo.ExtintorPDF(seleccion);
             } catch (IOException ex) {
                 Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1263,7 +1301,7 @@ public class homeScreen extends javax.swing.JFrame {
 
                 PDFExporter ejemplo = new PDFExporter();
                 try {
-                    ejemplo.HumoPDF();
+                    ejemplo.HumoPDF(seleccion);
                 } catch (IOException ex) {
                     Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1277,7 +1315,7 @@ public class homeScreen extends javax.swing.JFrame {
 
                 PDFExporter ejemplo = new PDFExporter();
                 try {
-                    ejemplo.GasPDF();
+                    ejemplo.GasPDF(seleccion);
                 } catch (IOException ex) {
                     Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1502,6 +1540,10 @@ public class homeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void listRazonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRazonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listRazonActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1619,6 +1661,7 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel labelUltimaRecarga;
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JComboBox<String> listNom;
+    private javax.swing.JComboBox<String> listRazon;
     private javax.swing.JLabel logoDerecha;
     private javax.swing.JTextField marca;
     private javax.swing.JLabel marcaGas;
