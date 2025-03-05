@@ -538,88 +538,118 @@ public class PDFExporter {
         }
     }
 
-public void EppPDF() throws IOException {
-    String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla EPP.pdf";
-    String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\PLANTILLA EPP.pdf";
+    public void EppPDF() throws IOException {
+        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla EPP.pdf";
+        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\PLANTILLA EPP.pdf";
 
-    PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
-    PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
+        PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
+        PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
 
-    try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
-        System.out.println("Conexión exitosa con la base de datos.");
+        try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
+            System.out.println("Conexión exitosa con la base de datos.");
 
-        String sql = "SELECT DISTINCT "
-                + "b.nombre, b.area, b.puesto, "
-                + "b.casco, b.lentes_de_seguridad, b.botas_de_seguridad, "
-                + "b.tapones_auditivos, b.guantes, b.careta_soldar, "
-                + "b.careta_esmerilar, b.mascarilla, b.faja, b.arnes, b.uniforme "
-                + "FROM bitacora_epp b "
-                + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
-                + "WHERE u.username = ? "
-                + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? " // Filtra por mes
-                + "AND EXTRACT(YEAR FROM b.fecha_revision) = ?";   // Filtra por año
+            String sql = "SELECT DISTINCT "
+                    + "b.nombre, b.area, b.puesto, "
+                    + "b.casco, b.lentes_de_seguridad, b.botas_de_seguridad, "
+                    + "b.tapones_auditivos, b.guantes, b.careta_soldar, "
+                    + "b.careta_esmerilar, b.mascarilla, b.faja, b.arnes, b.uniforme "
+                    + "FROM bitacora_epp b "
+                    + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                    + "WHERE u.username = ? "
+                    + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? " // Filtra por mes
+                    + "AND EXTRACT(YEAR FROM b.fecha_revision) = ?";   // Filtra por año
 
-        PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = conn.prepareStatement(sql);
 
-        LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println(globalV.fechaR);
-        int mes = fecha.getMonthValue();
-        int ano = fecha.getYear();
-        statement.setString(1, globalV.user);  // Asegúrate de que "globalV.user" esté definido
-        statement.setInt(2, mes);
-        statement.setInt(3, ano);
-        ResultSet resultSet = statement.executeQuery();
+            LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            System.out.println(globalV.fechaR);
+            int mes = fecha.getMonthValue();
+            int ano = fecha.getYear();
+            statement.setString(1, globalV.user);  // Asegúrate de que "globalV.user" esté definido
+            statement.setInt(2, mes);
+            statement.setInt(3, ano);
+            ResultSet resultSet = statement.executeQuery();
 
-        PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
-        Document document = new Document(pdfDoc);
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            Document document = new Document(pdfDoc);
 
-        // Crear la tabla sin cabecera
-        Table table = new Table(new float[]{0.2f, 1f, .5f, .5f, 0.1f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, 2});
+            // Crear la tabla sin cabecera
+            Table table = new Table(new float[]{0.1f, 2f, .5f, .5f, 0.1f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, 2});
 
-        contador = 0;
-        while (resultSet.next()) {
-            contador++;
-            table.addCell(new Cell().add(new Paragraph(String.valueOf(contador)).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("nombre")).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("area")).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(resultSet.getString("puesto")).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("casco"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("lentes_de_seguridad"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("botas_de_seguridad"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("tapones_auditivos"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("guantes"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("careta_soldar"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("careta_esmerilar"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("mascarilla"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("faja"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("arnes"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("uniforme"))).setFontSize(5f)));
-            table.addCell(new Cell().add(new Paragraph(("")).setFontSize(5f)));
-        }
-        System.out.println("ya se imprimio la primera tabla");
+            table.addHeaderCell(new Cell().add(new Paragraph("#")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("NOMBRE")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("AREA")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("PUESTO")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("CASCO")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("LENTES DE SEGURIDAD")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("BOTAS DE SEGURIDAD")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("TAPONES AUDITIVOS")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("GUANTES")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("CARETA PARA SOLDAR")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("CARETA PARA ESMERILAR")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("MASCARILLA")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("FAJA")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("ARNES")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("UNIFORME")).setFontSize(4f));
+            table.addHeaderCell(new Cell().add(new Paragraph("FIRMA")).setFontSize(4f));
 
-        // Agregar la tabla al documento
-        table.setMarginLeft(35); // Mueve la tabla 20 unidades hacia la derecha
+            
 
-        table.setWidth(649.3f); // Ancho de la tabla
-        document.add(table.setMarginTop(61.3f)); // Asegura que no se desplace hacia abajo
+            contador = 0;
+            while (resultSet.next()) {
+                contador++;
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(contador)).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("nombre")).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("area")).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(resultSet.getString("puesto")).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("casco"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("lentes_de_seguridad"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("botas_de_seguridad"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("tapones_auditivos"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("guantes"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("careta_soldar"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("careta_esmerilar"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("mascarilla"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("faja"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("arnes"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(convertirBooleano(resultSet.getString("uniforme"))).setFontSize(4f)));
+                table.addCell(new Cell().add(new Paragraph(("")).setFontSize(4f)));
+            }
+            System.out.println("ya se imprimio la primera tabla");
 
-        // Agregar la firma
-        /*Table tabla2 = new Table(new float[]{50});
+            // Agregar la tabla al documento
+            table.setMarginLeft(35); // Mueve la tabla 20 unidades hacia la derecha
+
+            table.setWidth(649.3f); // Ancho de la tabla
+            document.add(table.setMarginTop(56.3f)); // Asegura que no se desplace hacia abajo
+
+            PdfPage page = pdfDoc.getLastPage();
+            PdfCanvas pdfCanvas = new PdfCanvas(page);
+
+            // Sobreescribir la dirección
+            float m = 525; // Ajusta según sea necesario
+            float n = 523.3f; // Ajusta según sea necesario
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 5.5f)
+                    .setFillColor(ColorConstants.BLACK)
+                    .moveText(m, n)
+                    .showText(globalV.fechaR)
+                    .endText();
+
+            // Agregar la firma
+            /*Table tabla2 = new Table(new float[]{50});
         tabla2.addHeaderCell(new Cell().add(new Paragraph("FIRMA DE QUIEN REALIZA LA REVISION")).setFontSize(5.5f)
                 .setTextAlignment(TextAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE));
         tabla2.addCell(new Cell().setHeight(20));
         Div div = new Div().setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(100)).add(tabla2);
         document.add(div.setMarginTop(5).setMarginLeft(160));
-*/
-        // Cerrar el documento
-        document.close();
-    } catch (Exception e) {
-        e.printStackTrace();
+             */
+            // Cerrar el documento
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-}
 
 // Método para convertir booleanos a "X" o "N/A"
-
-
 }
