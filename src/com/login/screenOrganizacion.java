@@ -798,7 +798,9 @@ public class screenOrganizacion extends javax.swing.JFrame {
         panelinfo.setBackground(new java.awt.Color(255, 255, 255));
         panelinfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        listNom.setBackground(new java.awt.Color(255, 255, 255));
         listNom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listNom.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true)));
         listNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listNomActionPerformed(evt);
