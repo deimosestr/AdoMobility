@@ -26,6 +26,7 @@ public class adminScreen extends javax.swing.JFrame {
 
     public adminScreen() {
         initComponents();
+
         setSize(790, 500);
         setLocationRelativeTo(null);
         adminUsuario.setEditable(false);
@@ -41,10 +42,16 @@ public class adminScreen extends javax.swing.JFrame {
         obj.mostrarUsuarios(tablaUsers);
         obj.mostrarTerminales(tableTerminalesAdmin);
         obj.mostrarExtintoresGlobal(tableBItacorasAdmin);
+        obj.mostrarBitacoraHumoGlobal(tableBItacorasHumoAdmin);
+        obj.mostrarBitacoraInstalacionGasGlobal(tableBItacorasGasAdmin);
+        obj.mostrarBitacoraEPPGlobal(tableBItacorasEPPAdmin);
 
         bitacoras.add(usuarios, "usuarios");
         bitacoras.add(terminales, "terminales");
-        bitacoras.add(bitacorasGeneralExtintores, "bitacorasGeneral");
+        bitacoras.add(bitacorasGeneralExtintores, "bitaEXTINTOR");
+        bitacoras.add(bitacorasGeneralHumo, "bitaHUMO");
+        bitacoras.add(bitacorasGeneralGas, "bitaGAS");
+        bitacoras.add(bitacorasGeneralEpp, "bitaEPP");
 
         buttonsNormas btnUsuario = new buttonsNormas();
         buttonsNormas menuTerminales = new buttonsNormas();
@@ -126,19 +133,19 @@ public class adminScreen extends javax.swing.JFrame {
         bitacorasGeneralEpp = new javax.swing.JPanel();
         tablaBitacoras3 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        tableBItacorasAdmin3 = new javax.swing.JTable();
+        tableBItacorasEPPAdmin = new javax.swing.JTable();
         jComboBox7 = new javax.swing.JComboBox<>();
         jComboBox8 = new javax.swing.JComboBox<>();
         bitacorasGeneralGas = new javax.swing.JPanel();
         tablaBitacoras2 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        tableBItacorasAdmin2 = new javax.swing.JTable();
+        tableBItacorasGasAdmin = new javax.swing.JTable();
         jComboBox5 = new javax.swing.JComboBox<>();
         jComboBox6 = new javax.swing.JComboBox<>();
         bitacorasGeneralHumo = new javax.swing.JPanel();
         tablaBitacorasHumo = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        tableBItacorasAdmin1 = new javax.swing.JTable();
+        tableBItacorasHumoAdmin = new javax.swing.JTable();
         jComboBox3 = new javax.swing.JComboBox<>();
         jComboBox4 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -281,7 +288,6 @@ public class adminScreen extends javax.swing.JFrame {
 
         cambiarVentana.setBackground(new java.awt.Color(255, 255, 255));
         cambiarVentana.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        cambiarVentana.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EXTINTORES", "HUMO", "GAS", "EPP" }));
         cambiarVentana.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "BITACORAS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Black", 1, 14))); // NOI18N
         cambiarVentana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -615,7 +621,7 @@ public class adminScreen extends javax.swing.JFrame {
         tablaBitacoras3.setBackground(new java.awt.Color(255, 255, 255));
         tablaBitacoras3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
-        tableBItacorasAdmin3.setModel(new javax.swing.table.DefaultTableModel(
+        tableBItacorasEPPAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -626,13 +632,13 @@ public class adminScreen extends javax.swing.JFrame {
 
             }
         ));
-        tableBItacorasAdmin3.setAutoResizeMode(0);
-        tableBItacorasAdmin3.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableBItacorasEPPAdmin.setAutoResizeMode(0);
+        tableBItacorasEPPAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableBItacorasAdmin3MouseClicked(evt);
+                tableBItacorasEPPAdminMouseClicked(evt);
             }
         });
-        jScrollPane8.setViewportView(tableBItacorasAdmin3);
+        jScrollPane8.setViewportView(tableBItacorasEPPAdmin);
 
         javax.swing.GroupLayout tablaBitacoras3Layout = new javax.swing.GroupLayout(tablaBitacoras3);
         tablaBitacoras3.setLayout(tablaBitacoras3Layout);
@@ -665,7 +671,7 @@ public class adminScreen extends javax.swing.JFrame {
         tablaBitacoras2.setBackground(new java.awt.Color(255, 255, 255));
         tablaBitacoras2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
-        tableBItacorasAdmin2.setModel(new javax.swing.table.DefaultTableModel(
+        tableBItacorasGasAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -676,13 +682,13 @@ public class adminScreen extends javax.swing.JFrame {
 
             }
         ));
-        tableBItacorasAdmin2.setAutoResizeMode(0);
-        tableBItacorasAdmin2.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableBItacorasGasAdmin.setAutoResizeMode(0);
+        tableBItacorasGasAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableBItacorasAdmin2MouseClicked(evt);
+                tableBItacorasGasAdminMouseClicked(evt);
             }
         });
-        jScrollPane7.setViewportView(tableBItacorasAdmin2);
+        jScrollPane7.setViewportView(tableBItacorasGasAdmin);
 
         javax.swing.GroupLayout tablaBitacoras2Layout = new javax.swing.GroupLayout(tablaBitacoras2);
         tablaBitacoras2.setLayout(tablaBitacoras2Layout);
@@ -715,7 +721,7 @@ public class adminScreen extends javax.swing.JFrame {
         tablaBitacorasHumo.setBackground(new java.awt.Color(255, 255, 255));
         tablaBitacorasHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
-        tableBItacorasAdmin1.setModel(new javax.swing.table.DefaultTableModel(
+        tableBItacorasHumoAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -726,13 +732,13 @@ public class adminScreen extends javax.swing.JFrame {
 
             }
         ));
-        tableBItacorasAdmin1.setAutoResizeMode(0);
-        tableBItacorasAdmin1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableBItacorasHumoAdmin.setAutoResizeMode(0);
+        tableBItacorasHumoAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableBItacorasAdmin1MouseClicked(evt);
+                tableBItacorasHumoAdminMouseClicked(evt);
             }
         });
-        jScrollPane6.setViewportView(tableBItacorasAdmin1);
+        jScrollPane6.setViewportView(tableBItacorasHumoAdmin);
 
         javax.swing.GroupLayout tablaBitacorasHumoLayout = new javax.swing.GroupLayout(tablaBitacorasHumo);
         tablaBitacorasHumo.setLayout(tablaBitacorasHumoLayout);
@@ -750,6 +756,11 @@ public class adminScreen extends javax.swing.JFrame {
         jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
         bitacorasGeneralHumo.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
 
         jComboBox4.setBackground(new java.awt.Color(255, 255, 255));
@@ -883,6 +894,23 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         comboRegiones.setModel(modelo);
+
+        String[] razonesSociales = {
+            "EXTINTORES",
+            "HUMO",
+            "GAS",
+            "EPP",};
+
+        // Crear un modelo para el JComboBox con las razones sociales
+        DefaultComboBoxModel<String> modelo2 = new DefaultComboBoxModel<>(razonesSociales);
+
+        // Asignar el modelo al JComboBox
+        cambiarVentana.setModel(modelo2);
+
+        // Agregar un mensaje inicial (opcional)
+        cambiarVentana.insertItemAt("Seleccione una bitacora", 0); // Insertar el mensaje inicial en la posición 0
+        cambiarVentana.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
+
     }
 
     private void llenarComboBoxRoles(JComboBox<String> comboBoxRoles) {
@@ -990,8 +1018,14 @@ public class adminScreen extends javax.swing.JFrame {
         layout.show(bitacoras, "usuarios"); // Cambia a panel1
 
         btnUsuarios.setSelected(true);
-      //  menuRegiones.setSelected(false);
+        //  menuRegiones.setSelected(false);
         menuTerminales.setSelected(false);
+        
+                bitacorasGeneralExtintores.setVisible(false);
+
+        bitacorasGeneralHumo.setVisible(false);
+        bitacorasGeneralGas.setVisible(false);
+        bitacorasGeneralEpp.setVisible(false);
 
 
     }//GEN-LAST:event_btnUsuariosMouseClicked
@@ -1026,6 +1060,11 @@ public class adminScreen extends javax.swing.JFrame {
 
         btnUsuarios.setSelected(false);
         menuTerminales.setSelected(true);
+        bitacorasGeneralExtintores.setVisible(false);
+
+        bitacorasGeneralHumo.setVisible(false);
+        bitacorasGeneralGas.setVisible(false);
+        bitacorasGeneralEpp.setVisible(false);
         //menuRegiones.setSelected(false);
 
 
@@ -1138,17 +1177,17 @@ public class adminScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tableBItacorasAdminMouseClicked
 
-    private void tableBItacorasAdmin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasAdmin1MouseClicked
+    private void tableBItacorasHumoAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasHumoAdminMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tableBItacorasAdmin1MouseClicked
+    }//GEN-LAST:event_tableBItacorasHumoAdminMouseClicked
 
-    private void tableBItacorasAdmin2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasAdmin2MouseClicked
+    private void tableBItacorasGasAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasGasAdminMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tableBItacorasAdmin2MouseClicked
+    }//GEN-LAST:event_tableBItacorasGasAdminMouseClicked
 
-    private void tableBItacorasAdmin3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasAdmin3MouseClicked
+    private void tableBItacorasEPPAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasEPPAdminMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tableBItacorasAdmin3MouseClicked
+    }//GEN-LAST:event_tableBItacorasEPPAdminMouseClicked
 
     private void cambiarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarVentanaActionPerformed
         // TODO add your handling code here:
@@ -1156,8 +1195,42 @@ public class adminScreen extends javax.swing.JFrame {
         menuTerminales.setSelected(false);
         String seleccion = (String) cambiarVentana.getSelectedItem();
 
+        if (seleccion == "EXTINTORES") {
+           /* bitacorasGeneralExtintores.setVisible(true);
+            bitacorasGeneralHumo.setVisible(false);
+            bitacorasGeneralGas.setVisible(false);
+            bitacorasGeneralEpp.setVisible(false);*/
+                    CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "bitaEXTINTOR");
+        }
+        if (seleccion == "HUMO") {
+            /*bitacorasGeneralExtintores.setVisible(false);
+            bitacorasGeneralHumo.setVisible(true);
+            bitacorasGeneralGas.setVisible(false);
+            bitacorasGeneralEpp.setVisible(false);*/
+            
+                                CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "bitaHUMO");
+        }
+        if (seleccion == "GAS") {
+            /*bitacorasGeneralExtintores.setVisible(false);
+            bitacorasGeneralHumo.setVisible(false);
+            bitacorasGeneralGas.setVisible(true);
+            bitacorasGeneralEpp.setVisible(false);*/
+             CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "bitaGAS");
+            
+        }
+        if (seleccion == "EPP") {
+            bitacorasGeneralExtintores.setVisible(false);
+            bitacorasGeneralHumo.setVisible(false);
+            bitacorasGeneralGas.setVisible(false);
+            bitacorasGeneralEpp.setVisible(true);
+             CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "bitaEPP");
+        }
         // Ejecutar la acción personalizada en base a la selección
-        switch (seleccion) {
+        /*switch (seleccion) {
             case "EXTINTORES":
                 bitacorasGeneralExtintores.setVisible(true);
                 bitacorasGeneralHumo.setVisible(false);
@@ -1193,8 +1266,12 @@ public class adminScreen extends javax.swing.JFrame {
             default:
                 System.out.println("Opción no válida");
                 break;
-        }
+        }*/
     }//GEN-LAST:event_cambiarVentanaActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1314,9 +1391,9 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JTable tablaUsers;
     private javax.swing.JPanel tablaUsuarios;
     private javax.swing.JTable tableBItacorasAdmin;
-    private javax.swing.JTable tableBItacorasAdmin1;
-    private javax.swing.JTable tableBItacorasAdmin2;
-    private javax.swing.JTable tableBItacorasAdmin3;
+    private javax.swing.JTable tableBItacorasEPPAdmin;
+    private javax.swing.JTable tableBItacorasGasAdmin;
+    private javax.swing.JTable tableBItacorasHumoAdmin;
     private javax.swing.JTable tableTerminalesAdmin;
     private javax.swing.JPanel terminales;
     private javax.swing.JTextField ubicacionTerminalAdmin;

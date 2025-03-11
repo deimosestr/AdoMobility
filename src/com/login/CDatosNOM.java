@@ -3015,7 +3015,7 @@ public class CDatosNOM {
         String sql = "SELECT b.id_bitacora, b.fecha_revision, b.ubicacion, b.ultima_recarga, b.proxima_recarga, "
                 + "b.capacidad, b.tipo_agente_extinguidor, b.manguera, b.manometro, b.soporte, b.presion, "
                 + "b.cilindro, b.limpieza, b.senalizacion, b.etiqueta, b.seguro, b.obstruccion, b.observacion, "
-                + "b.firmado, n.nombre_norma AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "b.firmado, n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
                 + "FROM public.bitacora b "
                 + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
                 + "JOIN public.terminales t ON b.id_terminal_fk = t.id_terminal "
@@ -3078,6 +3078,257 @@ public class CDatosNOM {
             }
         }
 
+    }
+
+    public void mostrarBitacoraHumoGlobal(JTable paramTablaBitacoraHumoG) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaBitacoraHumoG.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Bitácora");
+        modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Ubicación");
+        modelo.addColumn("Última Fecha Pila");
+        modelo.addColumn("Próximo Cambio Pila");
+        modelo.addColumn("Marca");
+        modelo.addColumn("Tipo Detector");
+        modelo.addColumn("Prueba Funcionamiento");
+        modelo.addColumn("Soporte");
+        modelo.addColumn("Ubicación Física");
+        modelo.addColumn("Observación");
+        modelo.addColumn("Nombre Norma");
+        modelo.addColumn("Nombre Usuario");
+        modelo.addColumn("Nombre Terminal");
+
+        paramTablaBitacoraHumoG.setModel(modelo);
+
+        String sql = "SELECT bh.id_bitacora, bh.fecha_revision, bh.ubicacion, bh.ultima_fecha_pila, "
+                + "bh.proximo_cambio_pila, bh.marca, bh.tipo_detector, bh.prueba_funcionamiento, "
+                + "bh.soporte, bh.ubicacion_fisica, bh.observacion, n.nombre AS nombre_norma, "
+                + "u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "FROM public.bitacora_humo bh "
+                + "JOIN public.normas n ON bh.id_norma_fk = n.id_norma "
+                + "JOIN public.usuarios u ON bh.id_usuario_fk = u.id_usuarios "
+                + "JOIN public.terminales t ON bh.id_terminal_fk = t.id_terminal;";
+
+        Object[] datos = new Object[14]; // Ajustado al número de columnas
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas
+                datos[0] = rs.getString("id_bitacora");
+                datos[1] = convertirFecha(rs.getString("fecha_revision"));
+                datos[2] = rs.getString("ubicacion");
+                datos[3] = rs.getString("ultima_fecha_pila");
+                datos[4] = rs.getString("proximo_cambio_pila");
+                datos[5] = rs.getString("marca");
+                datos[6] = rs.getString("tipo_detector");
+                datos[7] = "t".equals(rs.getString("prueba_funcionamiento"));
+                datos[8] = "t".equals(rs.getString("soporte"));
+                datos[9] = "t".equals(rs.getString("ubicacion_fisica"));
+                datos[10] = rs.getString("observacion");
+                datos[11] = rs.getString("nombre_norma");
+                datos[12] = rs.getString("nombre_usuario");
+                datos[13] = rs.getString("nombre_terminal");
+
+                modelo.addRow(datos);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+    }
+
+    public void mostrarBitacoraInstalacionGasGlobal(JTable paramTablaBitacoraGasG) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaBitacoraGasG.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Bitácora");
+        modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre Empresa");
+        modelo.addColumn("C. Buena");
+        modelo.addColumn("C. Regular");
+        modelo.addColumn("C. Mala");
+        modelo.addColumn("Observaciones Soportes");
+        modelo.addColumn("Capacidad");
+        modelo.addColumn("Fecha Fabricación");
+        modelo.addColumn("Capacidad Reg.");
+        modelo.addColumn("Observaciones Gen. Revisor");
+        modelo.addColumn("Marca");
+        modelo.addColumn("Serie");
+        modelo.addColumn("Diámetro");
+        modelo.addColumn("Espesor");
+        modelo.addColumn("Nombre Norma");
+        modelo.addColumn("Nombre Usuario");
+        modelo.addColumn("Nombre Terminal");
+
+        paramTablaBitacoraGasG.setModel(modelo);
+
+        String sql = "SELECT bi.id_bitacora, bi.fecha_revision, bi.nombre_empresa, bi.c_buena, bi.c_regular, bi.c_mala, "
+                + "bi.observaciones_soportes, bi.capacidad, bi.fecha_fabricacion, bi.capacidad_reg, "
+                + "bi.observaciones_gen_revisor, bi.marca, bi.serie, bi.diametro, bi.espesor, "
+                + "n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "FROM public.bitacora_instalacion_de_gas bi "
+                + "JOIN public.normas n ON bi.id_norma_fk = n.id_norma "
+                + "JOIN public.usuarios u ON bi.id_usuario_fk = u.id_usuarios "
+                + "JOIN public.terminales t ON bi.id_terminal_fk = t.id_terminal;";
+
+        Object[] datos = new Object[18]; // Ajustado al número de columnas
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas
+                datos[0] = rs.getString("id_bitacora");
+                datos[1] = convertirFecha(rs.getString("fecha_revision"));
+                datos[2] = rs.getString("nombre_empresa");
+                datos[3] = "t".equals(rs.getString("c_buena"));
+                datos[4] = "t".equals(rs.getString("c_regular"));
+                datos[5] = "t".equals(rs.getString("c_mala"));
+                datos[6] = rs.getString("observaciones_soportes");
+                datos[7] = rs.getString("capacidad");
+                datos[8] = rs.getString("fecha_fabricacion");
+                datos[9] = rs.getString("capacidad_reg");
+                datos[10] = rs.getString("observaciones_gen_revisor");
+                datos[11] = rs.getString("marca");
+                datos[12] = rs.getString("serie");
+                datos[13] = rs.getString("diametro");
+                datos[14] = rs.getString("espesor");
+                datos[15] = rs.getString("nombre_norma");
+                datos[16] = rs.getString("nombre_usuario"); // Asegúrate de que esta columna exista en el ResultSet
+                datos[17] = rs.getString("nombre_terminal"); // Asegúrate de que esta columna exista en el ResultSet
+
+                modelo.addRow(datos);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+    }
+
+    public void mostrarBitacoraEPPGlobal(JTable paramTablaBitacoraEPPG) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaBitacoraEPPG.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Bitácora");
+        modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Área");
+        modelo.addColumn("Puesto");
+        modelo.addColumn("Casco");
+        modelo.addColumn("Lentes de Seguridad");
+        modelo.addColumn("Botas de Seguridad");
+        modelo.addColumn("Tapones Auditivos");
+        modelo.addColumn("Guantes");
+        modelo.addColumn("Careta de Soldar");
+        modelo.addColumn("Careta de Esmerilar");
+        modelo.addColumn("Mascarilla");
+        modelo.addColumn("Faja");
+        modelo.addColumn("Arnés");
+        modelo.addColumn("Uniforme");
+        modelo.addColumn("Firmado");
+        modelo.addColumn("Nombre Norma");
+        modelo.addColumn("Nombre Usuario");
+        modelo.addColumn("Nombre Terminal");
+
+        paramTablaBitacoraEPPG.setModel(modelo);
+
+        String sql = "SELECT be.id_bitacora, be.fecha_revision, be.nombre, be.area, be.puesto, be.casco, "
+                + "be.lentes_de_seguridad, be.botas_de_seguridad, be.tapones_auditivos, be.guantes, "
+                + "be.careta_soldar, be.careta_esmerilar, be.mascarilla, be.faja, be.arnes, be.uniforme, "
+                + "be.firmado, n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "FROM public.bitacora_epp be "
+                + "JOIN public.normas n ON be.id_norma_fk = n.id_norma "
+                + "JOIN public.usuarios u ON be.id_usuario_fk = u.id_usuarios "
+                + "JOIN public.terminales t ON be.id_terminal_fk = t.id_terminal;";
+
+        Object[] datos = new Object[20]; // Ajustado al número de columnas
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas
+                datos[0] = rs.getString("id_bitacora");
+                datos[1] = convertirFecha(rs.getString("fecha_revision"));
+                datos[2] = rs.getString("nombre");
+                datos[3] = rs.getString("area");
+                datos[4] = rs.getString("puesto");
+                datos[5] = "t".equals(rs.getString("casco"));
+                datos[6] = "t".equals(rs.getString("lentes_de_seguridad"));
+                datos[7] = "t".equals(rs.getString("botas_de_seguridad"));
+                datos[8] = "t".equals(rs.getString("tapones_auditivos"));
+                datos[9] = "t".equals(rs.getString("guantes"));
+                datos[10] = "t".equals(rs.getString("careta_soldar"));
+                datos[11] = "t".equals(rs.getString("careta_esmerilar"));
+                datos[12] = "t".equals(rs.getString("mascarilla"));
+                datos[13] = "t".equals(rs.getString("faja"));
+                datos[14] = "t".equals(rs.getString("arnes"));
+                datos[15] = "t".equals(rs.getString("uniforme"));
+                datos[16] = "t".equals(rs.getString("firmado"));
+                datos[17] = rs.getString("nombre_norma");
+                datos[18] = rs.getString("nombre_usuario");
+                datos[19] = rs.getString("nombre_terminal");
+
+                modelo.addRow(datos);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
     }
 
     /* public void insertarUsuario(String nombre, String correo, String username, String password, boolean activo,

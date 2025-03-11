@@ -981,6 +981,11 @@ public class homeScreen extends javax.swing.JFrame {
         botonesInferiores.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
 
         listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listRazon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listRazonActionPerformed(evt);
+            }
+        });
         botonesInferiores.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 220, -1));
 
         bgHomeScreen.add(botonesInferiores, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 610, 50));
@@ -1611,6 +1616,10 @@ public class homeScreen extends javax.swing.JFrame {
         diametroEXT.setText("");
         espesor.setText("");
     }//GEN-LAST:event_modernButton1MouseClicked
+
+    private void listRazonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRazonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listRazonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
