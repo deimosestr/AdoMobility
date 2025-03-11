@@ -1196,77 +1196,27 @@ public class adminScreen extends javax.swing.JFrame {
         String seleccion = (String) cambiarVentana.getSelectedItem();
 
         if (seleccion == "EXTINTORES") {
-           /* bitacorasGeneralExtintores.setVisible(true);
-            bitacorasGeneralHumo.setVisible(false);
-            bitacorasGeneralGas.setVisible(false);
-            bitacorasGeneralEpp.setVisible(false);*/
+
                     CardLayout layout = (CardLayout) bitacoras.getLayout();
-        layout.show(bitacoras, "bitaEXTINTOR");
+        layout.show(bitacoras, "bitaEXTINTOR");     
         }
         if (seleccion == "HUMO") {
-            /*bitacorasGeneralExtintores.setVisible(false);
-            bitacorasGeneralHumo.setVisible(true);
-            bitacorasGeneralGas.setVisible(false);
-            bitacorasGeneralEpp.setVisible(false);*/
-            
+ 
                                 CardLayout layout = (CardLayout) bitacoras.getLayout();
         layout.show(bitacoras, "bitaHUMO");
         }
         if (seleccion == "GAS") {
-            /*bitacorasGeneralExtintores.setVisible(false);
-            bitacorasGeneralHumo.setVisible(false);
-            bitacorasGeneralGas.setVisible(true);
-            bitacorasGeneralEpp.setVisible(false);*/
+
              CardLayout layout = (CardLayout) bitacoras.getLayout();
         layout.show(bitacoras, "bitaGAS");
             
         }
         if (seleccion == "EPP") {
-            bitacorasGeneralExtintores.setVisible(false);
-            bitacorasGeneralHumo.setVisible(false);
-            bitacorasGeneralGas.setVisible(false);
-            bitacorasGeneralEpp.setVisible(true);
+
              CardLayout layout = (CardLayout) bitacoras.getLayout();
         layout.show(bitacoras, "bitaEPP");
         }
-        // Ejecutar la acción personalizada en base a la selección
-        /*switch (seleccion) {
-            case "EXTINTORES":
-                bitacorasGeneralExtintores.setVisible(true);
-                bitacorasGeneralHumo.setVisible(false);
-                bitacorasGeneralGas.setVisible(false);
-                bitacorasGeneralEpp.setVisible(false);
-                //System.out.println("Se seleccionó la Opción 1");
-                // Aquí puedes ejecutar la acción correspondiente a la Opción 1
-                break;
-            case "HUMO":
-                bitacorasGeneralExtintores.setVisible(false);
-                bitacorasGeneralHumo.setVisible(true);
-                bitacorasGeneralGas.setVisible(false);
-                bitacorasGeneralEpp.setVisible(false);
-                //System.out.println("Se seleccionó la Opción 2");
-                // Aquí puedes ejecutar la acción correspondiente a la Opción 2
-                break;
-            case "GAS":
-                bitacorasGeneralExtintores.setVisible(false);
-                bitacorasGeneralHumo.setVisible(false);
-                bitacorasGeneralGas.setVisible(true);
-                bitacorasGeneralEpp.setVisible(false);
-                // System.out.println("Se seleccionó la Opción 3");
-                // Aquí puedes ejecutar la acción correspondiente a la Opción 3
-                break;
-            case "EPP":
-                bitacorasGeneralExtintores.setVisible(false);
-                bitacorasGeneralHumo.setVisible(false);
-                bitacorasGeneralGas.setVisible(false);
-                bitacorasGeneralEpp.setVisible(true);
-                //  System.out.println("Se seleccionó la Opción 4");
-                // Aquí puedes ejecutar la acción correspondiente a la Opción 4
-                break;
-            default:
-                System.out.println("Opción no válida");
-                break;
-        }*/
+      
     }//GEN-LAST:event_cambiarVentanaActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed

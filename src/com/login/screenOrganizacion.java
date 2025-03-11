@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -1174,6 +1175,8 @@ public class screenOrganizacion extends javax.swing.JFrame {
                 ejemplo.EppPDF(seleccion);
             } catch (IOException ex) {
                 Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(screenOrganizacion.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

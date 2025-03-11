@@ -18,7 +18,12 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,7 +45,39 @@ public class PDFExporter {
 
     private int contador = 0;
     private int rowCount = 0;
+    
+    
+    
+    
 
+private void abrirPDFEnNavegador(String rutaPDF) throws IOException, URISyntaxException {
+    // Crear un objeto File para manejar la ruta del archivo
+    File file = new File(rutaPDF);
+
+    // Verificar si el archivo existe
+    if (!file.exists()) {
+        throw new IOException("El archivo no existe: " + rutaPDF);
+    }
+
+    // Convertir la ruta del archivo a una URI
+    URI uri = file.toURI();
+
+    // Abrir el archivo en el navegador predeterminado
+    if (java.awt.Desktop.isDesktopSupported()) {
+        java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+        if (desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
+            desktop.browse(uri);
+        } else {
+            System.out.println("La acción BROWSE no es compatible en este sistema.");
+        }
+    } else {
+        System.out.println("El escritorio no es compatible en este sistema.");
+    }
+}
+    
+    
+    
+    
     private String convertirBooleano(String valor) {
         if (valor == null) {
             return "N/A"; // Si el valor es nulo, devolver "N/A"
@@ -55,7 +92,7 @@ public class PDFExporter {
         return valor.equalsIgnoreCase("T") ? "X" : ""; // Convertir "T" a "X" y cualquier otro valor a "N/A"
     }
 
-    public void ExtintorPDF(String razonSocial) throws IOException {
+    public void ExtintorPDF(String razonSocial) throws IOException, URISyntaxException {
         String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\Plantillanom002.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla.pdf";
 
@@ -185,10 +222,11 @@ public class PDFExporter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+                abrirPDFEnNavegador(destino);
     }
 
 // Método para convertir valores booleanos
-    public void HumoPDF(String razonSocial) throws IOException {
+    public void HumoPDF(String razonSocial) throws IOException, URISyntaxException {
         String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
 
@@ -322,9 +360,10 @@ public class PDFExporter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+                abrirPDFEnNavegador(destino);
     }
 
-    public void GasPDF(String razonSocial) throws IOException {
+    public void GasPDF(String razonSocial) throws IOException, URISyntaxException {
         String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\bitacora gas final.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
 
@@ -457,9 +496,10 @@ public class PDFExporter {
             e.printStackTrace();
             System.out.println("Error al generar el PDF: " + e.getMessage());
         }
+                abrirPDFEnNavegador(destino);
     }
 
-    public void EppPDF(String razonSocial) throws IOException {
+    public void EppPDF(String razonSocial) throws IOException, URISyntaxException {
         String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla EPP.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\PLANTILLA EPP.pdf";
 
@@ -610,6 +650,7 @@ public class PDFExporter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        abrirPDFEnNavegador(destino);
     }
 
 }
