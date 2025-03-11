@@ -2,17 +2,11 @@ package com.login;
 
 import static com.login.globalV.conectar;
 import java.awt.CardLayout;
-import java.sql.Connection;
 import java.awt.Color;
 import java.io.IOException;
-//import java.awt.List;
-import javax.crypto.AEADBadTagException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import java.util.List;
-import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -987,11 +981,6 @@ public class homeScreen extends javax.swing.JFrame {
         botonesInferiores.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
 
         listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        listRazon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listRazonActionPerformed(evt);
-            }
-        });
         botonesInferiores.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 220, -1));
 
         bgHomeScreen.add(botonesInferiores, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 610, 50));

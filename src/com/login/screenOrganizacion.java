@@ -927,11 +927,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
         jPanel1.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
 
         listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        listRazon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listRazonActionPerformed(evt);
-            }
-        });
         jPanel1.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 160, -1));
 
         bgHomeScreen.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 610, 50));
@@ -997,10 +992,8 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         // Crear una lista de razones sociales
         String[] razonesSociales = {
-            "Razón Social A",
-            "Razón Social B",
-            "Razón Social C",
-            "Razón Social D"
+      "Autobuses alas de oro S.A de C.V",
+        "Ómnibus Cristóbal Colón S.A de C.V",
         };
 
         // Crear un modelo para el JComboBox con las razones sociales
@@ -1329,12 +1322,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
                 cObservaciones, capacidadTanque, fechaFabricacion,
                 cRegistrada, tObservaciones, marca, numSerie,
                 diametroEXT, espesor);
-                tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
-                labelTerminales, txtIDBitacora, txtFecha,
-                nomEmpresa, cMalas, c_Buena, c_Regular,
-                cObservaciones, capacidadTanque, fechaFabricacion,
-                cRegistrada, tObservaciones, marca, numSerie,
-                diametroEXT, espesor);
+
     }//GEN-LAST:event_tablaGasMouseClicked
 
     private void espesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espesorActionPerformed
