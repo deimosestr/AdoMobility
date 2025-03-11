@@ -10,6 +10,7 @@ import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Div;
@@ -17,7 +18,6 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
-import java.awt.Canvas;
 import java.io.IOException;
 
 import java.sql.Connection;
@@ -26,10 +26,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PDFExporter {
@@ -44,148 +41,14 @@ public class PDFExporter {
     private int contador = 0;
     private int rowCount = 0;
 
-    /*public static void main(String[] args) throws IOException {
-        PDFExporter ejemplo = new PDFExporter(8f);
-        ejemplo.generarPDF();
-    }*/
- /*public void ExtintorPDF() throws IOException {
-
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\Plantillanom002.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla.pdf";
-
-        PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
-        PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
-
-        try (Connection conn = DriverManager.getConnection(url, usuario, contrasenia)) {
-            System.out.println("Conexión exitosa con la base de datos.");
-
-            String sql = "SELECT DISTINCT "
-                    + "b.ubicacion, b.ultima_recarga, b.proxima_recarga, b.capacidad, "
-                    + "b.tipo_agente_extinguidor, b.manguera, b.manometro, b.soporte, "
-                    + "b.presion, b.cilindro, b.limpieza, b.senalizacion, b.etiqueta, "
-                    + "b.seguro, b.obstruccion, b.observacion, b.fecha_revision "
-                    + "FROM bitacora b "
-                    + "JOIN usuarios u ON b.id_usuario_fk = u.id_usuarios "
-                    + "WHERE u.username = ? "
-                    + "AND EXTRACT(MONTH FROM b.fecha_revision) = ? " // Filtra por mes
-                    + "AND EXTRACT(YEAR FROM b.fecha_revision) = ?";   // Filtra por año
-
-            PreparedStatement statement = conn.prepareStatement(sql);
-
-            //LocalDate fecha = LocalDate.parse(globalV.fechaR);  // Asegúrate que globalV.fechaR esté en formato correcto
-            LocalDate fecha = LocalDate.parse(globalV.fechaR, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            System.out.println(globalV.fechaR);
-            int mes = fecha.getMonthValue();
-            int ano = fecha.getYear();
-            statement.setString(1, globalV.user);  // Asegúrate de que "globalV.user" esté definido
-            statement.setInt(2, mes);
-            statement.setInt(3, ano);
-            ResultSet resultSet = statement.executeQuery();
-
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
-            Document document = new Document(pdfDoc);
-
-            Table table = new Table(new float[]{0.5f, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2});
-
-            table.addHeaderCell(new Cell().add(new Paragraph("#")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Ubicación")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("U. Recarga")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("P. Recarga")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Capacidad")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Tipo A Extintor")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Manguera")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Manómetro")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Soporte")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Presión")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Cilindro")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Limpieza")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Señalización")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Etiqueta")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Seguro")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Obstrucción")).setFontSize(7f));
-            table.addHeaderCell(new Cell().add(new Paragraph("Observación")).setFontSize(7f));
-            contador = 0;
-            while (resultSet.next()) {
-                contador++;
-                table.addCell(new Cell().add(new Paragraph("" + contador).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ubicacion")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("ultima_recarga")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("proxima_recarga")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("capacidad")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("tipo_agente_extinguidor")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("manguera")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("manometro")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("soporte")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("presion")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("cilindro")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("limpieza")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("senalizacion")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("etiqueta")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("seguro")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("obstruccion")).setFontSize(7f)));
-                table.addCell(new Cell().add(new Paragraph(resultSet.getString("observacion")).setFontSize(7f)));
-            }
-
-            Table tabla2 = new Table(new float[]{50});
-            tabla2.addHeaderCell(new Cell().add(new Paragraph("FIRMA DE QUIEN REALIZA LA REVISION")).setFontSize(5.5f).setTextAlignment(TextAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE));
-            tabla2.addCell(new Cell().setHeight(20));
-            Div div = new Div().setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(100)).add(tabla2);
-
-            tabla2.setWidth(400);
-
-            float pageHeight = pdfDoc.getDefaultPageSize().getHeight();
-// Configurar la posición inicial de la tabla
-            float x = 50; // Desde el borde izquierdo
-            float initialY = pageHeight - 50; // Posición desde arriba (50 de margen)
-            float width = 718; // Ancho de la tabla
-
-// Agregar tabla directamente sin setFixedPosition
-            table.setWidth(width);
-            document.add(table.setMarginTop(103)); // Asegura que no se desplace hacia abajo
-            document.add(div.setMarginTop(5).setMarginLeft(160));
-
-            // Crear un PdfCanvas para sobreponer texto
-            // Crear un Canvas para sobreponer texto
-// Crear un PdfCanvas para sobreponer texto
-            PdfPage page = pdfDoc.getLastPage(); // Obtener la última página
-            PdfCanvas pdfCanvas = new PdfCanvas(page); // Crear un PdfCanvas en la página
-// Definir la posición del texto (x, y)
-            float z = 150; // Posición horizontal (ajusta según sea necesario)
-            float y = 489.3f;
-            ; // Posición vertical (ajusta según sea necesario)
-
-// Dibujar el texto sobrepuesto
-            pdfCanvas.beginText() // Iniciar el modo de texto
-                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f) // Fuente y tamaño
-                    .setFillColor(ColorConstants.BLACK) // Color del texto
-                    .moveText(z, y) // Mover a la posición (x, y)
-                    .showText(globalV.fechaR) // Dibujar el texto
-                    .endText(); // Finalizar el modo de texto
-
-// Definir la posición del texto (x, y)
-            float m = 200; // Posición horizontal (ajusta según sea necesario)
-            float n = 503;
-            ; // Posición vertical (ajusta según sea necesario)
-// Dibujar el texto sobrepuesto
-            pdfCanvas.beginText() // Iniciar el modo de texto
-                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 7.5f) // Fuente y tamaño
-                    .setFillColor(ColorConstants.BLACK) // Color del texto
-                    .moveText(m, n) // Mover a la posición (x, y)
-                    .showText(globalV.direccion) // Dibujar el texto
-                    .endText(); // Finalizar el modo de texto
-            document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
     private String convertirBooleano(String valor) {
         if (valor == null) {
             return "N/A"; // Si el valor es nulo, devolver "N/A"
         }
         return valor.equalsIgnoreCase("T") ? "X" : "N/A"; // Convertir "T" a "X" y cualquier otro valor a "N/A"
     }
-    
-        private String convertirBooleano2(String valor) {
+
+    private String convertirBooleano2(String valor) {
         if (valor == null) {
             return ""; // Si el valor es nulo, devolver "N/A"
         }
@@ -307,8 +170,7 @@ public class PDFExporter {
                     .moveText(m, n)
                     .showText(globalV.direccion)
                     .endText();
-            
-            
+
             //impresion de razon social
             float j = 200;
             float k = 517;
@@ -318,7 +180,7 @@ public class PDFExporter {
                     .moveText(j, k)
                     .showText(razonSocial)
                     .endText();
-            
+
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -444,8 +306,8 @@ public class PDFExporter {
                     .showText(globalV.fechaR)
                     .endText();
             System.out.println(globalV.fechaR);
-            
-                        //impresion de razon social
+
+            //impresion de razon social
             float j = 215;
             float k = 512;
             pdfCanvas.beginText()
@@ -463,9 +325,10 @@ public class PDFExporter {
     }
 
     public void GasPDF(String razonSocial) throws IOException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\BITACORA GAS.pdf";
+        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\bitacora gas final.pdf";
         String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
 
+        CDatosNOM cdatosnom = new CDatosNOM();
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
 
@@ -495,12 +358,16 @@ public class PDFExporter {
 
             ResultSet rs = statement.executeQuery();
 
+            int idterm;
+
             if (rs.next()) {
+
                 bitacora.put("id_bitacora", rs.getString("id_bitacora"));
                 bitacora.put("fecha_revision", rs.getDate("fecha_revision"));
                 bitacora.put("id_norma_fk", rs.getString("id_norma_fk"));
                 bitacora.put("id_usuario_fk", rs.getString("id_usuario_fk"));
-                bitacora.put("id_terminal_fk", rs.getString("id_terminal_fk"));
+                idterm = rs.getInt("id_terminal_fk");
+                bitacora.put("id_terminal_fk", idterm);
                 bitacora.put("nombre_empresa", (razonSocial));
                 bitacora.put("c_buena", convertirBooleano2(rs.getString("c_buena")));
                 bitacora.put("c_regular", convertirBooleano2(rs.getString("c_regular")));
@@ -519,6 +386,8 @@ public class PDFExporter {
                 return;
             }
 
+            System.out.println("id terminal :" + idterm);
+            String termi = cdatosnom.obtenerNomTerminal(idterm);
             // Cargar la plantilla PDF
             PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
@@ -533,15 +402,15 @@ public class PDFExporter {
             posiciones.put("capacidad", new float[]{77, 616});
             posiciones.put("capacidad_reg", new float[]{65, 577});
             posiciones.put("fecha_fabricacion", new float[]{143, 616});
-            posiciones.put("marca", new float[]{140, 515});
-            posiciones.put("serie", new float[]{199, 515});
-            posiciones.put("diametro", new float[]{423, 515});
-            posiciones.put("espesor", new float[]{528, 515});
+            posiciones.put("marca", new float[]{140, 507});
+            posiciones.put("serie", new float[]{199, 507});
+            posiciones.put("diametro", new float[]{423, 507});
+            posiciones.put("espesor", new float[]{528, 507});
             posiciones.put("observaciones_gen_revisor", new float[]{310, 577});
             posiciones.put("observaciones_soportes", new float[]{468, 675});
-            posiciones.put("c_buena", new float[]{331,664});
-            posiciones.put("c_mala", new float[]{439,664});
-            posiciones.put("c_regular", new float[]{388,664});
+            posiciones.put("c_buena", new float[]{331, 664});
+            posiciones.put("c_mala", new float[]{439, 664});
+            posiciones.put("c_regular", new float[]{388, 664});
 
             for (Map.Entry<String, float[]> entry : posiciones.entrySet()) {
                 String campo = entry.getKey();
@@ -558,8 +427,28 @@ public class PDFExporter {
                             .endText();
                 }
             }
-                        //impresion de razon social
-            
+
+            float j = 227;
+            float k = 523;
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 5.5f)
+                    .setFillColor(ColorConstants.BLACK)
+                    .moveText(j, k)
+                    .showText("")
+                    .endText();
+
+            float a = 267;
+            float b = 756;
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 5.5f)
+                    .setFillColor(ColorConstants.WHITE)
+                    .moveText(a, b)
+                    .showText("BITACORA DE CONTROL, REVISION Y MANTENIMIENTO.")
+                    .moveText(0, -10)
+                    .showText("INSTALACIONES DE GAS(" + termi + ")")
+                    .endText();
+            //impresion de razon social
+
             document.close();
             pdfDoc.close();
             System.out.println("PDF generado con éxito en: " + destino);
@@ -625,8 +514,6 @@ public class PDFExporter {
             table.addHeaderCell(new Cell().add(new Paragraph("UNIFORME")).setFontSize(4f));
             table.addHeaderCell(new Cell().add(new Paragraph("FIRMA")).setFontSize(4f));
 
-            
-
             contador = 0;
             while (resultSet.next()) {
                 contador++;
@@ -667,21 +554,60 @@ public class PDFExporter {
                     .moveText(m, n)
                     .showText(globalV.fechaR)
                     .endText();
+            float j = 227;
+            float k = 523;
+            pdfCanvas.beginText()
+                    .setFontAndSize(PdfFontFactory.createFont(FontConstants.TIMES_BOLD), 5.5f)
+                    .setFillColor(ColorConstants.BLACK)
+                    .moveText(j, k)
+                    .showText(razonSocial)
+                    .endText();
 
-            // Agregar la firma
-            /*Table tabla2 = new Table(new float[]{50});
-        tabla2.addHeaderCell(new Cell().add(new Paragraph("FIRMA DE QUIEN REALIZA LA REVISION")).setFontSize(5.5f)
-                .setTextAlignment(TextAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE));
-        tabla2.addCell(new Cell().setHeight(20));
-        Div div = new Div().setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(100)).add(tabla2);
-        document.add(div.setMarginTop(5).setMarginLeft(160));
-             */
-            // Cerrar el documento
+            Table tabla2 = new Table(new float[]{2, 2, 2}); // Columnas con anchos personalizados
+
+// Encabezados con bordes y estilos
+            tabla2.addHeaderCell(new Cell().add(new Paragraph("NOMBRE DE QUIEN REALIZA LA SUPERVISIÓN"))
+                    .setFontSize(5.5f)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                    .setBorderBottom(new SolidBorder(1))); // Borde inferior
+
+            tabla2.addHeaderCell(new Cell().add(new Paragraph("PUESTO"))
+                    .setFontSize(5.5f)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                    .setBorderBottom(new SolidBorder(1))); // Borde inferior
+
+            tabla2.addHeaderCell(new Cell().add(new Paragraph("FIRMA"))
+                    .setFontSize(5.5f)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                    .setBorderBottom(new SolidBorder(1))); // Borde inferior
+
+// Celdas vacías con bordes
+            tabla2.addCell(new Cell().setHeight(20).setBorderBottom(new SolidBorder(1))); // Nombre
+            tabla2.addCell(new Cell().setHeight(20).setBorderBottom(new SolidBorder(1))); // Puesto
+            tabla2.addCell(new Cell().setHeight(20).setBorderBottom(new SolidBorder(1))); // Firma
+
+// Div para centrar la tabla
+            Div div = new Div()
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setWidth(UnitValue.createPercentValue(120))
+                    .add(tabla2);
+
+            div.setMarginLeft(265); // Ajusta este valor según sea necesario
+
+            document.add(div); // ¡Este es el paso que faltaba!
+
+            System.out.println("Segunda tabla agregada al documento.");
+            System.out.println("se imprimio la segundatabla");
+// Ajustar el ancho de la tabla
+            tabla2.setWidth(900);
+
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-// Método para convertir booleanos a "X" o "N/A"
 }

@@ -992,10 +992,8 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         // Crear una lista de razones sociales
         String[] razonesSociales = {
-            "Razón Social A",
-            "Razón Social B",
-            "Razón Social C",
-            "Razón Social D"
+      "Autobuses alas de oro S.A de C.V",
+        "Ómnibus Cristóbal Colón S.A de C.V",
         };
 
         // Crear un modelo para el JComboBox con las razones sociales

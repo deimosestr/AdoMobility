@@ -3,7 +3,6 @@ package com.login;
 import static com.login.globalV.direccion;
 import static com.login.globalV.fechaR;
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -736,6 +735,30 @@ public class CDatosNOM {
 
         return idNorma;
     }
+    public String obtenerNomTerminal(int idterm) {
+    String terminal = null; // Valor predeterminado para indicar que no se encontró un resultado
+
+    // Usar try-with-resources para cerrar automáticamente los recursos
+    try (PreparedStatement pst = globalV.conectar.prepareStatement(
+             "SELECT nombre FROM terminales WHERE id_terminal = ? LIMIT 1;")) {
+
+        // Asignar el parámetro a la consulta
+        pst.setInt(1, idterm);
+
+        // Ejecutar la consulta y obtener el resultado
+        try (ResultSet rs = pst.executeQuery()) {
+            if (rs.next()) {
+                terminal = rs.getString("nombre");
+            }
+        }
+    } catch (SQLException e) {
+        // Manejar excepciones específicas de SQL
+        e.printStackTrace();
+        System.out.println("Error al obtener el nombre de la terminal: " + e.getMessage());
+    }
+
+    return terminal; // Devuelve el nombre de la terminal o null si no se encontró
+}
 
     public int obtenerIDUsuarioGeneral(JComboBox<String> listaUsuarios) {
         int idUsuario = -1; // Valor predeterminado para indicar que no se encontró un resultado
@@ -897,7 +920,7 @@ public class CDatosNOM {
             e.printStackTrace(); // Imprime cualquier error para depuración
             System.out.println("Error al obtener nombres de terminales: " + e.getMessage());
         } finally {
-            // Cerrar solo el PreparedStatement y el ResultSet
+             // Cerrar solo el PreparedStatement y el ResultSet
             try {
                 if (rs != null) {
                     rs.close();

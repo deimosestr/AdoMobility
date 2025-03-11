@@ -2,17 +2,11 @@ package com.login;
 
 import static com.login.globalV.conectar;
 import java.awt.CardLayout;
-import java.sql.Connection;
 import java.awt.Color;
 import java.io.IOException;
-//import java.awt.List;
-import javax.crypto.AEADBadTagException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import java.util.List;
-import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
