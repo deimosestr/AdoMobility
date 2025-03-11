@@ -23,7 +23,6 @@ public class adminScreen extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     CDatosNOM obj = new CDatosNOM();
-    
 
     public adminScreen() {
         initComponents();
@@ -41,14 +40,16 @@ public class adminScreen extends javax.swing.JFrame {
         //bitacoras.setVisible(false);
         obj.mostrarUsuarios(tablaUsers);
         obj.mostrarTerminales(tableTerminalesAdmin);
+        obj.mostrarExtintoresGlobal(tableBItacorasAdmin);
 
         bitacoras.add(usuarios, "usuarios");
         bitacoras.add(terminales, "terminales");
-        bitacoras.add(bitacorasGeneral, "bitacorasGeneral");
+        bitacoras.add(bitacorasGeneralExtintores, "bitacorasGeneral");
 
         buttonsNormas btnUsuario = new buttonsNormas();
         buttonsNormas menuTerminales = new buttonsNormas();
         buttonsNormas menuRegiones = new buttonsNormas();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -65,10 +66,9 @@ public class adminScreen extends javax.swing.JFrame {
         menuDeOpciones = new javax.swing.JPanel();
         btnUsuarios = new com.login.buttonsNormas();
         menuTerminales = new com.login.buttonsNormas();
-        menuRegiones = new com.login.buttonsNormas();
         modernButton1 = new com.login.ModernButton();
+        cambiarVentana = new javax.swing.JComboBox<>();
         bitacoras = new javax.swing.JPanel();
-        bitacorasGeneral = new javax.swing.JPanel();
         terminales = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         idTerminalAdmin = new javax.swing.JTextField();
@@ -84,6 +84,14 @@ public class adminScreen extends javax.swing.JFrame {
         tablaTerminales = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableTerminalesAdmin = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        nombreRegionAdmin = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        idRegionAdmin = new javax.swing.JTextField();
+        modernButton2 = new com.login.ModernButton();
+        jSeparator8 = new javax.swing.JSeparator();
         usuarios = new javax.swing.JPanel();
         tablaUsuarios = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -115,6 +123,31 @@ public class adminScreen extends javax.swing.JFrame {
         comboTerminales1 = new javax.swing.JComboBox<>();
         listaUsuarios1 = new javax.swing.JComboBox<>();
         asignarTerminal = new com.login.ModernButton();
+        bitacorasGeneralEpp = new javax.swing.JPanel();
+        tablaBitacoras3 = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tableBItacorasAdmin3 = new javax.swing.JTable();
+        jComboBox7 = new javax.swing.JComboBox<>();
+        jComboBox8 = new javax.swing.JComboBox<>();
+        bitacorasGeneralGas = new javax.swing.JPanel();
+        tablaBitacoras2 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tableBItacorasAdmin2 = new javax.swing.JTable();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        jComboBox6 = new javax.swing.JComboBox<>();
+        bitacorasGeneralHumo = new javax.swing.JPanel();
+        tablaBitacoras1 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableBItacorasAdmin1 = new javax.swing.JTable();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        bitacorasGeneralExtintores = new javax.swing.JPanel();
+        tablaBitacoras = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tableBItacorasAdmin = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -236,20 +269,6 @@ public class adminScreen extends javax.swing.JFrame {
         });
         menuDeOpciones.add(menuTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 180, 40));
 
-        menuRegiones.setText("REGIONES");
-        menuRegiones.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        menuRegiones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuRegionesMouseClicked(evt);
-            }
-        });
-        menuRegiones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuRegionesActionPerformed(evt);
-            }
-        });
-        menuDeOpciones.add(menuRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
-
         modernButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/limpiar.png"))); // NOI18N
         modernButton1.setText("LIMPIAR CAMPOS");
         modernButton1.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
@@ -260,32 +279,28 @@ public class adminScreen extends javax.swing.JFrame {
         });
         menuDeOpciones.add(modernButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 160, -1));
 
+        cambiarVentana.setBackground(new java.awt.Color(255, 255, 255));
+        cambiarVentana.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        cambiarVentana.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EXTINTORES", "HUMO", "GAS", "EPP" }));
+        cambiarVentana.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "BITACORAS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Black", 1, 14))); // NOI18N
+        cambiarVentana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarVentanaActionPerformed(evt);
+            }
+        });
+        menuDeOpciones.add(cambiarVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 50));
+
         bgHomeScreen.add(menuDeOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 500));
 
         bitacoras.setBackground(new java.awt.Color(255, 255, 255));
         bitacoras.setLayout(new java.awt.CardLayout());
 
-        bitacorasGeneral.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout bitacorasGeneralLayout = new javax.swing.GroupLayout(bitacorasGeneral);
-        bitacorasGeneral.setLayout(bitacorasGeneralLayout);
-        bitacorasGeneralLayout.setHorizontalGroup(
-            bitacorasGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
-        );
-        bitacorasGeneralLayout.setVerticalGroup(
-            bitacorasGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
-        );
-
-        bitacoras.add(bitacorasGeneral, "card5");
-
         terminales.setBackground(new java.awt.Color(255, 255, 255));
         terminales.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jLabel1.setText("El ID de la terminal:");
-        terminales.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jLabel1.setText("El ID de la región es:");
+        terminales.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         idTerminalAdmin.setBackground(new java.awt.Color(255, 255, 255));
         idTerminalAdmin.setBorder(null);
@@ -294,40 +309,40 @@ public class adminScreen extends javax.swing.JFrame {
                 idTerminalAdminActionPerformed(evt);
             }
         });
-        terminales.add(idTerminalAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 80, -1));
+        terminales.add(idTerminalAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 80, -1));
 
         jSeparator1.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator1.setForeground(new java.awt.Color(197, 172, 204));
-        terminales.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 190, 10));
+        terminales.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 190, 10));
 
         jLabel2.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
         jLabel2.setText("Nombre Terminal: ");
-        terminales.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        terminales.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         jSeparator2.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator2.setForeground(new java.awt.Color(197, 172, 204));
-        terminales.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 190, 10));
+        terminales.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 190, 10));
 
         nombreTerminalAdmin.setBackground(new java.awt.Color(255, 255, 255));
         nombreTerminalAdmin.setBorder(null);
-        terminales.add(nombreTerminalAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 190, -1));
+        terminales.add(nombreTerminalAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 190, -1));
 
         jLabel3.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        jLabel3.setText("Ubicacion");
-        terminales.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jLabel3.setText("Nombre:");
+        terminales.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
         ubicacionTerminalAdmin.setBackground(new java.awt.Color(255, 255, 255));
         ubicacionTerminalAdmin.setBorder(null);
-        terminales.add(ubicacionTerminalAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 190, -1));
+        terminales.add(ubicacionTerminalAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 190, -1));
 
         comboboxRegionTerminales.setBackground(new java.awt.Color(255, 255, 255));
         comboboxRegionTerminales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboboxRegionTerminales.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Asignar Region", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
-        terminales.add(comboboxRegionTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 190, 40));
+        terminales.add(comboboxRegionTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 190, 40));
 
         jSeparator4.setBackground(new java.awt.Color(197, 172, 204));
         jSeparator4.setForeground(new java.awt.Color(197, 172, 204));
-        terminales.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 190, 10));
+        terminales.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 190, 10));
 
         agregarTerminal.setText("REGISTRAR TERMINAL");
         agregarTerminal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -335,7 +350,7 @@ public class adminScreen extends javax.swing.JFrame {
                 agregarTerminalMouseClicked(evt);
             }
         });
-        terminales.add(agregarTerminal, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 190, -1));
+        terminales.add(agregarTerminal, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 190, -1));
 
         tablaTerminales.setBackground(new java.awt.Color(255, 255, 255));
         tablaTerminales.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
@@ -367,10 +382,46 @@ public class adminScreen extends javax.swing.JFrame {
         );
         tablaTerminalesLayout.setVerticalGroup(
             tablaTerminalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
         );
 
-        terminales.add(tablaTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 590, 140));
+        terminales.add(tablaTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 590, 170));
+
+        jLabel4.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        jLabel4.setText("El ID de la terminal:");
+        terminales.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        jLabel5.setText("Ubicacion");
+        terminales.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
+
+        jSeparator7.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator7.setForeground(new java.awt.Color(197, 172, 204));
+        terminales.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 550, 10));
+
+        nombreRegionAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        nombreRegionAdmin.setBorder(null);
+        terminales.add(nombreRegionAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 190, -1));
+
+        jSeparator3.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator3.setForeground(new java.awt.Color(197, 172, 204));
+        terminales.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 190, 10));
+
+        idRegionAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        idRegionAdmin.setBorder(null);
+        terminales.add(idRegionAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 190, -1));
+
+        modernButton2.setText("AGREGAR REGION");
+        modernButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modernButton2MouseClicked(evt);
+            }
+        });
+        terminales.add(modernButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 190, -1));
+
+        jSeparator8.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator8.setForeground(new java.awt.Color(197, 172, 204));
+        terminales.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 190, 10));
 
         bitacoras.add(terminales, "card5");
 
@@ -558,6 +609,209 @@ public class adminScreen extends javax.swing.JFrame {
 
         bitacoras.add(usuarios, "card3");
 
+        bitacorasGeneralEpp.setBackground(new java.awt.Color(255, 255, 255));
+        bitacorasGeneralEpp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tablaBitacoras3.setBackground(new java.awt.Color(255, 255, 255));
+        tablaBitacoras3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+
+        tableBItacorasAdmin3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tableBItacorasAdmin3.setAutoResizeMode(0);
+        tableBItacorasAdmin3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBItacorasAdmin3MouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tableBItacorasAdmin3);
+
+        javax.swing.GroupLayout tablaBitacoras3Layout = new javax.swing.GroupLayout(tablaBitacoras3);
+        tablaBitacoras3.setLayout(tablaBitacoras3Layout);
+        tablaBitacoras3Layout.setHorizontalGroup(
+            tablaBitacoras3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+        );
+        tablaBitacoras3Layout.setVerticalGroup(
+            tablaBitacoras3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+        );
+
+        bitacorasGeneralEpp.add(tablaBitacoras3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 590, 170));
+
+        jComboBox7.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralEpp.add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
+
+        jComboBox8.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralEpp.add(jComboBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 150, 40));
+
+        bitacoras.add(bitacorasGeneralEpp, "card5");
+
+        bitacorasGeneralGas.setBackground(new java.awt.Color(255, 255, 255));
+        bitacorasGeneralGas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tablaBitacoras2.setBackground(new java.awt.Color(255, 255, 255));
+        tablaBitacoras2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+
+        tableBItacorasAdmin2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tableBItacorasAdmin2.setAutoResizeMode(0);
+        tableBItacorasAdmin2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBItacorasAdmin2MouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tableBItacorasAdmin2);
+
+        javax.swing.GroupLayout tablaBitacoras2Layout = new javax.swing.GroupLayout(tablaBitacoras2);
+        tablaBitacoras2.setLayout(tablaBitacoras2Layout);
+        tablaBitacoras2Layout.setHorizontalGroup(
+            tablaBitacoras2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+        );
+        tablaBitacoras2Layout.setVerticalGroup(
+            tablaBitacoras2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+        );
+
+        bitacorasGeneralGas.add(tablaBitacoras2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 590, 170));
+
+        jComboBox5.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralGas.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
+
+        jComboBox6.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralGas.add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 150, 40));
+
+        bitacoras.add(bitacorasGeneralGas, "card5");
+
+        bitacorasGeneralHumo.setBackground(new java.awt.Color(255, 255, 255));
+        bitacorasGeneralHumo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tablaBitacoras1.setBackground(new java.awt.Color(255, 255, 255));
+        tablaBitacoras1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+
+        tableBItacorasAdmin1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tableBItacorasAdmin1.setAutoResizeMode(0);
+        tableBItacorasAdmin1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBItacorasAdmin1MouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tableBItacorasAdmin1);
+
+        javax.swing.GroupLayout tablaBitacoras1Layout = new javax.swing.GroupLayout(tablaBitacoras1);
+        tablaBitacoras1.setLayout(tablaBitacoras1Layout);
+        tablaBitacoras1Layout.setHorizontalGroup(
+            tablaBitacoras1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+        );
+        tablaBitacoras1Layout.setVerticalGroup(
+            tablaBitacoras1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+        );
+
+        bitacorasGeneralHumo.add(tablaBitacoras1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 590, 170));
+
+        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralHumo.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
+
+        jComboBox4.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralHumo.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 150, 40));
+
+        jLabel6.setText("epp");
+        bitacorasGeneralHumo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
+
+        bitacoras.add(bitacorasGeneralHumo, "card5");
+
+        bitacorasGeneralExtintores.setBackground(new java.awt.Color(255, 255, 255));
+        bitacorasGeneralExtintores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tablaBitacoras.setBackground(new java.awt.Color(255, 255, 255));
+        tablaBitacoras.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+
+        tableBItacorasAdmin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tableBItacorasAdmin.setAutoResizeMode(0);
+        tableBItacorasAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBItacorasAdminMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tableBItacorasAdmin);
+
+        javax.swing.GroupLayout tablaBitacorasLayout = new javax.swing.GroupLayout(tablaBitacoras);
+        tablaBitacoras.setLayout(tablaBitacorasLayout);
+        tablaBitacorasLayout.setHorizontalGroup(
+            tablaBitacorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+        );
+        tablaBitacorasLayout.setVerticalGroup(
+            tablaBitacorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+        );
+
+        bitacorasGeneralExtintores.add(tablaBitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 590, 170));
+
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralExtintores.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
+
+        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralExtintores.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 150, 40));
+
+        bitacoras.add(bitacorasGeneralExtintores, "card5");
+
         bgHomeScreen.add(bitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 610, 460));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -664,7 +918,7 @@ public class adminScreen extends javax.swing.JFrame {
         // Asignar el modelo al JComboBox
         listaUsuarios.setModel(modelo);
     }
-    
+
     private void llenarComboBoxUsuariosDOWN(JComboBox<String> comboBoxUsuarios) {
         // Obtener la lista de nombres de roles
         List<String> nombres = obj.obtenerNombreUsuarios();
@@ -736,7 +990,7 @@ public class adminScreen extends javax.swing.JFrame {
         layout.show(bitacoras, "usuarios"); // Cambia a panel1
 
         btnUsuarios.setSelected(true);
-        menuRegiones.setSelected(false);
+      //  menuRegiones.setSelected(false);
         menuTerminales.setSelected(false);
 
 
@@ -772,26 +1026,10 @@ public class adminScreen extends javax.swing.JFrame {
 
         btnUsuarios.setSelected(false);
         menuTerminales.setSelected(true);
-        menuRegiones.setSelected(false);
+        //menuRegiones.setSelected(false);
 
 
     }//GEN-LAST:event_menuTerminalesActionPerformed
-
-    private void menuRegionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRegionesActionPerformed
-        CardLayout layout = (CardLayout) bitacoras.getLayout();
-        layout.show(bitacoras, "gas"); // Cambia al panel humo.
-
-        btnUsuarios.setSelected(false);
-        menuTerminales.setSelected(false);
-        menuRegiones.setSelected(true);
-
-        // Cambiar color de botón seleccionado
-
-    }//GEN-LAST:event_menuRegionesActionPerformed
-
-    private void menuRegionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRegionesMouseClicked
-
-        usuarios.setVisible(false);    }//GEN-LAST:event_menuRegionesMouseClicked
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
 
@@ -831,7 +1069,7 @@ public class adminScreen extends javax.swing.JFrame {
     private void revocarTerminalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revocarTerminalMouseClicked
         // TODO add your handling code here:
         obj.revocarTerminal(listaUsuarios1, comboTerminales1.getSelectedItem().toString());
-        
+
         obj.mostrarUsuarios(tablaUsers);
         //obj.mostrarTerminales(tableTerminalesAdmin);
     }//GEN-LAST:event_revocarTerminalMouseClicked
@@ -840,7 +1078,7 @@ public class adminScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         obj.insertarTerminal(nombreTerminalAdmin, ubicacionTerminalAdmin,
                 comboboxRegionTerminales.getSelectedItem().toString());
-        obj.mostrarTerminales(tablaUsers);
+        obj.mostrarTerminales(tableTerminalesAdmin);
 
     }//GEN-LAST:event_agregarTerminalMouseClicked
 
@@ -890,6 +1128,72 @@ public class adminScreen extends javax.swing.JFrame {
         llenarComboBoxTerminalesG(comboTerminales);
     }//GEN-LAST:event_modernButton1MouseClicked
 
+    private void modernButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton2MouseClicked
+        // TODO add your handling code here:
+        obj.insertarRegion(nombreRegionAdmin);
+        obj.mostrarTerminales(tableTerminalesAdmin);
+    }//GEN-LAST:event_modernButton2MouseClicked
+
+    private void tableBItacorasAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasAdminMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableBItacorasAdminMouseClicked
+
+    private void tableBItacorasAdmin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasAdmin1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableBItacorasAdmin1MouseClicked
+
+    private void tableBItacorasAdmin2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasAdmin2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableBItacorasAdmin2MouseClicked
+
+    private void tableBItacorasAdmin3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasAdmin3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableBItacorasAdmin3MouseClicked
+
+    private void cambiarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarVentanaActionPerformed
+        // TODO add your handling code here:
+        String seleccion = (String) cambiarVentana.getSelectedItem();
+
+        // Ejecutar la acción personalizada en base a la selección
+        switch (seleccion) {
+            case "EXTINTORES":
+                bitacorasGeneralExtintores.setVisible(true);
+                bitacorasGeneralHumo.setVisible(false);
+                bitacorasGeneralGas.setVisible(false);
+                bitacorasGeneralEpp.setVisible(false);
+                //System.out.println("Se seleccionó la Opción 1");
+                // Aquí puedes ejecutar la acción correspondiente a la Opción 1
+                break;
+            case "HUMO":
+                bitacorasGeneralExtintores.setVisible(false);
+                bitacorasGeneralHumo.setVisible(true);
+                bitacorasGeneralGas.setVisible(false);
+                bitacorasGeneralEpp.setVisible(false);
+                //System.out.println("Se seleccionó la Opción 2");
+                // Aquí puedes ejecutar la acción correspondiente a la Opción 2
+                break;
+            case "GAS":
+                bitacorasGeneralExtintores.setVisible(false);
+                bitacorasGeneralHumo.setVisible(false);
+                bitacorasGeneralGas.setVisible(true);
+                bitacorasGeneralEpp.setVisible(false);
+                // System.out.println("Se seleccionó la Opción 3");
+                // Aquí puedes ejecutar la acción correspondiente a la Opción 3
+                break;
+            case "EPP":
+                bitacorasGeneralExtintores.setVisible(false);
+                bitacorasGeneralHumo.setVisible(false);
+                bitacorasGeneralGas.setVisible(false);
+                bitacorasGeneralEpp.setVisible(true);
+                //  System.out.println("Se seleccionó la Opción 4");
+                // Aquí puedes ejecutar la acción correspondiente a la Opción 4
+                break;
+            default:
+                System.out.println("Opción no válida");
+                break;
+        }
+    }//GEN-LAST:event_cambiarVentanaActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -933,8 +1237,12 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JPanel barNavMov;
     private javax.swing.JPanel bgHomeScreen;
     private javax.swing.JPanel bitacoras;
-    private javax.swing.JPanel bitacorasGeneral;
+    private javax.swing.JPanel bitacorasGeneralEpp;
+    private javax.swing.JPanel bitacorasGeneralExtintores;
+    private javax.swing.JPanel bitacorasGeneralGas;
+    private javax.swing.JPanel bitacorasGeneralHumo;
     private com.login.buttonsNormas btnUsuarios;
+    private javax.swing.JComboBox<String> cambiarVentana;
     private javax.swing.JCheckBox checkActivo;
     private javax.swing.JComboBox<String> comboRegiones;
     private javax.swing.JComboBox<String> comboRoles;
@@ -943,21 +1251,40 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboboxRegionTerminales;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
+    private javax.swing.JTextField idRegionAdmin;
     private javax.swing.JTextField idTerminalAdmin;
     private com.login.ModernButton insertarUser;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JComboBox<String> jComboBox6;
+    private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JLabel labelAreaEPP;
     private javax.swing.JLabel labelAreaEPP1;
     private javax.swing.JLabel labelAreaEPP2;
@@ -967,18 +1294,27 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> listaUsuarios1;
     private javax.swing.JLabel logoDerecha;
     private javax.swing.JPanel menuDeOpciones;
-    private com.login.buttonsNormas menuRegiones;
     private com.login.buttonsNormas menuTerminales;
     private javax.swing.JLabel menuUsuario;
     private javax.swing.JLabel menuUsuario1;
     private com.login.ModernButton modernButton1;
+    private com.login.ModernButton modernButton2;
+    private javax.swing.JTextField nombreRegionAdmin;
     private javax.swing.JTextField nombreTerminalAdmin;
     private javax.swing.JPanel returnPanel;
     private javax.swing.JLabel returnTxt;
     private com.login.ModernButton revocarTerminal;
+    private javax.swing.JPanel tablaBitacoras;
+    private javax.swing.JPanel tablaBitacoras1;
+    private javax.swing.JPanel tablaBitacoras2;
+    private javax.swing.JPanel tablaBitacoras3;
     private javax.swing.JPanel tablaTerminales;
     private javax.swing.JTable tablaUsers;
     private javax.swing.JPanel tablaUsuarios;
+    private javax.swing.JTable tableBItacorasAdmin;
+    private javax.swing.JTable tableBItacorasAdmin1;
+    private javax.swing.JTable tableBItacorasAdmin2;
+    private javax.swing.JTable tableBItacorasAdmin3;
     private javax.swing.JTable tableTerminalesAdmin;
     private javax.swing.JPanel terminales;
     private javax.swing.JTextField ubicacionTerminalAdmin;

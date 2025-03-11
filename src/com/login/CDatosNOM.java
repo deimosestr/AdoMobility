@@ -102,6 +102,15 @@ public class CDatosNOM {
     int idUsuario;
     String nombreTerminal;
     String ubicacionTerminal;
+    String nombreRegion;
+
+    public String getNombreRegion() {
+        return nombreRegion;
+    }
+
+    public void setNombreRegion(String nombreRegion) {
+        this.nombreRegion = nombreRegion;
+    }
 
     public String getNombreTerminal() {
         return nombreTerminal;
@@ -2924,6 +2933,128 @@ public class CDatosNOM {
         }
     }
 
+    public void insertarRegion(JTextField paramNombreRegion) {
+        setNombreRegion(paramNombreRegion.getText());
+
+        String sql = "INSERT INTO public.regiones (nombre) VALUES (?);";
+
+        try {
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
+
+            cs.setString(1, getNombreRegion());
+
+            String ext = "regiones_id_region_seq";
+            String nomTabla = "regiones";
+            id = "id_region";
+            actualizarSecuencia(ext, nomTabla, id);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Inserción Existosa");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }
+    }
+
+    public void mostrarExtintoresGlobal(JTable paramTablaExtintoresG) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaExtintoresG.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Bitacora");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Ubicacion");
+        modelo.addColumn("Ultima Recarga");
+        modelo.addColumn("Proxima Recarga");
+        modelo.addColumn("Capacidad");
+        modelo.addColumn("Tipo Agente Extinguidor");
+
+        modelo.addColumn("Manguera");
+        modelo.addColumn("Manometro");
+        modelo.addColumn("Soporte");
+        modelo.addColumn("Presion");
+        modelo.addColumn("Cilindro");
+        modelo.addColumn("Limpieza");
+        modelo.addColumn("Señalizacion");
+        modelo.addColumn("Etiqueta");
+        modelo.addColumn("Seguro");
+        modelo.addColumn("Obstruccion");
+        modelo.addColumn("Observacion");
+
+        modelo.addColumn("Firmado");
+        modelo.addColumn("ID Norma");
+        modelo.addColumn("ID Usuario");
+        modelo.addColumn("ID Terminal");
+
+        paramTablaExtintoresG.setModel(modelo);
+
+        String sql = "SELECT b.id_bitacora, b.fecha_revision, b.ubicacion, b.ultima_recarga, b.proxima_recarga, "
+                   + "b.capacidad, b.tipo_agente_extinguidor, b.manguera, b.manometro, b.soporte, b.presion, "
+                   + "b.cilindro, b.limpieza, b.senalizacion, b.etiqueta, b.seguro, b.obstruccion, b.observacion, "
+                   + "b.firmado, b.id_norma_fk, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                   + "FROM public.bitacora b "
+                   + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                   + "JOIN public.terminales t ON b.id_terminal_fk = t.id_terminal;";
+
+        Object[] datos = new Object[22]; // Cambiado a Object[] para permitir tanto String como Boolean
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            //pst.setString(1, globalV.user); // Asignar el parámetro a la consulta
+            
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas y convertir las booleanas
+                datos[0] = rs.getString(1); // ID usuario
+                datos[1] = convertirFecha(rs.getString(2));
+                datos[2] = rs.getString(3); 
+                datos[3] = rs.getString(4); 
+                datos[4] = rs.getString(5); 
+                datos[5] = rs.getString(6); 
+                datos[6] = rs.getString(7); 
+                //booleanos
+                datos[7] = "t".equals(rs.getString(8));
+                datos[8] = "t".equals(rs.getString(9));
+                datos[9] = "t".equals(rs.getString(10));
+                datos[10] = "t".equals(rs.getString(11));
+                datos[11] = "t".equals(rs.getString(12));
+                datos[12] = "t".equals(rs.getString(13));
+                datos[13] = "t".equals(rs.getString(14));
+                datos[14] = "t".equals(rs.getString(15));
+                datos[15] = "t".equals(rs.getString(16));
+                datos[16] = "t".equals(rs.getString(17));
+                
+                datos[17] = rs.getString(18);
+                datos[18] = rs.getString(19);
+                datos[19] = rs.getString(20);
+                datos[20] = rs.getString(21); 
+                datos[21] = rs.getString(22); 
+
+                modelo.addRow(datos);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                //obj2.cerrarConexion(); // Método para cerrar conexión en TConexion
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+
+    }
 
     /* public void insertarUsuario(String nombre, String correo, String username, String password, boolean activo,
             String nombreRegion, String nombreRol) {

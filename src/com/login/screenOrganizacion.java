@@ -927,11 +927,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
         jPanel1.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
 
         listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        listRazon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listRazonActionPerformed(evt);
-            }
-        });
         jPanel1.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 160, -1));
 
         bgHomeScreen.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 610, 50));
@@ -1323,12 +1318,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
     private void tablaGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGasMouseClicked
         obj.seleccionarGas(
-                tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
-                labelTerminales, txtIDBitacora, txtFecha,
-                nomEmpresa, cMalas, c_Buena, c_Regular,
-                cObservaciones, capacidadTanque, fechaFabricacion,
-                cRegistrada, tObservaciones, marca, numSerie,
-                diametroEXT, espesor);
                 tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
                 labelTerminales, txtIDBitacora, txtFecha,
                 nomEmpresa, cMalas, c_Buena, c_Regular,
