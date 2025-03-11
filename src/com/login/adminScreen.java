@@ -136,7 +136,7 @@ public class adminScreen extends javax.swing.JFrame {
         jComboBox5 = new javax.swing.JComboBox<>();
         jComboBox6 = new javax.swing.JComboBox<>();
         bitacorasGeneralHumo = new javax.swing.JPanel();
-        tablaBitacoras1 = new javax.swing.JPanel();
+        tablaBitacorasHumo = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tableBItacorasAdmin1 = new javax.swing.JTable();
         jComboBox3 = new javax.swing.JComboBox<>();
@@ -712,8 +712,8 @@ public class adminScreen extends javax.swing.JFrame {
         bitacorasGeneralHumo.setBackground(new java.awt.Color(255, 255, 255));
         bitacorasGeneralHumo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tablaBitacoras1.setBackground(new java.awt.Color(255, 255, 255));
-        tablaBitacoras1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        tablaBitacorasHumo.setBackground(new java.awt.Color(255, 255, 255));
+        tablaBitacorasHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
 
         tableBItacorasAdmin1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -734,18 +734,18 @@ public class adminScreen extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(tableBItacorasAdmin1);
 
-        javax.swing.GroupLayout tablaBitacoras1Layout = new javax.swing.GroupLayout(tablaBitacoras1);
-        tablaBitacoras1.setLayout(tablaBitacoras1Layout);
-        tablaBitacoras1Layout.setHorizontalGroup(
-            tablaBitacoras1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout tablaBitacorasHumoLayout = new javax.swing.GroupLayout(tablaBitacorasHumo);
+        tablaBitacorasHumo.setLayout(tablaBitacorasHumoLayout);
+        tablaBitacorasHumoLayout.setHorizontalGroup(
+            tablaBitacorasHumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
         );
-        tablaBitacoras1Layout.setVerticalGroup(
-            tablaBitacoras1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        tablaBitacorasHumoLayout.setVerticalGroup(
+            tablaBitacorasHumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
         );
 
-        bitacorasGeneralHumo.add(tablaBitacoras1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 590, 170));
+        bitacorasGeneralHumo.add(tablaBitacorasHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 590, 170));
 
         jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -757,8 +757,8 @@ public class adminScreen extends javax.swing.JFrame {
         jComboBox4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         bitacorasGeneralHumo.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 150, 40));
 
-        jLabel6.setText("epp");
-        bitacorasGeneralHumo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
+        jLabel6.setText("humo");
+        bitacorasGeneralHumo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         bitacoras.add(bitacorasGeneralHumo, "card5");
 
@@ -1152,6 +1152,8 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void cambiarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarVentanaActionPerformed
         // TODO add your handling code here:
+        btnUsuarios.setSelected(false);
+        menuTerminales.setSelected(false);
         String seleccion = (String) cambiarVentana.getSelectedItem();
 
         // Ejecutar la acción personalizada en base a la selección
@@ -1305,9 +1307,9 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JLabel returnTxt;
     private com.login.ModernButton revocarTerminal;
     private javax.swing.JPanel tablaBitacoras;
-    private javax.swing.JPanel tablaBitacoras1;
     private javax.swing.JPanel tablaBitacoras2;
     private javax.swing.JPanel tablaBitacoras3;
+    private javax.swing.JPanel tablaBitacorasHumo;
     private javax.swing.JPanel tablaTerminales;
     private javax.swing.JTable tablaUsers;
     private javax.swing.JPanel tablaUsuarios;

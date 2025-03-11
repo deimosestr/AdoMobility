@@ -735,30 +735,31 @@ public class CDatosNOM {
 
         return idNorma;
     }
+
     public String obtenerNomTerminal(int idterm) {
-    String terminal = null; // Valor predeterminado para indicar que no se encontró un resultado
+        String terminal = null; // Valor predeterminado para indicar que no se encontró un resultado
 
-    // Usar try-with-resources para cerrar automáticamente los recursos
-    try (PreparedStatement pst = globalV.conectar.prepareStatement(
-             "SELECT nombre FROM terminales WHERE id_terminal = ? LIMIT 1;")) {
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (PreparedStatement pst = globalV.conectar.prepareStatement(
+                "SELECT nombre FROM terminales WHERE id_terminal = ? LIMIT 1;")) {
 
-        // Asignar el parámetro a la consulta
-        pst.setInt(1, idterm);
+            // Asignar el parámetro a la consulta
+            pst.setInt(1, idterm);
 
-        // Ejecutar la consulta y obtener el resultado
-        try (ResultSet rs = pst.executeQuery()) {
-            if (rs.next()) {
-                terminal = rs.getString("nombre");
+            // Ejecutar la consulta y obtener el resultado
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    terminal = rs.getString("nombre");
+                }
             }
+        } catch (SQLException e) {
+            // Manejar excepciones específicas de SQL
+            e.printStackTrace();
+            System.out.println("Error al obtener el nombre de la terminal: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        // Manejar excepciones específicas de SQL
-        e.printStackTrace();
-        System.out.println("Error al obtener el nombre de la terminal: " + e.getMessage());
-    }
 
-    return terminal; // Devuelve el nombre de la terminal o null si no se encontró
-}
+        return terminal; // Devuelve el nombre de la terminal o null si no se encontró
+    }
 
     public int obtenerIDUsuarioGeneral(JComboBox<String> listaUsuarios) {
         int idUsuario = -1; // Valor predeterminado para indicar que no se encontró un resultado
@@ -920,7 +921,7 @@ public class CDatosNOM {
             e.printStackTrace(); // Imprime cualquier error para depuración
             System.out.println("Error al obtener nombres de terminales: " + e.getMessage());
         } finally {
-             // Cerrar solo el PreparedStatement y el ResultSet
+            // Cerrar solo el PreparedStatement y el ResultSet
             try {
                 if (rs != null) {
                     rs.close();
@@ -3012,12 +3013,13 @@ public class CDatosNOM {
         paramTablaExtintoresG.setModel(modelo);
 
         String sql = "SELECT b.id_bitacora, b.fecha_revision, b.ubicacion, b.ultima_recarga, b.proxima_recarga, "
-                   + "b.capacidad, b.tipo_agente_extinguidor, b.manguera, b.manometro, b.soporte, b.presion, "
-                   + "b.cilindro, b.limpieza, b.senalizacion, b.etiqueta, b.seguro, b.obstruccion, b.observacion, "
-                   + "b.firmado, b.id_norma_fk, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
-                   + "FROM public.bitacora b "
-                   + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
-                   + "JOIN public.terminales t ON b.id_terminal_fk = t.id_terminal;";
+                + "b.capacidad, b.tipo_agente_extinguidor, b.manguera, b.manometro, b.soporte, b.presion, "
+                + "b.cilindro, b.limpieza, b.senalizacion, b.etiqueta, b.seguro, b.obstruccion, b.observacion, "
+                + "b.firmado, n.nombre_norma AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "FROM public.bitacora b "
+                + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                + "JOIN public.terminales t ON b.id_terminal_fk = t.id_terminal "
+                + "JOIN public.normas n ON b.id_norma_fk = n.id_norma;";
 
         Object[] datos = new Object[22]; // Cambiado a Object[] para permitir tanto String como Boolean
         PreparedStatement pst = null;
@@ -3026,7 +3028,6 @@ public class CDatosNOM {
             // Establecer conexión y preparar la consulta
             pst = globalV.conectar.prepareStatement(sql);
             //pst.setString(1, globalV.user); // Asignar el parámetro a la consulta
-            
 
             rs = pst.executeQuery();
 
@@ -3034,11 +3035,11 @@ public class CDatosNOM {
                 // Obtener datos de las columnas y convertir las booleanas
                 datos[0] = rs.getString(1); // ID usuario
                 datos[1] = convertirFecha(rs.getString(2));
-                datos[2] = rs.getString(3); 
-                datos[3] = rs.getString(4); 
-                datos[4] = rs.getString(5); 
-                datos[5] = rs.getString(6); 
-                datos[6] = rs.getString(7); 
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                datos[6] = rs.getString(7);
                 //booleanos
                 datos[7] = "t".equals(rs.getString(8));
                 datos[8] = "t".equals(rs.getString(9));
@@ -3050,12 +3051,12 @@ public class CDatosNOM {
                 datos[14] = "t".equals(rs.getString(15));
                 datos[15] = "t".equals(rs.getString(16));
                 datos[16] = "t".equals(rs.getString(17));
-                
+
                 datos[17] = rs.getString(18);
-                datos[18] = rs.getString(19);
+                datos[18] = "t".equals(rs.getString(19));
                 datos[19] = rs.getString(20);
-                datos[20] = rs.getString(21); 
-                datos[21] = rs.getString(22); 
+                datos[20] = rs.getString(21);
+                datos[21] = rs.getString(22);
 
                 modelo.addRow(datos);
             }
