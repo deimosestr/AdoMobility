@@ -4,6 +4,7 @@ import static com.login.globalV.conectar;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import java.util.List;
@@ -1299,6 +1300,8 @@ public class homeScreen extends javax.swing.JFrame {
                 ejemplo.ExtintorPDF(seleccion);
             } catch (IOException ex) {
                 Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -1310,6 +1313,8 @@ public class homeScreen extends javax.swing.JFrame {
                 try {
                     ejemplo.HumoPDF(seleccion);
                 } catch (IOException ex) {
+                    Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (URISyntaxException ex) {
                     Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
@@ -1324,6 +1329,8 @@ public class homeScreen extends javax.swing.JFrame {
                 try {
                     ejemplo.GasPDF(seleccion);
                 } catch (IOException ex) {
+                    Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (URISyntaxException ex) {
                     Logger.getLogger(homeScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
