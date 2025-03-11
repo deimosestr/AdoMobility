@@ -597,6 +597,8 @@ public class PDFExporter {
 
             div.setMarginLeft(265); // Ajusta este valor según sea necesario
 
+            div.setMarginTop(10);
+
             document.add(div); // ¡Este es el paso que faltaba!
 
             System.out.println("Segunda tabla agregada al documento.");
