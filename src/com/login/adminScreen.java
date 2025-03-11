@@ -26,6 +26,7 @@ public class adminScreen extends javax.swing.JFrame {
 
     public adminScreen() {
         initComponents();
+
         setSize(790, 500);
         setLocationRelativeTo(null);
         adminUsuario.setEditable(false);
@@ -44,7 +45,10 @@ public class adminScreen extends javax.swing.JFrame {
 
         bitacoras.add(usuarios, "usuarios");
         bitacoras.add(terminales, "terminales");
-        bitacoras.add(bitacorasGeneralExtintores, "bitacorasGeneral");
+        bitacoras.add(bitacorasGeneralExtintores, "bitaEXTINTOR");
+        bitacoras.add(bitacorasGeneralHumo, "bitaHUMO");
+        bitacoras.add(bitacorasGeneralGas, "bitaGAS");
+        bitacoras.add(bitacorasGeneralEpp, "bitaEPP");
 
         buttonsNormas btnUsuario = new buttonsNormas();
         buttonsNormas menuTerminales = new buttonsNormas();
@@ -281,7 +285,6 @@ public class adminScreen extends javax.swing.JFrame {
 
         cambiarVentana.setBackground(new java.awt.Color(255, 255, 255));
         cambiarVentana.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        cambiarVentana.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EXTINTORES", "HUMO", "GAS", "EPP" }));
         cambiarVentana.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 172, 204)), "BITACORAS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Black", 1, 14))); // NOI18N
         cambiarVentana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -750,6 +753,11 @@ public class adminScreen extends javax.swing.JFrame {
         jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
         bitacorasGeneralHumo.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
 
         jComboBox4.setBackground(new java.awt.Color(255, 255, 255));
@@ -883,6 +891,23 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         comboRegiones.setModel(modelo);
+
+        String[] razonesSociales = {
+            "EXTINTORES",
+            "HUMO",
+            "GAS",
+            "EPP",};
+
+        // Crear un modelo para el JComboBox con las razones sociales
+        DefaultComboBoxModel<String> modelo2 = new DefaultComboBoxModel<>(razonesSociales);
+
+        // Asignar el modelo al JComboBox
+        cambiarVentana.setModel(modelo2);
+
+        // Agregar un mensaje inicial (opcional)
+        cambiarVentana.insertItemAt("Seleccione una bitacora", 0); // Insertar el mensaje inicial en la posición 0
+        cambiarVentana.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
+
     }
 
     private void llenarComboBoxRoles(JComboBox<String> comboBoxRoles) {
@@ -990,8 +1015,14 @@ public class adminScreen extends javax.swing.JFrame {
         layout.show(bitacoras, "usuarios"); // Cambia a panel1
 
         btnUsuarios.setSelected(true);
-      //  menuRegiones.setSelected(false);
+        //  menuRegiones.setSelected(false);
         menuTerminales.setSelected(false);
+        
+                bitacorasGeneralExtintores.setVisible(false);
+
+        bitacorasGeneralHumo.setVisible(false);
+        bitacorasGeneralGas.setVisible(false);
+        bitacorasGeneralEpp.setVisible(false);
 
 
     }//GEN-LAST:event_btnUsuariosMouseClicked
@@ -1026,6 +1057,11 @@ public class adminScreen extends javax.swing.JFrame {
 
         btnUsuarios.setSelected(false);
         menuTerminales.setSelected(true);
+        bitacorasGeneralExtintores.setVisible(false);
+
+        bitacorasGeneralHumo.setVisible(false);
+        bitacorasGeneralGas.setVisible(false);
+        bitacorasGeneralEpp.setVisible(false);
         //menuRegiones.setSelected(false);
 
 
@@ -1152,10 +1188,49 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void cambiarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarVentanaActionPerformed
         // TODO add your handling code here:
+
+        btnUsuarios.setSelected(true);
+        //  menuRegiones.setSelected(false);
+        menuTerminales.setSelected(false);
+        
         String seleccion = (String) cambiarVentana.getSelectedItem();
 
+        if (seleccion == "EXTINTORES") {
+           /* bitacorasGeneralExtintores.setVisible(true);
+            bitacorasGeneralHumo.setVisible(false);
+            bitacorasGeneralGas.setVisible(false);
+            bitacorasGeneralEpp.setVisible(false);*/
+                    CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "bitaEXTINTOR");
+        }
+        if (seleccion == "HUMO") {
+            /*bitacorasGeneralExtintores.setVisible(false);
+            bitacorasGeneralHumo.setVisible(true);
+            bitacorasGeneralGas.setVisible(false);
+            bitacorasGeneralEpp.setVisible(false);*/
+            
+                                CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "bitaHUMO");
+        }
+        if (seleccion == "GAS") {
+            /*bitacorasGeneralExtintores.setVisible(false);
+            bitacorasGeneralHumo.setVisible(false);
+            bitacorasGeneralGas.setVisible(true);
+            bitacorasGeneralEpp.setVisible(false);*/
+             CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "bitaGAS");
+            
+        }
+        if (seleccion == "EPP") {
+            bitacorasGeneralExtintores.setVisible(false);
+            bitacorasGeneralHumo.setVisible(false);
+            bitacorasGeneralGas.setVisible(false);
+            bitacorasGeneralEpp.setVisible(true);
+             CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "bitaEPP");
+        }
         // Ejecutar la acción personalizada en base a la selección
-        switch (seleccion) {
+        /*switch (seleccion) {
             case "EXTINTORES":
                 bitacorasGeneralExtintores.setVisible(true);
                 bitacorasGeneralHumo.setVisible(false);
@@ -1191,8 +1266,12 @@ public class adminScreen extends javax.swing.JFrame {
             default:
                 System.out.println("Opción no válida");
                 break;
-        }
+        }*/
     }//GEN-LAST:event_cambiarVentanaActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
