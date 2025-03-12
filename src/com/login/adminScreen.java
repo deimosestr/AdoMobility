@@ -38,7 +38,10 @@ public class adminScreen extends javax.swing.JFrame {
         llenarComboBoxUsuariosDOWN(listaUsuarios);
         llenarComboBoxRegiones(comboboxRegionTerminales);
         llenarComboBoxFechas(listFechas);
+        llenarComboBoxUsuarios(listUsers);
         //llenarComboBoxHumo();
+        
+        
 
         //bitacoras.setVisible(false);
         obj.mostrarUsuarios(tablaUsers);
@@ -47,7 +50,9 @@ public class adminScreen extends javax.swing.JFrame {
         obj.mostrarBitacoraHumoGlobal(tableBItacorasHumoAdmin);
         obj.mostrarBitacoraInstalacionGasGlobal(tableBItacorasGasAdmin);
         obj.mostrarBitacoraEPPGlobal(tableBItacorasEPPAdmin);
-
+        
+        
+        
         bitacoras.add(usuarios, "usuarios");
         bitacoras.add(terminales, "terminales");
         bitacoras.add(bitacorasGeneralExtintores, "bitaEXTINTOR");
@@ -160,6 +165,7 @@ public class adminScreen extends javax.swing.JFrame {
         tableBItacorasAdmin = new javax.swing.JTable();
         listUsers = new javax.swing.JComboBox<>();
         listFechas = new javax.swing.JComboBox<>();
+        btnBuscar = new com.login.ModernButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -823,20 +829,32 @@ public class adminScreen extends javax.swing.JFrame {
         );
         tablaBitacorasLayout.setVerticalGroup(
             tablaBitacorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
 
-        bitacorasGeneralExtintores.add(tablaBitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 590, 170));
+        bitacorasGeneralExtintores.add(tablaBitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 590, 350));
 
         listUsers.setBackground(new java.awt.Color(255, 255, 255));
-        listUsers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        listUsers.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        bitacorasGeneralExtintores.add(listUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
+        listUsers.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralExtintores.add(listUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 150, 40));
 
         listFechas.setBackground(new java.awt.Color(255, 255, 255));
         listFechas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         listFechas.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        bitacorasGeneralExtintores.add(listFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 150, 40));
+        listFechas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listFechasActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralExtintores.add(listFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 150, 40));
+
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralExtintores.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
 
         bitacoras.add(bitacorasGeneralExtintores, "card5");
 
@@ -901,7 +919,9 @@ public class adminScreen extends javax.swing.JFrame {
         // Asignar el modelo al JComboBox
         listaUsuarios.setModel(modelo);
     }*/
-    private void llenarComboBoxFechas(JComboBox<String> listFechas) {
+    
+    
+    public void llenarComboBoxFechas(JComboBox<String> listFechas) {
         // Obtener la lista de fechas únicas
         List<String> fechas = obj.obtenerFechasUnicas(); // Aquí llamas al método que obtiene las fechas
 
@@ -911,6 +931,16 @@ public class adminScreen extends javax.swing.JFrame {
         // Asignar el modelo al JComboBox
         listFechas.setModel(modelo);
     }
+    public void llenarComboBoxUsuarios(JComboBox<String> comboBoxUsuarios) {
+    // Obtener la lista de nombres de usuarios relacionados con bitácoras
+    List<String> nombresUsuarios = obj.obtenerNombresUsuariosBitacoras(); // Aquí llamas al método que obtiene los nombres
+
+    // Crear un modelo para el JComboBox con los valores
+    DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(nombresUsuarios.toArray(new String[0]));
+
+    // Asignar el modelo al JComboBox
+    listUsers.setModel(modelo);
+}
 
     private void llenarComboBoxRegiones(JComboBox<String> comboBoxRegiones) {
         // Obtener la lista de nombres de roles
@@ -1261,6 +1291,18 @@ public class adminScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        // mostrarExtintorespersonalizado(tableBitacorasAdmin);7
+
+       
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void listFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listFechasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listFechasActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1308,6 +1350,7 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JPanel bitacorasGeneralExtintores;
     private javax.swing.JPanel bitacorasGeneralGas;
     private javax.swing.JPanel bitacorasGeneralHumo;
+    private com.login.ModernButton btnBuscar;
     private com.login.buttonsNormas btnUsuarios;
     private javax.swing.JComboBox<String> cambiarVentana;
     private javax.swing.JCheckBox checkActivo;

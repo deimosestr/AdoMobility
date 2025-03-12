@@ -3008,6 +3008,33 @@ public class CDatosNOM {
             JOptionPane.showMessageDialog(null, "Error" + e.toString());
         }
     }
+    
+    public List<String> obtenerNombresUsuariosBitacoras() {
+    List<String> nombresUsuarios = new ArrayList<>();
+
+    // Usar try-with-resources para cerrar automáticamente los recursos
+    try (PreparedStatement pst = globalV.conectar.prepareStatement(
+             "SELECT DISTINCT u.nombre " + // DISTINCT para evitar duplicados
+             "FROM public.bitacora b " +
+             "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios " + // Relación entre bitácoras y usuarios
+             "ORDER BY u.nombre;")) { // Ordenar por nombre
+
+        // Ejecutar la consulta y obtener los resultados
+        try (ResultSet rs = pst.executeQuery()) {
+            // Recorrer los resultados y añadirlos a la lista
+            while (rs.next()) {
+                String nombreUsuario = rs.getString("nombre");
+                nombresUsuarios.add(nombreUsuario);
+            }
+        }
+    } catch (SQLException e) {
+        // Manejar excepciones específicas de SQL
+        e.printStackTrace();
+        System.out.println("Error al cargar los nombres de usuarios: " + e.getMessage());
+    }
+
+    return nombresUsuarios;
+}
 
     public void mostrarExtintoresGlobal(JTable paramTablaExtintoresG) {
         DefaultTableModel modelo = new DefaultTableModel();
