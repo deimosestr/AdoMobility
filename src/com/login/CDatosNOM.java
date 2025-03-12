@@ -651,33 +651,32 @@ public class CDatosNOM {
     
     
 
-public List<String> obtenerFechasUnicas() {
-    List<String> fechas = new ArrayList<>();
+    public List<String> obtenerFechasUnicas() {
+        List<String> fechas = new ArrayList<>();
 
-    // Usar try-with-resources para cerrar automáticamente los recursos
-    try (PreparedStatement pst = globalV.conectar.prepareStatement(
-             "SELECT TO_CHAR(fecha_revision, 'YYYY-MM') AS mes_anio " +
-             "FROM public.bitacora " +
-             "WHERE fecha_revision IS NOT NULL " +
-             "GROUP BY TO_CHAR(fecha_revision, 'YYYY-MM') " +
-             "ORDER BY MIN(fecha_revision);")) {
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (PreparedStatement pst = globalV.conectar.prepareStatement(
+                "SELECT TO_CHAR(fecha_revision, 'YYYY-MM') AS mes_anio "
+                + "FROM public.bitacora "
+                + "WHERE fecha_revision IS NOT NULL "
+                + "GROUP BY TO_CHAR(fecha_revision, 'YYYY-MM') "
+                + "ORDER BY MIN(fecha_revision);")) {
 
-        // Ejecutar la consulta y obtener los resultados
-        try (ResultSet rs = pst.executeQuery()) {
-            // Recorrer los resultados y añadirlos a la lista
-            while (rs.next()) {
-                String mesAnio = rs.getString("mes_anio");
-                fechas.add(mesAnio);
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet rs = pst.executeQuery()) {
+                // Recorrer los resultados y añadirlos a la lista
+                while (rs.next()) {
+                    String mesAnio = rs.getString("mes_anio");
+                    fechas.add(mesAnio);
+                }
             }
+        } catch (SQLException e) {
+            // Manejar excepciones específicas de SQL
+            e.printStackTrace();
+            System.out.println("Error al cargar las fechas: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        // Manejar excepciones específicas de SQL
-        e.printStackTrace();
-        System.out.println("Error al cargar las fechas: " + e.getMessage());
+        return fechas;
     }
-
-    return fechas;
-}
     
     public static String convertirFecha(String fecha) {
         if (fecha == null || fecha.isEmpty()) {
