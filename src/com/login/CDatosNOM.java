@@ -647,9 +647,6 @@ public class CDatosNOM {
     public void setIdTerminal(int idTerminal) {
         this.idTerminal = idTerminal;
     }
-    
-    
-    
 
     public List<String> obtenerFechasUnicasExtintores() {
         List<String> fechas = new ArrayList<>();
@@ -658,6 +655,118 @@ public class CDatosNOM {
         try (PreparedStatement pst = globalV.conectar.prepareStatement(
                 "SELECT TO_CHAR(fecha_revision, 'YYYY-MM') AS mes_anio "
                 + "FROM public.bitacora "
+                + "WHERE fecha_revision IS NOT NULL "
+                + "GROUP BY TO_CHAR(fecha_revision, 'YYYY-MM') "
+                + "ORDER BY MIN(fecha_revision);")) {
+
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet rs = pst.executeQuery()) {
+                // Recorrer los resultados y añadirlos a la lista
+                while (rs.next()) {
+                    String mesAnio = rs.getString("mes_anio");
+                    fechas.add(mesAnio);
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar excepciones específicas de SQL
+            e.printStackTrace();
+            System.out.println("Error al cargar las fechas: " + e.getMessage());
+        }
+        return fechas;
+    }
+
+    public List<String> obtenerNombresUsuariosBitacorasGas() {
+        List<String> nombresUsuarios = new ArrayList<>();
+
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (PreparedStatement pst = globalV.conectar.prepareStatement(
+                "SELECT DISTINCT u.nombre "
+                + // DISTINCT para evitar duplicados
+                "FROM public.bitacora_instalacion_de_gas b "
+                + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                + // Relación entre bitácoras y usuarios
+                "ORDER BY u.nombre;")) { // Ordenar por nombre
+
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet rs = pst.executeQuery()) {
+                // Recorrer los resultados y añadirlos a la lista
+                while (rs.next()) {
+                    String nombreUsuario = rs.getString("nombre");
+                    nombresUsuarios.add(nombreUsuario);
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar excepciones específicas de SQL
+            e.printStackTrace();
+            System.out.println("Error al cargar los nombres de usuarios: " + e.getMessage());
+        }
+
+        return nombresUsuarios;
+    }
+
+    public List<String> obtenerFechasUnicasGas() {
+        List<String> fechas = new ArrayList<>();
+
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (PreparedStatement pst = globalV.conectar.prepareStatement(
+                "SELECT TO_CHAR(fecha_revision, 'YYYY-MM') AS mes_anio "
+                + "FROM public.bitacora_instalacion_de_gas "
+                + "WHERE fecha_revision IS NOT NULL "
+                + "GROUP BY TO_CHAR(fecha_revision, 'YYYY-MM') "
+                + "ORDER BY MIN(fecha_revision);")) {
+
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet rs = pst.executeQuery()) {
+                // Recorrer los resultados y añadirlos a la lista
+                while (rs.next()) {
+                    String mesAnio = rs.getString("mes_anio");
+                    fechas.add(mesAnio);
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar excepciones específicas de SQL
+            e.printStackTrace();
+            System.out.println("Error al cargar las fechas: " + e.getMessage());
+        }
+        return fechas;
+    }
+
+    public List<String> obtenerNombresUsuariosBitacorasEPP() {
+        List<String> nombresUsuarios = new ArrayList<>();
+
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (PreparedStatement pst = globalV.conectar.prepareStatement(
+                "SELECT DISTINCT u.nombre "
+                + // DISTINCT para evitar duplicados
+                "FROM public.bitacora_epp b "
+                + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                + // Relación entre bitácoras y usuarios
+                "ORDER BY u.nombre;")) { // Ordenar por nombre
+
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet rs = pst.executeQuery()) {
+                // Recorrer los resultados y añadirlos a la lista
+                while (rs.next()) {
+                    String nombreUsuario = rs.getString("nombre");
+                    nombresUsuarios.add(nombreUsuario);
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar excepciones específicas de SQL
+            e.printStackTrace();
+            System.out.println("Error al cargar los nombres de usuarios: " + e.getMessage());
+        }
+
+        return nombresUsuarios;
+    }
+
+    public List<String> obtenerFechasUnicasEPP() {
+        List<String> fechas = new ArrayList<>();
+
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (PreparedStatement pst = globalV.conectar.prepareStatement(
+                "SELECT TO_CHAR(fecha_revision, 'YYYY-MM') AS mes_anio "
+                + "FROM public.bitacora_epp "
                 + "WHERE fecha_revision IS NOT NULL "
                 + "GROUP BY TO_CHAR(fecha_revision, 'YYYY-MM') "
                 + "ORDER BY MIN(fecha_revision);")) {
@@ -3034,30 +3143,32 @@ public class CDatosNOM {
             JOptionPane.showMessageDialog(null, "Error" + e.toString());
         }
     }
-    
+
     public List<String> obtenerNombresUsuariosBitacoras() {
-    List<String> nombresUsuarios = new ArrayList<>();
+        List<String> nombresUsuarios = new ArrayList<>();
 
-    // Usar try-with-resources para cerrar automáticamente los recursos
-    try (PreparedStatement pst = globalV.conectar.prepareStatement(
-             "SELECT DISTINCT u.nombre " + // DISTINCT para evitar duplicados
-             "FROM public.bitacora b " +
-             "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios " + // Relación entre bitácoras y usuarios
-             "ORDER BY u.nombre;")) { // Ordenar por nombre
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (PreparedStatement pst = globalV.conectar.prepareStatement(
+                "SELECT DISTINCT u.nombre "
+                + // DISTINCT para evitar duplicados
+                "FROM public.bitacora b "
+                + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                + // Relación entre bitácoras y usuarios
+                "ORDER BY u.nombre;")) { // Ordenar por nombre
 
-        // Ejecutar la consulta y obtener los resultados
-        try (ResultSet rs = pst.executeQuery()) {
-            // Recorrer los resultados y añadirlos a la lista
-            while (rs.next()) {
-                String nombreUsuario = rs.getString("nombre");
-                nombresUsuarios.add(nombreUsuario);
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet rs = pst.executeQuery()) {
+                // Recorrer los resultados y añadirlos a la lista
+                while (rs.next()) {
+                    String nombreUsuario = rs.getString("nombre");
+                    nombresUsuarios.add(nombreUsuario);
+                }
             }
+        } catch (SQLException e) {
+            // Manejar excepciones específicas de SQL
+            e.printStackTrace();
+            System.out.println("Error al cargar los nombres de usuarios: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        // Manejar excepciones específicas de SQL
-        e.printStackTrace();
-        System.out.println("Error al cargar los nombres de usuarios: " + e.getMessage());
-    }
 
     return nombresUsuarios;
 }
@@ -3395,6 +3506,193 @@ public class CDatosNOM {
         try {
             // Establecer conexión y preparar la consulta
             pst = globalV.conectar.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas
+                datos[0] = rs.getString("id_bitacora");
+                datos[1] = convertirFecha(rs.getString("fecha_revision"));
+                datos[2] = rs.getString("nombre");
+                datos[3] = rs.getString("area");
+                datos[4] = rs.getString("puesto");
+                datos[5] = "t".equals(rs.getString("casco"));
+                datos[6] = "t".equals(rs.getString("lentes_de_seguridad"));
+                datos[7] = "t".equals(rs.getString("botas_de_seguridad"));
+                datos[8] = "t".equals(rs.getString("tapones_auditivos"));
+                datos[9] = "t".equals(rs.getString("guantes"));
+                datos[10] = "t".equals(rs.getString("careta_soldar"));
+                datos[11] = "t".equals(rs.getString("careta_esmerilar"));
+                datos[12] = "t".equals(rs.getString("mascarilla"));
+                datos[13] = "t".equals(rs.getString("faja"));
+                datos[14] = "t".equals(rs.getString("arnes"));
+                datos[15] = "t".equals(rs.getString("uniforme"));
+                datos[16] = "t".equals(rs.getString("firmado"));
+                datos[17] = rs.getString("nombre_norma");
+                datos[18] = rs.getString("nombre_usuario");
+                datos[19] = rs.getString("nombre_terminal");
+
+                modelo.addRow(datos);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+    }
+
+    //FILTRADO
+    public void filtroBitacoraGas(JTable paramTablaBitacoraGasG, String fechaSeleccionada, String usuarioSeleccionado) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaBitacoraGasG.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Bitácora");
+        modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre Empresa");
+        modelo.addColumn("C. Buena");
+        modelo.addColumn("C. Regular");
+        modelo.addColumn("C. Mala");
+        modelo.addColumn("Observaciones Soportes");
+        modelo.addColumn("Capacidad");
+        modelo.addColumn("Fecha Fabricación");
+        modelo.addColumn("Capacidad Reg.");
+        modelo.addColumn("Observaciones Gen. Revisor");
+        modelo.addColumn("Marca");
+        modelo.addColumn("Serie");
+        modelo.addColumn("Diámetro");
+        modelo.addColumn("Espesor");
+        modelo.addColumn("Nombre Norma");
+        modelo.addColumn("Nombre Usuario");
+        modelo.addColumn("Nombre Terminal");
+
+        paramTablaBitacoraGasG.setModel(modelo);
+
+        // Query SQL con parámetros para fecha y usuario
+        String sql = "SELECT bi.id_bitacora, bi.fecha_revision, bi.nombre_empresa, bi.c_buena, bi.c_regular, bi.c_mala, "
+                + "bi.observaciones_soportes, bi.capacidad, bi.fecha_fabricacion, bi.capacidad_reg, "
+                + "bi.observaciones_gen_revisor, bi.marca, bi.serie, bi.diametro, bi.espesor, "
+                + "n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "FROM public.bitacora_instalacion_de_gas bi "
+                + "JOIN public.normas n ON bi.id_norma_fk = n.id_norma "
+                + "JOIN public.usuarios u ON bi.id_usuario_fk = u.id_usuarios "
+                + "JOIN public.terminales t ON bi.id_terminal_fk = t.id_terminal "
+                + "WHERE TO_CHAR(bi.fecha_revision, 'YYYY-MM') = ? " // Filtro por año y mes
+                + "AND u.nombre = ?;";  // Filtro por nombre de usuario
+
+        Object[] datos = new Object[18]; // Ajustado al número de columnas
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            pst.setString(1, fechaSeleccionada);  // Asignar el valor de la fecha seleccionada
+            pst.setString(2, usuarioSeleccionado);  // Asignar el valor del usuario seleccionado
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas
+                datos[0] = rs.getString("id_bitacora");
+                datos[1] = convertirFecha(rs.getString("fecha_revision"));
+                datos[2] = rs.getString("nombre_empresa");
+                datos[3] = "t".equals(rs.getString("c_buena"));
+                datos[4] = "t".equals(rs.getString("c_regular"));
+                datos[5] = "t".equals(rs.getString("c_mala"));
+                datos[6] = rs.getString("observaciones_soportes");
+                datos[7] = rs.getString("capacidad");
+                datos[8] = rs.getString("fecha_fabricacion");
+                datos[9] = rs.getString("capacidad_reg");
+                datos[10] = rs.getString("observaciones_gen_revisor");
+                datos[11] = rs.getString("marca");
+                datos[12] = rs.getString("serie");
+                datos[13] = rs.getString("diametro");
+                datos[14] = rs.getString("espesor");
+                datos[15] = rs.getString("nombre_norma");
+                datos[16] = rs.getString("nombre_usuario"); // Asegúrate de que esta columna exista en el ResultSet
+                datos[17] = rs.getString("nombre_terminal"); // Asegúrate de que esta columna exista en el ResultSet
+
+                modelo.addRow(datos);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+    }
+
+    public void filtroBitacoraEPP(JTable paramTablaEPPG, String fechaSeleccionada, String usuarioSeleccionado) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaEPPG.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Bitácora");
+        modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Área");
+        modelo.addColumn("Puesto");
+        modelo.addColumn("Casco");
+        modelo.addColumn("Lentes de Seguridad");
+        modelo.addColumn("Botas de Seguridad");
+        modelo.addColumn("Tapones Auditivos");
+        modelo.addColumn("Guantes");
+        modelo.addColumn("Careta de Soldar");
+        modelo.addColumn("Careta de Esmerilar");
+        modelo.addColumn("Mascarilla");
+        modelo.addColumn("Faja");
+        modelo.addColumn("Arnes");
+        modelo.addColumn("Uniforme");
+        modelo.addColumn("Firmado");
+        modelo.addColumn("Nombre Norma");
+        modelo.addColumn("Nombre Usuario");
+        modelo.addColumn("Nombre Terminal");
+
+        paramTablaEPPG.setModel(modelo);
+
+        // Query SQL con filtros
+        String sql = "SELECT be.id_bitacora, be.fecha_revision, be.nombre, be.area, be.puesto, be.casco, "
+                + "be.lentes_de_seguridad, be.botas_de_seguridad, be.tapones_auditivos, be.guantes, "
+                + "be.careta_soldar, be.careta_esmerilar, be.mascarilla, be.faja, be.arnes, be.uniforme, "
+                + "be.firmado, n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "FROM public.bitacora_epp be "
+                + "JOIN public.normas n ON be.id_norma_fk = n.id_norma "
+                + "JOIN public.usuarios u ON be.id_usuario_fk = u.id_usuarios "
+                + "JOIN public.terminales t ON be.id_terminal_fk = t.id_terminal "
+                + "WHERE TO_CHAR(be.fecha_revision, 'YYYY-MM') = ? " // Filtro por año y mes
+                + "AND u.nombre = ?;";  // Filtro por nombre de usuario
+
+        Object[] datos = new Object[20]; // Ajustado al número de columnas
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            pst.setString(1, fechaSeleccionada);  // Asignar el valor de la fecha seleccionada
+            pst.setString(2, usuarioSeleccionado);  // Asignar el valor del usuario seleccionado
+
             rs = pst.executeQuery();
 
             while (rs.next()) {

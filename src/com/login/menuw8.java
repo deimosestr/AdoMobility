@@ -1,7 +1,6 @@
 package com.login;
 
 import static com.login.globalV.conectar;
-import com.video.FrameReproductor;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
@@ -267,9 +266,9 @@ public class menuw8 extends javax.swing.JFrame {
     }//GEN-LAST:event_organizacionMouseClicked
 
     private void capacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacitacionActionPerformed
-        FrameReproductor obj = new FrameReproductor();
+        /*  FrameReproductor obj = new FrameReproductor();
         obj.setVisible(true);
-        this.dispose();
+        this.dispose();*/
     }//GEN-LAST:event_capacitacionActionPerformed
 
     private void acercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaActionPerformed
