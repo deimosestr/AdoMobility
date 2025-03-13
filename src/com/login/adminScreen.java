@@ -3,21 +3,12 @@ package com.login;
 import com.login.TConexion;
 import static com.login.globalV.conectar;
 import java.awt.CardLayout;
-import java.sql.Connection;
 import java.awt.Color;
-import java.io.IOException;
-//import java.awt.List;
-import javax.crypto.AEADBadTagException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import java.util.List;
-import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JComboBox;
-//import static javafx.scene.paint.Color.color;
 
 public class adminScreen extends javax.swing.JFrame {
 
@@ -38,7 +29,11 @@ public class adminScreen extends javax.swing.JFrame {
         llenarComboBoxUsuariosDOWN(listaUsuarios);
         llenarComboBoxRegiones(comboboxRegionTerminales);
         llenarComboBoxFechas(listFechas);
+                llenarComboBoxFechasHumo(listFechasHumo);
+
         llenarComboBoxUsuarios(listUsers);
+        
+        llenarComboBoxUsuariosHumo(listUsersHumo);
         //llenarComboBoxHumo();
         
         
@@ -147,18 +142,18 @@ public class adminScreen extends javax.swing.JFrame {
         tablaBitacoras2 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tableBItacorasGasAdmin = new javax.swing.JTable();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        listUsersGas = new javax.swing.JComboBox<>();
+        listFechasGas = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        modernButton3 = new com.login.ModernButton();
-        modernButton4 = new com.login.ModernButton();
+        btnBuscarGas = new com.login.ModernButton();
         bitacorasGeneralHumo = new javax.swing.JPanel();
         tablaBitacorasHumo = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tableBItacorasHumoAdmin = new javax.swing.JTable();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        listUsersHumo = new javax.swing.JComboBox<>();
+        listFechasHumo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
+        btnBuscarHumo = new com.login.ModernButton();
         bitacorasGeneralExtintores = new javax.swing.JPanel();
         tablaBitacoras = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -714,27 +709,28 @@ public class adminScreen extends javax.swing.JFrame {
 
         bitacorasGeneralGas.add(tablaBitacoras2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 590, 290));
 
-        jComboBox5.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        bitacorasGeneralGas.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 150, 40));
+        listUsersGas.setBackground(new java.awt.Color(255, 255, 255));
+        listUsersGas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listUsersGas.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralGas.add(listUsersGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 150, 40));
 
-        jComboBox6.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        bitacorasGeneralGas.add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 150, 40));
+        listFechasGas.setBackground(new java.awt.Color(255, 255, 255));
+        listFechasGas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listFechasGas.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralGas.add(listFechasGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 150, 40));
 
         jLabel7.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel7.setText("FILTRAR POR:");
         bitacorasGeneralGas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        modernButton3.setText("APLICAR FILTRO");
-        modernButton3.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
-        bitacorasGeneralGas.add(modernButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, -1, -1));
-
-        modernButton4.setText("APLICAR FILTRO");
-        modernButton4.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
-        bitacorasGeneralGas.add(modernButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, -1, -1));
+        btnBuscarGas.setText("APLICAR FILTRO");
+        btnBuscarGas.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
+        btnBuscarGas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarGasActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralGas.add(btnBuscarGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, -1, -1));
 
         bitacoras.add(bitacorasGeneralGas, "card5");
 
@@ -771,28 +767,36 @@ public class adminScreen extends javax.swing.JFrame {
         );
         tablaBitacorasHumoLayout.setVerticalGroup(
             tablaBitacorasHumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
         );
 
-        bitacorasGeneralHumo.add(tablaBitacorasHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 590, 170));
+        bitacorasGeneralHumo.add(tablaBitacorasHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 590, 330));
 
-        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        listUsersHumo.setBackground(new java.awt.Color(255, 255, 255));
+        listUsersHumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listUsersHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        listUsersHumo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                listUsersHumoActionPerformed(evt);
             }
         });
-        bitacorasGeneralHumo.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
+        bitacorasGeneralHumo.add(listUsersHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
 
-        jComboBox4.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        bitacorasGeneralHumo.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 150, 40));
+        listFechasHumo.setBackground(new java.awt.Color(255, 255, 255));
+        listFechasHumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listFechasHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        bitacorasGeneralHumo.add(listFechasHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 150, 40));
 
         jLabel6.setText("humo");
         bitacorasGeneralHumo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        btnBuscarHumo.setText("buscar");
+        btnBuscarHumo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarHumoActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralHumo.add(btnBuscarHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, -1, -1));
 
         bitacoras.add(bitacorasGeneralHumo, "card5");
 
@@ -923,13 +927,23 @@ public class adminScreen extends javax.swing.JFrame {
     
     public void llenarComboBoxFechas(JComboBox<String> listFechas) {
         // Obtener la lista de fechas únicas
-        List<String> fechas = obj.obtenerFechasUnicas(); // Aquí llamas al método que obtiene las fechas
+        List<String> fechas = obj.obtenerFechasUnicasExtintores(); // Aquí llamas al método que obtiene las fechas
 
         // Crear un modelo para el JComboBox con los valores
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(fechas.toArray(new String[0]));
 
         // Asignar el modelo al JComboBox
         listFechas.setModel(modelo);
+    }
+        public void llenarComboBoxFechasHumo(JComboBox<String> listFechas) {
+        // Obtener la lista de fechas únicas
+        List<String> fechas = obj.obtenerFechasUnicasHumo(); // Aquí llamas al método que obtiene las fechas
+
+        // Crear un modelo para el JComboBox con los valores
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(fechas.toArray(new String[0]));
+
+        // Asignar el modelo al JComboBox
+        listFechasHumo.setModel(modelo);
     }
     public void llenarComboBoxUsuarios(JComboBox<String> comboBoxUsuarios) {
     // Obtener la lista de nombres de usuarios relacionados con bitácoras
@@ -942,6 +956,16 @@ public class adminScreen extends javax.swing.JFrame {
     listUsers.setModel(modelo);
 }
 
+        public void llenarComboBoxUsuariosHumo(JComboBox<String> comboBoxUsuarios) {
+    // Obtener la lista de nombres de usuarios relacionados con bitácoras
+    List<String> nombresUsuarios = obj.obtenerNombresUsuariosBitacorasHumo(); // Aquí llamas al método que obtiene los nombres
+
+    // Crear un modelo para el JComboBox con los valores
+    DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(nombresUsuarios.toArray(new String[0]));
+
+    // Asignar el modelo al JComboBox
+    listUsersHumo.setModel(modelo);
+}
     private void llenarComboBoxRegiones(JComboBox<String> comboBoxRegiones) {
         // Obtener la lista de nombres de roles
         List<String> nombresRegiones = obj.obtenerNombreRegiones();
@@ -1287,14 +1311,21 @@ public class adminScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cambiarVentanaActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void listUsersHumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listUsersHumoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_listUsersHumoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+// Obtener los valores seleccionados de los combos
+// Obtener los valores seleccionados de los combos
+String fechaSeleccionada = (String) listFechas.getSelectedItem(); // "1999-02"
+String usuarioSeleccionado = (String) listUsers.getSelectedItem(); // "alan cruz garcia"
 
-        // mostrarExtintorespersonalizado(tableBitacorasAdmin);7
+// Crear una instancia de CDatosNOM
+CDatosNOM datosNOM = new CDatosNOM();
 
+// Llamar al método para mostrar los resultados en la tabla
+datosNOM.mostrarBitacoraExtintoresPersonalizado(tableBItacorasAdmin, fechaSeleccionada, usuarioSeleccionado);
        
 
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -1302,6 +1333,22 @@ public class adminScreen extends javax.swing.JFrame {
     private void listFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listFechasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_listFechasActionPerformed
+
+    private void btnBuscarGasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarGasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarGasActionPerformed
+
+    private void btnBuscarHumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarHumoActionPerformed
+// Obtener los valores seleccionados de los combos
+String fechaSeleccionada = (String) listFechasHumo.getSelectedItem(); // "1999-02"
+String usuarioSeleccionado = (String) listUsersHumo.getSelectedItem(); // "alan cruz garcia"
+
+// Crear una instancia de CDatosNOM
+CDatosNOM datosNOM = new CDatosNOM();
+
+// Llamar al método para mostrar los resultados en la tabla
+datosNOM.mostrarBitacoraHumoPersonalizado(tableBItacorasHumoAdmin, fechaSeleccionada, usuarioSeleccionado);
+      }//GEN-LAST:event_btnBuscarHumoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1351,6 +1398,8 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JPanel bitacorasGeneralGas;
     private javax.swing.JPanel bitacorasGeneralHumo;
     private com.login.ModernButton btnBuscar;
+    private com.login.ModernButton btnBuscarGas;
+    private com.login.ModernButton btnBuscarHumo;
     private com.login.buttonsNormas btnUsuarios;
     private javax.swing.JComboBox<String> cambiarVentana;
     private javax.swing.JCheckBox checkActivo;
@@ -1364,10 +1413,6 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JTextField idRegionAdmin;
     private javax.swing.JTextField idTerminalAdmin;
     private com.login.ModernButton insertarUser;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JLabel jLabel1;
@@ -1400,7 +1445,11 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JLabel labelPuestoEPP;
     private javax.swing.JLabel labelPuestoEPP1;
     private javax.swing.JComboBox<String> listFechas;
+    private javax.swing.JComboBox<String> listFechasGas;
+    private javax.swing.JComboBox<String> listFechasHumo;
     private javax.swing.JComboBox<String> listUsers;
+    private javax.swing.JComboBox<String> listUsersGas;
+    private javax.swing.JComboBox<String> listUsersHumo;
     private javax.swing.JComboBox<String> listaUsuarios;
     private javax.swing.JComboBox<String> listaUsuarios1;
     private javax.swing.JLabel logoDerecha;
@@ -1410,8 +1459,6 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JLabel menuUsuario1;
     private com.login.ModernButton modernButton1;
     private com.login.ModernButton modernButton2;
-    private com.login.ModernButton modernButton3;
-    private com.login.ModernButton modernButton4;
     private javax.swing.JTextField nombreRegionAdmin;
     private javax.swing.JTextField nombreTerminalAdmin;
     private javax.swing.JPanel returnPanel;

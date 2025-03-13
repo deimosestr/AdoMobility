@@ -651,13 +651,39 @@ public class CDatosNOM {
     
     
 
-    public List<String> obtenerFechasUnicas() {
+    public List<String> obtenerFechasUnicasExtintores() {
         List<String> fechas = new ArrayList<>();
 
         // Usar try-with-resources para cerrar automáticamente los recursos
         try (PreparedStatement pst = globalV.conectar.prepareStatement(
                 "SELECT TO_CHAR(fecha_revision, 'YYYY-MM') AS mes_anio "
                 + "FROM public.bitacora "
+                + "WHERE fecha_revision IS NOT NULL "
+                + "GROUP BY TO_CHAR(fecha_revision, 'YYYY-MM') "
+                + "ORDER BY MIN(fecha_revision);")) {
+
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet rs = pst.executeQuery()) {
+                // Recorrer los resultados y añadirlos a la lista
+                while (rs.next()) {
+                    String mesAnio = rs.getString("mes_anio");
+                    fechas.add(mesAnio);
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar excepciones específicas de SQL
+            e.printStackTrace();
+            System.out.println("Error al cargar las fechas: " + e.getMessage());
+        }
+        return fechas;
+    }
+    public List<String> obtenerFechasUnicasHumo() {
+        List<String> fechas = new ArrayList<>();
+
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (PreparedStatement pst = globalV.conectar.prepareStatement(
+                "SELECT TO_CHAR(fecha_revision, 'YYYY-MM') AS mes_anio "
+                + "FROM public.bitacora_humo "
                 + "WHERE fecha_revision IS NOT NULL "
                 + "GROUP BY TO_CHAR(fecha_revision, 'YYYY-MM') "
                 + "ORDER BY MIN(fecha_revision);")) {
@@ -3035,6 +3061,32 @@ public class CDatosNOM {
 
     return nombresUsuarios;
 }
+        public List<String> obtenerNombresUsuariosBitacorasHumo() {
+    List<String> nombresUsuarios = new ArrayList<>();
+
+    // Usar try-with-resources para cerrar automáticamente los recursos
+    try (PreparedStatement pst = globalV.conectar.prepareStatement(
+             "SELECT DISTINCT u.nombre " + // DISTINCT para evitar duplicados
+             "FROM public.bitacora_humo b " +
+             "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios " + // Relación entre bitácoras y usuarios
+             "ORDER BY u.nombre;")) { // Ordenar por nombre
+
+        // Ejecutar la consulta y obtener los resultados
+        try (ResultSet rs = pst.executeQuery()) {
+            // Recorrer los resultados y añadirlos a la lista
+            while (rs.next()) {
+                String nombreUsuario = rs.getString("nombre");
+                nombresUsuarios.add(nombreUsuario);
+            }
+        }
+    } catch (SQLException e) {
+        // Manejar excepciones específicas de SQL
+        e.printStackTrace();
+        System.out.println("Error al cargar los nombres de usuarios: " + e.getMessage());
+    }
+
+    return nombresUsuarios;
+}
 
     public void mostrarExtintoresGlobal(JTable paramTablaExtintoresG) {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -3433,4 +3485,206 @@ public class CDatosNOM {
             }
         }
     }*/
+    
+
+    public void mostrarBitacoraExtintoresPersonalizado(JTable tableBitacorasAdmin, String fechaSeleccionada, String usuarioSeleccionado) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        tableBitacorasAdmin.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Bitacora");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Ubicacion");
+        modelo.addColumn("Ultima Recarga");
+        modelo.addColumn("Proxima Recarga");
+        modelo.addColumn("Capacidad");
+        modelo.addColumn("Tipo Agente Extinguidor");
+        modelo.addColumn("Manguera");
+        modelo.addColumn("Manometro");
+        modelo.addColumn("Soporte");
+        modelo.addColumn("Presion");
+        modelo.addColumn("Cilindro");
+        modelo.addColumn("Limpieza");
+        modelo.addColumn("Señalizacion");
+        modelo.addColumn("Etiqueta");
+        modelo.addColumn("Seguro");
+        modelo.addColumn("Obstruccion");
+        modelo.addColumn("Observacion");
+        modelo.addColumn("Firmado");
+        modelo.addColumn("ID Norma");
+        modelo.addColumn("ID Usuario");
+        modelo.addColumn("ID Terminal");
+
+        tableBitacorasAdmin.setModel(modelo);
+
+        // Separar el año y el mes de la fecha
+        String[] partesFecha = fechaSeleccionada.split("-");
+        int año = Integer.parseInt(partesFecha[0]); // Año
+        int mes = Integer.parseInt(partesFecha[1]); // Mes
+
+        // Consulta SQL con filtros
+        String sql = "SELECT b.id_bitacora, b.fecha_revision, b.ubicacion, b.ultima_recarga, b.proxima_recarga, "
+                + "b.capacidad, b.tipo_agente_extinguidor, b.manguera, b.manometro, b.soporte, b.presion, "
+                + "b.cilindro, b.limpieza, b.senalizacion, b.etiqueta, b.seguro, b.obstruccion, b.observacion, "
+                + "b.firmado, n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "FROM public.bitacora b "
+                + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                + "JOIN public.terminales t ON b.id_terminal_fk = t.id_terminal "
+                + "JOIN public.normas n ON b.id_norma_fk = n.id_norma "
+                + "WHERE EXTRACT(MONTH FROM b.fecha_revision) = ? "
+                + "AND EXTRACT(YEAR FROM b.fecha_revision) = ? "
+                + "AND u.nombre = ?;";
+
+        Object[] datos = new Object[22]; // Array para almacenar los datos de cada fila
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            pst.setInt(1, mes); // Mes
+            pst.setInt(2, año); // Año
+            pst.setString(3, usuarioSeleccionado); // Nombre del usuario
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas y convertir las booleanas
+                datos[0] = rs.getString(1); // ID Bitacora
+                datos[1] = convertirFecha(rs.getString(2)); // Fecha
+                datos[2] = rs.getString(3); // Ubicacion
+                datos[3] = rs.getString(4); // Ultima Recarga
+                datos[4] = rs.getString(5); // Proxima Recarga
+                datos[5] = rs.getString(6); // Capacidad
+                datos[6] = rs.getString(7); // Tipo Agente Extinguidor
+                //booleanos
+                datos[7] = "t".equals(rs.getString(8)); // Manguera
+                datos[8] = "t".equals(rs.getString(9)); // Manometro
+                datos[9] = "t".equals(rs.getString(10)); // Soporte
+                datos[10] = "t".equals(rs.getString(11)); // Presion
+                datos[11] = "t".equals(rs.getString(12)); // Cilindro
+                datos[12] = "t".equals(rs.getString(13)); // Limpieza
+                datos[13] = "t".equals(rs.getString(14)); // Señalizacion
+                datos[14] = "t".equals(rs.getString(15)); // Etiqueta
+                datos[15] = "t".equals(rs.getString(16)); // Seguro
+                datos[16] = "t".equals(rs.getString(17)); // Obstruccion
+                datos[17] = rs.getString(18); // Observacion
+                datos[18] = "t".equals(rs.getString(19)); // Firmado
+                datos[19] = rs.getString(20); // ID Norma
+                datos[20] = rs.getString(21); // ID Usuario
+                datos[21] = rs.getString(22); // ID Terminal
+
+                modelo.addRow(datos); // Añadir la fila al modelo
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+    }
+    
+    
+    
+    public void mostrarBitacoraHumoPersonalizado(JTable paramTablaBitacoraHumoG, String fechaSeleccionada, String usuarioSeleccionado) {
+    DefaultTableModel modelo = new DefaultTableModel();
+    TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+    paramTablaBitacoraHumoG.setRowSorter(OrdenarTabla);
+
+    // Añadir las columnas al modelo
+    modelo.addColumn("ID Bitácora");
+    modelo.addColumn("Fecha Revisión");
+    modelo.addColumn("Ubicación");
+    modelo.addColumn("Última Fecha Pila");
+    modelo.addColumn("Próximo Cambio Pila");
+    modelo.addColumn("Marca");
+    modelo.addColumn("Tipo Detector");
+    modelo.addColumn("Prueba Funcionamiento");
+    modelo.addColumn("Soporte");
+    modelo.addColumn("Ubicación Física");
+    modelo.addColumn("Observación");
+    modelo.addColumn("Nombre Norma");
+    modelo.addColumn("Nombre Usuario");
+    modelo.addColumn("Nombre Terminal");
+
+    paramTablaBitacoraHumoG.setModel(modelo);
+
+    // Separar el año y el mes de la fecha
+    String[] partesFecha = fechaSeleccionada.split("-");
+    int año = Integer.parseInt(partesFecha[0]); // Año
+    int mes = Integer.parseInt(partesFecha[1]); // Mes
+
+    // Consulta SQL con filtros
+    String sql = "SELECT bh.id_bitacora, bh.fecha_revision, bh.ubicacion, bh.ultima_fecha_pila, "
+            + "bh.proximo_cambio_pila, bh.marca, bh.tipo_detector, bh.prueba_funcionamiento, "
+            + "bh.soporte, bh.ubicacion_fisica, bh.observacion, n.nombre AS nombre_norma, "
+            + "u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+            + "FROM public.bitacora_humo bh "
+            + "JOIN public.normas n ON bh.id_norma_fk = n.id_norma "
+            + "JOIN public.usuarios u ON bh.id_usuario_fk = u.id_usuarios "
+            + "JOIN public.terminales t ON bh.id_terminal_fk = t.id_terminal "
+            + "WHERE EXTRACT(MONTH FROM bh.fecha_revision) = ? "
+            + "AND EXTRACT(YEAR FROM bh.fecha_revision) = ? "
+            + "AND u.nombre = ?;";
+
+    Object[] datos = new Object[14]; // Ajustado al número de columnas
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    try {
+        // Establecer conexión y preparar la consulta
+        pst = globalV.conectar.prepareStatement(sql);
+        pst.setInt(1, mes); // Mes
+        pst.setInt(2, año); // Año
+        pst.setString(3, usuarioSeleccionado); // Nombre del usuario
+
+        rs = pst.executeQuery();
+
+        while (rs.next()) {
+            // Obtener datos de las columnas
+            datos[0] = rs.getString("id_bitacora");
+            datos[1] = convertirFecha(rs.getString("fecha_revision"));
+            datos[2] = rs.getString("ubicacion");
+            datos[3] = rs.getString("ultima_fecha_pila");
+            datos[4] = rs.getString("proximo_cambio_pila");
+            datos[5] = rs.getString("marca");
+            datos[6] = rs.getString("tipo_detector");
+            datos[7] = "t".equals(rs.getString("prueba_funcionamiento"));
+            datos[8] = "t".equals(rs.getString("soporte"));
+            datos[9] = "t".equals(rs.getString("ubicacion_fisica"));
+            datos[10] = rs.getString("observacion");
+            datos[11] = rs.getString("nombre_norma");
+            datos[12] = rs.getString("nombre_usuario");
+            datos[13] = rs.getString("nombre_terminal");
+
+            modelo.addRow(datos);
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+    } finally {
+        // Cerrar recursos
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+        }
+    }
+}
 }
