@@ -1284,6 +1284,9 @@ public class homeScreen extends javax.swing.JFrame {
     private void btnExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarMouseClicked
         // TODO add your handling code here:
         
+        
+        
+        
         String seleccion = (String) listRazon.getSelectedItem();
 
     // Verificar si el mensaje inicial está seleccionado

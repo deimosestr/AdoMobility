@@ -120,6 +120,8 @@ private void abrirPDFEnNavegador(String rutaPDF) throws IOException, URISyntaxEx
             int mes = fecha.getMonthValue();
             int ano = fecha.getYear();
             statement.setString(1, globalV.user);  // Asegúrate de que "globalV.user" esté definido
+            System.out.println(globalV.user);
+
             statement.setInt(2, mes);
             statement.setInt(3, ano);
             ResultSet resultSet = statement.executeQuery();
