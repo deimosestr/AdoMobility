@@ -145,7 +145,8 @@ public class adminScreen extends javax.swing.JFrame {
         JComboBoxFiltroUsuariosEPP = new javax.swing.JComboBox<>();
         btnFiltarEPPAdmin = new com.login.ModernButton();
         btnQuitarFiltroEPPAdmin = new com.login.ModernButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        listRazon4 = new javax.swing.JComboBox<>();
+        btnExportarEpp = new com.login.ModernButton();
         bitacorasGeneralGas = new javax.swing.JPanel();
         tablaBitacoras2 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -155,7 +156,8 @@ public class adminScreen extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         btnFiltarGasAdmin = new com.login.ModernButton();
         btnQuitarFiltroGasAdmin = new com.login.ModernButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        listRazon3 = new javax.swing.JComboBox<>();
+        btnExportarGas = new com.login.ModernButton();
         bitacorasGeneralHumo = new javax.swing.JPanel();
         tablaBitacorasHumo = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -163,20 +165,21 @@ public class adminScreen extends javax.swing.JFrame {
         listUsersHumo = new javax.swing.JComboBox<>();
         listFechasHumo = new javax.swing.JComboBox<>();
         btnBuscarHumo = new com.login.ModernButton();
-        exportarExtintorAdmin = new com.login.ModernButton();
+        exportarHumoAdmin = new com.login.ModernButton();
         listRazon = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        btnQuitarFiltroGasAdmin2 = new com.login.ModernButton();
+        btnBuscarHumo1 = new com.login.ModernButton();
         bitacorasGeneralExtintores = new javax.swing.JPanel();
         tablaBitacoras = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tableBItacorasAdmin = new javax.swing.JTable();
         listUsers = new javax.swing.JComboBox<>();
         listFechas = new javax.swing.JComboBox<>();
-        btnBuscar = new com.login.ModernButton();
+        btnFiltro = new com.login.ModernButton();
         jLabel9 = new javax.swing.JLabel();
-        btnQuitarFiltroGasAdmin1 = new com.login.ModernButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        listRazon2 = new javax.swing.JComboBox<>();
+        btnExportarExtintor = new com.login.ModernButton();
+        btnBuscar1 = new com.login.ModernButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -673,7 +676,7 @@ public class adminScreen extends javax.swing.JFrame {
             .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
         );
 
-        bitacorasGeneralEpp.add(tablaBitacoras3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 590, 270));
+        bitacorasGeneralEpp.add(tablaBitacoras3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 590, 270));
 
         jLabel8.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel8.setText("FILTRAR POR:");
@@ -714,10 +717,21 @@ public class adminScreen extends javax.swing.JFrame {
         });
         bitacorasGeneralEpp.add(btnQuitarFiltroEPPAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, -1, -1));
 
-        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
-        bitacorasGeneralEpp.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 200, -1));
+        listRazon4.setBackground(new java.awt.Color(255, 255, 255));
+        listRazon4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listRazon4ActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralEpp.add(listRazon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 150, -1));
+
+        btnExportarEpp.setText("EXPORTAR");
+        btnExportarEpp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarEppActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralEpp.add(btnExportarEpp, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, -1, -1));
 
         bitacoras.add(bitacorasGeneralEpp, "card5");
 
@@ -757,11 +771,16 @@ public class adminScreen extends javax.swing.JFrame {
             .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
         );
 
-        bitacorasGeneralGas.add(tablaBitacoras2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 590, 290));
+        bitacorasGeneralGas.add(tablaBitacoras2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 590, 290));
 
         JComboBoxFiltroUsuarios.setBackground(new java.awt.Color(255, 255, 255));
         JComboBoxFiltroUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         JComboBoxFiltroUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        JComboBoxFiltroUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JComboBoxFiltroUsuariosActionPerformed(evt);
+            }
+        });
         bitacorasGeneralGas.add(JComboBoxFiltroUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 150, 40));
 
         jComboBoxFiltroFechas.setBackground(new java.awt.Color(255, 255, 255));
@@ -798,10 +817,22 @@ public class adminScreen extends javax.swing.JFrame {
         });
         bitacorasGeneralGas.add(btnQuitarFiltroGasAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, -1, -1));
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
-        bitacorasGeneralGas.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 210, -1));
+        listRazon3.setBackground(new java.awt.Color(255, 255, 255));
+        listRazon3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
+        listRazon3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listRazon3ActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralGas.add(listRazon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 180, -1));
+
+        btnExportarGas.setText("EXPORTAR");
+        btnExportarGas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarGasActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralGas.add(btnExportarGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
 
         bitacoras.add(bitacorasGeneralGas, "card5");
 
@@ -859,46 +890,41 @@ public class adminScreen extends javax.swing.JFrame {
         bitacorasGeneralHumo.add(listFechasHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, 40));
 
         btnBuscarHumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/filtrar.png"))); // NOI18N
-        btnBuscarHumo.setText("<html>QUITAR<br>FILTRO</html>");
+        btnBuscarHumo.setText("<html>APLICAR<br>FILTRO</html>");
         btnBuscarHumo.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
         btnBuscarHumo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarHumoActionPerformed(evt);
             }
         });
-        bitacorasGeneralHumo.add(btnBuscarHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, -1, -1));
+        bitacorasGeneralHumo.add(btnBuscarHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, -1));
 
-        exportarExtintorAdmin.setText("Exportar");
-        exportarExtintorAdmin.addActionListener(new java.awt.event.ActionListener() {
+        exportarHumoAdmin.setText("EXPORTAR");
+        exportarHumoAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exportarExtintorAdminActionPerformed(evt);
+                exportarHumoAdminActionPerformed(evt);
             }
         });
-        bitacorasGeneralHumo.add(exportarExtintorAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, -1, -1));
+        bitacorasGeneralHumo.add(exportarHumoAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, -1, -1));
 
         listRazon.setBackground(new java.awt.Color(255, 255, 255));
         listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         listRazon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
-        bitacorasGeneralHumo.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 230, 30));
+        bitacorasGeneralHumo.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 230, 30));
 
         jLabel10.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel10.setText("FILTRAR POR:");
         bitacorasGeneralHumo.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        btnQuitarFiltroGasAdmin2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/quitar_filtro.png"))); // NOI18N
-        btnQuitarFiltroGasAdmin2.setText("<html>QUITAR<br>FILTRO</html>");
-        btnQuitarFiltroGasAdmin2.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
-        btnQuitarFiltroGasAdmin2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuitarFiltroGasAdmin2MouseClicked(evt);
-            }
-        });
-        btnQuitarFiltroGasAdmin2.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarHumo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/quitar_filtro.png"))); // NOI18N
+        btnBuscarHumo1.setText("<html>QUITAR<br>FILTRO</html>");
+        btnBuscarHumo1.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
+        btnBuscarHumo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarFiltroGasAdmin2ActionPerformed(evt);
+                btnBuscarHumo1ActionPerformed(evt);
             }
         });
-        bitacorasGeneralHumo.add(btnQuitarFiltroGasAdmin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
+        bitacorasGeneralHumo.add(btnBuscarHumo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, -1, -1));
 
         bitacoras.add(bitacorasGeneralHumo, "card5");
 
@@ -938,7 +964,7 @@ public class adminScreen extends javax.swing.JFrame {
             .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
         );
 
-        bitacorasGeneralExtintores.add(tablaBitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 590, 300));
+        bitacorasGeneralExtintores.add(tablaBitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 590, 300));
 
         listUsers.setBackground(new java.awt.Color(255, 255, 255));
         listUsers.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -954,39 +980,46 @@ public class adminScreen extends javax.swing.JFrame {
         });
         bitacorasGeneralExtintores.add(listFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, 40));
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/filtrar.png"))); // NOI18N
-        btnBuscar.setText("<html>APLICAR<br>FILTRO</html>");
-        btnBuscar.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+        btnFiltro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/quitar_filtro.png"))); // NOI18N
+        btnFiltro.setText("<html>QUITAR<br>FILTRO</html>");
+        btnFiltro.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
+        btnFiltro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFiltroMouseClicked(evt);
             }
         });
-        bitacorasGeneralExtintores.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, -1));
+        btnFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltroActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralExtintores.add(btnFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel9.setText("FILTRAR POR:");
         bitacorasGeneralExtintores.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        btnQuitarFiltroGasAdmin1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/quitar_filtro.png"))); // NOI18N
-        btnQuitarFiltroGasAdmin1.setText("<html>QUITAR<br>FILTRO</html>");
-        btnQuitarFiltroGasAdmin1.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
-        btnQuitarFiltroGasAdmin1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuitarFiltroGasAdmin1MouseClicked(evt);
-            }
-        });
-        btnQuitarFiltroGasAdmin1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarFiltroGasAdmin1ActionPerformed(evt);
-            }
-        });
-        bitacorasGeneralExtintores.add(btnQuitarFiltroGasAdmin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, -1, -1));
+        listRazon2.setBackground(new java.awt.Color(255, 255, 255));
+        listRazon2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
+        bitacorasGeneralExtintores.add(listRazon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 180, -1));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
-        bitacorasGeneralExtintores.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 190, -1));
+        btnExportarExtintor.setText("EXPORTAR");
+        btnExportarExtintor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarExtintorActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralExtintores.add(btnExportarExtintor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
+
+        btnBuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/filtrar.png"))); // NOI18N
+        btnBuscar1.setText("<html>APLICAR<br>FILTRO</html>");
+        btnBuscar1.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
+        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar1ActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralExtintores.add(btnBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, -1));
 
         bitacoras.add(bitacorasGeneralExtintores, "card5");
 
@@ -1115,10 +1148,17 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         listRazon.setModel(modelo2);
-
+        listRazon2.setModel(modelo2);
+        listRazon3.setModel(modelo2);
+        listRazon4.setModel(modelo2);
+        //listRazon3.setModel(modelo2);
         // Agregar un mensaje inicial (opcional)
         listRazon.insertItemAt("Seleccione razón social", 0); // Insertar el mensaje inicial en la posición 0
         listRazon.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
+        //listRazon2.insertItemAt("Seleccione razón social", 0); // Insertar el mensaje inicial en la posición 0
+        //listRazon2.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
+        //listRazon3.insertItemAt("Seleccione razón social", 0); // Insertar el mensaje inicial en la posición 0
+        //listRazon3.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
 
     }
 
@@ -1504,20 +1544,9 @@ public class adminScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listUsersHumoActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-// Obtener los valores seleccionados de los combos
-// Obtener los valores seleccionados de los combos
-        String fechaSeleccionada = (String) listFechas.getSelectedItem(); // "1999-02"
-        String usuarioSeleccionado = (String) listUsers.getSelectedItem(); // "alan cruz garcia"
-
-// Crear una instancia de CDatosNOM
-        CDatosNOM datosNOM = new CDatosNOM();
-
-// Llamar al método para mostrar los resultados en la tabla
-        datosNOM.mostrarBitacoraExtintoresPersonalizado(tableBItacorasAdmin, fechaSeleccionada, usuarioSeleccionado);
-
-
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed
+        obj.mostrarExtintoresGlobal(tableBItacorasAdmin);
+    }//GEN-LAST:event_btnFiltroActionPerformed
 
     private void listFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listFechasActionPerformed
         // TODO add your handling code here:
@@ -1554,8 +1583,8 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void btnBuscarHumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarHumoActionPerformed
         // TODO add your handling code here:
-                String fechaSeleccionada = (String) listFechasHumo.getSelectedItem(); // "1999-02"
-                String usuarioSeleccionado = (String) listUsersHumo.getSelectedItem(); // "alan cruz garcia"
+        String fechaSeleccionada = (String) listFechasHumo.getSelectedItem(); // "1999-02"
+        String usuarioSeleccionado = (String) listUsersHumo.getSelectedItem(); // "alan cruz garcia"
 
 // Crear una instancia de CDatosNOM
         CDatosNOM datosNOM = new CDatosNOM();
@@ -1564,11 +1593,35 @@ public class adminScreen extends javax.swing.JFrame {
         datosNOM.mostrarBitacoraHumoPersonalizado(tableBItacorasHumoAdmin, fechaSeleccionada, usuarioSeleccionado);
      }//GEN-LAST:event_btnBuscarHumoActionPerformed
 
-    private void exportarExtintorAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarExtintorAdminActionPerformed
+    private void exportarHumoAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarHumoAdminActionPerformed
+        String seleccion = (String) listRazon2.getSelectedItem();
+
+        globalV.fechaR = (String) listFechasHumo.getSelectedItem() + "-28"; // "1999-02"
+        globalV.user = (String) listUsersHumo.getSelectedItem(); // "alan cruz garcia"
+        System.out.println("usuario y fecha " + globalV.user + globalV.fechaR);
+        // Verificar si el mensaje inicial está seleccionado
+        if ("Seleccione razón social".equals(seleccion)) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una razón social válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener la ejecución si no se ha seleccionado una razón social válida
+        }
+
+        PDFExporter ejemplo = new PDFExporter();
+        try {
+            ejemplo.HumoPDFAdmin(seleccion);
+        } catch (IOException ex) {
+            Logger.getLogger(adminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(adminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_exportarHumoAdminActionPerformed
+
+    private void btnExportarExtintorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExtintorActionPerformed
         String seleccion = (String) listRazon.getSelectedItem();
 
-        globalV.fechaR = (String) listFechasHumo.getSelectedItem()+ "-01"; // "1999-02"
-        globalV.user = (String) listUsersHumo.getSelectedItem(); // "alan cruz garcia"
+        globalV.fechaR = (String) listFechas.getSelectedItem() + "-28"; // "1999-02"
+        globalV.user = (String) listUsers.getSelectedItem(); // "alan cruz garcia"
 
         // Verificar si el mensaje inicial está seleccionado
         if ("Seleccione razón social".equals(seleccion)) {
@@ -1578,33 +1631,97 @@ public class adminScreen extends javax.swing.JFrame {
 
         PDFExporter ejemplo = new PDFExporter();
         try {
-            ejemplo.ExtintorPDF(seleccion);
+            ejemplo.ExtintorPDFAdmin(seleccion);
+        } catch (IOException ex) {
+            Logger.getLogger(adminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(adminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExportarExtintorActionPerformed
+
+    private void listRazon3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRazon3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listRazon3ActionPerformed
+
+    private void btnExportarGasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarGasActionPerformed
+
+        String seleccion = (String) listRazon3.getSelectedItem();
+
+        globalV.fechaR = (String) jComboBoxFiltroFechas.getSelectedItem() + "-28"; // "1999-02"
+        globalV.user = (String) JComboBoxFiltroUsuarios.getSelectedItem(); // "alan cruz garcia"
+
+        // Verificar si el mensaje inicial está seleccionado
+        if ("Seleccione razón social".equals(seleccion)) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una razón social válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener la ejecución si no se ha seleccionado una razón social válida
+        }
+
+        PDFExporter ejemplo = new PDFExporter();
+        try {
+            ejemplo.GasPDFAdmin(seleccion);
         } catch (IOException ex) {
             Logger.getLogger(adminScreen.class.getName()).log(Level.SEVERE, null, ex);
         } catch (URISyntaxException ex) {
             Logger.getLogger(adminScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }//GEN-LAST:event_btnExportarGasActionPerformed
 
-    }//GEN-LAST:event_exportarExtintorAdminActionPerformed
+    private void JComboBoxFiltroUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBoxFiltroUsuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JComboBoxFiltroUsuariosActionPerformed
 
-    private void btnQuitarFiltroGasAdmin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitarFiltroGasAdmin1MouseClicked
+    private void listRazon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listRazon4ActionPerformed
+
+    }//GEN-LAST:event_listRazon4ActionPerformed
+
+    private void btnExportarEppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarEppActionPerformed
+        String seleccion = (String) listRazon4.getSelectedItem();
+
+        globalV.fechaR = (String) jComboBoxFiltroFechasEPP.getSelectedItem() + "-28"; // "1999-02"
+        globalV.user = (String) JComboBoxFiltroUsuariosEPP.getSelectedItem(); // "alan cruz garcia"
+
+        // Verificar si el mensaje inicial está seleccionado
+        if ("Seleccione razón social".equals(seleccion)) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una razón social válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener la ejecución si no se ha seleccionado una razón social válida
+        }
+
+        PDFExporter ejemplo = new PDFExporter();
+        try {
+            ejemplo.EppPDFAdmin(seleccion);
+        } catch (IOException ex) {
+            Logger.getLogger(adminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(adminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExportarEppActionPerformed
+
+    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+        // TODO add your handling code here:
+        // Obtener los valores seleccionados de los combos
+// Obtener los valores seleccionados de los combos
+        String fechaSeleccionada = (String) listFechas.getSelectedItem(); // "1999-02"
+        String usuarioSeleccionado = (String) listUsers.getSelectedItem(); // "alan cruz garcia"
+
+// Crear una instancia de CDatosNOM
+        CDatosNOM datosNOM = new CDatosNOM();
+
+// Llamar al método para mostrar los resultados en la tabla
+        datosNOM.mostrarBitacoraExtintoresPersonalizado(tableBItacorasAdmin, fechaSeleccionada, usuarioSeleccionado);
+
+
+    }//GEN-LAST:event_btnBuscar1ActionPerformed
+
+    private void btnFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFiltroMouseClicked
         // TODO add your handling code here:
         obj.mostrarExtintoresGlobal(tableBItacorasAdmin);
-    }//GEN-LAST:event_btnQuitarFiltroGasAdmin1MouseClicked
+    }//GEN-LAST:event_btnFiltroMouseClicked
 
-    private void btnQuitarFiltroGasAdmin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFiltroGasAdmin1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuitarFiltroGasAdmin1ActionPerformed
-
-    private void btnQuitarFiltroGasAdmin2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitarFiltroGasAdmin2MouseClicked
+    private void btnBuscarHumo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarHumo1ActionPerformed
         // TODO add your handling code here:
         obj.mostrarBitacoraHumoGlobal(tableBItacorasHumoAdmin);
-    }//GEN-LAST:event_btnQuitarFiltroGasAdmin2MouseClicked
-
-    private void btnQuitarFiltroGasAdmin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFiltroGasAdmin2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuitarFiltroGasAdmin2ActionPerformed
+    }//GEN-LAST:event_btnBuscarHumo1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1655,14 +1772,17 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JPanel bitacorasGeneralExtintores;
     private javax.swing.JPanel bitacorasGeneralGas;
     private javax.swing.JPanel bitacorasGeneralHumo;
-    private com.login.ModernButton btnBuscar;
+    private com.login.ModernButton btnBuscar1;
     private com.login.ModernButton btnBuscarHumo;
+    private com.login.ModernButton btnBuscarHumo1;
+    private com.login.ModernButton btnExportarEpp;
+    private com.login.ModernButton btnExportarExtintor;
+    private com.login.ModernButton btnExportarGas;
     private com.login.ModernButton btnFiltarEPPAdmin;
     private com.login.ModernButton btnFiltarGasAdmin;
+    private com.login.ModernButton btnFiltro;
     private com.login.ModernButton btnQuitarFiltroEPPAdmin;
     private com.login.ModernButton btnQuitarFiltroGasAdmin;
-    private com.login.ModernButton btnQuitarFiltroGasAdmin1;
-    private com.login.ModernButton btnQuitarFiltroGasAdmin2;
     private com.login.buttonsNormas btnUsuarios;
     private javax.swing.JComboBox<String> cambiarVentana;
     private javax.swing.JCheckBox checkActivo;
@@ -1673,13 +1793,10 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboboxRegionTerminales;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
-    private com.login.ModernButton exportarExtintorAdmin;
+    private com.login.ModernButton exportarHumoAdmin;
     private javax.swing.JTextField idRegionAdmin;
     private javax.swing.JTextField idTerminalAdmin;
     private com.login.ModernButton insertarUser;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBoxFiltroFechas;
     private javax.swing.JComboBox<String> jComboBoxFiltroFechasEPP;
     private javax.swing.JLabel jLabel1;
@@ -1716,6 +1833,9 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> listFechas;
     private javax.swing.JComboBox<String> listFechasHumo;
     private javax.swing.JComboBox<String> listRazon;
+    private javax.swing.JComboBox<String> listRazon2;
+    private javax.swing.JComboBox<String> listRazon3;
+    private javax.swing.JComboBox<String> listRazon4;
     private javax.swing.JComboBox<String> listUsers;
     private javax.swing.JComboBox<String> listUsersHumo;
     private javax.swing.JComboBox<String> listaUsuarios;
