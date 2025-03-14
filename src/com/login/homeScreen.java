@@ -48,6 +48,8 @@ public class homeScreen extends javax.swing.JFrame {
         exitTxt = new javax.swing.JLabel();
         returnPanel = new javax.swing.JPanel();
         returnTxt = new javax.swing.JLabel();
+        minimizarPanel = new javax.swing.JPanel();
+        minimizarTxt = new javax.swing.JLabel();
         menuDeOpciones = new javax.swing.JPanel();
         btnExtintor = new com.login.buttonsNormas();
         btnHumo = new com.login.buttonsNormas();
@@ -250,6 +252,38 @@ public class homeScreen extends javax.swing.JFrame {
         );
 
         barNavMov.add(returnPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, -1));
+
+        minimizarPanel.setBackground(new java.awt.Color(255, 255, 255));
+        minimizarPanel.setPreferredSize(new java.awt.Dimension(40, 40));
+
+        minimizarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minimizarTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/minimizar.png"))); // NOI18N
+        minimizarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minimizarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                minimizarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                minimizarTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout minimizarPanelLayout = new javax.swing.GroupLayout(minimizarPanel);
+        minimizarPanel.setLayout(minimizarPanelLayout);
+        minimizarPanelLayout.setHorizontalGroup(
+            minimizarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(minimizarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+        minimizarPanelLayout.setVerticalGroup(
+            minimizarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, minimizarPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(minimizarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        barNavMov.add(minimizarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 40, 40));
 
         bgHomeScreen.add(barNavMov, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 40));
 
@@ -981,7 +1015,9 @@ public class homeScreen extends javax.swing.JFrame {
         });
         botonesInferiores.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
 
+        listRazon.setBackground(new java.awt.Color(255, 255, 255));
         listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listRazon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
         listRazon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listRazonActionPerformed(evt);
@@ -1631,37 +1667,23 @@ public class homeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listRazonActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(homeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(homeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(homeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(homeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void minimizarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarTxtMouseClicked
+        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_minimizarTxtMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new homeScreen().setVisible(true);
-            }
-        });
-    }
+    private void minimizarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarTxtMouseEntered
+        // TODO add your handling code here:
+        minimizarPanel.setBackground(new Color(197, 172, 204));
+        minimizarPanel.setForeground(Color.white);
+    }//GEN-LAST:event_minimizarTxtMouseEntered
+
+    private void minimizarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarTxtMouseExited
+        // TODO add your handling code here:
+        minimizarPanel.setBackground(Color.white);
+        minimizarPanel.setForeground(Color.black);
+    }//GEN-LAST:event_minimizarTxtMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField agenteExtinguidor;
@@ -1754,6 +1776,8 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel marcaGas;
     private javax.swing.JTextField marcaHumo;
     private javax.swing.JPanel menuDeOpciones;
+    private javax.swing.JPanel minimizarPanel;
+    private javax.swing.JLabel minimizarTxt;
     private com.login.ModernButton modernButton1;
     private javax.swing.JTextField nomEmpresa;
     private javax.swing.JTextField numSerie;

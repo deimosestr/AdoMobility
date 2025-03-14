@@ -48,40 +48,14 @@ public class screenOrganizacion extends javax.swing.JFrame {
         exitTxt = new javax.swing.JLabel();
         returnPanel = new javax.swing.JPanel();
         returnTxt = new javax.swing.JLabel();
+        minimizarPanel = new javax.swing.JPanel();
+        minimizarTxt = new javax.swing.JLabel();
         menuDeOpciones = new javax.swing.JPanel();
         btnEPP = new com.login.buttonsNormas();
         btnHumo = new com.login.buttonsNormas();
         btnGas = new com.login.buttonsNormas();
         modernButton1 = new com.login.ModernButton();
         bitacoras = new javax.swing.JPanel();
-        gas = new javax.swing.JPanel();
-        titulo = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        nomEmpresa = new javax.swing.JTextField();
-        cMalas = new javax.swing.JCheckBox();
-        c_Buena = new javax.swing.JCheckBox();
-        c_Regular = new javax.swing.JCheckBox();
-        cObservaciones = new javax.swing.JTextField();
-        capacidadTanque = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        fechaFabricacion = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        cRegistrada = new javax.swing.JTextField();
-        tObservaciones = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        marca = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        numSerie = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        diametroEXT = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        espesor = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        tbGas = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaGas = new javax.swing.JTable();
         extintores = new javax.swing.JPanel();
         informacion1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -244,6 +218,38 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         barNavMov.add(returnPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, -1));
 
+        minimizarPanel.setBackground(new java.awt.Color(255, 255, 255));
+        minimizarPanel.setPreferredSize(new java.awt.Dimension(40, 40));
+
+        minimizarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minimizarTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/minimizar.png"))); // NOI18N
+        minimizarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minimizarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                minimizarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                minimizarTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout minimizarPanelLayout = new javax.swing.GroupLayout(minimizarPanel);
+        minimizarPanel.setLayout(minimizarPanelLayout);
+        minimizarPanelLayout.setHorizontalGroup(
+            minimizarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(minimizarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+        minimizarPanelLayout.setVerticalGroup(
+            minimizarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, minimizarPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(minimizarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        barNavMov.add(minimizarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 40, 40));
+
         bgHomeScreen.add(barNavMov, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 40));
 
         menuDeOpciones.setBackground(new java.awt.Color(197, 172, 204));
@@ -306,185 +312,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         bitacoras.setBackground(new java.awt.Color(255, 255, 255));
         bitacoras.setLayout(new java.awt.CardLayout());
-
-        gas.setBackground(new java.awt.Color(255, 255, 255));
-        gas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        titulo.setBackground(new java.awt.Color(255, 255, 255));
-        titulo.setText("Condicion General de soportes");
-        gas.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
-
-        jLabel2.setText("Nombre de la empresa:");
-        gas.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-        nomEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomEmpresaActionPerformed(evt);
-            }
-        });
-        gas.add(nomEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 190, 20));
-
-        cMalas.setBackground(new java.awt.Color(255, 255, 255));
-        cMalas.setText("         Malas");
-        cMalas.setBorder(null);
-        cMalas.setBorderPainted(true);
-        cMalas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cMalasActionPerformed(evt);
-            }
-        });
-        gas.add(cMalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 100, 20));
-
-        c_Buena.setBackground(new java.awt.Color(255, 255, 255));
-        c_Buena.setText("         Buena");
-        c_Buena.setBorder(null);
-        c_Buena.setBorderPainted(true);
-        c_Buena.setMaximumSize(new java.awt.Dimension(80, 20));
-        c_Buena.setMinimumSize(new java.awt.Dimension(80, 20));
-        c_Buena.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                c_BuenaActionPerformed(evt);
-            }
-        });
-        gas.add(c_Buena, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 100, 20));
-
-        c_Regular.setBackground(new java.awt.Color(255, 255, 255));
-        c_Regular.setText("         Regular");
-        c_Regular.setBorder(null);
-        c_Regular.setBorderPainted(true);
-        c_Regular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                c_RegularActionPerformed(evt);
-            }
-        });
-        gas.add(c_Regular, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 100, 20));
-
-        cObservaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        cObservaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cObservacionesActionPerformed(evt);
-            }
-        });
-        gas.add(cObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 230, 80));
-
-        capacidadTanque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                capacidadTanqueActionPerformed(evt);
-            }
-        });
-        gas.add(capacidadTanque, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 70, -1));
-
-        jLabel1.setText("Capacidad del tanque");
-        gas.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
-
-        jLabel3.setText("Fecha de fabricacion");
-        gas.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
-
-        fechaFabricacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechaFabricacionActionPerformed(evt);
-            }
-        });
-        gas.add(fechaFabricacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 70, -1));
-
-        jLabel4.setText("Capacidad registrada");
-        gas.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 120, 20));
-        gas.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
-
-        cRegistrada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cRegistradaActionPerformed(evt);
-            }
-        });
-        gas.add(cRegistrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 70, -1));
-
-        tObservaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        tObservaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tObservacionesActionPerformed(evt);
-            }
-        });
-        gas.add(tObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 310, 90));
-
-        jLabel6.setText("Marca");
-        gas.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, -1, -1));
-
-        marca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                marcaActionPerformed(evt);
-            }
-        });
-        gas.add(marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 70, -1));
-
-        jLabel7.setText("# Serie");
-        gas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, -1));
-
-        numSerie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numSerieActionPerformed(evt);
-            }
-        });
-        gas.add(numSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 120, -1));
-
-        jLabel8.setText("Diametro exterior");
-        gas.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
-        gas.add(diametroEXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 80, -1));
-
-        jLabel9.setText("Espesor");
-        gas.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
-
-        espesor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                espesorActionPerformed(evt);
-            }
-        });
-        gas.add(espesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 70, -1));
-
-        jLabel10.setText("Especificaciones del Tanque");
-        gas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
-
-        jScrollPane1.setBorder(null);
-        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jScrollPane1MouseClicked(evt);
-            }
-        });
-
-        tablaGas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tablaGas.setAutoResizeMode(0);
-        tablaGas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaGasMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tablaGas);
-
-        javax.swing.GroupLayout tbGasLayout = new javax.swing.GroupLayout(tbGas);
-        tbGas.setLayout(tbGasLayout);
-        tbGasLayout.setHorizontalGroup(
-            tbGasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-        );
-        tbGasLayout.setVerticalGroup(
-            tbGasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tbGasLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        gas.add(tbGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 510, 100));
-
-        bitacoras.add(gas, "card4");
 
         extintores.setBackground(new java.awt.Color(255, 255, 255));
         extintores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -927,8 +754,10 @@ public class screenOrganizacion extends javax.swing.JFrame {
         });
         jPanel1.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
 
+        listRazon.setBackground(new java.awt.Color(255, 255, 255));
         listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 160, -1));
+        listRazon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
+        jPanel1.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 220, -1));
 
         bgHomeScreen.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 610, 50));
 
@@ -993,9 +822,8 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         // Crear una lista de razones sociales
         String[] razonesSociales = {
-      "Autobuses alas de oro S.A de C.V",
-        "Ómnibus Cristóbal Colón S.A de C.V",
-        };
+            "Autobuses alas de oro S.A de C.V",
+            "Ómnibus Cristóbal Colón S.A de C.V",};
 
         // Crear un modelo para el JComboBox con las razones sociales
         DefaultComboBoxModel<String> modelo2 = new DefaultComboBoxModel<>(razonesSociales);
@@ -1313,68 +1141,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
     }//GEN-LAST:event_listNomActionPerformed
 
-    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
-
-    }//GEN-LAST:event_jScrollPane1MouseClicked
-
-    private void tablaGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGasMouseClicked
-        obj.seleccionarGas(
-                tablaGas, txtiDUsuario, labelResponsable, labelRegiones,
-                labelTerminales, txtIDBitacora, txtFecha,
-                nomEmpresa, cMalas, c_Buena, c_Regular,
-                cObservaciones, capacidadTanque, fechaFabricacion,
-                cRegistrada, tObservaciones, marca, numSerie,
-                diametroEXT, espesor);
-    }//GEN-LAST:event_tablaGasMouseClicked
-
-    private void espesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espesorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_espesorActionPerformed
-
-    private void numSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numSerieActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numSerieActionPerformed
-
-    private void marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_marcaActionPerformed
-
-    private void tObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tObservacionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tObservacionesActionPerformed
-
-    private void cRegistradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cRegistradaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cRegistradaActionPerformed
-
-    private void fechaFabricacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaFabricacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechaFabricacionActionPerformed
-
-    private void capacidadTanqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacidadTanqueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_capacidadTanqueActionPerformed
-
-    private void cObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cObservacionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cObservacionesActionPerformed
-
-    private void c_RegularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_RegularActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_c_RegularActionPerformed
-
-    private void c_BuenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_BuenaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_c_BuenaActionPerformed
-
-    private void cMalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cMalasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cMalasActionPerformed
-
-    private void nomEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomEmpresaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomEmpresaActionPerformed
-
     private void modernButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton1MouseClicked
         // TODO add your handling code here:
         labelResponsable.setText("Usuario");
@@ -1402,37 +1168,23 @@ public class screenOrganizacion extends javax.swing.JFrame {
         firmadoEPP.setSelected(false);
     }//GEN-LAST:event_modernButton1MouseClicked
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(homeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(homeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(homeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(homeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void minimizarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarTxtMouseClicked
+        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_minimizarTxtMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new homeScreen().setVisible(true);
-            }
-        });
-    }
+    private void minimizarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarTxtMouseEntered
+        // TODO add your handling code here:
+        minimizarPanel.setBackground(new Color(197, 172, 204));
+        minimizarPanel.setForeground(Color.white);
+    }//GEN-LAST:event_minimizarTxtMouseEntered
+
+    private void minimizarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarTxtMouseExited
+        // TODO add your handling code here:
+        minimizarPanel.setBackground(Color.white);
+        minimizarPanel.setForeground(Color.black);
+    }//GEN-LAST:event_minimizarTxtMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField agenteExtinguidor;
@@ -1448,13 +1200,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private com.login.buttonsNormas btnHumo;
     private com.login.ModernButton btnInsertar1;
     private com.login.ModernButton btnModificar;
-    private javax.swing.JCheckBox cMalas;
-    private javax.swing.JTextField cObservaciones;
-    private javax.swing.JTextField cRegistrada;
-    private javax.swing.JCheckBox c_Buena;
-    private javax.swing.JCheckBox c_Regular;
     private javax.swing.JTextField capacidad;
-    private javax.swing.JTextField capacidadTanque;
     private javax.swing.JCheckBox caretaEsmerilarEPP;
     private javax.swing.JCheckBox caretaSoldarEPP;
     private javax.swing.JCheckBox cascoEPP;
@@ -1468,32 +1214,17 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private javax.swing.JCheckBox chckSeguro;
     private javax.swing.JCheckBox chckSenalizacion;
     private javax.swing.JCheckBox chckSoporte;
-    private javax.swing.JTextField diametroEXT;
     private javax.swing.JPanel epp;
-    private javax.swing.JTextField espesor;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel extintores;
     private javax.swing.JCheckBox fajaEPP;
-    private javax.swing.JTextField fechaFabricacion;
     private javax.swing.JCheckBox firma;
     private javax.swing.JCheckBox firmadoEPP;
-    private javax.swing.JPanel gas;
     private javax.swing.JCheckBox guantesEPP;
     private javax.swing.JPanel informacion1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator10;
@@ -1523,27 +1254,22 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> listNom;
     private javax.swing.JComboBox<String> listRazon;
     private javax.swing.JLabel logoDerecha;
-    private javax.swing.JTextField marca;
     private javax.swing.JCheckBox mascarillaEPP;
     private javax.swing.JPanel menuDeOpciones;
+    private javax.swing.JPanel minimizarPanel;
+    private javax.swing.JLabel minimizarTxt;
     private com.login.ModernButton modernButton1;
-    private javax.swing.JTextField nomEmpresa;
     private javax.swing.JTextField nombreEPP;
-    private javax.swing.JTextField numSerie;
     private javax.swing.JTextField observaciones;
     private javax.swing.JPanel panelinfo;
     private javax.swing.JTextField proximaRecarga;
     private javax.swing.JTextField puestoEPP;
     private javax.swing.JPanel returnPanel;
     private javax.swing.JLabel returnTxt;
-    private javax.swing.JTextField tObservaciones;
     private javax.swing.JTable tablaEPP;
-    private javax.swing.JTable tablaGas;
     private javax.swing.JCheckBox taponesAuditivosEPP;
     private javax.swing.JPanel tbEPP;
     private javax.swing.JTable tbExtintores;
-    private javax.swing.JPanel tbGas;
-    private javax.swing.JLabel titulo;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIDBitacora;
     private javax.swing.JTextField txtIDNorma;
