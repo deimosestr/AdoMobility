@@ -786,6 +786,7 @@ public class CDatosNOM {
         }
         return fechas;
     }
+
     public List<String> obtenerFechasUnicasHumo() {
         List<String> fechas = new ArrayList<>();
 
@@ -812,7 +813,7 @@ public class CDatosNOM {
         }
         return fechas;
     }
-    
+
     public static String convertirFecha(String fecha) {
         if (fecha == null || fecha.isEmpty()) {
             return null; // Retorna null si la fecha es nula o vacía
@@ -3170,43 +3171,47 @@ public class CDatosNOM {
             System.out.println("Error al cargar los nombres de usuarios: " + e.getMessage());
         }
 
-    return nombresUsuarios;
-}
-        public List<String> obtenerNombresUsuariosBitacorasHumo() {
-    List<String> nombresUsuarios = new ArrayList<>();
-
-    // Usar try-with-resources para cerrar automáticamente los recursos
-    try (PreparedStatement pst = globalV.conectar.prepareStatement(
-             "SELECT DISTINCT u.nombre " + // DISTINCT para evitar duplicados
-             "FROM public.bitacora_humo b " +
-             "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios " + // Relación entre bitácoras y usuarios
-             "ORDER BY u.nombre;")) { // Ordenar por nombre
-
-        // Ejecutar la consulta y obtener los resultados
-        try (ResultSet rs = pst.executeQuery()) {
-            // Recorrer los resultados y añadirlos a la lista
-            while (rs.next()) {
-                String nombreUsuario = rs.getString("nombre");
-                nombresUsuarios.add(nombreUsuario);
-            }
-        }
-    } catch (SQLException e) {
-        // Manejar excepciones específicas de SQL
-        e.printStackTrace();
-        System.out.println("Error al cargar los nombres de usuarios: " + e.getMessage());
+        return nombresUsuarios;
     }
 
-    return nombresUsuarios;
-}
+    public List<String> obtenerNombresUsuariosBitacorasHumo() {
+        List<String> nombresUsuarios = new ArrayList<>();
+
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (PreparedStatement pst = globalV.conectar.prepareStatement(
+                "SELECT DISTINCT u.nombre "
+                + // DISTINCT para evitar duplicados
+                "FROM public.bitacora_humo b "
+                + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
+                + // Relación entre bitácoras y usuarios
+                "ORDER BY u.nombre;")) { // Ordenar por nombre
+
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet rs = pst.executeQuery()) {
+                // Recorrer los resultados y añadirlos a la lista
+                while (rs.next()) {
+                    String nombreUsuario = rs.getString("nombre");
+                    nombresUsuarios.add(nombreUsuario);
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar excepciones específicas de SQL
+            e.printStackTrace();
+            System.out.println("Error al cargar los nombres de usuarios: " + e.getMessage());
+        }
+
+        return nombresUsuarios;
+    }
 
     public void mostrarExtintoresGlobal(JTable paramTablaExtintoresG) {
         DefaultTableModel modelo = new DefaultTableModel();
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         paramTablaExtintoresG.setRowSorter(OrdenarTabla);
 
-        // Añadir las columnas al modelo
+        // Añadir las columnas al modelo (con el nuevo orden)
         modelo.addColumn("ID Bitacora");
         modelo.addColumn("Fecha");
+        modelo.addColumn("Nombre Usuario"); // Movido aquí
         modelo.addColumn("Ubicacion");
         modelo.addColumn("Ultima Recarga");
         modelo.addColumn("Proxima Recarga");
@@ -3227,15 +3232,14 @@ public class CDatosNOM {
 
         modelo.addColumn("Firmado");
         modelo.addColumn("ID Norma");
-        modelo.addColumn("ID Usuario");
         modelo.addColumn("ID Terminal");
 
         paramTablaExtintoresG.setModel(modelo);
 
-        String sql = "SELECT b.id_bitacora, b.fecha_revision, b.ubicacion, b.ultima_recarga, b.proxima_recarga, "
+        String sql = "SELECT b.id_bitacora, b.fecha_revision, u.nombre AS nombre_usuario, b.ubicacion, b.ultima_recarga, b.proxima_recarga, "
                 + "b.capacidad, b.tipo_agente_extinguidor, b.manguera, b.manometro, b.soporte, b.presion, "
                 + "b.cilindro, b.limpieza, b.senalizacion, b.etiqueta, b.seguro, b.obstruccion, b.observacion, "
-                + "b.firmado, n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "b.firmado, n.nombre AS nombre_norma, t.nombre AS nombre_terminal "
                 + "FROM public.bitacora b "
                 + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
                 + "JOIN public.terminales t ON b.id_terminal_fk = t.id_terminal "
@@ -3247,36 +3251,33 @@ public class CDatosNOM {
         try {
             // Establecer conexión y preparar la consulta
             pst = globalV.conectar.prepareStatement(sql);
-            //pst.setString(1, globalV.user); // Asignar el parámetro a la consulta
-
             rs = pst.executeQuery();
 
             while (rs.next()) {
                 // Obtener datos de las columnas y convertir las booleanas
-                datos[0] = rs.getString(1); // ID usuario
-                datos[1] = convertirFecha(rs.getString(2));
-                datos[2] = rs.getString(3);
-                datos[3] = rs.getString(4);
-                datos[4] = rs.getString(5);
-                datos[5] = rs.getString(6);
-                datos[6] = rs.getString(7);
+                datos[0] = rs.getString(1); // ID bitácora
+                datos[1] = convertirFecha(rs.getString(2)); // Fecha
+                datos[2] = rs.getString(3); // Nombre Usuario (movido aquí)
+                datos[3] = rs.getString(4); // Ubicación
+                datos[4] = rs.getString(5); // Última Recarga
+                datos[5] = rs.getString(6); // Próxima Recarga
+                datos[6] = rs.getString(7); // Capacidad
+                datos[7] = rs.getString(8); // Tipo Agente Extinguidor
                 //booleanos
-                datos[7] = "t".equals(rs.getString(8));
-                datos[8] = "t".equals(rs.getString(9));
-                datos[9] = "t".equals(rs.getString(10));
-                datos[10] = "t".equals(rs.getString(11));
-                datos[11] = "t".equals(rs.getString(12));
-                datos[12] = "t".equals(rs.getString(13));
-                datos[13] = "t".equals(rs.getString(14));
-                datos[14] = "t".equals(rs.getString(15));
-                datos[15] = "t".equals(rs.getString(16));
-                datos[16] = "t".equals(rs.getString(17));
-
-                datos[17] = rs.getString(18);
-                datos[18] = "t".equals(rs.getString(19));
-                datos[19] = rs.getString(20);
-                datos[20] = rs.getString(21);
-                datos[21] = rs.getString(22);
+                datos[8] = "t".equals(rs.getString(9)); // Manguera
+                datos[9] = "t".equals(rs.getString(10)); // Manómetro
+                datos[10] = "t".equals(rs.getString(11)); // Soporte
+                datos[11] = "t".equals(rs.getString(12)); // Presión
+                datos[12] = "t".equals(rs.getString(13)); // Cilindro
+                datos[13] = "t".equals(rs.getString(14)); // Limpieza
+                datos[14] = "t".equals(rs.getString(15)); // Señalización
+                datos[15] = "t".equals(rs.getString(16)); // Etiqueta
+                datos[16] = "t".equals(rs.getString(17)); // Seguro
+                datos[17] = "t".equals(rs.getString(18)); // Obstrucción
+                datos[18] = rs.getString(19); // Observación
+                datos[19] = "t".equals(rs.getString(20)); // Firmado
+                datos[20] = rs.getString(21); // Nombre Norma
+                datos[21] = rs.getString(22); // Nombre Terminal
 
                 modelo.addRow(datos);
             }
@@ -3292,12 +3293,10 @@ public class CDatosNOM {
                 if (pst != null) {
                     pst.close();
                 }
-                //obj2.cerrarConexion(); // Método para cerrar conexión en TConexion
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
             }
         }
-
     }
 
     public void mostrarBitacoraHumoGlobal(JTable paramTablaBitacoraHumoG) {
@@ -3305,9 +3304,10 @@ public class CDatosNOM {
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         paramTablaBitacoraHumoG.setRowSorter(OrdenarTabla);
 
-        // Añadir las columnas al modelo
+        // Añadir las columnas al modelo (con el nuevo orden)
         modelo.addColumn("ID Bitácora");
         modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre Usuario"); // Movido aquí
         modelo.addColumn("Ubicación");
         modelo.addColumn("Última Fecha Pila");
         modelo.addColumn("Próximo Cambio Pila");
@@ -3318,15 +3318,14 @@ public class CDatosNOM {
         modelo.addColumn("Ubicación Física");
         modelo.addColumn("Observación");
         modelo.addColumn("Nombre Norma");
-        modelo.addColumn("Nombre Usuario");
         modelo.addColumn("Nombre Terminal");
 
         paramTablaBitacoraHumoG.setModel(modelo);
 
-        String sql = "SELECT bh.id_bitacora, bh.fecha_revision, bh.ubicacion, bh.ultima_fecha_pila, "
+        String sql = "SELECT bh.id_bitacora, bh.fecha_revision, u.nombre AS nombre_usuario, bh.ubicacion, bh.ultima_fecha_pila, "
                 + "bh.proximo_cambio_pila, bh.marca, bh.tipo_detector, bh.prueba_funcionamiento, "
                 + "bh.soporte, bh.ubicacion_fisica, bh.observacion, n.nombre AS nombre_norma, "
-                + "u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "t.nombre AS nombre_terminal "
                 + "FROM public.bitacora_humo bh "
                 + "JOIN public.normas n ON bh.id_norma_fk = n.id_norma "
                 + "JOIN public.usuarios u ON bh.id_usuario_fk = u.id_usuarios "
@@ -3341,20 +3340,20 @@ public class CDatosNOM {
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                // Obtener datos de las columnas
+                // Obtener datos de las columnas (en el nuevo orden)
                 datos[0] = rs.getString("id_bitacora");
                 datos[1] = convertirFecha(rs.getString("fecha_revision"));
-                datos[2] = rs.getString("ubicacion");
-                datos[3] = rs.getString("ultima_fecha_pila");
-                datos[4] = rs.getString("proximo_cambio_pila");
-                datos[5] = rs.getString("marca");
-                datos[6] = rs.getString("tipo_detector");
-                datos[7] = "t".equals(rs.getString("prueba_funcionamiento"));
-                datos[8] = "t".equals(rs.getString("soporte"));
-                datos[9] = "t".equals(rs.getString("ubicacion_fisica"));
-                datos[10] = rs.getString("observacion");
-                datos[11] = rs.getString("nombre_norma");
-                datos[12] = rs.getString("nombre_usuario");
+                datos[2] = rs.getString("nombre_usuario"); // Movido aquí
+                datos[3] = rs.getString("ubicacion");
+                datos[4] = rs.getString("ultima_fecha_pila");
+                datos[5] = rs.getString("proximo_cambio_pila");
+                datos[6] = rs.getString("marca");
+                datos[7] = rs.getString("tipo_detector");
+                datos[8] = "t".equals(rs.getString("prueba_funcionamiento"));
+                datos[9] = "t".equals(rs.getString("soporte"));
+                datos[10] = "t".equals(rs.getString("ubicacion_fisica"));
+                datos[11] = rs.getString("observacion");
+                datos[12] = rs.getString("nombre_norma");
                 datos[13] = rs.getString("nombre_terminal");
 
                 modelo.addRow(datos);
@@ -3382,9 +3381,10 @@ public class CDatosNOM {
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         paramTablaBitacoraGasG.setRowSorter(OrdenarTabla);
 
-        // Añadir las columnas al modelo
+        // Añadir las columnas al modelo (con el nuevo orden)
         modelo.addColumn("ID Bitácora");
         modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre Usuario"); // Movido aquí
         modelo.addColumn("Nombre Empresa");
         modelo.addColumn("C. Buena");
         modelo.addColumn("C. Regular");
@@ -3399,15 +3399,14 @@ public class CDatosNOM {
         modelo.addColumn("Diámetro");
         modelo.addColumn("Espesor");
         modelo.addColumn("Nombre Norma");
-        modelo.addColumn("Nombre Usuario");
         modelo.addColumn("Nombre Terminal");
 
         paramTablaBitacoraGasG.setModel(modelo);
 
-        String sql = "SELECT bi.id_bitacora, bi.fecha_revision, bi.nombre_empresa, bi.c_buena, bi.c_regular, bi.c_mala, "
+        String sql = "SELECT bi.id_bitacora, bi.fecha_revision, u.nombre AS nombre_usuario, bi.nombre_empresa, bi.c_buena, bi.c_regular, bi.c_mala, "
                 + "bi.observaciones_soportes, bi.capacidad, bi.fecha_fabricacion, bi.capacidad_reg, "
                 + "bi.observaciones_gen_revisor, bi.marca, bi.serie, bi.diametro, bi.espesor, "
-                + "n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "n.nombre AS nombre_norma, t.nombre AS nombre_terminal "
                 + "FROM public.bitacora_instalacion_de_gas bi "
                 + "JOIN public.normas n ON bi.id_norma_fk = n.id_norma "
                 + "JOIN public.usuarios u ON bi.id_usuario_fk = u.id_usuarios "
@@ -3422,25 +3421,25 @@ public class CDatosNOM {
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                // Obtener datos de las columnas
+                // Obtener datos de las columnas (en el nuevo orden)
                 datos[0] = rs.getString("id_bitacora");
                 datos[1] = convertirFecha(rs.getString("fecha_revision"));
-                datos[2] = rs.getString("nombre_empresa");
-                datos[3] = "t".equals(rs.getString("c_buena"));
-                datos[4] = "t".equals(rs.getString("c_regular"));
-                datos[5] = "t".equals(rs.getString("c_mala"));
-                datos[6] = rs.getString("observaciones_soportes");
-                datos[7] = rs.getString("capacidad");
-                datos[8] = rs.getString("fecha_fabricacion");
-                datos[9] = rs.getString("capacidad_reg");
-                datos[10] = rs.getString("observaciones_gen_revisor");
-                datos[11] = rs.getString("marca");
-                datos[12] = rs.getString("serie");
-                datos[13] = rs.getString("diametro");
-                datos[14] = rs.getString("espesor");
-                datos[15] = rs.getString("nombre_norma");
-                datos[16] = rs.getString("nombre_usuario"); // Asegúrate de que esta columna exista en el ResultSet
-                datos[17] = rs.getString("nombre_terminal"); // Asegúrate de que esta columna exista en el ResultSet
+                datos[2] = rs.getString("nombre_usuario"); // Movido aquí
+                datos[3] = rs.getString("nombre_empresa");
+                datos[4] = "t".equals(rs.getString("c_buena"));
+                datos[5] = "t".equals(rs.getString("c_regular"));
+                datos[6] = "t".equals(rs.getString("c_mala"));
+                datos[7] = rs.getString("observaciones_soportes");
+                datos[8] = rs.getString("capacidad");
+                datos[9] = rs.getString("fecha_fabricacion");
+                datos[10] = rs.getString("capacidad_reg");
+                datos[11] = rs.getString("observaciones_gen_revisor");
+                datos[12] = rs.getString("marca");
+                datos[13] = rs.getString("serie");
+                datos[14] = rs.getString("diametro");
+                datos[15] = rs.getString("espesor");
+                datos[16] = rs.getString("nombre_norma");
+                datos[17] = rs.getString("nombre_terminal");
 
                 modelo.addRow(datos);
             }
@@ -3467,9 +3466,10 @@ public class CDatosNOM {
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         paramTablaBitacoraEPPG.setRowSorter(OrdenarTabla);
 
-        // Añadir las columnas al modelo
+        // Añadir las columnas al modelo (con el nuevo orden)
         modelo.addColumn("ID Bitácora");
         modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre Usuario"); // Movido aquí
         modelo.addColumn("Nombre");
         modelo.addColumn("Área");
         modelo.addColumn("Puesto");
@@ -3486,15 +3486,14 @@ public class CDatosNOM {
         modelo.addColumn("Uniforme");
         modelo.addColumn("Firmado");
         modelo.addColumn("Nombre Norma");
-        modelo.addColumn("Nombre Usuario");
         modelo.addColumn("Nombre Terminal");
 
         paramTablaBitacoraEPPG.setModel(modelo);
 
-        String sql = "SELECT be.id_bitacora, be.fecha_revision, be.nombre, be.area, be.puesto, be.casco, "
+        String sql = "SELECT be.id_bitacora, be.fecha_revision, u.nombre AS nombre_usuario, be.nombre, be.area, be.puesto, be.casco, "
                 + "be.lentes_de_seguridad, be.botas_de_seguridad, be.tapones_auditivos, be.guantes, "
                 + "be.careta_soldar, be.careta_esmerilar, be.mascarilla, be.faja, be.arnes, be.uniforme, "
-                + "be.firmado, n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "be.firmado, n.nombre AS nombre_norma, t.nombre AS nombre_terminal "
                 + "FROM public.bitacora_epp be "
                 + "JOIN public.normas n ON be.id_norma_fk = n.id_norma "
                 + "JOIN public.usuarios u ON be.id_usuario_fk = u.id_usuarios "
@@ -3509,26 +3508,26 @@ public class CDatosNOM {
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                // Obtener datos de las columnas
+                // Obtener datos de las columnas (en el nuevo orden)
                 datos[0] = rs.getString("id_bitacora");
                 datos[1] = convertirFecha(rs.getString("fecha_revision"));
-                datos[2] = rs.getString("nombre");
-                datos[3] = rs.getString("area");
-                datos[4] = rs.getString("puesto");
-                datos[5] = "t".equals(rs.getString("casco"));
-                datos[6] = "t".equals(rs.getString("lentes_de_seguridad"));
-                datos[7] = "t".equals(rs.getString("botas_de_seguridad"));
-                datos[8] = "t".equals(rs.getString("tapones_auditivos"));
-                datos[9] = "t".equals(rs.getString("guantes"));
-                datos[10] = "t".equals(rs.getString("careta_soldar"));
-                datos[11] = "t".equals(rs.getString("careta_esmerilar"));
-                datos[12] = "t".equals(rs.getString("mascarilla"));
-                datos[13] = "t".equals(rs.getString("faja"));
-                datos[14] = "t".equals(rs.getString("arnes"));
-                datos[15] = "t".equals(rs.getString("uniforme"));
-                datos[16] = "t".equals(rs.getString("firmado"));
-                datos[17] = rs.getString("nombre_norma");
-                datos[18] = rs.getString("nombre_usuario");
+                datos[2] = rs.getString("nombre_usuario"); // Movido aquí
+                datos[3] = rs.getString("nombre");
+                datos[4] = rs.getString("area");
+                datos[5] = rs.getString("puesto");
+                datos[6] = "t".equals(rs.getString("casco"));
+                datos[7] = "t".equals(rs.getString("lentes_de_seguridad"));
+                datos[8] = "t".equals(rs.getString("botas_de_seguridad"));
+                datos[9] = "t".equals(rs.getString("tapones_auditivos"));
+                datos[10] = "t".equals(rs.getString("guantes"));
+                datos[11] = "t".equals(rs.getString("careta_soldar"));
+                datos[12] = "t".equals(rs.getString("careta_esmerilar"));
+                datos[13] = "t".equals(rs.getString("mascarilla"));
+                datos[14] = "t".equals(rs.getString("faja"));
+                datos[15] = "t".equals(rs.getString("arnes"));
+                datos[16] = "t".equals(rs.getString("uniforme"));
+                datos[17] = "t".equals(rs.getString("firmado"));
+                datos[18] = rs.getString("nombre_norma");
                 datos[19] = rs.getString("nombre_terminal");
 
                 modelo.addRow(datos);
@@ -3557,9 +3556,10 @@ public class CDatosNOM {
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         paramTablaBitacoraGasG.setRowSorter(OrdenarTabla);
 
-        // Añadir las columnas al modelo
+        // Añadir las columnas al modelo (con el nuevo orden)
         modelo.addColumn("ID Bitácora");
         modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre Usuario"); // Movido aquí
         modelo.addColumn("Nombre Empresa");
         modelo.addColumn("C. Buena");
         modelo.addColumn("C. Regular");
@@ -3574,16 +3574,15 @@ public class CDatosNOM {
         modelo.addColumn("Diámetro");
         modelo.addColumn("Espesor");
         modelo.addColumn("Nombre Norma");
-        modelo.addColumn("Nombre Usuario");
         modelo.addColumn("Nombre Terminal");
 
         paramTablaBitacoraGasG.setModel(modelo);
 
         // Query SQL con parámetros para fecha y usuario
-        String sql = "SELECT bi.id_bitacora, bi.fecha_revision, bi.nombre_empresa, bi.c_buena, bi.c_regular, bi.c_mala, "
+        String sql = "SELECT bi.id_bitacora, bi.fecha_revision, u.nombre AS nombre_usuario, bi.nombre_empresa, bi.c_buena, bi.c_regular, bi.c_mala, "
                 + "bi.observaciones_soportes, bi.capacidad, bi.fecha_fabricacion, bi.capacidad_reg, "
                 + "bi.observaciones_gen_revisor, bi.marca, bi.serie, bi.diametro, bi.espesor, "
-                + "n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "n.nombre AS nombre_norma, t.nombre AS nombre_terminal "
                 + "FROM public.bitacora_instalacion_de_gas bi "
                 + "JOIN public.normas n ON bi.id_norma_fk = n.id_norma "
                 + "JOIN public.usuarios u ON bi.id_usuario_fk = u.id_usuarios "
@@ -3603,25 +3602,25 @@ public class CDatosNOM {
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                // Obtener datos de las columnas
+                // Obtener datos de las columnas (en el nuevo orden)
                 datos[0] = rs.getString("id_bitacora");
                 datos[1] = convertirFecha(rs.getString("fecha_revision"));
-                datos[2] = rs.getString("nombre_empresa");
-                datos[3] = "t".equals(rs.getString("c_buena"));
-                datos[4] = "t".equals(rs.getString("c_regular"));
-                datos[5] = "t".equals(rs.getString("c_mala"));
-                datos[6] = rs.getString("observaciones_soportes");
-                datos[7] = rs.getString("capacidad");
-                datos[8] = rs.getString("fecha_fabricacion");
-                datos[9] = rs.getString("capacidad_reg");
-                datos[10] = rs.getString("observaciones_gen_revisor");
-                datos[11] = rs.getString("marca");
-                datos[12] = rs.getString("serie");
-                datos[13] = rs.getString("diametro");
-                datos[14] = rs.getString("espesor");
-                datos[15] = rs.getString("nombre_norma");
-                datos[16] = rs.getString("nombre_usuario"); // Asegúrate de que esta columna exista en el ResultSet
-                datos[17] = rs.getString("nombre_terminal"); // Asegúrate de que esta columna exista en el ResultSet
+                datos[2] = rs.getString("nombre_usuario"); // Movido aquí
+                datos[3] = rs.getString("nombre_empresa");
+                datos[4] = "t".equals(rs.getString("c_buena"));
+                datos[5] = "t".equals(rs.getString("c_regular"));
+                datos[6] = "t".equals(rs.getString("c_mala"));
+                datos[7] = rs.getString("observaciones_soportes");
+                datos[8] = rs.getString("capacidad");
+                datos[9] = rs.getString("fecha_fabricacion");
+                datos[10] = rs.getString("capacidad_reg");
+                datos[11] = rs.getString("observaciones_gen_revisor");
+                datos[12] = rs.getString("marca");
+                datos[13] = rs.getString("serie");
+                datos[14] = rs.getString("diametro");
+                datos[15] = rs.getString("espesor");
+                datos[16] = rs.getString("nombre_norma");
+                datos[17] = rs.getString("nombre_terminal");
 
                 modelo.addRow(datos);
             }
@@ -3648,9 +3647,10 @@ public class CDatosNOM {
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         paramTablaEPPG.setRowSorter(OrdenarTabla);
 
-        // Añadir las columnas al modelo
+        // Añadir las columnas al modelo (con el nuevo orden)
         modelo.addColumn("ID Bitácora");
         modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre Usuario"); // Movido aquí
         modelo.addColumn("Nombre");
         modelo.addColumn("Área");
         modelo.addColumn("Puesto");
@@ -3663,20 +3663,19 @@ public class CDatosNOM {
         modelo.addColumn("Careta de Esmerilar");
         modelo.addColumn("Mascarilla");
         modelo.addColumn("Faja");
-        modelo.addColumn("Arnes");
+        modelo.addColumn("Arnés");
         modelo.addColumn("Uniforme");
         modelo.addColumn("Firmado");
         modelo.addColumn("Nombre Norma");
-        modelo.addColumn("Nombre Usuario");
         modelo.addColumn("Nombre Terminal");
 
         paramTablaEPPG.setModel(modelo);
 
         // Query SQL con filtros
-        String sql = "SELECT be.id_bitacora, be.fecha_revision, be.nombre, be.area, be.puesto, be.casco, "
+        String sql = "SELECT be.id_bitacora, be.fecha_revision, u.nombre AS nombre_usuario, be.nombre, be.area, be.puesto, be.casco, "
                 + "be.lentes_de_seguridad, be.botas_de_seguridad, be.tapones_auditivos, be.guantes, "
                 + "be.careta_soldar, be.careta_esmerilar, be.mascarilla, be.faja, be.arnes, be.uniforme, "
-                + "be.firmado, n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "be.firmado, n.nombre AS nombre_norma, t.nombre AS nombre_terminal "
                 + "FROM public.bitacora_epp be "
                 + "JOIN public.normas n ON be.id_norma_fk = n.id_norma "
                 + "JOIN public.usuarios u ON be.id_usuario_fk = u.id_usuarios "
@@ -3696,26 +3695,26 @@ public class CDatosNOM {
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                // Obtener datos de las columnas
+                // Obtener datos de las columnas (en el nuevo orden)
                 datos[0] = rs.getString("id_bitacora");
                 datos[1] = convertirFecha(rs.getString("fecha_revision"));
-                datos[2] = rs.getString("nombre");
-                datos[3] = rs.getString("area");
-                datos[4] = rs.getString("puesto");
-                datos[5] = "t".equals(rs.getString("casco"));
-                datos[6] = "t".equals(rs.getString("lentes_de_seguridad"));
-                datos[7] = "t".equals(rs.getString("botas_de_seguridad"));
-                datos[8] = "t".equals(rs.getString("tapones_auditivos"));
-                datos[9] = "t".equals(rs.getString("guantes"));
-                datos[10] = "t".equals(rs.getString("careta_soldar"));
-                datos[11] = "t".equals(rs.getString("careta_esmerilar"));
-                datos[12] = "t".equals(rs.getString("mascarilla"));
-                datos[13] = "t".equals(rs.getString("faja"));
-                datos[14] = "t".equals(rs.getString("arnes"));
-                datos[15] = "t".equals(rs.getString("uniforme"));
-                datos[16] = "t".equals(rs.getString("firmado"));
-                datos[17] = rs.getString("nombre_norma");
-                datos[18] = rs.getString("nombre_usuario");
+                datos[2] = rs.getString("nombre_usuario"); // Movido aquí
+                datos[3] = rs.getString("nombre");
+                datos[4] = rs.getString("area");
+                datos[5] = rs.getString("puesto");
+                datos[6] = "t".equals(rs.getString("casco"));
+                datos[7] = "t".equals(rs.getString("lentes_de_seguridad"));
+                datos[8] = "t".equals(rs.getString("botas_de_seguridad"));
+                datos[9] = "t".equals(rs.getString("tapones_auditivos"));
+                datos[10] = "t".equals(rs.getString("guantes"));
+                datos[11] = "t".equals(rs.getString("careta_soldar"));
+                datos[12] = "t".equals(rs.getString("careta_esmerilar"));
+                datos[13] = "t".equals(rs.getString("mascarilla"));
+                datos[14] = "t".equals(rs.getString("faja"));
+                datos[15] = "t".equals(rs.getString("arnes"));
+                datos[16] = "t".equals(rs.getString("uniforme"));
+                datos[17] = "t".equals(rs.getString("firmado"));
+                datos[18] = rs.getString("nombre_norma");
                 datos[19] = rs.getString("nombre_terminal");
 
                 modelo.addRow(datos);
@@ -3738,61 +3737,15 @@ public class CDatosNOM {
         }
     }
 
-    /* public void insertarUsuario(String nombre, String correo, String username, String password, boolean activo,
-            String nombreRegion, String nombreRol) {
-        PreparedStatement pst = null;
-
-        try {
-            // Consulta SQL para insertar un nuevo usuario
-            String sql = "INSERT INTO public.usuarios (nombre, correo, username, password, activo, id_region_fk, id_role_fk) "
-                    + "VALUES (?, ?, ?, ?, ?, (SELECT id_region FROM public.regiones WHERE nombre = ?), "
-                    + "(SELECT id_rol FROM public.roles WHERE nombre = ?));";
-
-            // Crear el PreparedStatement
-            pst = globalV.conectar.prepareStatement(sql);
-
-            // Asignar los valores a los parámetros de la consulta
-            pst.setString(1, nombre);
-            pst.setString(2, correo);
-            pst.setString(3, username);
-            pst.setString(4, password);
-            pst.setBoolean(5, activo);
-            pst.setString(6, nombreRegion); // Obtener el ID de la región a partir del nombre
-            pst.setString(7, nombreRol);   // Obtener el ID del rol a partir del nombre
-
-            // Ejecutar la inserción
-            int filasAfectadas = pst.executeUpdate();
-
-            // Verificar si la inserción fue exitosa
-            if (filasAfectadas > 0) {
-                System.out.println("Usuario insertado correctamente.");
-            } else {
-                System.out.println("No se pudo insertar el usuario.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Imprime cualquier error para depuración
-            System.out.println("Error al insertar usuario: " + e.getMessage());
-        } finally {
-            // Cerrar el PreparedStatement
-            try {
-                if (pst != null) {
-                    pst.close();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error al cerrar recursos: " + ex.getMessage());
-            }
-        }
-    }*/
-    
-
     public void mostrarBitacoraExtintoresPersonalizado(JTable tableBitacorasAdmin, String fechaSeleccionada, String usuarioSeleccionado) {
         DefaultTableModel modelo = new DefaultTableModel();
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         tableBitacorasAdmin.setRowSorter(OrdenarTabla);
 
-        // Añadir las columnas al modelo
+        // Añadir las columnas al modelo (con el nuevo orden)
         modelo.addColumn("ID Bitacora");
         modelo.addColumn("Fecha");
+        modelo.addColumn("Nombre Usuario"); // Movido aquí
         modelo.addColumn("Ubicacion");
         modelo.addColumn("Ultima Recarga");
         modelo.addColumn("Proxima Recarga");
@@ -3811,7 +3764,6 @@ public class CDatosNOM {
         modelo.addColumn("Observacion");
         modelo.addColumn("Firmado");
         modelo.addColumn("ID Norma");
-        modelo.addColumn("ID Usuario");
         modelo.addColumn("ID Terminal");
 
         tableBitacorasAdmin.setModel(modelo);
@@ -3822,10 +3774,10 @@ public class CDatosNOM {
         int mes = Integer.parseInt(partesFecha[1]); // Mes
 
         // Consulta SQL con filtros
-        String sql = "SELECT b.id_bitacora, b.fecha_revision, b.ubicacion, b.ultima_recarga, b.proxima_recarga, "
+        String sql = "SELECT b.id_bitacora, b.fecha_revision, u.nombre AS nombre_usuario, b.ubicacion, b.ultima_recarga, b.proxima_recarga, "
                 + "b.capacidad, b.tipo_agente_extinguidor, b.manguera, b.manometro, b.soporte, b.presion, "
                 + "b.cilindro, b.limpieza, b.senalizacion, b.etiqueta, b.seguro, b.obstruccion, b.observacion, "
-                + "b.firmado, n.nombre AS nombre_norma, u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
+                + "b.firmado, n.nombre AS nombre_norma, t.nombre AS nombre_terminal "
                 + "FROM public.bitacora b "
                 + "JOIN public.usuarios u ON b.id_usuario_fk = u.id_usuarios "
                 + "JOIN public.terminales t ON b.id_terminal_fk = t.id_terminal "
@@ -3848,29 +3800,29 @@ public class CDatosNOM {
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                // Obtener datos de las columnas y convertir las booleanas
+                // Obtener datos de las columnas (en el nuevo orden)
                 datos[0] = rs.getString(1); // ID Bitacora
                 datos[1] = convertirFecha(rs.getString(2)); // Fecha
-                datos[2] = rs.getString(3); // Ubicacion
-                datos[3] = rs.getString(4); // Ultima Recarga
-                datos[4] = rs.getString(5); // Proxima Recarga
-                datos[5] = rs.getString(6); // Capacidad
-                datos[6] = rs.getString(7); // Tipo Agente Extinguidor
+                datos[2] = rs.getString(3); // Nombre Usuario (movido aquí)
+                datos[3] = rs.getString(4); // Ubicacion
+                datos[4] = rs.getString(5); // Ultima Recarga
+                datos[5] = rs.getString(6); // Proxima Recarga
+                datos[6] = rs.getString(7); // Capacidad
+                datos[7] = rs.getString(8); // Tipo Agente Extinguidor
                 //booleanos
-                datos[7] = "t".equals(rs.getString(8)); // Manguera
-                datos[8] = "t".equals(rs.getString(9)); // Manometro
-                datos[9] = "t".equals(rs.getString(10)); // Soporte
-                datos[10] = "t".equals(rs.getString(11)); // Presion
-                datos[11] = "t".equals(rs.getString(12)); // Cilindro
-                datos[12] = "t".equals(rs.getString(13)); // Limpieza
-                datos[13] = "t".equals(rs.getString(14)); // Señalizacion
-                datos[14] = "t".equals(rs.getString(15)); // Etiqueta
-                datos[15] = "t".equals(rs.getString(16)); // Seguro
-                datos[16] = "t".equals(rs.getString(17)); // Obstruccion
-                datos[17] = rs.getString(18); // Observacion
-                datos[18] = "t".equals(rs.getString(19)); // Firmado
-                datos[19] = rs.getString(20); // ID Norma
-                datos[20] = rs.getString(21); // ID Usuario
+                datos[8] = "t".equals(rs.getString(9)); // Manguera
+                datos[9] = "t".equals(rs.getString(10)); // Manometro
+                datos[10] = "t".equals(rs.getString(11)); // Soporte
+                datos[11] = "t".equals(rs.getString(12)); // Presion
+                datos[12] = "t".equals(rs.getString(13)); // Cilindro
+                datos[13] = "t".equals(rs.getString(14)); // Limpieza
+                datos[14] = "t".equals(rs.getString(15)); // Señalizacion
+                datos[15] = "t".equals(rs.getString(16)); // Etiqueta
+                datos[16] = "t".equals(rs.getString(17)); // Seguro
+                datos[17] = "t".equals(rs.getString(18)); // Obstruccion
+                datos[18] = rs.getString(19); // Observacion
+                datos[19] = "t".equals(rs.getString(20)); // Firmado
+                datos[20] = rs.getString(21); // ID Norma
                 datos[21] = rs.getString(22); // ID Terminal
 
                 modelo.addRow(datos); // Añadir la fila al modelo
@@ -3892,99 +3844,96 @@ public class CDatosNOM {
             }
         }
     }
-    
-    
-    
+
     public void mostrarBitacoraHumoPersonalizado(JTable paramTablaBitacoraHumoG, String fechaSeleccionada, String usuarioSeleccionado) {
-    DefaultTableModel modelo = new DefaultTableModel();
-    TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
-    paramTablaBitacoraHumoG.setRowSorter(OrdenarTabla);
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaBitacoraHumoG.setRowSorter(OrdenarTabla);
 
-    // Añadir las columnas al modelo
-    modelo.addColumn("ID Bitácora");
-    modelo.addColumn("Fecha Revisión");
-    modelo.addColumn("Ubicación");
-    modelo.addColumn("Última Fecha Pila");
-    modelo.addColumn("Próximo Cambio Pila");
-    modelo.addColumn("Marca");
-    modelo.addColumn("Tipo Detector");
-    modelo.addColumn("Prueba Funcionamiento");
-    modelo.addColumn("Soporte");
-    modelo.addColumn("Ubicación Física");
-    modelo.addColumn("Observación");
-    modelo.addColumn("Nombre Norma");
-    modelo.addColumn("Nombre Usuario");
-    modelo.addColumn("Nombre Terminal");
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Bitácora");
+        modelo.addColumn("Fecha Revisión");
+        modelo.addColumn("Nombre Usuario"); // Movido junto a la fecha
+        modelo.addColumn("Ubicación");
+        modelo.addColumn("Última Fecha Pila");
+        modelo.addColumn("Próximo Cambio Pila");
+        modelo.addColumn("Marca");
+        modelo.addColumn("Tipo Detector");
+        modelo.addColumn("Prueba Funcionamiento");
+        modelo.addColumn("Soporte");
+        modelo.addColumn("Ubicación Física");
+        modelo.addColumn("Observación");
+        modelo.addColumn("Nombre Norma");
+        modelo.addColumn("Nombre Terminal");
 
-    paramTablaBitacoraHumoG.setModel(modelo);
+        paramTablaBitacoraHumoG.setModel(modelo);
 
-    // Separar el año y el mes de la fecha
-    String[] partesFecha = fechaSeleccionada.split("-");
-    int año = Integer.parseInt(partesFecha[0]); // Año
-    int mes = Integer.parseInt(partesFecha[1]); // Mes
+        // Separar el año y el mes de la fecha
+        String[] partesFecha = fechaSeleccionada.split("-");
+        int año = Integer.parseInt(partesFecha[0]); // Año
+        int mes = Integer.parseInt(partesFecha[1]); // Mes
 
-    // Consulta SQL con filtros
-    String sql = "SELECT bh.id_bitacora, bh.fecha_revision, bh.ubicacion, bh.ultima_fecha_pila, "
-            + "bh.proximo_cambio_pila, bh.marca, bh.tipo_detector, bh.prueba_funcionamiento, "
-            + "bh.soporte, bh.ubicacion_fisica, bh.observacion, n.nombre AS nombre_norma, "
-            + "u.nombre AS nombre_usuario, t.nombre AS nombre_terminal "
-            + "FROM public.bitacora_humo bh "
-            + "JOIN public.normas n ON bh.id_norma_fk = n.id_norma "
-            + "JOIN public.usuarios u ON bh.id_usuario_fk = u.id_usuarios "
-            + "JOIN public.terminales t ON bh.id_terminal_fk = t.id_terminal "
-            + "WHERE EXTRACT(MONTH FROM bh.fecha_revision) = ? "
-            + "AND EXTRACT(YEAR FROM bh.fecha_revision) = ? "
-            + "AND u.nombre = ?;";
+        // Consulta SQL con filtros
+        String sql = "SELECT bh.id_bitacora, bh.fecha_revision, u.nombre AS nombre_usuario, bh.ubicacion, bh.ultima_fecha_pila, "
+                + "bh.proximo_cambio_pila, bh.marca, bh.tipo_detector, bh.prueba_funcionamiento, "
+                + "bh.soporte, bh.ubicacion_fisica, bh.observacion, n.nombre AS nombre_norma, "
+                + "t.nombre AS nombre_terminal "
+                + "FROM public.bitacora_humo bh "
+                + "JOIN public.normas n ON bh.id_norma_fk = n.id_norma "
+                + "JOIN public.usuarios u ON bh.id_usuario_fk = u.id_usuarios "
+                + "JOIN public.terminales t ON bh.id_terminal_fk = t.id_terminal "
+                + "WHERE EXTRACT(MONTH FROM bh.fecha_revision) = ? "
+                + "AND EXTRACT(YEAR FROM bh.fecha_revision) = ? "
+                + "AND u.nombre = ?;";
 
-    Object[] datos = new Object[14]; // Ajustado al número de columnas
-    PreparedStatement pst = null;
-    ResultSet rs = null;
+        Object[] datos = new Object[14]; // Ajustado al número de columnas
+        PreparedStatement pst = null;
+        ResultSet rs = null;
 
-    try {
-        // Establecer conexión y preparar la consulta
-        pst = globalV.conectar.prepareStatement(sql);
-        pst.setInt(1, mes); // Mes
-        pst.setInt(2, año); // Año
-        pst.setString(3, usuarioSeleccionado); // Nombre del usuario
-
-        rs = pst.executeQuery();
-
-        while (rs.next()) {
-            // Obtener datos de las columnas
-            datos[0] = rs.getString("id_bitacora");
-            datos[1] = convertirFecha(rs.getString("fecha_revision"));
-            datos[2] = rs.getString("ubicacion");
-            datos[3] = rs.getString("ultima_fecha_pila");
-            datos[4] = rs.getString("proximo_cambio_pila");
-            datos[5] = rs.getString("marca");
-            datos[6] = rs.getString("tipo_detector");
-            datos[7] = "t".equals(rs.getString("prueba_funcionamiento"));
-            datos[8] = "t".equals(rs.getString("soporte"));
-            datos[9] = "t".equals(rs.getString("ubicacion_fisica"));
-            datos[10] = rs.getString("observacion");
-            datos[11] = rs.getString("nombre_norma");
-            datos[12] = rs.getString("nombre_usuario");
-            datos[13] = rs.getString("nombre_terminal");
-
-            modelo.addRow(datos);
-        }
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
-    } finally {
-        // Cerrar recursos
         try {
-            if (rs != null) {
-                rs.close();
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            pst.setInt(1, mes); // Mes
+            pst.setInt(2, año); // Año
+            pst.setString(3, usuarioSeleccionado); // Nombre del usuario
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas
+                datos[0] = rs.getString("id_bitacora");
+                datos[1] = convertirFecha(rs.getString("fecha_revision"));
+                datos[2] = rs.getString("nombre_usuario"); // Movido junto a la fecha
+                datos[3] = rs.getString("ubicacion");
+                datos[4] = rs.getString("ultima_fecha_pila");
+                datos[5] = rs.getString("proximo_cambio_pila");
+                datos[6] = rs.getString("marca");
+                datos[7] = rs.getString("tipo_detector");
+                datos[8] = "t".equals(rs.getString("prueba_funcionamiento"));
+                datos[9] = "t".equals(rs.getString("soporte"));
+                datos[10] = "t".equals(rs.getString("ubicacion_fisica"));
+                datos[11] = rs.getString("observacion");
+                datos[12] = rs.getString("nombre_norma");
+                datos[13] = rs.getString("nombre_terminal");
+
+                modelo.addRow(datos);
             }
-            if (pst != null) {
-                pst.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
         }
     }
-}
-    
-    
+
 }

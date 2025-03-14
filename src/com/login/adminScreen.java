@@ -145,6 +145,7 @@ public class adminScreen extends javax.swing.JFrame {
         JComboBoxFiltroUsuariosEPP = new javax.swing.JComboBox<>();
         btnFiltarEPPAdmin = new com.login.ModernButton();
         btnQuitarFiltroEPPAdmin = new com.login.ModernButton();
+        jComboBox3 = new javax.swing.JComboBox<>();
         bitacorasGeneralGas = new javax.swing.JPanel();
         tablaBitacoras2 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -154,16 +155,18 @@ public class adminScreen extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         btnFiltarGasAdmin = new com.login.ModernButton();
         btnQuitarFiltroGasAdmin = new com.login.ModernButton();
+        jComboBox2 = new javax.swing.JComboBox<>();
         bitacorasGeneralHumo = new javax.swing.JPanel();
         tablaBitacorasHumo = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tableBItacorasHumoAdmin = new javax.swing.JTable();
         listUsersHumo = new javax.swing.JComboBox<>();
         listFechasHumo = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
         btnBuscarHumo = new com.login.ModernButton();
         exportarExtintorAdmin = new com.login.ModernButton();
         listRazon = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        btnQuitarFiltroGasAdmin2 = new com.login.ModernButton();
         bitacorasGeneralExtintores = new javax.swing.JPanel();
         tablaBitacoras = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -171,6 +174,9 @@ public class adminScreen extends javax.swing.JFrame {
         listUsers = new javax.swing.JComboBox<>();
         listFechas = new javax.swing.JComboBox<>();
         btnBuscar = new com.login.ModernButton();
+        jLabel9 = new javax.swing.JLabel();
+        btnQuitarFiltroGasAdmin1 = new com.login.ModernButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -664,10 +670,10 @@ public class adminScreen extends javax.swing.JFrame {
         );
         tablaBitacoras3Layout.setVerticalGroup(
             tablaBitacoras3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
         );
 
-        bitacorasGeneralEpp.add(tablaBitacoras3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 590, 260));
+        bitacorasGeneralEpp.add(tablaBitacoras3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 590, 270));
 
         jLabel8.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel8.setText("FILTRAR POR:");
@@ -707,6 +713,11 @@ public class adminScreen extends javax.swing.JFrame {
             }
         });
         bitacorasGeneralEpp.add(btnQuitarFiltroEPPAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, -1, -1));
+
+        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
+        bitacorasGeneralEpp.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 200, -1));
 
         bitacoras.add(bitacorasGeneralEpp, "card5");
 
@@ -756,7 +767,7 @@ public class adminScreen extends javax.swing.JFrame {
         jComboBoxFiltroFechas.setBackground(new java.awt.Color(255, 255, 255));
         jComboBoxFiltroFechas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxFiltroFechas.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        bitacorasGeneralGas.add(jComboBoxFiltroFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 150, 40));
+        bitacorasGeneralGas.add(jComboBoxFiltroFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 150, 40));
 
         jLabel7.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel7.setText("FILTRAR POR:");
@@ -786,6 +797,11 @@ public class adminScreen extends javax.swing.JFrame {
             }
         });
         bitacorasGeneralGas.add(btnQuitarFiltroGasAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, -1, -1));
+
+        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
+        bitacorasGeneralGas.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 210, -1));
 
         bitacoras.add(bitacorasGeneralGas, "card5");
 
@@ -822,10 +838,10 @@ public class adminScreen extends javax.swing.JFrame {
         );
         tablaBitacorasHumoLayout.setVerticalGroup(
             tablaBitacorasHumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
         );
 
-        bitacorasGeneralHumo.add(tablaBitacorasHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 590, 330));
+        bitacorasGeneralHumo.add(tablaBitacorasHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 590, 290));
 
         listUsersHumo.setBackground(new java.awt.Color(255, 255, 255));
         listUsersHumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -835,22 +851,22 @@ public class adminScreen extends javax.swing.JFrame {
                 listUsersHumoActionPerformed(evt);
             }
         });
-        bitacorasGeneralHumo.add(listUsersHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 150, 40));
+        bitacorasGeneralHumo.add(listUsersHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 150, 40));
 
         listFechasHumo.setBackground(new java.awt.Color(255, 255, 255));
         listFechasHumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         listFechasHumo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por fecha", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        bitacorasGeneralHumo.add(listFechasHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 150, 40));
+        bitacorasGeneralHumo.add(listFechasHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, 40));
 
-        jLabel6.setText("humo");
-        bitacorasGeneralHumo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-
+        btnBuscarHumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/filtrar.png"))); // NOI18N
+        btnBuscarHumo.setText("<html>QUITAR<br>FILTRO</html>");
+        btnBuscarHumo.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
         btnBuscarHumo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarHumoActionPerformed(evt);
             }
         });
-        bitacorasGeneralHumo.add(btnBuscarHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, -1));
+        bitacorasGeneralHumo.add(btnBuscarHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, -1, -1));
 
         exportarExtintorAdmin.setText("Exportar");
         exportarExtintorAdmin.addActionListener(new java.awt.event.ActionListener() {
@@ -858,10 +874,31 @@ public class adminScreen extends javax.swing.JFrame {
                 exportarExtintorAdminActionPerformed(evt);
             }
         });
-        bitacorasGeneralHumo.add(exportarExtintorAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, -1, -1));
+        bitacorasGeneralHumo.add(exportarExtintorAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, -1, -1));
 
+        listRazon.setBackground(new java.awt.Color(255, 255, 255));
         listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        bitacorasGeneralHumo.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 170, -1));
+        listRazon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
+        bitacorasGeneralHumo.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 230, 30));
+
+        jLabel10.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        jLabel10.setText("FILTRAR POR:");
+        bitacorasGeneralHumo.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        btnQuitarFiltroGasAdmin2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/quitar_filtro.png"))); // NOI18N
+        btnQuitarFiltroGasAdmin2.setText("<html>QUITAR<br>FILTRO</html>");
+        btnQuitarFiltroGasAdmin2.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
+        btnQuitarFiltroGasAdmin2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQuitarFiltroGasAdmin2MouseClicked(evt);
+            }
+        });
+        btnQuitarFiltroGasAdmin2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarFiltroGasAdmin2ActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralHumo.add(btnQuitarFiltroGasAdmin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
 
         bitacoras.add(bitacorasGeneralHumo, "card5");
 
@@ -898,14 +935,14 @@ public class adminScreen extends javax.swing.JFrame {
         );
         tablaBitacorasLayout.setVerticalGroup(
             tablaBitacorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
         );
 
-        bitacorasGeneralExtintores.add(tablaBitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 590, 350));
+        bitacorasGeneralExtintores.add(tablaBitacoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 590, 300));
 
         listUsers.setBackground(new java.awt.Color(255, 255, 255));
         listUsers.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Buscar por usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        bitacorasGeneralExtintores.add(listUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 150, 40));
+        bitacorasGeneralExtintores.add(listUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 150, 40));
 
         listFechas.setBackground(new java.awt.Color(255, 255, 255));
         listFechas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -915,15 +952,41 @@ public class adminScreen extends javax.swing.JFrame {
                 listFechasActionPerformed(evt);
             }
         });
-        bitacorasGeneralExtintores.add(listFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 150, 40));
+        bitacorasGeneralExtintores.add(listFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, 40));
 
-        btnBuscar.setText("BUSCAR");
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/filtrar.png"))); // NOI18N
+        btnBuscar.setText("<html>APLICAR<br>FILTRO</html>");
+        btnBuscar.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        bitacorasGeneralExtintores.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
+        bitacorasGeneralExtintores.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        jLabel9.setText("FILTRAR POR:");
+        bitacorasGeneralExtintores.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        btnQuitarFiltroGasAdmin1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/quitar_filtro.png"))); // NOI18N
+        btnQuitarFiltroGasAdmin1.setText("<html>QUITAR<br>FILTRO</html>");
+        btnQuitarFiltroGasAdmin1.setFont(new java.awt.Font("ROBOTO", 1, 10)); // NOI18N
+        btnQuitarFiltroGasAdmin1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQuitarFiltroGasAdmin1MouseClicked(evt);
+            }
+        });
+        btnQuitarFiltroGasAdmin1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarFiltroGasAdmin1ActionPerformed(evt);
+            }
+        });
+        bitacorasGeneralExtintores.add(btnQuitarFiltroGasAdmin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, -1, -1));
+
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
+        bitacorasGeneralExtintores.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 190, -1));
 
         bitacoras.add(bitacorasGeneralExtintores, "card5");
 
@@ -1525,6 +1588,24 @@ public class adminScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_exportarExtintorAdminActionPerformed
 
+    private void btnQuitarFiltroGasAdmin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitarFiltroGasAdmin1MouseClicked
+        // TODO add your handling code here:
+        obj.mostrarExtintoresGlobal(tableBItacorasAdmin);
+    }//GEN-LAST:event_btnQuitarFiltroGasAdmin1MouseClicked
+
+    private void btnQuitarFiltroGasAdmin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFiltroGasAdmin1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnQuitarFiltroGasAdmin1ActionPerformed
+
+    private void btnQuitarFiltroGasAdmin2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitarFiltroGasAdmin2MouseClicked
+        // TODO add your handling code here:
+        obj.mostrarBitacoraHumoGlobal(tableBItacorasHumoAdmin);
+    }//GEN-LAST:event_btnQuitarFiltroGasAdmin2MouseClicked
+
+    private void btnQuitarFiltroGasAdmin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarFiltroGasAdmin2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnQuitarFiltroGasAdmin2ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1580,6 +1661,8 @@ public class adminScreen extends javax.swing.JFrame {
     private com.login.ModernButton btnFiltarGasAdmin;
     private com.login.ModernButton btnQuitarFiltroEPPAdmin;
     private com.login.ModernButton btnQuitarFiltroGasAdmin;
+    private com.login.ModernButton btnQuitarFiltroGasAdmin1;
+    private com.login.ModernButton btnQuitarFiltroGasAdmin2;
     private com.login.buttonsNormas btnUsuarios;
     private javax.swing.JComboBox<String> cambiarVentana;
     private javax.swing.JCheckBox checkActivo;
@@ -1594,16 +1677,20 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JTextField idRegionAdmin;
     private javax.swing.JTextField idTerminalAdmin;
     private com.login.ModernButton insertarUser;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBoxFiltroFechas;
     private javax.swing.JComboBox<String> jComboBoxFiltroFechasEPP;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
