@@ -2917,6 +2917,55 @@ public class CDatosNOM {
         }
     }
 
+    public void modificarUSUARIO(JTextField paramIDUsuario, JTextField paramNombreUsuario, JTextField paramCorreo, JTextField paramUsername,
+            JTextField paramPassword, JCheckBox paramActivo, String paramIDRegion, String paramIDRol) {
+
+        // Obtener el ID del usuario desde el JTextField y convertirlo a entero
+        int idUsuario;
+        try {
+            idUsuario = Integer.parseInt(paramIDUsuario.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: El ID del usuario debe ser un número válido.");
+            return;
+        }
+
+        // Configurar los valores del usuario desde los componentes de la interfaz
+        setNombreUser(paramNombreUsuario.getText());
+        setCorreoUser(paramCorreo.getText());
+        setUsername(paramUsername.getText());
+        setPassword(paramPassword.getText());
+        setActivoUser(paramActivo.isSelected());
+        int idRegion = obtenerIDRegiones(paramIDRegion);
+        int idRol = obtenerIDRoles(paramIDRol);
+
+        // Consulta SQL para actualizar el usuario
+        String sql = "UPDATE public.usuarios SET nombre=?, correo=?, username=?, password=?, activo=?, id_region_fk=?, id_role_fk=? WHERE id_usuarios=?";
+
+        try {
+            // Preparar la llamada a la base de datos
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
+
+            // Asignar los valores a los parámetros de la consulta
+            cs.setString(1, getNombreUser());
+            cs.setString(2, getCorreoUser());
+            cs.setString(3, getUsername());
+            cs.setString(4, getPassword());
+            cs.setBoolean(5, isActivoUser());
+            cs.setInt(6, idRegion);
+            cs.setInt(7, idRol);
+            cs.setInt(8, idUsuario); // Usar el ID convertido a entero
+
+            // Ejecutar la consulta
+            cs.execute();
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "Actualización Exitosa");
+        } catch (Exception e) {
+            // Mostrar mensaje de error en caso de excepción
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+        }
+    }
+
     public void seleccionarUsuario(JTable paramTablaUsuarios, JTextField paramIDUsuario, JTextField paramNombreUsuarios,
             JTextField paramCorreoUsuarios, JTextField paramUsername, JTextField paramPassword, JCheckBox paramActivo,
             JComboBox paramRegion, JComboBox paramRoles) {
@@ -3742,10 +3791,9 @@ public class CDatosNOM {
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
         tableBitacorasAdmin.setRowSorter(OrdenarTabla);
 
-        // Añadir las columnas al modelo (con el nuevo orden)
         modelo.addColumn("ID Bitacora");
         modelo.addColumn("Fecha");
-        modelo.addColumn("Nombre Usuario"); // Movido aquí
+        modelo.addColumn("Nombre Usuario"); 
         modelo.addColumn("Ubicacion");
         modelo.addColumn("Ultima Recarga");
         modelo.addColumn("Proxima Recarga");
