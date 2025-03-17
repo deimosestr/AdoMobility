@@ -38,10 +38,13 @@ public class menuw8 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         exitBtn = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
         barNaviMov = new javax.swing.JPanel();
+        minbtnHome = new javax.swing.JPanel();
+        minbtnH = new javax.swing.JLabel();
         panelMenu = new javax.swing.JPanel();
         etiquetaBienvenido = new javax.swing.JLabel();
         salud = new com.login.buttons();
@@ -50,12 +53,21 @@ public class menuw8 extends javax.swing.JFrame {
         organizacion = new com.login.buttons();
         organizacion1 = new com.login.buttons();
         etiquetaUsuarios = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(550, 305));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 8)); // NOI18N
+        jLabel1.setText("2025");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 90, 41, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/fond.jpeg"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, -140, -1, -1));
@@ -110,20 +122,61 @@ public class menuw8 extends javax.swing.JFrame {
             }
         });
 
+        minbtnHome.setBackground(new java.awt.Color(255, 255, 255));
+        minbtnHome.setPreferredSize(new java.awt.Dimension(40, 40));
+
+        minbtnH.setBackground(new java.awt.Color(255, 255, 255));
+        minbtnH.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        minbtnH.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minbtnH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/minimizar.png"))); // NOI18N
+        minbtnH.setPreferredSize(new java.awt.Dimension(40, 40));
+        minbtnH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minbtnHMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                minbtnHMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                minbtnHMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout minbtnHomeLayout = new javax.swing.GroupLayout(minbtnHome);
+        minbtnHome.setLayout(minbtnHomeLayout);
+        minbtnHomeLayout.setHorizontalGroup(
+            minbtnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, minbtnHomeLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(minbtnH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        minbtnHomeLayout.setVerticalGroup(
+            minbtnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, minbtnHomeLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(minbtnH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout barNaviMovLayout = new javax.swing.GroupLayout(barNaviMov);
         barNaviMov.setLayout(barNaviMovLayout);
         barNaviMovLayout.setHorizontalGroup(
             barNaviMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 790, Short.MAX_VALUE)
+            .addGroup(barNaviMovLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(minbtnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(710, Short.MAX_VALUE))
         );
         barNaviMovLayout.setVerticalGroup(
             barNaviMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barNaviMovLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(minbtnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(barNaviMov, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 40));
 
         panelMenu.setBackground(new java.awt.Color(204, 204, 204));
+        panelMenu.setForeground(new java.awt.Color(255, 255, 255));
 
         etiquetaBienvenido.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         etiquetaBienvenido.setForeground(new java.awt.Color(51, 51, 51));
@@ -208,14 +261,6 @@ public class menuw8 extends javax.swing.JFrame {
         etiquetaUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/usuario.png"))); // NOI18N
         etiquetaUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 8)); // NOI18N
-        jLabel1.setText("2025");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
@@ -223,21 +268,18 @@ public class menuw8 extends javax.swing.JFrame {
             .addGroup(panelMenuLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(organizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(organizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(etiquetaUsuarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(etiquetaBienvenido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(salud, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(organizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(organizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(etiquetaUsuarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(etiquetaBienvenido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(salud, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelMenuLayout.createSequentialGroup()
-                                .addComponent(capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(acerca, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(acerca, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         panelMenuLayout.setVerticalGroup(
@@ -259,9 +301,7 @@ public class menuw8 extends javax.swing.JFrame {
                         .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(acerca, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 490, 420));
@@ -372,6 +412,23 @@ public class menuw8 extends javax.swing.JFrame {
         cd.setResizable(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void minbtnHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minbtnHMouseClicked
+        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_minbtnHMouseClicked
+
+    private void minbtnHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minbtnHMouseEntered
+        // TODO add your handling code here:
+        minbtnHome.setBackground(new Color(197, 172, 204));
+        minbtnHome.setForeground(Color.white);
+    }//GEN-LAST:event_minbtnHMouseEntered
+
+    private void minbtnHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minbtnHMouseExited
+        // TODO add your handling code here:
+        minbtnHome.setBackground(Color.white);
+        minbtnHome.setForeground(Color.black);
+    }//GEN-LAST:event_minbtnHMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -386,6 +443,8 @@ public class menuw8 extends javax.swing.JFrame {
     private javax.swing.JLabel exitTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel minbtnH;
+    private javax.swing.JPanel minbtnHome;
     private com.login.buttons organizacion;
     private com.login.buttons organizacion1;
     private javax.swing.JPanel panelMenu;
