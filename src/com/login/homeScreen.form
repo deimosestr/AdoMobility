@@ -1981,7 +1981,7 @@
                   <Font name="Roboto Light" size="12" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/imagenes/marcador-de-posicion.png"/>
+                  <Image iconType="3" name="/com/imagenes/region.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Region"/>
               </Properties>

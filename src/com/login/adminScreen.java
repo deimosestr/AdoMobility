@@ -25,10 +25,12 @@ public class adminScreen extends javax.swing.JFrame {
         setSize(790, 500);
         setLocationRelativeTo(null);
         adminUsuario.setEditable(false);
+        idRegionAdmin.setEditable(false);
+        idTerminalAdmin.setEditable(false);
         llenarComboBox();
         llenarComboBoxRoles(comboRoles);
         llenarComboBoxTerminalesG(comboTerminales);
-        llenarComboBoxTerminalesG(comboTerminales1);
+        llenarComboBoxTerminalesGenerales(comboTerminales1);
         llenarComboBoxUsuariosUP(listaUsuarios);
         llenarComboBoxUsuariosDOWN(listaUsuarios);
         llenarComboBoxRegiones(comboboxRegionTerminales);
@@ -733,7 +735,7 @@ public class adminScreen extends javax.swing.JFrame {
                 listRazon4ActionPerformed(evt);
             }
         });
-        bitacorasGeneralEpp.add(listRazon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 150, -1));
+        bitacorasGeneralEpp.add(listRazon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 300, -1));
 
         btnExportarEpp.setText("EXPORTAR");
         btnExportarEpp.addActionListener(new java.awt.event.ActionListener() {
@@ -741,7 +743,7 @@ public class adminScreen extends javax.swing.JFrame {
                 btnExportarEppActionPerformed(evt);
             }
         });
-        bitacorasGeneralEpp.add(btnExportarEpp, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, -1, -1));
+        bitacorasGeneralEpp.add(btnExportarEpp, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, -1, -1));
 
         bitacoras.add(bitacorasGeneralEpp, "card5");
 
@@ -834,7 +836,7 @@ public class adminScreen extends javax.swing.JFrame {
                 listRazon3ActionPerformed(evt);
             }
         });
-        bitacorasGeneralGas.add(listRazon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 180, -1));
+        bitacorasGeneralGas.add(listRazon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 300, -1));
 
         btnExportarGas.setText("EXPORTAR");
         btnExportarGas.addActionListener(new java.awt.event.ActionListener() {
@@ -842,7 +844,7 @@ public class adminScreen extends javax.swing.JFrame {
                 btnExportarGasActionPerformed(evt);
             }
         });
-        bitacorasGeneralGas.add(btnExportarGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
+        bitacorasGeneralGas.add(btnExportarGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
 
         bitacoras.add(bitacorasGeneralGas, "card5");
 
@@ -915,12 +917,12 @@ public class adminScreen extends javax.swing.JFrame {
                 exportarHumoAdminActionPerformed(evt);
             }
         });
-        bitacorasGeneralHumo.add(exportarHumoAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, -1, -1));
+        bitacorasGeneralHumo.add(exportarHumoAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, -1, -1));
 
         listRazon.setBackground(new java.awt.Color(255, 255, 255));
         listRazon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         listRazon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
-        bitacorasGeneralHumo.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 230, 30));
+        bitacorasGeneralHumo.add(listRazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 300, 30));
 
         jLabel10.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel10.setText("FILTRAR POR:");
@@ -1011,7 +1013,7 @@ public class adminScreen extends javax.swing.JFrame {
 
         listRazon2.setBackground(new java.awt.Color(255, 255, 255));
         listRazon2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true));
-        bitacorasGeneralExtintores.add(listRazon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 180, -1));
+        bitacorasGeneralExtintores.add(listRazon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 300, -1));
 
         btnExportarExtintor.setText("EXPORTAR");
         btnExportarExtintor.addActionListener(new java.awt.event.ActionListener() {
@@ -1019,7 +1021,7 @@ public class adminScreen extends javax.swing.JFrame {
                 btnExportarExtintorActionPerformed(evt);
             }
         });
-        bitacorasGeneralExtintores.add(btnExportarExtintor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
+        bitacorasGeneralExtintores.add(btnExportarExtintor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
 
         btnBuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/filtrar.png"))); // NOI18N
         btnBuscar1.setText("<html>APLICAR<br>FILTRO</html>");
@@ -1214,6 +1216,10 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         comboboxRegionTerminales.setModel(modelo);
+        comboboxRegionTerminales.insertItemAt("Seleccione una region", 0); // Insertar el mensaje inicial en la posición 0
+        comboboxRegionTerminales.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
+        comboRegiones.insertItemAt("Seleccione una region", 0); // Insertar el mensaje inicial en la posición 0
+        comboRegiones.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
     }
 
     private void llenarComboBox() {
@@ -1253,6 +1259,8 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         comboRoles.setModel(modelo);
+        comboRoles.insertItemAt("Seleccione un rol", 0); // Insertar el mensaje inicial en la posición 0
+        comboBoxRoles.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
     }
 
     private void llenarComboBoxTerminalesG(JComboBox<String> comboBoxTerminalG) {
@@ -1264,7 +1272,22 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         comboTerminales.setModel(modelo);
+        comboTerminales.insertItemAt("Seleccione una terminal", 0); // Insertar el mensaje inicial en la posición 0
+        comboTerminales.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
         comboTerminales1.setModel(modelo);
+    }
+
+    private void llenarComboBoxTerminalesGenerales(JComboBox<String> comboBoxTerminalG) {
+        // Obtener la lista de nombres de roles
+        List<String> nombreTerminal = obj.obtenerTerminalesNombre();
+
+        // Crear un modelo para el JComboBox con los valores
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(nombreTerminal.toArray(new String[0]));
+
+        // Asignar el modelo al JComboBox
+        comboTerminales1.setModel(modelo);
+        comboTerminales1.insertItemAt("Seleccione una terminal", 0); // Insertar el mensaje inicial en la posición 0
+        comboTerminales1.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
     }
 
     private void llenarComboBoxUsuariosUP(JComboBox<String> comboBoxUsuarios) {
@@ -1276,6 +1299,8 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         listaUsuarios.setModel(modelo);
+        listaUsuarios.insertItemAt("Seleccione un usuario", 0); // Insertar el mensaje inicial en la posición 0
+        listaUsuarios.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
     }
 
     private void llenarComboBoxUsuariosDOWN(JComboBox<String> comboBoxUsuarios) {
@@ -1287,6 +1312,8 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         listaUsuarios1.setModel(modelo);
+        listaUsuarios1.insertItemAt("Seleccione un usuario", 0); // Insertar el mensaje inicial en la posición 0
+        listaUsuarios1.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
     }
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
@@ -1448,6 +1475,10 @@ public class adminScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         obj.insertarTerminal(nombreTerminalAdmin, ubicacionTerminalAdmin,
                 comboboxRegionTerminales.getSelectedItem().toString());
+        llenarComboBoxRegiones(comboboxRegionTerminales);
+        idTerminalAdmin.setText("");
+        nombreTerminalAdmin.setText("");
+        ubicacionTerminalAdmin.setText("");
         obj.mostrarTerminales(tableTerminalesAdmin);
 
     }//GEN-LAST:event_agregarTerminalMouseClicked
@@ -1488,12 +1519,20 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void modernButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton1MouseClicked
         // TODO add your handling code here:
+        //USUARIOS
         adminUsuario.setText("");
         adminCorreo.setText("");
         adminNombre.setText("");
         adminPassword.setText("");
         adminUsername.setText("");
         checkActivo.setSelected(false);
+        //TERMINALES
+        idRegionAdmin.setText("");
+        nombreRegionAdmin.setText("");
+        idTerminalAdmin.setText("");
+        nombreTerminalAdmin.setText("");
+        ubicacionTerminalAdmin.setText("");
+        
         llenarComboBoxUsuariosUP(listaUsuarios);
         llenarComboBoxTerminalesG(comboTerminales);
     }//GEN-LAST:event_modernButton1MouseClicked
@@ -1501,7 +1540,10 @@ public class adminScreen extends javax.swing.JFrame {
     private void modernButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton2MouseClicked
         // TODO add your handling code here:
         obj.insertarRegion(nombreRegionAdmin);
+        llenarComboBoxRegiones(comboboxRegionTerminales);
         obj.mostrarTerminales(tableTerminalesAdmin);
+        idRegionAdmin.setText("");
+        nombreRegionAdmin.setText("");
     }//GEN-LAST:event_modernButton2MouseClicked
 
     private void tableBItacorasAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBItacorasAdminMouseClicked
@@ -1735,7 +1777,7 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void modernButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton3MouseClicked
         // TODO add your handling code here:
-        obj.modificarUSUARIO(adminUsuario, adminNombre, adminCorreo, 
+        obj.modificarUSUARIO(adminUsuario, adminNombre, adminCorreo,
                 adminUsername, adminPassword, checkActivo,
                 comboRegiones.getSelectedItem().toString(), comboRoles.getSelectedItem().toString());
         obj.mostrarUsuarios(tablaUsers);
