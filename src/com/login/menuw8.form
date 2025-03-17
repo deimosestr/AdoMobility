@@ -144,23 +144,28 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="organizacion" min="-2" pref="207" max="-2" attributes="0"/>
-                      <Component id="organizacion1" min="-2" pref="207" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="etiquetaUsuarios" alignment="0" max="32767" attributes="0"/>
-                          <Component id="etiquetaBienvenido" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="salud" min="-2" pref="209" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="capacitacion" min="-2" pref="102" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="organizacion" min="-2" pref="207" max="-2" attributes="0"/>
+                              <Component id="organizacion1" min="-2" pref="207" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="etiquetaUsuarios" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="etiquetaBienvenido" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="acerca" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="salud" min="-2" pref="209" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="capacitacion" min="-2" pref="102" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="acerca" min="-2" pref="101" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="33" max="32767" attributes="0"/>
@@ -190,7 +195,9 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="86" max="32767" attributes="0"/>
+                  <EmptySpace pref="70" max="32767" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -238,6 +245,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="acercaMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="acercaActionPerformed"/>
           </Events>
         </Component>
@@ -304,6 +312,17 @@
             </Property>
             <Property name="horizontalTextPosition" type="int" value="4"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto Black" size="8" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="2025"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel1MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

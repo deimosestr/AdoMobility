@@ -136,6 +136,7 @@ public class adminScreen extends javax.swing.JFrame {
         comboTerminales1 = new javax.swing.JComboBox<>();
         listaUsuarios1 = new javax.swing.JComboBox<>();
         asignarTerminal = new com.login.ModernButton();
+        modernButton3 = new com.login.ModernButton();
         bitacorasGeneralEpp = new javax.swing.JPanel();
         tablaBitacoras3 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -637,6 +638,15 @@ public class adminScreen extends javax.swing.JFrame {
             }
         });
         usuarios.add(asignarTerminal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 150, -1));
+
+        modernButton3.setText("ACTUALIZAR USUARIO");
+        modernButton3.setFont(new java.awt.Font("ROBOTO", 1, 12)); // NOI18N
+        modernButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modernButton3MouseClicked(evt);
+            }
+        });
+        usuarios.add(modernButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, -1, -1));
 
         bitacoras.add(usuarios, "card3");
 
@@ -1723,6 +1733,20 @@ public class adminScreen extends javax.swing.JFrame {
         obj.mostrarBitacoraHumoGlobal(tableBItacorasHumoAdmin);
     }//GEN-LAST:event_btnBuscarHumo1ActionPerformed
 
+    private void modernButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton3MouseClicked
+        // TODO add your handling code here:
+        obj.modificarUSUARIO(adminUsuario, adminNombre, adminCorreo, 
+                adminUsername, adminPassword, checkActivo,
+                comboRegiones.getSelectedItem().toString(), comboRoles.getSelectedItem().toString());
+        obj.mostrarUsuarios(tablaUsers);
+        adminUsuario.setText("");
+        adminCorreo.setText("");
+        adminNombre.setText("");
+        adminPassword.setText("");
+        adminUsername.setText("");
+        checkActivo.setSelected(false);
+    }//GEN-LAST:event_modernButton3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JComboBoxFiltroUsuarios;
@@ -1816,6 +1840,7 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JLabel menuUsuario1;
     private com.login.ModernButton modernButton1;
     private com.login.ModernButton modernButton2;
+    private com.login.ModernButton modernButton3;
     private javax.swing.JTextField nombreRegionAdmin;
     private javax.swing.JTextField nombreTerminalAdmin;
     private javax.swing.JPanel returnPanel;
