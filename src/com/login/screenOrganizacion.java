@@ -52,8 +52,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
         minimizarTxt = new javax.swing.JLabel();
         menuDeOpciones = new javax.swing.JPanel();
         btnEPP = new com.login.buttonsNormas();
-        btnHumo = new com.login.buttonsNormas();
-        btnGas = new com.login.buttonsNormas();
         modernButton1 = new com.login.ModernButton();
         bitacoras = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -238,34 +236,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
             }
         });
         menuDeOpciones.add(btnEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 35));
-
-        btnHumo.setText("NOM-017");
-        btnHumo.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        btnHumo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnHumoMouseClicked(evt);
-            }
-        });
-        btnHumo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHumoActionPerformed(evt);
-            }
-        });
-        menuDeOpciones.add(btnHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 180, 40));
-
-        btnGas.setText("NOM-019");
-        btnGas.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        btnGas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGasMouseClicked(evt);
-            }
-        });
-        btnGas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGasActionPerformed(evt);
-            }
-        });
-        menuDeOpciones.add(btnGas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
 
         modernButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/limpiar.png"))); // NOI18N
         modernButton1.setText("LIMPIAR CAMPOS");
@@ -706,14 +676,10 @@ public class screenOrganizacion extends javax.swing.JFrame {
         layout.show(bitacoras, "epp"); // Cambia a panel1
 
         btnEPP.setSelected(true);
-        btnHumo.setSelected(false);
-        btnGas.setSelected(false);
+       // btnHumo.setSelected(false);
+       // btnGas.setSelected(false);
 
     }//GEN-LAST:event_btnEPPMouseClicked
-
-    private void btnHumoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHumoMouseClicked
-
-    }//GEN-LAST:event_btnHumoMouseClicked
 
     private void returnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnTxtMouseClicked
         // TODO add your handling code here:
@@ -814,47 +780,11 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         }
 
-        if (btnHumo.isSelected()) {
-
-        }
-
-        if (btnGas.isSelected()) {
-
-        }
-
     }//GEN-LAST:event_btnExportarMouseClicked
-
-    private void btnHumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHumoActionPerformed
-
-        CardLayout layout = (CardLayout) bitacoras.getLayout();
-        layout.show(bitacoras, "humo");
-
-        btnEPP.setSelected(false);
-        btnHumo.setSelected(true);
-        btnGas.setSelected(false);
-
-
-    }//GEN-LAST:event_btnHumoActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExportarActionPerformed
-
-    private void btnGasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGasActionPerformed
-        CardLayout layout = (CardLayout) bitacoras.getLayout();
-        layout.show(bitacoras, "gas"); // Cambia al panel humo.
-
-        btnEPP.setSelected(false);
-        btnHumo.setSelected(false);
-        btnGas.setSelected(true);
-
-        // Cambiar color de botón seleccionado
-
-    }//GEN-LAST:event_btnGasActionPerformed
-
-    private void btnGasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGasMouseClicked
-
-        epp.setVisible(false);    }//GEN-LAST:event_btnGasMouseClicked
 
     private void btnEPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEPPActionPerformed
 
@@ -995,8 +925,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private javax.swing.JCheckBox botasSegEPP;
     private com.login.buttonsNormas btnEPP;
     private com.login.ModernButton btnExportar;
-    private com.login.buttonsNormas btnGas;
-    private com.login.buttonsNormas btnHumo;
     private com.login.ModernButton btnInsertar1;
     private com.login.ModernButton btnModificar;
     private javax.swing.JCheckBox caretaEsmerilarEPP;

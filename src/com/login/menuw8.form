@@ -240,12 +240,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="salud" min="-2" pref="209" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="capacitacion" min="-2" pref="102" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="acerca" min="-2" pref="101" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="capacitacion" pref="209" max="32767" attributes="0"/>
+                      <Component id="acerca" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="33" max="32767" attributes="0"/>
               </Group>
@@ -258,21 +254,17 @@
                   <Component id="etiquetaUsuarios" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Component id="etiquetaBienvenido" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="organizacion" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="organizacion" max="32767" attributes="0"/>
+                              <Component id="capacitacion" max="32767" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="organizacion1" min="-2" pref="103" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="salud" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="acerca" min="-2" pref="103" max="-2" attributes="0"/>
-                              <Component id="capacitacion" min="-2" pref="103" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="acerca" alignment="1" min="-2" pref="103" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="86" max="32767" attributes="0"/>
               </Group>
@@ -290,23 +282,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Bienvenido"/>
           </Properties>
-        </Component>
-        <Component class="com.login.buttons" name="salud">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/imagenes/salud.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Salud"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Roboto Medium" size="12" style="0"/>
-            </Property>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="radius" type="int" value="20"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saludActionPerformed"/>
-          </Events>
         </Component>
         <Component class="com.login.buttons" name="acerca">
           <Properties>

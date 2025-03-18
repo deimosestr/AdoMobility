@@ -47,7 +47,6 @@ public class menuw8 extends javax.swing.JFrame {
         minbtnH = new javax.swing.JLabel();
         panelMenu = new javax.swing.JPanel();
         etiquetaBienvenido = new javax.swing.JLabel();
-        salud = new com.login.buttons();
         acerca = new com.login.buttons();
         capacitacion = new com.login.buttons();
         organizacion = new com.login.buttons();
@@ -182,18 +181,6 @@ public class menuw8 extends javax.swing.JFrame {
         etiquetaBienvenido.setForeground(new java.awt.Color(51, 51, 51));
         etiquetaBienvenido.setText("Bienvenido");
 
-        salud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/salud.png"))); // NOI18N
-        salud.setText("Salud");
-        salud.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        salud.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        salud.setRadius(20);
-        salud.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        salud.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saludActionPerformed(evt);
-            }
-        });
-
         acerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/acerca de.png"))); // NOI18N
         acerca.setText("Acerca de");
         acerca.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -212,7 +199,7 @@ public class menuw8 extends javax.swing.JFrame {
         });
 
         capacitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/descargar.png"))); // NOI18N
-        capacitacion.setText("Capacitacion");
+        capacitacion.setText("Descargables");
         capacitacion.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         capacitacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         capacitacion.setRadius(20);
@@ -275,11 +262,8 @@ public class menuw8 extends javax.swing.JFrame {
                         .addComponent(etiquetaBienvenido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(salud, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addComponent(capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(acerca, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(capacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                    .addComponent(acerca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         panelMenuLayout.setVerticalGroup(
@@ -289,18 +273,15 @@ public class menuw8 extends javax.swing.JFrame {
                 .addComponent(etiquetaUsuarios)
                 .addGap(5, 5, 5)
                 .addComponent(etiquetaBienvenido)
-                .addGap(18, 18, 18)
-                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addComponent(organizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuLayout.createSequentialGroup()
+                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(organizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(capacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(organizacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addComponent(salud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(acerca, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(acerca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
 
@@ -334,10 +315,6 @@ public class menuw8 extends javax.swing.JFrame {
     private void acercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_acercaActionPerformed
-
-    private void saludActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saludActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saludActionPerformed
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar sesión?", "Aviso", JOptionPane.YES_NO_OPTION);
@@ -449,7 +426,6 @@ public class menuw8 extends javax.swing.JFrame {
     private com.login.buttons organizacion;
     private com.login.buttons organizacion1;
     private javax.swing.JPanel panelMenu;
-    private com.login.buttons salud;
     // End of variables declaration//GEN-END:variables
     class FondoPanel extends JPanel {
 
