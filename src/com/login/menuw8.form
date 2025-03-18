@@ -331,7 +331,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/imagenes/capa.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Capacitacion"/>
+            <Property name="text" type="java.lang.String" value="Descargables"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto Medium" size="12" style="0"/>
             </Property>

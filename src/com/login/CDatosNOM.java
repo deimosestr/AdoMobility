@@ -1057,6 +1057,49 @@ public class CDatosNOM {
 
         return idTerminal;
     }
+    // Método para obtener el enlace de descarga basado en el nombre de la terminal
+    public String obtenerEnlaceDescarga(String nombreTerminal) {
+        String enlace = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Consulta SQL para obtener el enlace de descarga
+            String sql = "SELECT ld.link " +
+                         "FROM links_descarga ld " +
+                         "JOIN terminales t ON ld.id_terminal_fk = t.id_terminal " +
+                         "WHERE t.nombre = ?";
+            pst = globalV.conectar.prepareStatement(sql);
+
+            // Asignar el parámetro a la consulta
+            pst.setString(1, nombreTerminal);
+
+            // Ejecutar la consulta
+            rs = pst.executeQuery();
+
+            // Procesar los resultados
+            if (rs.next()) {
+                enlace = rs.getString("link"); // Obtener el enlace
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime cualquier error para depuración
+            System.out.println("Error al obtener el enlace de descarga: " + e.getMessage());
+        } finally {
+            // Cerrar solo el PreparedStatement y el ResultSet
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                System.out.println("Error al cerrar recursos: " + ex.getMessage());
+            }
+        }
+
+        return enlace; // Retornar el enlace
+    }
 
     public List<String> obtenerNombreTerminales(int idUsuario) {
         List<String> nombresTerminales = new ArrayList<>(); // Inicializar la lista vacía

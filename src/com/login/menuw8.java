@@ -212,7 +212,7 @@ public class menuw8 extends javax.swing.JFrame {
         });
 
         capacitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/capa.png"))); // NOI18N
-        capacitacion.setText("Capacitacion");
+        capacitacion.setText("Descargables");
         capacitacion.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         capacitacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         capacitacion.setRadius(20);
@@ -325,9 +325,10 @@ public class menuw8 extends javax.swing.JFrame {
     }//GEN-LAST:event_organizacionMouseClicked
 
     private void capacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacitacionActionPerformed
-        /*  FrameReproductor obj = new FrameReproductor();
-        obj.setVisible(true);
-        this.dispose();*/
+        ventanaDescargables cd = new ventanaDescargables();
+        cd.setVisible(true);
+        cd.setLocationRelativeTo(null);
+        cd.setResizable(false);
     }//GEN-LAST:event_capacitacionActionPerformed
 
     private void acercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaActionPerformed
@@ -432,7 +433,7 @@ public class menuw8 extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.login.buttons acerca;
     private javax.swing.JPanel barNaviMov;
