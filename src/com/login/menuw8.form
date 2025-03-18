@@ -329,7 +329,7 @@
         <Component class="com.login.buttons" name="capacitacion">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/imagenes/capa.png"/>
+              <Image iconType="3" name="/com/imagenes/descargar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Capacitacion"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">

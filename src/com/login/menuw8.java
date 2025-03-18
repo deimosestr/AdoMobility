@@ -211,7 +211,7 @@ public class menuw8 extends javax.swing.JFrame {
             }
         });
 
-        capacitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/capa.png"))); // NOI18N
+        capacitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/descargar.png"))); // NOI18N
         capacitacion.setText("Capacitacion");
         capacitacion.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         capacitacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
