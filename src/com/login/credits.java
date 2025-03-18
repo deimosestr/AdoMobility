@@ -42,7 +42,7 @@ public class credits extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 10)); // NOI18N
         jLabel3.setText("<html>"
-            + "ESTE PROGRAMA FUE IMPLEMENTADO POR ALAN CRUZ JARCIA<br>"
+            + "ESTE PROGRAMA FUE IMPLEMENTADO POR ALAN CRUZ GARCIA<br>"
             + "JOSÉ FABIAN SALCEDO ESTRADA Y BAJO LA COORDINACIÓN DE<br>"
             + "LA INGENIERO PAOLA V. TRUJILLO LOYO, ASÍ COMO TAMBIÉN<br>"
             + "CON EL APOYO DE NUESTRO AMIGO JEZREEL RIVERA A.<br>"

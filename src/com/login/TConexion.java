@@ -19,7 +19,7 @@ public class TConexion {
     public static Connection establecerConexion() {
         try {
             Connection conectar = DriverManager.getConnection(cadena, usuario, contrasenia);
-            System.out.println("Conexión exitosa a la base de datos.");
+            //System.out.println("Conexión exitosa a la base de datos.");
             return conectar;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos. Verifica los datos de conexión: " + e.getMessage());
@@ -34,7 +34,7 @@ public class TConexion {
             try {
                 if (!conexion.isClosed()) {
                     conexion.close();
-                    System.out.println("Conexión cerrada correctamente.");
+                   // System.out.println("Conexión cerrada correctamente.");
                 }
             } catch (SQLException e) {
                 System.err.println("Error al cerrar la conexión: " + e.getMessage());

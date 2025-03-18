@@ -924,7 +924,7 @@ public class homeScreen extends javax.swing.JFrame {
         panelinfo.add(labelResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 20));
 
         labelRegiones.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelRegiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/marcador-de-posicion.png"))); // NOI18N
+        labelRegiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/region.png"))); // NOI18N
         labelRegiones.setText("Region");
         panelinfo.add(labelRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, 30));
 

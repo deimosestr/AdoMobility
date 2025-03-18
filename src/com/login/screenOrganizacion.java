@@ -56,37 +56,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
         btnGas = new com.login.buttonsNormas();
         modernButton1 = new com.login.ModernButton();
         bitacoras = new javax.swing.JPanel();
-        extintores = new javax.swing.JPanel();
-        informacion1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbExtintores = new javax.swing.JTable();
-        labelUbicacion = new javax.swing.JLabel();
-        ubicacion = new javax.swing.JTextField();
-        labelUltimaRecarga = new javax.swing.JLabel();
-        ultimaRecarga = new javax.swing.JTextField();
-        labelProximaRecarga = new javax.swing.JLabel();
-        proximaRecarga = new javax.swing.JTextField();
-        labelCapacidad = new javax.swing.JLabel();
-        capacidad = new javax.swing.JTextField();
-        labelAgenteExtinguidor = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        jSeparator15 = new javax.swing.JSeparator();
-        jSeparator9 = new javax.swing.JSeparator();
-        jSeparator7 = new javax.swing.JSeparator();
-        jSeparator8 = new javax.swing.JSeparator();
-        agenteExtinguidor = new javax.swing.JTextField();
-        chckManguera = new javax.swing.JCheckBox();
-        chckManometro = new javax.swing.JCheckBox();
-        chckSoporte = new javax.swing.JCheckBox();
-        chckPresion = new javax.swing.JCheckBox();
-        chckCilindro = new javax.swing.JCheckBox();
-        chckLimpieza = new javax.swing.JCheckBox();
-        chckSenalizacion = new javax.swing.JCheckBox();
-        chckEtiqueta = new javax.swing.JCheckBox();
-        chckSeguro = new javax.swing.JCheckBox();
-        chckObstrucciones = new javax.swing.JCheckBox();
-        observaciones = new javax.swing.JTextField();
-        firma = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
         epp = new javax.swing.JPanel();
         tbEPP = new javax.swing.JPanel();
@@ -270,7 +239,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
         });
         menuDeOpciones.add(btnEPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 35));
 
-        btnHumo.setText("COMISIONES S.H");
+        btnHumo.setText("NOM-017");
         btnHumo.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnHumo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -284,7 +253,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
         });
         menuDeOpciones.add(btnHumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 180, 40));
 
-        btnGas.setText("GAS1");
+        btnGas.setText("NOM-019");
         btnGas.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnGas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -312,170 +281,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         bitacoras.setBackground(new java.awt.Color(255, 255, 255));
         bitacoras.setLayout(new java.awt.CardLayout());
-
-        extintores.setBackground(new java.awt.Color(255, 255, 255));
-        extintores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        informacion1.setBackground(new java.awt.Color(255, 255, 255));
-        informacion1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
-
-        tbExtintores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tbExtintores.setAutoResizeMode(0);
-        tbExtintores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbExtintoresMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tbExtintores);
-
-        javax.swing.GroupLayout informacion1Layout = new javax.swing.GroupLayout(informacion1);
-        informacion1.setLayout(informacion1Layout);
-        informacion1Layout.setHorizontalGroup(
-            informacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-        );
-        informacion1Layout.setVerticalGroup(
-            informacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-        );
-
-        extintores.add(informacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 580, 120));
-
-        labelUbicacion.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelUbicacion.setText("Ubicacion");
-        extintores.add(labelUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 20));
-
-        ubicacion.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        ubicacion.setBorder(null);
-        extintores.add(ubicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 150, -1));
-
-        labelUltimaRecarga.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelUltimaRecarga.setText("Ultima Recarga");
-        extintores.add(labelUltimaRecarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 100, -1));
-
-        ultimaRecarga.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        ultimaRecarga.setBorder(null);
-        extintores.add(ultimaRecarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 150, -1));
-
-        labelProximaRecarga.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelProximaRecarga.setText("Proxima Recarga");
-        extintores.add(labelProximaRecarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 100, -1));
-
-        proximaRecarga.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        proximaRecarga.setBorder(null);
-        extintores.add(proximaRecarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 150, 20));
-
-        labelCapacidad.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelCapacidad.setText("Capacidad (KGS)");
-        extintores.add(labelCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
-
-        capacidad.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        capacidad.setBorder(null);
-        extintores.add(capacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 150, -1));
-
-        labelAgenteExtinguidor.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelAgenteExtinguidor.setText("Tipo A. Extinguidor");
-        extintores.add(labelAgenteExtinguidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 110, -1));
-
-        jSeparator4.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator4.setForeground(new java.awt.Color(197, 172, 204));
-        extintores.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 150, 10));
-
-        jSeparator15.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator15.setForeground(new java.awt.Color(197, 172, 204));
-        extintores.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 150, 10));
-
-        jSeparator9.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator9.setForeground(new java.awt.Color(197, 172, 204));
-        jSeparator9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        extintores.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 150, 10));
-
-        jSeparator7.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator7.setForeground(new java.awt.Color(197, 172, 204));
-        extintores.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 150, 10));
-
-        jSeparator8.setBackground(new java.awt.Color(197, 172, 204));
-        jSeparator8.setForeground(new java.awt.Color(197, 172, 204));
-        jSeparator8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        extintores.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 150, 10));
-
-        agenteExtinguidor.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        agenteExtinguidor.setBorder(null);
-        extintores.add(agenteExtinguidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 150, -1));
-
-        chckManguera.setBackground(new java.awt.Color(255, 255, 255));
-        chckManguera.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckManguera.setText("Manguera");
-        chckManguera.setToolTipText("");
-        chckManguera.setContentAreaFilled(false);
-        extintores.add(chckManguera, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 100, 20));
-
-        chckManometro.setBackground(new java.awt.Color(255, 255, 255));
-        chckManometro.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckManometro.setText("Manometro");
-        extintores.add(chckManometro, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 100, 20));
-
-        chckSoporte.setBackground(new java.awt.Color(255, 255, 255));
-        chckSoporte.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckSoporte.setText("Soporte");
-        extintores.add(chckSoporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 80, -1));
-
-        chckPresion.setBackground(new java.awt.Color(255, 255, 255));
-        chckPresion.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckPresion.setText("Presión");
-        extintores.add(chckPresion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 80, -1));
-
-        chckCilindro.setBackground(new java.awt.Color(255, 255, 255));
-        chckCilindro.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckCilindro.setText("Cilindro");
-        extintores.add(chckCilindro, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 80, -1));
-
-        chckLimpieza.setBackground(new java.awt.Color(255, 255, 255));
-        chckLimpieza.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckLimpieza.setText("Limpieza");
-        extintores.add(chckLimpieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 90, -1));
-
-        chckSenalizacion.setBackground(new java.awt.Color(255, 255, 255));
-        chckSenalizacion.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckSenalizacion.setText("Señalización");
-        extintores.add(chckSenalizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 100, -1));
-
-        chckEtiqueta.setBackground(new java.awt.Color(255, 255, 255));
-        chckEtiqueta.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckEtiqueta.setText("Etiqueta");
-        extintores.add(chckEtiqueta, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, 80, -1));
-
-        chckSeguro.setBackground(new java.awt.Color(255, 255, 255));
-        chckSeguro.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckSeguro.setText("Seguro");
-        chckSeguro.setToolTipText("");
-        extintores.add(chckSeguro, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 80, -1));
-
-        chckObstrucciones.setBackground(new java.awt.Color(255, 255, 255));
-        chckObstrucciones.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        chckObstrucciones.setText("Obstrucciones");
-        extintores.add(chckObstrucciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 120, -1));
-
-        observaciones.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        observaciones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Observaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
-        extintores.add(observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 310, 80));
-
-        firma.setBackground(new java.awt.Color(255, 255, 255));
-        firma.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        firma.setText("Firmado");
-        extintores.add(firma, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, -1, -1));
-
-        bitacoras.add(extintores, "card2");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -659,7 +464,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
         panelinfo.add(labelResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 20));
 
         labelRegiones.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
-        labelRegiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/marcador-de-posicion.png"))); // NOI18N
+        labelRegiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/region.png"))); // NOI18N
         labelRegiones.setText("Region");
         panelinfo.add(labelRegiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, 30));
 
@@ -775,7 +580,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private Boolean validateFields() {
+   /* private Boolean validateFields() {
         // Validar campos de texto
         if (txtFecha.getText().trim().isEmpty()
                 || ubicacion.getText().trim().isEmpty()
@@ -808,7 +613,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
         // Si todos los campos tienen valores válidos, devuelve true
         return true;
-    }
+    }*/
 
     private void llenarComboBox() {
         // Método que devuelve la lista de nombres (ajusta según tu lógica)
@@ -1122,11 +927,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
                 arnesEPP, uniformeEPP, firmadoEPP, txtIDNorma);
     }//GEN-LAST:event_tablaEPPMouseClicked
 
-    private void tbExtintoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbExtintoresMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_tbExtintoresMouseClicked
-
     private void txtIDNormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDNormaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDNormaActionPerformed
@@ -1187,7 +987,6 @@ public class screenOrganizacion extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField agenteExtinguidor;
     private javax.swing.JTextField areaEPP;
     private javax.swing.JCheckBox arnesEPP;
     private javax.swing.JPanel barNavMov;
@@ -1200,55 +999,30 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private com.login.buttonsNormas btnHumo;
     private com.login.ModernButton btnInsertar1;
     private com.login.ModernButton btnModificar;
-    private javax.swing.JTextField capacidad;
     private javax.swing.JCheckBox caretaEsmerilarEPP;
     private javax.swing.JCheckBox caretaSoldarEPP;
     private javax.swing.JCheckBox cascoEPP;
-    private javax.swing.JCheckBox chckCilindro;
-    private javax.swing.JCheckBox chckEtiqueta;
-    private javax.swing.JCheckBox chckLimpieza;
-    private javax.swing.JCheckBox chckManguera;
-    private javax.swing.JCheckBox chckManometro;
-    private javax.swing.JCheckBox chckObstrucciones;
-    private javax.swing.JCheckBox chckPresion;
-    private javax.swing.JCheckBox chckSeguro;
-    private javax.swing.JCheckBox chckSenalizacion;
-    private javax.swing.JCheckBox chckSoporte;
     private javax.swing.JPanel epp;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
-    private javax.swing.JPanel extintores;
     private javax.swing.JCheckBox fajaEPP;
-    private javax.swing.JCheckBox firma;
     private javax.swing.JCheckBox firmadoEPP;
     private javax.swing.JCheckBox guantesEPP;
-    private javax.swing.JPanel informacion1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JSeparator jSeparator15;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JLabel labelAgenteExtinguidor;
     private javax.swing.JLabel labelAreaEPP;
     private javax.swing.JLabel labelBitacora;
-    private javax.swing.JLabel labelCapacidad;
     private javax.swing.JLabel labelFecha;
     private javax.swing.JLabel labelNombreEPP;
     private javax.swing.JLabel labelNorma;
-    private javax.swing.JLabel labelProximaRecarga;
     private javax.swing.JLabel labelPuestoEPP;
     private javax.swing.JLabel labelRegiones;
     private javax.swing.JLabel labelResponsable;
     private javax.swing.JLabel labelTerminales;
-    private javax.swing.JLabel labelUbicacion;
-    private javax.swing.JLabel labelUltimaRecarga;
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JCheckBox lentesDeSeguridadEPP;
     private javax.swing.JComboBox<String> listNom;
@@ -1260,22 +1034,17 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private javax.swing.JLabel minimizarTxt;
     private com.login.ModernButton modernButton1;
     private javax.swing.JTextField nombreEPP;
-    private javax.swing.JTextField observaciones;
     private javax.swing.JPanel panelinfo;
-    private javax.swing.JTextField proximaRecarga;
     private javax.swing.JTextField puestoEPP;
     private javax.swing.JPanel returnPanel;
     private javax.swing.JLabel returnTxt;
     private javax.swing.JTable tablaEPP;
     private javax.swing.JCheckBox taponesAuditivosEPP;
     private javax.swing.JPanel tbEPP;
-    private javax.swing.JTable tbExtintores;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIDBitacora;
     private javax.swing.JTextField txtIDNorma;
     private javax.swing.JTextField txtiDUsuario;
-    private javax.swing.JTextField ubicacion;
-    private javax.swing.JTextField ultimaRecarga;
     private javax.swing.JCheckBox uniformeEPP;
     // End of variables declaration//GEN-END:variables
 }
