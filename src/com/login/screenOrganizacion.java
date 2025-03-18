@@ -531,7 +531,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
                 btnInsertar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnInsertar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
+        jPanel1.add(btnInsertar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
 
         btnModificar.setText("MODIFICAR");
         btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -544,7 +544,7 @@ public class screenOrganizacion extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, -1, -1));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
 
         btnExportar.setText("EXPORTAR");
         btnExportar.addMouseListener(new java.awt.event.MouseAdapter() {
