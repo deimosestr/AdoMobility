@@ -4129,4 +4129,102 @@ public class CDatosNOM {
         }
     }
 
+    public void actualizarLinks(JTextField paramIDLink, JTextField paramLinkURL, String paramIDTerminal) {
+
+        // Obtener el ID del usuario desde el JTextField y convertirlo a entero
+        int idUsuario;
+        try {
+            idUsuario = Integer.parseInt(paramIDLink.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: El ID del usuario debe ser un número válido.");
+            return;
+        }
+
+        // Configurar los valores del usuario desde los componentes de la interfaz
+        setIdLink(Integer.parseInt(paramIDLink.getText()));
+        setLinkUrl(paramLinkURL.getText());
+        int idRegion = obtenerIDTerminal(paramIDTerminal);
+
+        // Consulta SQL para actualizar el usuario
+        String sql = "UPDATE public.links_descarga SET link=?, id_terminal_fk=? WHERE id_link=?;";
+        try {
+            // Preparar la llamada a la base de datos
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
+
+            // Asignar los valores a los parámetros de la consulta
+            cs.setString(1, getLinkUrl());
+            cs.setInt(2, idRegion);
+            cs.setInt(3, getIdLink()); // Usar el ID convertido a entero
+
+            // Ejecutar la consulta
+            cs.execute();
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "Actualización Exitosa");
+        } catch (Exception e) {
+            // Mostrar mensaje de error en caso de excepción
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+        }
+    }
+
+    public void seleccionarTerminal(JTable paramTablaTerminal, JTextField paramIDTerminal, JTextField paramNombreTerminal,
+            JTextField paramUbicacionTerminal, JComboBox paramRegion) {
+        try {
+            int fila = paramTablaTerminal.getSelectedRow();
+            if (fila >= 0) {
+
+                // Asignar valores a los JTextField
+                paramIDTerminal.setText(paramTablaTerminal.getValueAt(fila, 0).toString());
+                paramNombreTerminal.setText(paramTablaTerminal.getValueAt(fila, 1).toString());
+                paramUbicacionTerminal.setText(paramTablaTerminal.getValueAt(fila, 2).toString());
+                String regionSeleccionada = paramTablaTerminal.getValueAt(fila, 3).toString(); // Región
+                /*paramIDUsuario.setText(paramTablaUsuarios.getValueAt(fila, 0).toString());
+                paramNombreUsuarios.setText(paramTablaUsuarios.getValueAt(fila, 1).toString());
+                paramCorreoUsuarios.setText(paramTablaUsuarios.getValueAt(fila, 2).toString());
+                paramUsername.setText(paramTablaUsuarios.getValueAt(fila, 3).toString());
+                paramPassword.setText(paramTablaUsuarios.getValueAt(fila, 4).toString());
+                paramActivo.setSelected((Boolean) paramTablaUsuarios.getValueAt(fila, 5));
+                
+                String rolSeleccionado = paramTablaUsuarios.getValueAt(fila, 7).toString(); // Rol*/
+
+                // Establecer la región seleccionada en el JComboBox
+                paramRegion.setSelectedItem(regionSeleccionada);
+
+                // Establecer el rol seleccionado en el JComboBox
+                //paramRoles.setSelectedItem(rolSeleccionado);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Fila no seleccionada");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+        }
+    }
+    
+     public void seleccionarLink(JTable paramTablaTerminal, JTextField paramIDLink, JTextField paramLinkURL,
+            JComboBox paramTerminalID) {
+        try {
+            int fila = paramTablaTerminal.getSelectedRow();
+            if (fila >= 0) {
+
+                // Asignar valores a los JTextField
+                paramIDLink.setText(paramTablaTerminal.getValueAt(fila, 0).toString());
+                paramLinkURL.setText(paramTablaTerminal.getValueAt(fila, 1).toString());
+               
+                String regionSeleccionada = paramTablaTerminal.getValueAt(fila, 3).toString(); // Región
+                
+                // Establecer la región seleccionada en el JComboBox
+                paramTerminalID.setSelectedItem(regionSeleccionada);
+
+                // Establecer el rol seleccionado en el JComboBox
+                //paramRoles.setSelectedItem(rolSeleccionado);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Fila no seleccionada");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+        }
+    }
+
 }

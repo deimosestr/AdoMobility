@@ -48,9 +48,11 @@ public class ventanaDescargables extends javax.swing.JFrame {
 
         bg = new javax.swing.JPanel();
         barNaviMov = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         modernButton1 = new com.login.ModernButton();
         descargar = new com.login.ModernButton();
         terminalesDescargas = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -72,20 +74,28 @@ public class ventanaDescargables extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/lgo.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout barNaviMovLayout = new javax.swing.GroupLayout(barNaviMov);
         barNaviMov.setLayout(barNaviMovLayout);
         barNaviMovLayout.setHorizontalGroup(
             barNaviMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barNaviMovLayout.createSequentialGroup()
+                .addContainerGap(454, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         barNaviMovLayout.setVerticalGroup(
             barNaviMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barNaviMovLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2))
         );
 
         bg.add(barNaviMov, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 40));
 
-        modernButton1.setText("SALIR");
+        modernButton1.setText("TERMINAR");
         modernButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 modernButton1MouseClicked(evt);
@@ -96,7 +106,7 @@ public class ventanaDescargables extends javax.swing.JFrame {
                 modernButton1ActionPerformed(evt);
             }
         });
-        bg.add(modernButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, -1, -1));
+        bg.add(modernButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 110, -1));
 
         descargar.setText("DESCARGAR");
         descargar.addActionListener(new java.awt.event.ActionListener() {
@@ -104,14 +114,20 @@ public class ventanaDescargables extends javax.swing.JFrame {
                 descargarActionPerformed(evt);
             }
         });
-        bg.add(descargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, -1, -1));
+        bg.add(descargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, -1, -1));
 
+        terminalesDescargas.setBackground(new java.awt.Color(255, 255, 255));
+        terminalesDescargas.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "URL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         terminalesDescargas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 terminalesDescargasActionPerformed(evt);
             }
         });
-        bg.add(terminalesDescargas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 340, 30));
+        bg.add(terminalesDescargas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 350, 50));
+
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel1.setText("ENLACES DE DESCARGA ABAJO, SELECCIONE TERMINAL");
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,7 +137,7 @@ public class ventanaDescargables extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
         pack();
@@ -182,6 +198,8 @@ public class ventanaDescargables extends javax.swing.JFrame {
     private javax.swing.JPanel barNaviMov;
     private javax.swing.JPanel bg;
     private com.login.ModernButton descargar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private com.login.ModernButton modernButton1;
     private javax.swing.JComboBox<String> terminalesDescargas;
     // End of variables declaration//GEN-END:variables

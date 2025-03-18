@@ -1616,6 +1616,7 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void tableTerminalesAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTerminalesAdminMouseClicked
         // TODO add your handling code here:
+        obj.seleccionarTerminal(tableTerminalesAdmin, idTerminalAdmin, nombreTerminalAdmin, ubicacionTerminalAdmin, comboboxRegionTerminales);
     }//GEN-LAST:event_tableTerminalesAdminMouseClicked
 
     private void idTerminalAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTerminalAdminActionPerformed
@@ -1663,6 +1664,10 @@ public class adminScreen extends javax.swing.JFrame {
         idTerminalAdmin.setText("");
         nombreTerminalAdmin.setText("");
         ubicacionTerminalAdmin.setText("");
+
+        idDescargables.setText("");
+        urlDescargables.setText("");
+        comboboxTerminalDescargables.setSelectedIndex(0);
 
         llenarComboBoxUsuariosUP(listaUsuarios);
         llenarComboBoxTerminalesG(comboTerminales);
@@ -1942,6 +1947,8 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void tableDescargablesAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDescargablesAdminMouseClicked
         // TODO add your handling code here:
+        obj.seleccionarLink(tableDescargablesAdmin, idDescargables, urlDescargables, comboboxTerminalDescargables);
+
     }//GEN-LAST:event_tableDescargablesAdminMouseClicked
 
     private void eliminarLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarLinkMouseClicked
@@ -1950,11 +1957,10 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void agregarLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarLinkMouseClicked
         // Obtener el valor seleccionado del JComboBox como String
-       // String selectedTerminal = comboboxTerminalDescargables.getSelectedItem().toString();
+        // String selectedTerminal = comboboxTerminalDescargables.getSelectedItem().toString();
 
         // Convertir el valor a int
-       // int idTerminal = Integer.parseInt(selectedTerminal);
-
+        // int idTerminal = Integer.parseInt(selectedTerminal);
         // Llamar al método insertarLink con el idTerminal convertido a int
         obj.insertarLink(urlDescargables, comboboxTerminalDescargables.getSelectedItem().toString());
         // Actualizar la tabla
@@ -1963,6 +1969,11 @@ public class adminScreen extends javax.swing.JFrame {
 
     private void actualizarLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarLinkMouseClicked
         // TODO add your handling code here:
+        obj.actualizarLinks(idDescargables, urlDescargables, comboboxTerminalDescargables.getSelectedItem().toString());
+        idDescargables.setText("");
+        urlDescargables.setText("");
+        comboboxTerminalDescargables.setSelectedIndex(0);
+        obj.mostrarLinks(tableDescargablesAdmin);
     }//GEN-LAST:event_actualizarLinkMouseClicked
 
 
