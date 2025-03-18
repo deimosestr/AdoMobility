@@ -27,10 +27,12 @@ public class adminScreen extends javax.swing.JFrame {
         adminUsuario.setEditable(false);
         idRegionAdmin.setEditable(false);
         idTerminalAdmin.setEditable(false);
+        idDescargables.setEditable(false);
         llenarComboBox();
         llenarComboBoxRoles(comboRoles);
         llenarComboBoxTerminalesG(comboTerminales);
         llenarComboBoxTerminalesGenerales(comboTerminales1);
+        llenarComboBoxTerminalesGenerales(comboboxTerminalDescargables);
         llenarComboBoxUsuariosUP(listaUsuarios);
         llenarComboBoxUsuariosDOWN(listaUsuarios);
         llenarComboBoxRegiones(comboboxRegionTerminales);
@@ -54,9 +56,11 @@ public class adminScreen extends javax.swing.JFrame {
         obj.mostrarBitacoraHumoGlobal(tableBItacorasHumoAdmin);
         obj.mostrarBitacoraInstalacionGasGlobal(tableBItacorasGasAdmin);
         obj.mostrarBitacoraEPPGlobal(tableBItacorasEPPAdmin);
+        obj.mostrarLinks(tableDescargablesAdmin);
 
         bitacoras.add(usuarios, "usuarios");
         bitacoras.add(terminales, "terminales");
+        bitacoras.add(descargables, "descargables");
         bitacoras.add(bitacorasGeneralExtintores, "bitaEXTINTOR");
         bitacoras.add(bitacorasGeneralHumo, "bitaHUMO");
         bitacoras.add(bitacorasGeneralGas, "bitaGAS");
@@ -64,7 +68,7 @@ public class adminScreen extends javax.swing.JFrame {
 
         buttonsNormas btnUsuario = new buttonsNormas();
         buttonsNormas menuTerminales = new buttonsNormas();
-        buttonsNormas menuRegiones = new buttonsNormas();
+        buttonsNormas descargables = new buttonsNormas();
     }
 
     @SuppressWarnings("unchecked")
@@ -80,9 +84,10 @@ public class adminScreen extends javax.swing.JFrame {
         returnTxt = new javax.swing.JLabel();
         menuDeOpciones = new javax.swing.JPanel();
         btnUsuarios = new com.login.buttonsNormas();
-        menuTerminales = new com.login.buttonsNormas();
+        menuDescargables = new com.login.buttonsNormas();
         modernButton1 = new com.login.ModernButton();
         cambiarVentana = new javax.swing.JComboBox<>();
+        menuTerminales = new com.login.buttonsNormas();
         bitacoras = new javax.swing.JPanel();
         terminales = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -139,6 +144,20 @@ public class adminScreen extends javax.swing.JFrame {
         listaUsuarios1 = new javax.swing.JComboBox<>();
         asignarTerminal = new com.login.ModernButton();
         modernButton3 = new com.login.ModernButton();
+        descargables = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        comboboxTerminalDescargables = new javax.swing.JComboBox<>();
+        tablaDescargables = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tableDescargablesAdmin = new javax.swing.JTable();
+        urlDescargables = new javax.swing.JTextField();
+        jSeparator16 = new javax.swing.JSeparator();
+        idDescargables = new javax.swing.JTextField();
+        jSeparator17 = new javax.swing.JSeparator();
+        eliminarLink = new com.login.ModernButton();
+        agregarLink = new com.login.ModernButton();
+        actualizarLink = new com.login.ModernButton();
         bitacorasGeneralEpp = new javax.swing.JPanel();
         tablaBitacoras3 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -290,19 +309,19 @@ public class adminScreen extends javax.swing.JFrame {
         });
         menuDeOpciones.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 35));
 
-        menuTerminales.setText("TERMINALES");
-        menuTerminales.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        menuTerminales.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuDescargables.setText("DESCARGABLES");
+        menuDescargables.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        menuDescargables.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuTerminalesMouseClicked(evt);
+                menuDescargablesMouseClicked(evt);
             }
         });
-        menuTerminales.addActionListener(new java.awt.event.ActionListener() {
+        menuDescargables.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuTerminalesActionPerformed(evt);
+                menuDescargablesActionPerformed(evt);
             }
         });
-        menuDeOpciones.add(menuTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 180, 40));
+        menuDeOpciones.add(menuDescargables, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
 
         modernButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/limpiar.png"))); // NOI18N
         modernButton1.setText("LIMPIAR CAMPOS");
@@ -322,7 +341,21 @@ public class adminScreen extends javax.swing.JFrame {
                 cambiarVentanaActionPerformed(evt);
             }
         });
-        menuDeOpciones.add(cambiarVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 50));
+        menuDeOpciones.add(cambiarVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 180, 50));
+
+        menuTerminales.setText("TERMINALES");
+        menuTerminales.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        menuTerminales.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuTerminalesMouseClicked(evt);
+            }
+        });
+        menuTerminales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTerminalesActionPerformed(evt);
+            }
+        });
+        menuDeOpciones.add(menuTerminales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 180, 40));
 
         bgHomeScreen.add(menuDeOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 500));
 
@@ -651,6 +684,102 @@ public class adminScreen extends javax.swing.JFrame {
         usuarios.add(modernButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, -1, -1));
 
         bitacoras.add(usuarios, "card3");
+
+        descargables.setBackground(new java.awt.Color(255, 255, 255));
+        descargables.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        jLabel6.setText("El ID del link es:");
+        descargables.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Roboto Light", 1, 12)); // NOI18N
+        jLabel12.setText("URL: ");
+        descargables.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+
+        comboboxTerminalDescargables.setBackground(new java.awt.Color(255, 255, 255));
+        comboboxTerminalDescargables.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxTerminalDescargables.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 1, true), "Terminal", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+        descargables.add(comboboxTerminalDescargables, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 190, 60));
+
+        tablaDescargables.setBackground(new java.awt.Color(255, 255, 255));
+        tablaDescargables.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(197, 172, 204), 2, true), "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 1, 12))); // NOI18N
+
+        tableDescargablesAdmin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tableDescargablesAdmin.setAutoResizeMode(0);
+        tableDescargablesAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDescargablesAdminMouseClicked(evt);
+            }
+        });
+        jScrollPane9.setViewportView(tableDescargablesAdmin);
+
+        javax.swing.GroupLayout tablaDescargablesLayout = new javax.swing.GroupLayout(tablaDescargables);
+        tablaDescargables.setLayout(tablaDescargablesLayout);
+        tablaDescargablesLayout.setHorizontalGroup(
+            tablaDescargablesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+        );
+        tablaDescargablesLayout.setVerticalGroup(
+            tablaDescargablesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+        );
+
+        descargables.add(tablaDescargables, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 590, 290));
+
+        urlDescargables.setBackground(new java.awt.Color(255, 255, 255));
+        urlDescargables.setBorder(null);
+        descargables.add(urlDescargables, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 190, -1));
+
+        jSeparator16.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator16.setForeground(new java.awt.Color(197, 172, 204));
+        descargables.add(jSeparator16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 190, 10));
+
+        idDescargables.setBackground(new java.awt.Color(255, 255, 255));
+        idDescargables.setBorder(null);
+        descargables.add(idDescargables, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 190, -1));
+
+        jSeparator17.setBackground(new java.awt.Color(197, 172, 204));
+        jSeparator17.setForeground(new java.awt.Color(197, 172, 204));
+        descargables.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 190, 10));
+
+        eliminarLink.setText("ELIMINAR LINK/URL");
+        eliminarLink.setFont(new java.awt.Font("ROBOTO", 1, 12)); // NOI18N
+        eliminarLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eliminarLinkMouseClicked(evt);
+            }
+        });
+        descargables.add(eliminarLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 150, -1));
+
+        agregarLink.setText("AGREGAR LINK/URL");
+        agregarLink.setFont(new java.awt.Font("ROBOTO", 1, 12)); // NOI18N
+        agregarLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                agregarLinkMouseClicked(evt);
+            }
+        });
+        descargables.add(agregarLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 150, -1));
+
+        actualizarLink.setText("ACTUALIZAR LINK/URL");
+        actualizarLink.setFont(new java.awt.Font("ROBOTO", 1, 12)); // NOI18N
+        actualizarLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                actualizarLinkMouseClicked(evt);
+            }
+        });
+        descargables.add(actualizarLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 170, -1));
+
+        bitacoras.add(descargables, "card5");
 
         bitacorasGeneralEpp.setBackground(new java.awt.Color(255, 255, 255));
         bitacorasGeneralEpp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1286,6 +1415,7 @@ public class adminScreen extends javax.swing.JFrame {
 
         // Asignar el modelo al JComboBox
         comboTerminales1.setModel(modelo);
+        comboboxTerminalDescargables.setModel(modelo);
         comboTerminales1.insertItemAt("Seleccione una terminal", 0); // Insertar el mensaje inicial en la posición 0
         comboTerminales1.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
     }
@@ -1376,8 +1506,8 @@ public class adminScreen extends javax.swing.JFrame {
         layout.show(bitacoras, "usuarios"); // Cambia a panel1
 
         btnUsuarios.setSelected(true);
-        //  menuRegiones.setSelected(false);
         menuTerminales.setSelected(false);
+        menuDescargables.setSelected(false);
 
         bitacorasGeneralExtintores.setVisible(false);
 
@@ -1388,9 +1518,9 @@ public class adminScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnUsuariosMouseClicked
 
-    private void menuTerminalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuTerminalesMouseClicked
+    private void menuDescargablesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDescargablesMouseClicked
 
-    }//GEN-LAST:event_menuTerminalesMouseClicked
+    }//GEN-LAST:event_menuDescargablesMouseClicked
 
     private void returnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnTxtMouseClicked
         // TODO add your handling code here:
@@ -1411,22 +1541,23 @@ public class adminScreen extends javax.swing.JFrame {
         returnPanel.setForeground(Color.black);
     }//GEN-LAST:event_returnTxtMouseExited
 
-    private void menuTerminalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTerminalesActionPerformed
+    private void menuDescargablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDescargablesActionPerformed
 
         CardLayout layout = (CardLayout) bitacoras.getLayout();
-        layout.show(bitacoras, "terminales");
+        layout.show(bitacoras, "descargables");
 
         btnUsuarios.setSelected(false);
-        menuTerminales.setSelected(true);
+        menuDescargables.setSelected(true);
         bitacorasGeneralExtintores.setVisible(false);
+        menuTerminales.setSelected(false);
 
         bitacorasGeneralHumo.setVisible(false);
         bitacorasGeneralGas.setVisible(false);
         bitacorasGeneralEpp.setVisible(false);
+
         //menuRegiones.setSelected(false);
 
-
-    }//GEN-LAST:event_menuTerminalesActionPerformed
+    }//GEN-LAST:event_menuDescargablesActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
 
@@ -1532,7 +1663,7 @@ public class adminScreen extends javax.swing.JFrame {
         idTerminalAdmin.setText("");
         nombreTerminalAdmin.setText("");
         ubicacionTerminalAdmin.setText("");
-        
+
         llenarComboBoxUsuariosUP(listaUsuarios);
         llenarComboBoxTerminalesG(comboTerminales);
     }//GEN-LAST:event_modernButton1MouseClicked
@@ -1565,7 +1696,7 @@ public class adminScreen extends javax.swing.JFrame {
     private void cambiarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarVentanaActionPerformed
         // TODO add your handling code here:
         btnUsuarios.setSelected(false);
-        menuTerminales.setSelected(false);
+        menuDescargables.setSelected(false);
         String seleccion = (String) cambiarVentana.getSelectedItem();
 
         if (seleccion == "EXTINTORES") {
@@ -1789,15 +1920,62 @@ public class adminScreen extends javax.swing.JFrame {
         checkActivo.setSelected(false);
     }//GEN-LAST:event_modernButton3MouseClicked
 
+    private void menuTerminalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuTerminalesMouseClicked
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) bitacoras.getLayout();
+        layout.show(bitacoras, "terminales");
+
+        btnUsuarios.setSelected(false);
+        menuTerminales.setSelected(true);
+        bitacorasGeneralExtintores.setVisible(false);
+        menuDescargables.setSelected(false);
+
+        bitacorasGeneralHumo.setVisible(false);
+        bitacorasGeneralGas.setVisible(false);
+        bitacorasGeneralEpp.setVisible(false);
+        //menuRegiones.setSelected(false);
+    }//GEN-LAST:event_menuTerminalesMouseClicked
+
+    private void menuTerminalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTerminalesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuTerminalesActionPerformed
+
+    private void tableDescargablesAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDescargablesAdminMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableDescargablesAdminMouseClicked
+
+    private void eliminarLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarLinkMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarLinkMouseClicked
+
+    private void agregarLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarLinkMouseClicked
+        // Obtener el valor seleccionado del JComboBox como String
+       // String selectedTerminal = comboboxTerminalDescargables.getSelectedItem().toString();
+
+        // Convertir el valor a int
+       // int idTerminal = Integer.parseInt(selectedTerminal);
+
+        // Llamar al método insertarLink con el idTerminal convertido a int
+        obj.insertarLink(urlDescargables, comboboxTerminalDescargables.getSelectedItem().toString());
+        // Actualizar la tabla
+        obj.mostrarLinks(tableDescargablesAdmin);
+    }//GEN-LAST:event_agregarLinkMouseClicked
+
+    private void actualizarLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarLinkMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizarLinkMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JComboBoxFiltroUsuarios;
     private javax.swing.JComboBox<String> JComboBoxFiltroUsuariosEPP;
+    private com.login.ModernButton actualizarLink;
     private javax.swing.JTextField adminCorreo;
     private javax.swing.JTextField adminNombre;
     private javax.swing.JTextField adminPassword;
     private javax.swing.JTextField adminUsername;
     private javax.swing.JTextField adminUsuario;
+    private com.login.ModernButton agregarLink;
     private com.login.ModernButton agregarTerminal;
     private com.login.ModernButton asignarTerminal;
     private javax.swing.JPanel barNavMov;
@@ -1826,9 +2004,13 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboTerminales;
     private javax.swing.JComboBox<String> comboTerminales1;
     private javax.swing.JComboBox<String> comboboxRegionTerminales;
+    private javax.swing.JComboBox<String> comboboxTerminalDescargables;
+    private javax.swing.JPanel descargables;
+    private com.login.ModernButton eliminarLink;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private com.login.ModernButton exportarHumoAdmin;
+    private javax.swing.JTextField idDescargables;
     private javax.swing.JTextField idRegionAdmin;
     private javax.swing.JTextField idTerminalAdmin;
     private com.login.ModernButton insertarUser;
@@ -1836,10 +2018,12 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxFiltroFechasEPP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1849,10 +2033,13 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator16;
+    private javax.swing.JSeparator jSeparator17;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1877,6 +2064,7 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> listaUsuarios1;
     private javax.swing.JLabel logoDerecha;
     private javax.swing.JPanel menuDeOpciones;
+    private com.login.buttonsNormas menuDescargables;
     private com.login.buttonsNormas menuTerminales;
     private javax.swing.JLabel menuUsuario;
     private javax.swing.JLabel menuUsuario1;
@@ -1892,6 +2080,7 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JPanel tablaBitacoras2;
     private javax.swing.JPanel tablaBitacoras3;
     private javax.swing.JPanel tablaBitacorasHumo;
+    private javax.swing.JPanel tablaDescargables;
     private javax.swing.JPanel tablaTerminales;
     private javax.swing.JTable tablaUsers;
     private javax.swing.JPanel tablaUsuarios;
@@ -1899,9 +2088,11 @@ public class adminScreen extends javax.swing.JFrame {
     private javax.swing.JTable tableBItacorasEPPAdmin;
     private javax.swing.JTable tableBItacorasGasAdmin;
     private javax.swing.JTable tableBItacorasHumoAdmin;
+    private javax.swing.JTable tableDescargablesAdmin;
     private javax.swing.JTable tableTerminalesAdmin;
     private javax.swing.JPanel terminales;
     private javax.swing.JTextField ubicacionTerminalAdmin;
+    private javax.swing.JTextField urlDescargables;
     private javax.swing.JPanel usuarios;
     // End of variables declaration//GEN-END:variables
 }

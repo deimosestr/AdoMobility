@@ -103,6 +103,26 @@ public class CDatosNOM {
     String ubicacionTerminal;
     String nombreRegion;
 
+    //DESCARGABLES
+    int idLink;
+    String linkUrl;
+
+    public int getIdLink() {
+        return idLink;
+    }
+
+    public void setIdLink(int idLink) {
+        this.idLink = idLink;
+    }
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
+    }
+
     public String getNombreRegion() {
         return nombreRegion;
     }
@@ -1057,6 +1077,7 @@ public class CDatosNOM {
 
         return idTerminal;
     }
+
     // Método para obtener el enlace de descarga basado en el nombre de la terminal
     public String obtenerEnlaceDescarga(String nombreTerminal) {
         String enlace = null;
@@ -1065,10 +1086,10 @@ public class CDatosNOM {
 
         try {
             // Consulta SQL para obtener el enlace de descarga
-            String sql = "SELECT ld.link " +
-                         "FROM links_descarga ld " +
-                         "JOIN terminales t ON ld.id_terminal_fk = t.id_terminal " +
-                         "WHERE t.nombre = ?";
+            String sql = "SELECT ld.link "
+                    + "FROM links_descarga ld "
+                    + "JOIN terminales t ON ld.id_terminal_fk = t.id_terminal "
+                    + "WHERE t.nombre = ?";
             pst = globalV.conectar.prepareStatement(sql);
 
             // Asignar el parámetro a la consulta
@@ -1559,7 +1580,7 @@ public class CDatosNOM {
                 nomTerminal = paramTablaNOM002.getValueAt(fila, 3).toString();
                 paramTerminales.setText(nomTerminal);
                 paramIDBitacora.setText(paramTablaNOM002.getValueAt(fila, 4).toString());
-                globalV.nomTerminal= nomTerminal;
+                globalV.nomTerminal = nomTerminal;
                 //paramFechaRevision.setText(convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString()));
                 fechaR = convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString());
                 paramFechaRevision.setText(fechaR);
@@ -1912,7 +1933,7 @@ public class CDatosNOM {
 
                 nomTerminal = paramTablaHumo.getValueAt(fila, 3).toString();
                 paramTerminales.setText(nomTerminal);
-                globalV.nomTerminal= nomTerminal;
+                globalV.nomTerminal = nomTerminal;
                 paramIDBitacora.setText(paramTablaHumo.getValueAt(fila, 4).toString());
                 fechaR = convertirFecha(paramTablaHumo.getValueAt(fila, 5).toString());
                 paramFechaRevision.setText(fechaR);
@@ -2153,8 +2174,8 @@ public class CDatosNOM {
 
                 nomTerminal = paramtablaGas.getValueAt(fila, 6).toString();
                 paramlabelTerminales.setText(nomTerminal);
-                
-                globalV.nomTerminal= nomTerminal;
+
+                globalV.nomTerminal = nomTerminal;
                 paramcMalas.setSelected((Boolean) paramtablaGas.getValueAt(fila, 7));
                 paramc_Buena.setSelected((Boolean) paramtablaGas.getValueAt(fila, 8));
                 paramc_Regular.setSelected((Boolean) paramtablaGas.getValueAt(fila, 9));
@@ -2710,8 +2731,8 @@ public class CDatosNOM {
                 nomTerminal = paramTablaEPP.getValueAt(fila, 3).toString();
                 paramlabelTerminales.setText(nomTerminal);
                 paramtxtIDBitacora.setText(paramTablaEPP.getValueAt(fila, 4).toString());
-                
-                globalV.nomTerminal= nomTerminal;
+
+                globalV.nomTerminal = nomTerminal;
                 globalV.fechaR = paramTablaEPP.getValueAt(fila, 5).toString();
                 paramtxtFecha.setText(globalV.fechaR);
 
@@ -3839,7 +3860,7 @@ public class CDatosNOM {
 
         modelo.addColumn("ID Bitacora");
         modelo.addColumn("Fecha");
-        modelo.addColumn("Nombre Usuario"); 
+        modelo.addColumn("Nombre Usuario");
         modelo.addColumn("Ubicacion");
         modelo.addColumn("Ultima Recarga");
         modelo.addColumn("Proxima Recarga");
@@ -4027,6 +4048,84 @@ public class CDatosNOM {
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
             }
+        }
+    }
+
+    public void mostrarLinks(JTable paramTablaLinks) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<>(modelo);
+        paramTablaLinks.setRowSorter(OrdenarTabla);
+
+        // Añadir las columnas al modelo
+        modelo.addColumn("ID Link");
+        modelo.addColumn("Link/URL");
+        modelo.addColumn("ID Terminal");
+        modelo.addColumn("Terminal");
+
+        paramTablaLinks.setModel(modelo);
+
+        // Consulta SQL con JOIN para obtener el nombre de la terminal
+        String sql = "SELECT ld.id_link, ld.link, ld.id_terminal_fk, t.nombre AS nombre_terminal "
+                + "FROM public.links_descarga ld "
+                + "JOIN public.terminales t ON ld.id_terminal_fk = t.id_terminal;";
+
+        Object[] datos = new Object[4]; // 4 columnas: id_link, link, id_terminal_fk, nombre_terminal
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            // Establecer conexión y preparar la consulta
+            pst = globalV.conectar.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos de las columnas
+                datos[0] = rs.getInt("id_link"); // ID Link
+                datos[1] = rs.getString("link"); // Link/URL
+                datos[2] = rs.getInt("id_terminal_fk"); // ID Terminal
+                datos[3] = rs.getString("nombre_terminal"); // Nombre de la Terminal
+                modelo.addRow(datos);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar: " + e.toString());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + ex.toString());
+            }
+        }
+    }
+
+    public void insertarLink(JTextField paramLinkURl, String paramIDTerminal) {
+        setLinkUrl(paramLinkURl.getText());
+        int idRegion = obtenerIDTerminal(paramIDTerminal);
+
+        String sql = "INSERT INTO public.links_descarga(link, id_terminal_fk) VALUES (?, ?);";
+        //String sql = "INSERT INTO public.terminales (nombre, ubicacion, id_region_fk) VALUES (?, ?, ?);";
+
+        try {
+            CallableStatement cs = globalV.conectar.prepareCall(sql);
+
+            cs.setString(1, getLinkUrl());
+            cs.setInt(2, idRegion);
+
+            String ext = "links_descarga_id_link_seq";
+            String nomTabla = "links_descarga";
+            id = "id_link";
+            actualizarSecuencia(ext, nomTabla, id);
+
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Inserción Existosa");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
         }
     }
 
