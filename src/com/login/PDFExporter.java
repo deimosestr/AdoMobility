@@ -19,7 +19,9 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
@@ -71,6 +73,79 @@ public class PDFExporter {
         }
     }
 
+    //exportacion y creacion de carpetas
+    private InputStream cargarPlantilla(String nombrePlantilla) throws FileNotFoundException {
+        InputStream plantillaStream = getClass().getClassLoader().getResourceAsStream(nombrePlantilla);
+        if (plantillaStream == null) {
+            throw new FileNotFoundException("No se encontró la plantilla en el classpath: " + nombrePlantilla);
+        }
+        return plantillaStream;
+    }
+
+    private String obtenerRutaEscritorio() {
+        String userHome = System.getProperty("user.home");
+        File escritorioEspanol = new File(userHome, "Escritorio");
+        File escritorioIngles = new File(userHome, "Desktop");
+
+        if (escritorioEspanol.exists()) {
+            return escritorioEspanol.getAbsolutePath();
+        } else if (escritorioIngles.exists()) {
+            return escritorioIngles.getAbsolutePath();
+        } else {
+            // Si no se encuentra ninguna de las dos, usar el directorio personal como fallback
+            return userHome;
+        }
+    }
+
+    private File crearCarpetaExportacionesConSubcarpetas(String tipoBitacora) {
+        // Obtener la ruta del escritorio
+        String rutaEscritorio = obtenerRutaEscritorio();
+
+        // Crear la carpeta EXPORTACIONES si no existe
+        File carpetaExportaciones = new File(rutaEscritorio, "EXPORTACIONES");
+        if (!carpetaExportaciones.exists()) {
+            if (carpetaExportaciones.mkdir()) {
+                System.out.println("Carpeta EXPORTACIONES creada en: " + carpetaExportaciones.getAbsolutePath());
+            } else {
+                System.err.println("No se pudo crear la carpeta EXPORTACIONES.");
+                return null;
+            }
+        }
+
+        // Crear la subcarpeta para el tipo de bitácora si no existe
+        File subcarpeta = new File(carpetaExportaciones, tipoBitacora);
+        if (!subcarpeta.exists()) {
+            if (subcarpeta.mkdir()) {
+                System.out.println("Subcarpeta " + tipoBitacora + " creada en: " + subcarpeta.getAbsolutePath());
+            } else {
+                System.err.println("No se pudo crear la subcarpeta " + tipoBitacora + ".");
+                return null;
+            }
+        }
+
+        return subcarpeta;
+    }
+
+    private String generarNombreArchivo(String razonSocial, String tipoExportacion, File subcarpeta) {
+        // Formatear la fecha actual
+       // String fechaActual = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+        // Crear el nombre base del archivo
+        String nombreBase = razonSocial.replace(" ", "_") + "_"+globalV.fechaR + "_" +  "_" + globalV.nomTerminal;
+        String nombreArchivo = nombreBase + ".pdf";
+
+        // Verificar si el archivo ya existe en la subcarpeta y añadir un sufijo numérico si es necesario
+        File archivoDestino = new File(subcarpeta, nombreArchivo);
+        int contador = 1;
+        while (archivoDestino.exists()) {
+            nombreArchivo = nombreBase + "_" + contador + ".pdf";
+            archivoDestino = new File(subcarpeta, nombreArchivo);
+            contador++;
+        }
+
+        return nombreArchivo;
+    }
+
     private String convertirBooleano(String valor) {
         if (valor == null) {
             return "N/A"; // Si el valor es nulo, devolver "N/A"
@@ -86,9 +161,25 @@ public class PDFExporter {
     }
 
     public void ExtintorPDF(String razonSocial) throws IOException, URISyntaxException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\Plantillanom002.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla.pdf";
+  
+        // Crear la subcarpeta EXTINTORES dentro de EXPORTACIONES
+        File subcarpeta = crearCarpetaExportacionesConSubcarpetas("EXTINTORES");
+        if (subcarpeta == null) {
+            throw new IOException("No se pudo crear la subcarpeta EXTINTORES.");
+        }
 
+        // Generar un nombre de archivo único dentro de la subcarpeta EXTINTORES
+        String nombreArchivo = generarNombreArchivo(razonSocial, "Extintor", subcarpeta);
+        String destino = new File(subcarpeta, nombreArchivo).getAbsolutePath();
+
+        // Cargar la plantilla como recurso embebido
+        InputStream plantillaStream = getClass().getClassLoader().getResourceAsStream("com/PlantillasPDFexporter/P. EXTINTORES.pdf");
+        if (plantillaStream == null) {
+            throw new FileNotFoundException("No se encontró la plantilla en el classpath.");
+        }
+
+        // String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\Plantillanom002.pdf";
+        //String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla.pdf";
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
 
@@ -119,7 +210,7 @@ public class PDFExporter {
             statement.setInt(3, ano);
             ResultSet resultSet = statement.executeQuery();
 
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantillaStream), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
 
             Table table = new Table(new float[]{0.5f, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2});
@@ -224,9 +315,25 @@ public class PDFExporter {
 
 // Método para convertir valores booleanos
     public void HumoPDF(String razonSocial) throws IOException, URISyntaxException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
 
+// Crear la subcarpeta EXTINTORES dentro de EXPORTACIONES
+        // Crear la subcarpeta HUMO dentro de EXPORTACIONES
+        File subcarpeta = crearCarpetaExportacionesConSubcarpetas("HUMO");
+        if (subcarpeta == null) {
+            throw new IOException("No se pudo crear la subcarpeta HUMO.");
+        }
+
+        // Generar un nombre de archivo único dentro de la subcarpeta HUMO
+        String nombreArchivo = generarNombreArchivo(razonSocial, "Humo", subcarpeta);
+        String destino = new File(subcarpeta, nombreArchivo).getAbsolutePath();
+
+        // Cargar la plantilla como recurso embebido
+        InputStream plantillaStream = getClass().getClassLoader().getResourceAsStream("com/PlantillasPDFexporter/P. HUMO.pdf");
+        if (plantillaStream == null) {
+            throw new FileNotFoundException("No se encontró la plantilla en el classpath.");
+        }
+//String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
+        //String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
 
@@ -263,7 +370,7 @@ public class PDFExporter {
             ResultSet resultSet = statement.executeQuery();
 
             // Crear el documento PDF
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantillaStream), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
 
             // Crear la tabla con anchos de columna definidos
@@ -363,9 +470,23 @@ public class PDFExporter {
     }
 
     public void GasPDF(String razonSocial) throws IOException, URISyntaxException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\bitacora gas final.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
+        //String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\bitacora gas final.pdf";
+        //String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
+                // Crear la subcarpeta HUMO dentro de EXPORTACIONES
+        File subcarpeta = crearCarpetaExportacionesConSubcarpetas("GAS");
+        if (subcarpeta == null) {
+            throw new IOException("No se pudo crear la subcarpeta GAS.");
+        }
 
+        // Generar un nombre de archivo único dentro de la subcarpeta HUMO
+        String nombreArchivo = generarNombreArchivo(razonSocial, "GAS", subcarpeta);
+        String destino = new File(subcarpeta, nombreArchivo).getAbsolutePath();
+
+        // Cargar la plantilla como recurso embebido
+        InputStream plantillaStream = getClass().getClassLoader().getResourceAsStream("com/PlantillasPDFexporter/P. GAS.pdf");
+        if (plantillaStream == null) {
+            throw new FileNotFoundException("No se encontró la plantilla en el classpath.");
+        }
         CDatosNOM cdatosnom = new CDatosNOM();
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
@@ -427,7 +548,7 @@ public class PDFExporter {
             System.out.println("id terminal :" + idterm);
             String termi = cdatosnom.obtenerNomTerminal(idterm);
             // Cargar la plantilla PDF
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantillaStream), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
             PdfPage page = pdfDoc.getLastPage();
             PdfCanvas pdfCanvas = new PdfCanvas(page);
@@ -499,9 +620,28 @@ public class PDFExporter {
     }
 
     public void EppPDF(String razonSocial) throws IOException, URISyntaxException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla EPP.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\PLANTILLA EPP.pdf";
+        //String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla EPP.pdf";
+        //String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\PLANTILLA EPP.pdf";
+        
+        
+                // Crear la subcarpeta HUMO dentro de EXPORTACIONES
+        File subcarpeta = crearCarpetaExportacionesConSubcarpetas("EPP");
+        if (subcarpeta == null) {
+            throw new IOException("No se pudo crear la subcarpeta EPP.");
+        }
 
+        // Generar un nombre de archivo único dentro de la subcarpeta HUMO
+        String nombreArchivo = generarNombreArchivo(razonSocial, "EPP", subcarpeta);
+        String destino = new File(subcarpeta, nombreArchivo).getAbsolutePath();
+
+        // Cargar la plantilla como recurso embebido
+        InputStream plantillaStream = getClass().getClassLoader().getResourceAsStream("com/PlantillasPDFexporter/P. EPP.pdf");
+        if (plantillaStream == null) {
+            throw new FileNotFoundException("No se encontró la plantilla en el classpath.");
+        }
+        
+        
+        
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
 
@@ -530,7 +670,7 @@ public class PDFExporter {
             statement.setInt(3, ano);
             ResultSet resultSet = statement.executeQuery();
 
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantillaStream), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
 
             // Crear la tabla sin cabecera
@@ -653,8 +793,26 @@ public class PDFExporter {
     }
 
     public void ExtintorPDFAdmin(String razonSocial) throws IOException, URISyntaxException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\Plantillanom002.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla.pdf";
+        
+
+
+                // Crear la subcarpeta EXTINTORES dentro de EXPORTACIONES
+        File subcarpeta = crearCarpetaExportacionesConSubcarpetas("EXTINTORES");
+        if (subcarpeta == null) {
+            throw new IOException("No se pudo crear la subcarpeta EXTINTORES.");
+        }
+
+        // Generar un nombre de archivo único dentro de la subcarpeta EXTINTORES
+        String nombreArchivo = generarNombreArchivo(razonSocial, "Extintor", subcarpeta);
+        String destino = new File(subcarpeta, nombreArchivo).getAbsolutePath();
+
+        // Cargar la plantilla como recurso embebido
+        InputStream plantillaStream = getClass().getClassLoader().getResourceAsStream("com/PlantillasPDFexporter/P. EXTINTORES.pdf");
+        if (plantillaStream == null) {
+            throw new FileNotFoundException("No se encontró la plantilla en el classpath.");
+        }
+        //String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\Plantillanom002.pdf";
+        //String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla.pdf";
         String ubicacionTerminal = "";
 
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
@@ -688,7 +846,7 @@ public class PDFExporter {
             statement.setInt(3, ano);
             ResultSet resultSet = statement.executeQuery();
 
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantillaStream), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
 
             Table table = new Table(new float[]{0.5f, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2});
@@ -792,8 +950,26 @@ public class PDFExporter {
     }
 
     public void HumoPDFAdmin(String razonSocial) throws IOException, URISyntaxException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
+        //String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla humo.pdf";
+        //String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\plantilla humo prueba.pdf";
+        
+        
+        
+                        // Crear la subcarpeta EXTINTORES dentro de EXPORTACIONES
+        File subcarpeta = crearCarpetaExportacionesConSubcarpetas("HUMO");
+        if (subcarpeta == null) {
+            throw new IOException("No se pudo crear la subcarpeta HUMO.");
+        }
+
+        // Generar un nombre de archivo único dentro de la subcarpeta EXTINTORES
+        String nombreArchivo = generarNombreArchivo(razonSocial, "HUMO", subcarpeta);
+        String destino = new File(subcarpeta, nombreArchivo).getAbsolutePath();
+
+        // Cargar la plantilla como recurso embebido
+        InputStream plantillaStream = getClass().getClassLoader().getResourceAsStream("com/PlantillasPDFexporter/P. HUMO.pdf");
+        if (plantillaStream == null) {
+            throw new FileNotFoundException("No se encontró la plantilla en el classpath.");
+        }
         String ubicacionTerminal = "";
 
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
@@ -833,7 +1009,7 @@ public class PDFExporter {
             ResultSet resultSet = statement.executeQuery();
 
             // Crear el documento PDF
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantillaStream), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
 
             // Crear la tabla con anchos de columna definidos
@@ -936,9 +1112,24 @@ public class PDFExporter {
     }
 
     public void GasPDFAdmin(String razonSocial) throws IOException, URISyntaxException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\bitacora gas final.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
+        //String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\bitacora gas final.pdf";
+        //String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\Bitacora gas.pdf";
+        
+                        // Crear la subcarpeta EXTINTORES dentro de EXPORTACIONES
+        File subcarpeta = crearCarpetaExportacionesConSubcarpetas("GAS");
+        if (subcarpeta == null) {
+            throw new IOException("No se pudo crear la subcarpeta GAS.");
+        }
 
+        // Generar un nombre de archivo único dentro de la subcarpeta EXTINTORES
+        String nombreArchivo = generarNombreArchivo(razonSocial, "GAS", subcarpeta);
+        String destino = new File(subcarpeta, nombreArchivo).getAbsolutePath();
+
+        // Cargar la plantilla como recurso embebido
+        InputStream plantillaStream = getClass().getClassLoader().getResourceAsStream("com/PlantillasPDFexporter/P. GAS.pdf");
+        if (plantillaStream == null) {
+            throw new FileNotFoundException("No se encontró la plantilla en el classpath.");
+        }
         CDatosNOM cdatosnom = new CDatosNOM();
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
@@ -1012,7 +1203,7 @@ public class PDFExporter {
             System.out.println("id terminal :" + idterm);
             String termi = cdatosnom.obtenerNomTerminal(idterm);
             // Cargar la plantilla PDF
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantillaStream), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
             PdfPage page = pdfDoc.getLastPage();
             PdfCanvas pdfCanvas = new PdfCanvas(page);
@@ -1084,9 +1275,24 @@ public class PDFExporter {
     }
 
     public void EppPDFAdmin(String razonSocial) throws IOException, URISyntaxException {
-        String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla EPP.pdf";
-        String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\PLANTILLA EPP.pdf";
+        //String plantilla = "C:\\Users\\Alan Cruz Garcia\\Desktop\\plantilla EPP.pdf";
+        //String destino = "C:\\Users\\Alan Cruz Garcia\\Desktop\\exportaciones\\PLANTILLA EPP.pdf";
+        
+                        // Crear la subcarpeta EXTINTORES dentro de EXPORTACIONES
+        File subcarpeta = crearCarpetaExportacionesConSubcarpetas("EPP");
+        if (subcarpeta == null) {
+            throw new IOException("No se pudo crear la subcarpeta EPP.");
+        }
 
+        // Generar un nombre de archivo único dentro de la subcarpeta EXTINTORES
+        String nombreArchivo = generarNombreArchivo(razonSocial, "EPP", subcarpeta);
+        String destino = new File(subcarpeta, nombreArchivo).getAbsolutePath();
+
+        // Cargar la plantilla como recurso embebido
+        InputStream plantillaStream = getClass().getClassLoader().getResourceAsStream("com/PlantillasPDFexporter/P. EPP.pdf");
+        if (plantillaStream == null) {
+            throw new FileNotFoundException("No se encontró la plantilla en el classpath.");
+        }
         PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
 
@@ -1117,7 +1323,7 @@ public class PDFExporter {
             statement.setInt(3, ano);
             ResultSet resultSet = statement.executeQuery();
 
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantilla), new PdfWriter(destino));
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(plantillaStream), new PdfWriter(destino));
             Document document = new Document(pdfDoc);
 
             // Crear la tabla sin cabecera

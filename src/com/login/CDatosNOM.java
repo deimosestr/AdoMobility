@@ -1516,7 +1516,7 @@ public class CDatosNOM {
                 nomTerminal = paramTablaNOM002.getValueAt(fila, 3).toString();
                 paramTerminales.setText(nomTerminal);
                 paramIDBitacora.setText(paramTablaNOM002.getValueAt(fila, 4).toString());
-
+                globalV.nomTerminal= nomTerminal;
                 //paramFechaRevision.setText(convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString()));
                 fechaR = convertirFecha(paramTablaNOM002.getValueAt(fila, 5).toString());
                 paramFechaRevision.setText(fechaR);
@@ -1869,6 +1869,7 @@ public class CDatosNOM {
 
                 nomTerminal = paramTablaHumo.getValueAt(fila, 3).toString();
                 paramTerminales.setText(nomTerminal);
+                globalV.nomTerminal= nomTerminal;
                 paramIDBitacora.setText(paramTablaHumo.getValueAt(fila, 4).toString());
                 fechaR = convertirFecha(paramTablaHumo.getValueAt(fila, 5).toString());
                 paramFechaRevision.setText(fechaR);
@@ -2109,7 +2110,8 @@ public class CDatosNOM {
 
                 nomTerminal = paramtablaGas.getValueAt(fila, 6).toString();
                 paramlabelTerminales.setText(nomTerminal);
-
+                
+                globalV.nomTerminal= nomTerminal;
                 paramcMalas.setSelected((Boolean) paramtablaGas.getValueAt(fila, 7));
                 paramc_Buena.setSelected((Boolean) paramtablaGas.getValueAt(fila, 8));
                 paramc_Regular.setSelected((Boolean) paramtablaGas.getValueAt(fila, 9));
@@ -2653,7 +2655,7 @@ public class CDatosNOM {
         // 
         try {
             int fila = paramTablaEPP.getSelectedRow();
-            String nomTerminales;
+            String nomTerminal;
 
             if (fila >= 0) {
 
@@ -2662,10 +2664,11 @@ public class CDatosNOM {
                 paramlabelResponsable.setText(paramTablaEPP.getValueAt(fila, 1).toString());
                 paramlabelRegion.setText(paramTablaEPP.getValueAt(fila, 2).toString());
 
-                nomTerminales = paramTablaEPP.getValueAt(fila, 3).toString();
-                paramlabelTerminales.setText(nomTerminales);
+                nomTerminal = paramTablaEPP.getValueAt(fila, 3).toString();
+                paramlabelTerminales.setText(nomTerminal);
                 paramtxtIDBitacora.setText(paramTablaEPP.getValueAt(fila, 4).toString());
-
+                
+                globalV.nomTerminal= nomTerminal;
                 globalV.fechaR = paramTablaEPP.getValueAt(fila, 5).toString();
                 paramtxtFecha.setText(globalV.fechaR);
 

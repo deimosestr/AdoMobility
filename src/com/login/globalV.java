@@ -8,6 +8,7 @@ public class globalV {
     public static String direccion;
     public static int idter;
     public static int num;
+    public static String nomTerminal;
     public static Connection conectar = null;
 
 }
