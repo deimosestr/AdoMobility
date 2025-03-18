@@ -211,6 +211,8 @@ public class Login extends javax.swing.JFrame {
         exitBtn = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
         barNaviMov = new javax.swing.JPanel();
+        minbtnpanel = new javax.swing.JPanel();
+        minbtnTxt = new javax.swing.JLabel();
         logoPrin = new javax.swing.JLabel();
         iniciarSesionTxt = new javax.swing.JLabel();
         usuarioTxt = new javax.swing.JLabel();
@@ -290,15 +292,55 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        minbtnpanel.setBackground(new java.awt.Color(255, 255, 255));
+        minbtnpanel.setPreferredSize(new java.awt.Dimension(40, 40));
+
+        minbtnTxt.setBackground(new java.awt.Color(255, 255, 255));
+        minbtnTxt.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        minbtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minbtnTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/minimizar.png"))); // NOI18N
+        minbtnTxt.setPreferredSize(new java.awt.Dimension(40, 40));
+        minbtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minbtnTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                minbtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                minbtnTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout minbtnpanelLayout = new javax.swing.GroupLayout(minbtnpanel);
+        minbtnpanel.setLayout(minbtnpanelLayout);
+        minbtnpanelLayout.setHorizontalGroup(
+            minbtnpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, minbtnpanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(minbtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        minbtnpanelLayout.setVerticalGroup(
+            minbtnpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, minbtnpanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(minbtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout barNaviMovLayout = new javax.swing.GroupLayout(barNaviMov);
         barNaviMov.setLayout(barNaviMovLayout);
         barNaviMovLayout.setHorizontalGroup(
             barNaviMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 790, Short.MAX_VALUE)
+            .addGroup(barNaviMovLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(minbtnpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(710, Short.MAX_VALUE))
         );
         barNaviMovLayout.setVerticalGroup(
             barNaviMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barNaviMovLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(minbtnpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         bg.add(barNaviMov, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 40));
@@ -520,6 +562,23 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_passwordField1KeyPressed
 
+    private void minbtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minbtnTxtMouseClicked
+        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_minbtnTxtMouseClicked
+
+    private void minbtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minbtnTxtMouseEntered
+        // TODO add your handling code here:
+        minbtnpanel.setBackground(new Color(197, 172, 204));
+        minbtnpanel.setForeground(Color.white);
+    }//GEN-LAST:event_minbtnTxtMouseEntered
+
+    private void minbtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minbtnTxtMouseExited
+        // TODO add your handling code here:
+        minbtnpanel.setBackground(Color.white);
+        minbtnpanel.setForeground(Color.black);
+    }//GEN-LAST:event_minbtnTxtMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barNaviMov;
@@ -535,6 +594,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel logoLeft;
     private javax.swing.JLabel logoPrin;
+    private javax.swing.JLabel minbtnTxt;
+    private javax.swing.JPanel minbtnpanel;
     private javax.swing.JPasswordField passwordField1;
     private javax.swing.JLabel passwordTxt;
     private javax.swing.JPanel registerBtn;
