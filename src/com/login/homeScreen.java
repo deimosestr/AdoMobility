@@ -1041,38 +1041,98 @@ public class homeScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private Boolean validateFields() {
-        // Validar campos de texto
-        if (txtFecha.getText().trim().isEmpty()
-                || ubicacion.getText().trim().isEmpty()
-                || ultimaRecarga.getText().trim().isEmpty()
-                || proximaRecarga.getText().trim().isEmpty()
-                || capacidad.getText().trim().isEmpty()
-                || agenteExtinguidor.getText().trim().isEmpty()
-                || observaciones.getText().trim().isEmpty()
-                || listNom.getSelectedItem().toString().trim().isEmpty()
-                || listNom.getSelectedItem().toString().equals("Selecciona un valor")) {
-            System.out.println("vacio txt");
+    private void limpiarCamposExtintor() {
+        labelResponsable.setText("Usuario");
+        txtIDBitacora.setText("");
+        labelRegiones.setText("Region");
+        labelTerminales.setText("Terminal");
+        txtFecha.setText("");
+        txtiDUsuario.setText("");
+        txtIDNorma.setText("NOM-002-STPS-2010");
+        //datos
+        ubicacion.setText("");
+        ultimaRecarga.setText("");
+        proximaRecarga.setText("");
+        capacidad.setText("");
+        agenteExtinguidor.setText("");
+        chckManguera.setSelected(false);
+        chckManometro.setSelected(false);
+        chckSoporte.setSelected(false);
+        chckPresion.setSelected(false);
+        chckCilindro.setSelected(false);
+        chckLimpieza.setSelected(false);
+        chckEtiqueta.setSelected(false);
+        chckSeguro.setSelected(false);
+        chckObstrucciones.setSelected(false);
+        chckSenalizacion.setSelected(false);
+        observaciones.setText("");
+    }
+
+    private void limpiarCamposHumo() {
+        labelResponsable.setText("Usuario");
+        txtIDBitacora.setText("");
+        labelRegiones.setText("Region");
+        labelTerminales.setText("Terminal");
+        txtFecha.setText("");
+        txtiDUsuario.setText("");
+        txtIDNorma.setText("NOM-002-STPS-2010");
+        //datos
+        ubicacionHumo.setText("");
+        ultimaFechaHumo.setText("");
+        proximaFechaHumo.setText("");
+        marcaHumo.setText("");
+        tipoDetectorHumo.setText("");
+        pruebaFuncionamiento.setSelected(false);
+        soporteHumo.setSelected(false);
+        ubicacionFisica.setSelected(false);
+        observacionesHumo.setText("");
+    }
+
+    private void limpiarCamposGas() {
+        labelResponsable.setText("Usuario");
+        txtIDBitacora.setText("");
+        labelRegiones.setText("Region");
+        labelTerminales.setText("Terminal");
+        txtFecha.setText("");
+        txtiDUsuario.setText("");
+        txtIDNorma.setText("NOM-002-STPS-2010");
+        //datos
+        nomEmpresa.setText("");
+        cMalas.setSelected(false);
+        c_Buena.setSelected(false);
+        c_Regular.setSelected(false);
+        cObservaciones.setText("");
+        capacidadTanque.setText("");
+        fechaFabricacion.setText("");
+        cRegistrada.setText("");
+        marca.setText("");
+        numSerie.setText("");
+        diametroEXT.setText("");
+        espesor.setText("");
+        tObservaciones.setText("");
+    }
+
+    private boolean validarCamposExtintor() {
+        if (txtFecha.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de fecha es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        return true;
+    }
 
-        // Validar checkboxes (al menos uno debe estar seleccionado)
-        if (!chckManguera.isSelected()
-                && !chckManometro.isSelected()
-                && !chckSoporte.isSelected()
-                && !chckPresion.isSelected()
-                && !chckCilindro.isSelected()
-                && !chckLimpieza.isSelected()
-                && !chckEtiqueta.isSelected()
-                && !chckSeguro.isSelected()
-                && !chckObstrucciones.isSelected()
-                && !chckSenalizacion.isSelected()
-                && !firma.isSelected()) {
-            System.out.println("vacio check");
+    private boolean validarCamposHumo() {
+        if (txtFecha.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de fecha es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        return true;
+    }
 
-        // Si todos los campos tienen valores válidos, devuelve true
+    private boolean validarCamposGas() {
+        if (txtFecha.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de fecha es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         return true;
     }
 
@@ -1084,27 +1144,22 @@ public class homeScreen extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(valores.toArray(new String[0]));
         // Asignar el m odelo al JComboBox
         listNom.setModel(modelo);
-        
-        
-    // Crear una lista de razones sociales
-    String[] razonesSociales = {
-        "Autobuses alas de oro S.A de C.V",
-        "Ómnibus Cristóbal Colón S.A de C.V",
-    };
 
-    // Crear un modelo para el JComboBox con las razones sociales
-    DefaultComboBoxModel<String> modelo2 = new DefaultComboBoxModel<>(razonesSociales);
+        // Crear una lista de razones sociales
+        String[] razonesSociales = {
+            "Autobuses alas de oro S.A de C.V",
+            "Ómnibus Cristóbal Colón S.A de C.V",};
 
-    // Asignar el modelo al JComboBox
-    listRazon.setModel(modelo2);
+        // Crear un modelo para el JComboBox con las razones sociales
+        DefaultComboBoxModel<String> modelo2 = new DefaultComboBoxModel<>(razonesSociales);
 
-    // Agregar un mensaje inicial (opcional)
-    listRazon.insertItemAt("Seleccione razón social", 0); // Insertar el mensaje inicial en la posición 0
-    listRazon.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
-}
-        
-        
-    
+        // Asignar el modelo al JComboBox
+        listRazon.setModel(modelo2);
+
+        // Agregar un mensaje inicial (opcional)
+        listRazon.insertItemAt("Seleccione razón social", 0); // Insertar el mensaje inicial en la posición 0
+        listRazon.setSelectedIndex(0); // Establecer el mensaje inicial como seleccionado
+    }
 
     private void actBtnMenu() {
 
@@ -1319,19 +1374,15 @@ public class homeScreen extends javax.swing.JFrame {
 
     private void btnExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportarMouseClicked
         // TODO add your handling code here:
-        
-        
-        
-        
+
         String seleccion = (String) listRazon.getSelectedItem();
 
-    // Verificar si el mensaje inicial está seleccionado
-    if ("Seleccione razón social".equals(seleccion)) {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione una razón social válida.", "Error", JOptionPane.ERROR_MESSAGE);
-        return; // Detener la ejecución si no se ha seleccionado una razón social válida
-    }
+        // Verificar si el mensaje inicial está seleccionado
+        if ("Seleccione razón social".equals(seleccion)) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una razón social válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener la ejecución si no se ha seleccionado una razón social válida
+        }
 
-        
         if (btnExtintor.isSelected()) {
 
             PDFExporter ejemplo = new PDFExporter();
@@ -1489,103 +1540,42 @@ public class homeScreen extends javax.swing.JFrame {
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
 
         if (btnExtintor.isSelected()) {
-            obj.insertarBitacoraExtin(txtFecha, ubicacion, ultimaRecarga,
-                    proximaRecarga, capacidad, agenteExtinguidor,
-                    chckManguera, chckManometro, chckSoporte, chckPresion,
-                    chckCilindro, chckLimpieza, chckEtiqueta, chckSeguro,
-                    chckObstrucciones, observaciones, firma, txtIDNorma,
-                    txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());
-            //panel info
-            labelResponsable.setText("Usuario");
-            txtIDBitacora.setText("");
-            labelRegiones.setText("Region");
-            labelTerminales.setText("Terminal");
-            txtFecha.setText("");
-            txtiDUsuario.setText("");
-            txtIDNorma.setText("NOM-002-STPS-2010");
-
-            //datos
-            ubicacion.setText("");
-            ultimaRecarga.setText("");
-            proximaRecarga.setText("");
-            capacidad.setText("");
-            agenteExtinguidor.setText("");
-            observaciones.setText("");
-
-            // Desmarcar checkboxes
-            chckManguera.setSelected(false);
-            chckManometro.setSelected(false);
-            chckSoporte.setSelected(false);
-            chckPresion.setSelected(false);
-            chckCilindro.setSelected(false);
-            chckLimpieza.setSelected(false);
-            chckEtiqueta.setSelected(false);
-            chckSeguro.setSelected(false);
-            chckObstrucciones.setSelected(false);
-            chckSenalizacion.setSelected(false);
-            obj.MostrarExtintores(tbExtintores);
-
+            if (validarCamposExtintor()) {
+                obj.insertarBitacoraExtin(txtFecha, ubicacion, ultimaRecarga,
+                        proximaRecarga, capacidad, agenteExtinguidor,
+                        chckManguera, chckManometro, chckSoporte, chckPresion,
+                        chckCilindro, chckLimpieza, chckEtiqueta, chckSeguro,
+                        chckObstrucciones, observaciones, firma, txtIDNorma,
+                        txtiDUsuario, chckSenalizacion, listNom.getSelectedItem().toString());
+                // Limpiar campos después de la inserción
+                limpiarCamposExtintor();
+                obj.MostrarExtintores(tbExtintores);
+            }
         }
 
         if (btnHumo.isSelected()) {
-            obj.insertarHumo(txtFecha, ubicacionHumo, ultimaFechaHumo, proximaFechaHumo, marcaHumo,
-                    tipoDetectorHumo, pruebaFuncionamiento, soporteHumo,
-                    ubicacionFisica, observacionesHumo, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
-            //panel info
-            labelResponsable.setText("Usuario");
-            txtIDBitacora.setText("");
-            labelRegiones.setText("Region");
-            labelTerminales.setText("Terminal");
-            txtFecha.setText("");
-            txtiDUsuario.setText("");
-            txtIDNorma.setText("NOM-002-STPS-2010");
-
-            //datos
-            ubicacionHumo.setText("");
-            ultimaFechaHumo.setText("");
-            proximaFechaHumo.setText("");
-            marcaHumo.setText("");
-            tipoDetectorHumo.setText("");
-            pruebaFuncionamiento.setSelected(false);
-            soporteHumo.setSelected(false);
-            ubicacionFisica.setSelected(false);
-            observacionesHumo.setText("");
-
-            obj.MostrarHumo(tablaHumo);
-
+            if (validarCamposHumo()) {
+                obj.insertarHumo(txtFecha, ubicacionHumo, ultimaFechaHumo, proximaFechaHumo, marcaHumo,
+                        tipoDetectorHumo, pruebaFuncionamiento, soporteHumo,
+                        ubicacionFisica, observacionesHumo, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
+                // Limpiar campos después de la inserción
+                limpiarCamposHumo();
+                obj.MostrarHumo(tablaHumo);
+            }
         }
 
         if (btnGas.isSelected()) {
-            obj.insertarGas(txtFecha, nomEmpresa, cMalas,
-                    c_Buena, c_Regular, cObservaciones,
-                    capacidadTanque, fechaFabricacion,
-                    cRegistrada, tObservaciones, marca,
-                    numSerie, diametroEXT, espesor, txtIDNorma,
-                    txtiDUsuario, listNom.getSelectedItem().toString());
-            //panel info
-            labelResponsable.setText("Usuario");
-            txtIDBitacora.setText("");
-            labelRegiones.setText("Region");
-            labelTerminales.setText("Terminal");
-            txtFecha.setText("");
-            txtiDUsuario.setText("");
-            txtIDNorma.setText("NOM-002-STPS-2010");
-            //datos
-            nomEmpresa.setText("");
-            cMalas.setSelected(false);
-            c_Buena.setSelected(false);
-            c_Regular.setSelected(false);
-            cObservaciones.setText("");
-            capacidadTanque.setText("");
-            fechaFabricacion.setText("");
-            cRegistrada.setText("");
-            tObservaciones.setText("");
-            marca.setText("");
-            numSerie.setText("");
-            diametroEXT.setText("");
-            espesor.setText("");
-
-            obj.MostrarGas(tablaGas);
+            if (validarCamposGas()) {
+                obj.insertarGas(txtFecha, nomEmpresa, cMalas,
+                        c_Buena, c_Regular, cObservaciones,
+                        capacidadTanque, fechaFabricacion,
+                        cRegistrada, tObservaciones, marca,
+                        numSerie, diametroEXT, espesor, txtIDNorma,
+                        txtiDUsuario, listNom.getSelectedItem().toString());
+                // Limpiar campos después de la inserción
+                limpiarCamposGas();
+                obj.MostrarGas(tablaGas);
+            }
         }
     }//GEN-LAST:event_btnInsertar1ActionPerformed
 
@@ -1595,6 +1585,7 @@ public class homeScreen extends javax.swing.JFrame {
 
     private void modernButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modernButton1MouseClicked
         // TODO add your handling code here:
+        //
         labelResponsable.setText("Usuario");
         txtIDBitacora.setText("");
         labelRegiones.setText("Region");
