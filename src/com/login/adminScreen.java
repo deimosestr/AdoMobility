@@ -1590,6 +1590,7 @@ public class adminScreen extends javax.swing.JFrame {
         adminUsername.setText("");
         checkActivo.setSelected(false);
         llenarComboBoxUsuariosUP(listaUsuarios);
+        llenarComboBoxUsuariosDOWN(listaUsuarios1);
         llenarComboBoxTerminalesG(comboTerminales);
         obj.mostrarUsuarios(tablaUsers);
     }//GEN-LAST:event_insertarUserMouseClicked
@@ -1607,9 +1608,12 @@ public class adminScreen extends javax.swing.JFrame {
         obj.insertarTerminal(nombreTerminalAdmin, ubicacionTerminalAdmin,
                 comboboxRegionTerminales.getSelectedItem().toString());
         llenarComboBoxRegiones(comboboxRegionTerminales);
+        llenarComboBoxTerminalesGenerales(comboTerminales);
+        llenarComboBoxTerminalesG(comboTerminales1);
         idTerminalAdmin.setText("");
         nombreTerminalAdmin.setText("");
         ubicacionTerminalAdmin.setText("");
+        
         obj.mostrarTerminales(tableTerminalesAdmin);
 
     }//GEN-LAST:event_agregarTerminalMouseClicked

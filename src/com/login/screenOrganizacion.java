@@ -550,40 +550,13 @@ public class screenOrganizacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   /* private Boolean validateFields() {
-        // Validar campos de texto
-        if (txtFecha.getText().trim().isEmpty()
-                || ubicacion.getText().trim().isEmpty()
-                || ultimaRecarga.getText().trim().isEmpty()
-                || proximaRecarga.getText().trim().isEmpty()
-                || capacidad.getText().trim().isEmpty()
-                || agenteExtinguidor.getText().trim().isEmpty()
-                || observaciones.getText().trim().isEmpty()
-                || listNom.getSelectedItem().toString().trim().isEmpty()
-                || listNom.getSelectedItem().toString().equals("Selecciona un valor")) {
-            System.out.println("vacio txt");
+    private boolean validarCamposEPP() {
+        if (txtFecha.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de fecha es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
-        // Validar checkboxes (al menos uno debe estar seleccionado)
-        if (!chckManguera.isSelected()
-                && !chckManometro.isSelected()
-                && !chckSoporte.isSelected()
-                && !chckPresion.isSelected()
-                && !chckCilindro.isSelected()
-                && !chckLimpieza.isSelected()
-                && !chckEtiqueta.isSelected()
-                && !chckSeguro.isSelected()
-                && !chckObstrucciones.isSelected()
-                && !chckSenalizacion.isSelected()
-                && !firma.isSelected()) {
-            System.out.println("vacio check");
-            return false;
-        }
-
-        // Si todos los campos tienen valores válidos, devuelve true
         return true;
-    }*/
+    }
 
     private void llenarComboBox() {
         // Método que devuelve la lista de nombres (ajusta según tu lógica)
@@ -676,8 +649,8 @@ public class screenOrganizacion extends javax.swing.JFrame {
         layout.show(bitacoras, "epp"); // Cambia a panel1
 
         btnEPP.setSelected(true);
-       // btnHumo.setSelected(false);
-       // btnGas.setSelected(false);
+        // btnHumo.setSelected(false);
+        // btnGas.setSelected(false);
 
     }//GEN-LAST:event_btnEPPMouseClicked
 
@@ -793,34 +766,35 @@ public class screenOrganizacion extends javax.swing.JFrame {
     private void btnInsertar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertar1ActionPerformed
 
         if (btnEPP.isSelected()) {
-            obj.insertarEPP(txtFecha, nombreEPP, areaEPP, puestoEPP,
-                    cascoEPP, lentesDeSeguridadEPP, botasSegEPP, taponesAuditivosEPP, guantesEPP, caretaSoldarEPP, caretaEsmerilarEPP,
-                    mascarillaEPP, fajaEPP, arnesEPP, uniformeEPP, firmadoEPP, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
-            labelResponsable.setText("Usuario");
-            txtIDBitacora.setText("");
-            labelRegiones.setText("Region");
-            labelTerminales.setText("Terminal");
-            txtFecha.setText("");
-            txtiDUsuario.setText("");
-            txtIDNorma.setText("NOM-017-STPS-2008");
-            ////
-            nombreEPP.setText("");
-            areaEPP.setText("");
-            puestoEPP.setText("");
-            lentesDeSeguridadEPP.setSelected(false);
-            caretaEsmerilarEPP.setSelected(false);
-            cascoEPP.setSelected(false);
-            botasSegEPP.setSelected(false);
-            fajaEPP.setSelected(false);
-            taponesAuditivosEPP.setSelected(false);
-            guantesEPP.setSelected(false);
-            uniformeEPP.setSelected(false);
-            mascarillaEPP.setSelected(false);
-            arnesEPP.setSelected(false);
-            caretaSoldarEPP.setSelected(false);
-            firmadoEPP.setSelected(false);
-            obj.MostrarEPP(tablaEPP);
-
+            if (validarCamposEPP()) {
+                    obj.insertarEPP(txtFecha, nombreEPP, areaEPP, puestoEPP,
+                            cascoEPP, lentesDeSeguridadEPP, botasSegEPP, taponesAuditivosEPP, guantesEPP, caretaSoldarEPP, caretaEsmerilarEPP,
+                            mascarillaEPP, fajaEPP, arnesEPP, uniformeEPP, firmadoEPP, txtIDNorma, txtiDUsuario, listNom.getSelectedItem().toString());
+                    labelResponsable.setText("Usuario");
+                    txtIDBitacora.setText("");
+                    labelRegiones.setText("Region");
+                    labelTerminales.setText("Terminal");
+                    txtFecha.setText("");
+                    txtiDUsuario.setText("");
+                    txtIDNorma.setText("NOM-017-STPS-2008");
+                    ////
+                    nombreEPP.setText("");
+                    areaEPP.setText("");
+                    puestoEPP.setText("");
+                    lentesDeSeguridadEPP.setSelected(false);
+                    caretaEsmerilarEPP.setSelected(false);
+                    cascoEPP.setSelected(false);
+                    botasSegEPP.setSelected(false);
+                    fajaEPP.setSelected(false);
+                    taponesAuditivosEPP.setSelected(false);
+                    guantesEPP.setSelected(false);
+                    uniformeEPP.setSelected(false);
+                    mascarillaEPP.setSelected(false);
+                    arnesEPP.setSelected(false);
+                    caretaSoldarEPP.setSelected(false);
+                    firmadoEPP.setSelected(false);
+                    obj.MostrarEPP(tablaEPP);
+            }
         }
 
         /*if (btnHumo.isSelected()) {
