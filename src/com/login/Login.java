@@ -1,18 +1,11 @@
 package com.login;
 
 import static com.login.globalV.conectar;
-import com.login.TConexion;
 import java.awt.Color;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
 public class Login extends javax.swing.JFrame {
 
     int xMouse, yMouse;

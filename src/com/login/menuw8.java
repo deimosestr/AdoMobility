@@ -1,14 +1,11 @@
 package com.login;
 
 import static com.login.globalV.conectar;
-import org.netbeans.lib.awtextra.AbsoluteConstraints;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.sql.Connection;
-import javax.crypto.AEADBadTagException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

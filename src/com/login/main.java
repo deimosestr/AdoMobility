@@ -1,6 +1,5 @@
 package com.login;
 
-import javax.swing.JFrame;
 
 public class main {
 
