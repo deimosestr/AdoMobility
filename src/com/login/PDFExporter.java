@@ -39,9 +39,9 @@ import java.util.Map;
 public class PDFExporter {
 
     private final String usuario = "postgres";
-    private final String contrasenia = "1906";
-    private final String bd = "bdMobility";
-    private final String ip = "localhost";
+    private final String contrasenia = "190601";
+    private final String bd = "bdADOFinal";
+    private final String ip = "34.55.167.82";
     private final String puerto = "5432";
     String url = "jdbc:postgresql://" + ip + ":" + puerto + "/" + bd;
 
