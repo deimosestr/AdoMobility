@@ -9,9 +9,9 @@ public class TConexion {
 
     // Atributos estáticos y finales para la configuración de la conexión
     private static final String usuario = "postgres";
-    private static final String contrasenia = "190601";//"190601"; //"1906";////
-    private static final String bd = "bdADOFinal";
-    private static final String ip = "34.55.167.82";//"34.55.167.82";//"localhost";//// // 
+    private static final String contrasenia = "p^lYf6ByKNl?#z#b";//"190601"; //"1906";////
+    private static final String bd = "postgres";
+    private static final String ip = "35.202.194.124";//"34.55.167.82";//"localhost";//// // 
     private static final String puerto = "5432"; //sigue siendo el mismo
     private static final String cadena = "jdbc:postgresql://" + ip + ":" + puerto + "/" + bd;
 
